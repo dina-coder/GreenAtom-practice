@@ -16,6 +16,7 @@ module.exports = {
 				return callback(null, result[0])
 		});
 	},
+	// Возвращает должность, undefined при отсутствии
 	get_position: (user_id, callback) => {
 		con.query(`select positions.name as position from plans left join positions on positions.id = plans.position_id where worker_id = ?`,
 		[user_id],

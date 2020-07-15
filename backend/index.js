@@ -1,10 +1,11 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 
 if (process.env.NODE_ENV !== 'production')
 	require('dotenv').config()
 
-const port = process.env.EXPRESS_PORT || 3000
+const port = process.env.EXPRESS_PORT || 9000
 
 app.use(express.json())
 
