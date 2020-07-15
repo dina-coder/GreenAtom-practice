@@ -6,14 +6,14 @@ module.exports = {
 	// 1 - hr
 	// 2 - руководитель
 	// 3 - сотрудник
-	get_user: (email, password, callback) => {
-		con.query(`select name, id as user_id, role_id from users where email = ? and password = ?`,
+	get_user: async (email, password, callback) => {
+		await con.query(`select name, id as user_id, role_id from users where email = ? and password = ?`,
 		[email, password],
-		function (err, result) {
+		async (err, result) => {
 			if (err)
-				return callback(err)
+				return await callback(err)
 			else
-				return callback(null, result[0])
+				return await callback(null, result[0])
 		});
 	},
 	// Возвращает должность, undefined при отсутствии
