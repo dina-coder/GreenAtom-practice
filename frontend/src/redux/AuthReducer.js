@@ -1,3 +1,4 @@
+import {MainAPI} from '../API.js'
 
 let  initialState={
     userId:null,
@@ -5,7 +6,7 @@ let  initialState={
     isAuth:false
 }
 
-const AuthReducer=(state=initialState,action)=>{
+const AuthReducer=(state = initialState,action)=>{
     switch(action.type){
         case  SET_AUTH_USER:{
             return{...state, ...action.payload}
@@ -33,8 +34,8 @@ export const SetAuthCreation=(userId,email,login,isAuth)=>{
 
 export const login=(email,password)=>
     async (dispatch)=>{
-        await console.log(email,password)
-        //let response=await MainApi.login(email,password,rememberMe);
+        let response=await MainAPI.login(email,password);
+        console.log(response)
     //    if (response.data.resultCode===0){
     //        dispatch(AuthMeCreator())
      //   } else { let message=response.data.messages.length>0 ? response.data.messages:'Some error'
