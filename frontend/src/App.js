@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import Login from "./Login/Login";
+import Login from "./components/Login/Login";
 import {Route} from 'react-router-dom';
-import ProfileContainer from './Profile/ProfileContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
 
 function App() {
   return (
