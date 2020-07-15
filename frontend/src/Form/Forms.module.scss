@@ -1,0 +1,35 @@
+.form.error input,
+.form.error textarea
+{
+  border: solid red 1px;
+}
+.worm{
+  position: relative;
+}
+.form.error span
+{
+  font-size: 12px;
+  position: absolute;
+  display: flex;
+  color:red;
+}
+.form{
+  input{
+    width: 70%;
+    height: 30px;
+    background-color: #82b541;
+    border: #82b541;
+    position: relative;
+    margin-left: 30px;
+    outline:none;
+    color:white;
+  }
+  input::placeholder{
+    font-family: 'Montserrat', sans-serif;
+    color: #dcdcdc;
+    font-size:10pt;
+    font-weight: 200;
+    padding-left:10px;
+  }
+}
+

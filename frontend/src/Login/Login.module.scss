@@ -1,0 +1,123 @@
+.Container {
+  height: 100vh;
+  background-image: url("../img/login_back.png");
+  background-repeat: no-repeat;
+  background-size: 75vw 100vh;
+  background-color: #82b541;
+
+  .logo_container{
+    height: 100px;
+    width: 100px;
+    position: relative;
+    left:92%;
+    .logo{
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .content{
+    position: relative;
+    left:45%;
+    top:10%;
+    width: 600px;
+    height: 350px;
+  }
+}
+
+.title_container{
+  position: absolute;
+  width: 100%;
+  height: 150px;
+  .title{
+    color:white;
+    font-weight: 500;
+    font-size: 30pt;
+    letter-spacing: -2px;
+    line-height: 56px;
+    text-align: right;
+    font-family: 'Montserrat', sans-serif;
+  }
+}
+.bold{
+text-decoration: underline;
+}
+
+.Form{
+  top:50%;
+  left:56%;
+  position: relative;
+  width: 250px;
+
+  .button {
+    position: absolute;
+    left: 30%;
+    color: #EDFFE2;
+    width: 100px;
+    height: 30px;
+    top: 110%;
+    background-color: #5F65A3;
+    border: none;
+    border-radius: 50px;
+    outline:none;
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+  }
+
+  .button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+
+  .button:hover span {
+    padding-right: 25px;
+  }
+
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+  .button:active {
+    background-color: white;
+  }
+}
+.field {
+
+  height: 60px;
+  .mail_img{
+    position: absolute;
+    top:0.6em;
+    height: 12px;
+    width: 16px;
+  }
+  .password_img{
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    top:4.2em;
+
+  }
+  .underline{
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: white;
+
+  }
+}
+
