@@ -7,12 +7,14 @@ import mail from '../img/mail.png'
 import password from '../img/password.png'
 import { login } from "../redux/AuthReducer";
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom';
 
 
 const Login = (props) => {
     const onSubmit = (formData) => {
         props.login(formData.email, formData.password)
     }
+    if (props.isAuth===true) return <Redirect to = {'/'}/>  
     return (
 
         <div className={s.Container}>

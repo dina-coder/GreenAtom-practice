@@ -1,13 +1,16 @@
 import React from 'react';
 import './App.css';
 import Login from "./Login/Login";
-import Profile from './Profile/Profile';
+import {Route} from 'react-router-dom';
+import ProfileContainer from './Profile/ProfileContainer';
 
 function App() {
   return (
     <div className="App">
-      <Login />
-      <Profile/>
+      <Route path='/' exact={true}  render = {() =>  <ProfileContainer/>}  />
+      <Route path='/login' exact={true}  render = {() =>  <Login />}  />
+      
+     
     </div>
   );
 }
