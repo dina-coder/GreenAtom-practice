@@ -1,6 +1,6 @@
 const con = require('./config/dbconfig')
 
-const get_user_name = (user_id) => {
+const get_user_name = (user_id, callback) => {
 	con.query(`select name from users where id = ?`,
 	[user_id],
 	async (err, result) => {
@@ -41,7 +41,12 @@ module.exports = {
 			if (err)
 				return callback(err)
 			else
-				result.hr = await get_user_name(result.hr_id)
+				result.hr = await get_user_name(result.hr_id, async (err, result) => {
+					if (err)
+						return (callback(err))
+					else
+						return await callback(null, result)
+				})
 				//result.super = await get_user_name(result.super_id)
 				//result.tasks = await get_tasks(result.worker_id)
 				return await callback(null, result)
