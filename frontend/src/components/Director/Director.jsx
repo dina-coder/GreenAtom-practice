@@ -5,7 +5,7 @@ import AdaptationPlansForm from '../AdaptationPlans/AdaptationPlansForm';
 const Director = (props) =>{
     return (
         <div>
-            <Header name={props.name} role="Руководитель"/>
+            <Header SetLogOut={props.SetLogOut} name={props.name} role="Руководитель"/>
             <AdaptationPlansForm />
         </div>
     )
