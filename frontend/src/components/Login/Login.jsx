@@ -14,7 +14,9 @@ const Login = (props) => {
     const onSubmit = (formData) => {
         props.login(formData.email, formData.password)
     }
-    if (props.isAuth === true ) return <Redirect to = {'/profile/'+props.user_id}/>  
+    if (props.isAuth === true && props.role_id ===1 ) return <Redirect to = {'/personnel/'+props.user_id}/> 
+    if (props.isAuth === true && props.role_id ===2 ) return <Redirect to = {'/director/'+props.user_id}/>
+    if (props.isAuth === true && props.role_id ===3 ) return <Redirect to = {'/employee/'+props.user_id}/>   
     return (
 
         <div className={s.Container}>
@@ -63,7 +65,8 @@ const ContactReduxForm = reduxForm(
 )(ContactForm)
 const mapStateToProps = (state) => ({
     isAuth: state.AuthReducer.isAuth,
-    user_id:state.AuthReducer.user_id
+    user_id:state.AuthReducer.user_id,
+    role_id:state.AuthReducer.role_id
 })
 
 export default connect(mapStateToProps, { login })(Login);
