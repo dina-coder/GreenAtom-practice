@@ -1,15 +1,16 @@
-
+import {MainAPI} from '../API.js'
+import {stopSubmit} from 'redux-form'
 let  initialState={
-    userId:null,
-    email:null,
+    name:null,
+    user_id:null,
+    role_id:null,
     isAuth:false
 }
 
-const AuthReducer=(state=initialState,action)=>{
+const AuthReducer=(state = initialState,action)=>{
     switch(action.type){
         case  SET_AUTH_USER:{
             return{...state, ...action.payload}
-
         }
         default:
             return state
@@ -18,29 +19,25 @@ const AuthReducer=(state=initialState,action)=>{
 export default AuthReducer
 const SET_AUTH_USER='SET_AUTH_USER'
 
-export const SetAuthCreation=(userId,email,login,isAuth)=>{
-    return({type:SET_AUTH_USER, payload:{userId,email,login,isAuth}});
+export const SetAuthCreation=(name,user_id,role_id, isAuth)=>{
+    return({type:SET_AUTH_USER, payload:{name,user_id,role_id,isAuth}});
 }
 
-//export const AuthMeCreator=()=> async (dispatch)=>{
-  //  let response=await MainApi.authMe()
-    //if (response.data.resultCode===0){
-      //  let {id,email,login}=response.data.data;
-        //dispatch(SetAuthCreation(id,email,login,true))
-    //}
-//}
 
 
 export const login=(email,password)=>
     async (dispatch)=>{
-        await console.log(email,password)
-        //let response=await MainApi.login(email,password,rememberMe);
-    //    if (response.data.resultCode===0){
-    //        dispatch(AuthMeCreator())
-     //   } else { let message=response.data.messages.length>0 ? response.data.messages:'Some error'
-    //        dispatch(stopSubmit('login', {_error :message}))}
-
+        let response=await MainAPI.login(email,password);
+        console.log(response)
+        
+        if (response.empty===true){
+                let message='Some error'
+                dispatch(stopSubmit('login', {_error :message}))}
+        
+         else { 
+            dispatch(SetAuthCreation(response.name,response.user_id,response.role_id,true))
    }
+}
 
 
 
