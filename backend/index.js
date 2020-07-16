@@ -50,7 +50,8 @@ app.get('/api/get_tasks', (req, res) => {
 	get_tasks(req.query.plan_id, (err, result) => {
 		if (err)
 			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
-		res.status(200).send(result ? result : {empty: true})
+			console.log(get_user_name(result.hr_id))
+			res.status(200).send(result ? result : {empty: true})
 	})
 })
 
