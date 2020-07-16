@@ -55,6 +55,15 @@ app.get('/api/get_tasks', (req, res) => {
 	})
 })
 
+app.get('/api/get_plans_super', (req, res) => {
+	get_plans_super(req.query.user_id, (err, result) => {
+		if (err)
+			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
+		res.status(200).send(result ? result : {empty: true})
+	})
+})
+
+
 app.listen(port, _ => {
 	console.log(`Сервер запущен по адресу: http://localhost:${port}`)
 })

@@ -49,5 +49,17 @@ module.exports = {
 			else
 				return await callback(null, result[0])
 		})
+	},
+	//выпадает ошибка
+	get_plans_super: (user_id, callback) => {
+		con.query(`select users.name as name, positions.id as positionid, positions.name as position, grades.name as grade,  worker_id, date_creation, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment  from plans left join users on users.id=plans.worker_id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id where super_id = ?`,
+		[user_id],
+		async (err, result) => {
+			if (err)
+				return await callback(err)
+			else
+				return await callback(null, result[0])
+		})
 	}
+
 }
