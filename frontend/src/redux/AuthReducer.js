@@ -1,5 +1,5 @@
 import {MainAPI} from '../API.js'
-
+import {stopSubmit} from 'redux-form'
 let  initialState={
     name:null,
     user_id:null,
@@ -30,10 +30,15 @@ export const login=(email,password)=>
     async (dispatch)=>{
         let response=await MainAPI.login(email,password);
         console.log(response)
-        dispatch(SetAuthCreation(response.name,response.user_id,response.role_id,true))
-   
-
+        
+        if (response.empty===true){
+                let message='Some error'
+                dispatch(stopSubmit('login', {_error :message}))}
+        
+         else { 
+            dispatch(SetAuthCreation(response.name,response.user_id,response.role_id,true))
    }
+}
 
 
 

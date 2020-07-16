@@ -1,15 +1,18 @@
 import React from 'react';
 import './App.css';
 import Login from "./Login/Login";
-import {Route} from 'react-router-dom';
-import ProfileContainer from './Profile/ProfileContainer';
+import {Route, Switch} from 'react-router-dom';
+import MainContainer from './MainContainer';
+
 
 function App() {
   return (
+    
     <div className="App">
-      <Route path='/' exact={true}  render = {() =>  <ProfileContainer/>}  />
+      <Switch>
+      <Route path='/profile:user_id?'  render = {() =>  <MainContainer/>}  />
       <Route path='/login' exact={true}  render = {() =>  <Login />}  />
-      
+      </Switch>
      
     </div>
   );
