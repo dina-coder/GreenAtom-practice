@@ -44,6 +44,7 @@ const ContactForm = (props) => {
             <div className={s.field}>
                 <img className={s.mail_img} src={mail} />
                 <Field name={"email"} placeholder={"E-mail"} component={TextArea} />
+                {props.error && <div className={s.error}>{props.error} </div>}
                 <div className={s.underline}></div>
             </div>
             <div className={s.field}>
@@ -52,14 +53,15 @@ const ContactForm = (props) => {
                 <div className={s.underline}></div>
             </div>
             <button className={s.button} > <span>Войти</span> </button>
+           
         </form>
     );
 }
 const afterSubmit = (result, dispatch) =>
-    dispatch(reset('add'));
+    dispatch(reset('login'));
 const ContactReduxForm = reduxForm(
     {
-        form: 'add',
+        form: 'login',
         onSubmitSuccess: afterSubmit
     }
 )(ContactForm)

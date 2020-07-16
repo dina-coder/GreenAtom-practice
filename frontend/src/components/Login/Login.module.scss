@@ -119,5 +119,31 @@ text-decoration: underline;
     background-color: white;
 
   }
+
 }
+.error{
+  position: absolute;
+  left:100%;
+  top:-0.5em;
+  width: 120px; 
+height: 35px; 
+margin-left: 26px;
+background: red;
+border-radius: 5px;
+  color:white;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  font-size: 12px;
+}
+.error:before {
+  content: "";
+  width: 0; 
+  height: 0;
+  position: absolute; 
+  right: 100%; 
+  top: calc(50% - 10px);
+  border-top: 10px solid transparent;
+  border-right: 20px solid red;
+  border-bottom: 10px solid transparent;
+  }
 
