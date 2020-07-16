@@ -1,0 +1,1 @@
+GET http://localhost:9000/api/get_user_name?user_id=5

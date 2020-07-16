@@ -1,7 +1,7 @@
 if (process.env.NODE_ENV !== 'production')
 	require('dotenv').config()
 
-const { get_user, get_worker_data } = require('./dbconnector')
+const { get_user, get_worker_data, get_user_name, get_tasks } = require('./dbconnector')
 const hashing = require('./hashing')
 const express = require('express')
 const cors = require('cors')
@@ -32,6 +32,22 @@ app.post('/api/login', (req, res) => {
 
 app.get('/api/get_worker_data', (req, res) => {
 	get_worker_data(req.query.user_id, (err, result) => {
+		if (err)
+			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
+		res.status(200).send(result ? result : {empty: true})
+	})
+})
+
+app.get('/api/get_user_name', (req, res) => {
+	get_user_name(req.query.user_id, (err, result) => {
+		if (err)
+			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
+		res.status(200).send(result ? result : {empty: true})
+	})
+})
+
+app.get('/api/get_tasks', (req, res) => {
+	get_tasks(req.query.plan_id, (err, result) => {
 		if (err)
 			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
 		res.status(200).send(result ? result : {empty: true})
