@@ -1,11 +1,11 @@
 import React from 'react';
 import s from './Login.module.scss';
-import logo from '../img/logo.png';
+import logo from '../../img/logo.png';
 import { Field, reduxForm, reset } from 'redux-form';
 import { TextArea } from "../Form/Form";
-import mail from '../img/mail.png'
-import password from '../img/password.png'
-import { login } from "../redux/AuthReducer";
+import mail from '../../img/mail.png'
+import password from '../../img/password.png'
+import { login } from "../../redux/AuthReducer";
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 

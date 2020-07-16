@@ -17,7 +17,7 @@ class MainContainer extends React.Component
        
     }
     render (){
-        if (this.props.isAuth === false) return <Redirect to={'/login'}/>
+        if (this.props.isAuth === false) return <Redirect to={'/'}/>
         if (this.props.role_id===1) return <Personnel name={this.props.name}/>
         if (this.props.role_id===2) return <Director name={this.props.name}/>
         if (this.props.role_id===3) return <Employee name={this.props.name}/>

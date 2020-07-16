@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
-import Login from "./Login/Login";
 import {Route, Switch} from 'react-router-dom';
-import MainContainer from './MainContainer';
+import MainContainer from './components/MainContainer';
+import Login from "./components/Login/Login";
+
+
 
 
 function App() {
@@ -11,7 +13,7 @@ function App() {
     <div className="App">
       <Switch>
       <Route path='/profile:user_id?'  render = {() =>  <MainContainer/>}  />
-      <Route path='/login' exact={true}  render = {() =>  <Login />}  />
+      <Route path='/' exact={true}  render = {() =>  <Login />}  />
       </Switch>
      
     </div>
