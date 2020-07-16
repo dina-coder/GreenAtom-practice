@@ -19,7 +19,6 @@ function App() {
       <Route path='/personnel:user_id?'  render = {() =>  <PersonnelComponent/>}  />
       <Route path='/' exact={true}  render = {() =>  <Login />}  />
       </Switch>
-     
     </div>
   );
 }
