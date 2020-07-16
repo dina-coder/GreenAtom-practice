@@ -1,0 +1,10 @@
+@import '../../variables.scss';
+
+.addButton {
+    padding: 8px 15px;
+    color: #FFFFFF;
+    background-color: $brandColor;
+    font-size: 18px;
+    margin-left: auto;
+    border-radius: 16px;
+}

@@ -1,10 +1,12 @@
-import React from 'react'
+import React from 'react';
+import Header from '../Header/Header';
+import AdaptationPlansForm from '../AdaptationPlans/AdaptationPlansForm';
 
 const Personnel = (props) =>{
     return (
         <div>
-            Страница кадровика:
-            {props.name}
+           <Header name={props.name} role="Сотрудник кадровой службы"/>
+           <AdaptationPlansForm />
         </div>
     )
 }

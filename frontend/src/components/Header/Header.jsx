@@ -11,7 +11,7 @@ const Header = (props) => {
                     <p>{props.name}</p>
                     <div className={style.userAdditionInfo}>
                         <p>{props.role}</p>
-                        <button className={style.headerButton}>Войти</button>
+                        <button className={style.headerButton}>Выйти</button>
                     </div>
                 </div>
             </div>
