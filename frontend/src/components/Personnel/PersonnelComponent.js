@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import Personnel from './Personnel';
+import {SetLogOut} from '../../redux/AuthReducer'
 
 
 
@@ -17,7 +18,7 @@ class PersonnelComponent extends React.Component
     render (){
         if (this.props.isAuth === false) return <Redirect to={'/'}/>
 
-         return <Personnel name={this.props.name}/>
+         return <Personnel SetLogOut={this.props.SetLogOut} name={this.props.name}/>
        
     }
 }
@@ -28,4 +29,4 @@ const mapStateToProps=(state)=>({
     user_id:state.AuthReducer.user_id
 });
 
-export default  connect (mapStateToProps) (PersonnelComponent)
+export default  connect (mapStateToProps,{SetLogOut}) (PersonnelComponent)
