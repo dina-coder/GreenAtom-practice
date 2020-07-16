@@ -28,7 +28,8 @@ const SET_LOGIN_OUT='SET_LOGIN_OUT'
 export const SetAuthCreation=(name,user_id,role_id, isAuth)=>{
     return({type:SET_AUTH_USER, payload:{name,user_id,role_id,isAuth}});
 }
-export const SetLogOut = () =>{return({type : SET_LOGIN_OUT})}
+export const SetLogOut = () =>{
+    return({type : SET_LOGIN_OUT})}
 
 
 

@@ -1,11 +1,11 @@
 import React from 'react';
-import Header from '../Header/Header';
 import AdaptationPlansForm from '../AdaptationPlans/AdaptationPlansForm';
+import HeaderContainer from '../Header/HeaderContainer';
 
 const Director = (props) =>{
     return (
         <div>
-            <Header SetLogOut={props.SetLogOut} name={props.name} role="Руководитель"/>
+            <HeaderContainer role="Руководитель"/>
             <AdaptationPlansForm />
         </div>
     )

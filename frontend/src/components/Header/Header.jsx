@@ -4,6 +4,7 @@ import logoHeader from './../../img/logo_header.svg';
 
 const Header = (props) => {
     const LogOut = () =>{
+        console.log(props.isAuth)
         props.SetLogOut()
     }
     return(
