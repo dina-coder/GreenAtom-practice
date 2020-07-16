@@ -31,8 +31,8 @@ export const login=(email,password)=>
         console.log(response)
         
         if (response.empty===true){
-                let message='Some error'
-                dispatch(stopSubmit('login', {_error :message}))}
+            let message = 'Неверный логин или пароль'
+            dispatch(stopSubmit('login', {_error :message}))}
         
          else { 
             dispatch(SetAuthCreation(response.name,response.user_id,response.role_id,true))
