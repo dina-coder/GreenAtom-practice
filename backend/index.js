@@ -1,7 +1,7 @@
 if (process.env.NODE_ENV !== 'production')
 	require('dotenv').config()
 
-const { get_user, get_worker_data, get_user_name, get_tasks } = require('./dbconnector')
+const { get_user, get_worker_data, get_user_name, get_tasks, get_plans_super } = require('./dbconnector')
 const hashing = require('./hashing')
 const express = require('express')
 const cors = require('cors')
