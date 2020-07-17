@@ -24,7 +24,7 @@ module.exports = {
 		[user_id],
 		async (err, result) => {
 			if (err)
-				return callback(err)
+				return await callback(err)
 			else
 				//result.tasks = await get_tasks(result.worker_id)
 				return await callback(null, result)
@@ -41,13 +41,13 @@ module.exports = {
 		})
 	},
 	get_tasks: (plan_id, callback) => {
-		con.query(`select id, name, data_creation from tasks where plan_id = ?`,
+		con.query(`select id, name, date_creation from tasks where plan_id = ?`,
 		[plan_id],
 		async (err, result) => {
 			if (err)
 				return await callback(err)
 			else
-				return await callback(null, result[0])
+				return await callback(null, result)
 		})
 	},
 	//выпадает ошибка
@@ -58,7 +58,7 @@ module.exports = {
 			if (err)
 				return await callback(err)
 			else
-				return await callback(null, result[0])
+				return await callback(null, result)
 		})
 	}
 
