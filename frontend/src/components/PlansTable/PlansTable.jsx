@@ -19,8 +19,8 @@ const PlansTable = (props) => {
                <tr>
                <th className={style.choosen}>{x.name}</th>
            <th>{props.name}</th>
-               <th>ЭТАП</th>
-           <th>{x.date_start}-{x.date_end}</th>
+               <th>{x.step}</th>
+           <th>{x.date_start.slice(0,10).replace(/[-]/g,'.')}-{x.date_end.slice(0,10).replace(/[-]/g,'.')}</th>
                </tr> 
             )}
        
