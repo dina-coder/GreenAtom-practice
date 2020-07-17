@@ -1,8 +1,16 @@
-const con = require('./config/dbconfig')
+const connector = require('../config/dbconfig')
+const { login_sql, get_worker_data_sql,
+	get_user_name_sql, get_tasks_sql,
+	get_plans_super_sql, get_plans_hr_sql,
+	get_dict_grades_sql, get_dict_names_sql,
+	get_dict_steps_sql, get_dict_positions_sql,
+	insert_plan_sql, insert_task_sql,
+	update_plan_sql, update_task_sql,
+	delete_plan_sql, delete_task_sql } = require('./resources')
 
 const methods = {
-	get_user: (email, password, callback) => {
-		con.query(`select name, id as user_id, role_id from users where email = ? and password = ?`,
+	login: (email, password, callback) => {
+		connector.query(login_sql,
 		[email, password],
 		(err, result) => {
 			if (err)
@@ -12,7 +20,7 @@ const methods = {
 		})
 	},
 	get_worker_data: (user_id, callback) => {
-		con.query(`select plans.id, users.name as name, worker_id, positions.name as position, date_creation, super_id, hr_id, steps.name as step, date_start, date_end, result, comment, grades.name as grade from users left join plans on plans.worker_id = users.id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id left join steps on steps.id = plans.step_id where users.id = ?`,
+		connector.query(get_worker_data_sql,
 		[user_id],
 		(err, result) => {
 			if (err)
@@ -22,7 +30,7 @@ const methods = {
 		})
 	},
 	get_user_name: (user_id, callback) => {
-		con.query(`select name from users where id = ?`,
+		connector.query(get_user_name_sql,
 		[user_id],
 		(err, result) => {
 			if (err)
@@ -32,7 +40,7 @@ const methods = {
 		})
 	},
 	get_tasks: (plan_id, callback) => {
-		con.query(`select id, name, date_creation, content, date_start, date_end, result from tasks where plan_id = ?`,
+		connector.query(get_tasks_sql,
 		[plan_id],
 		(err, result) => {
 			if (err)
@@ -42,7 +50,7 @@ const methods = {
 		})
 	},
 	get_plans_super: (user_id, callback) => {
-		con.query(`select plans.id, users.name as name, positions.id as position_id, positions.name as position, grades.name as grade,  worker_id, date_creation, super_id, hr_id, step_id, steps.name as step, date_start, date_end, result, grade_id, comment  from plans left join users on users.id=plans.worker_id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id left join steps on steps.id = plans.step_id where super_id = ?`,
+		connector.query(get_plans_super_sql,
 		[user_id],
 		(err, result) => {
 			if (err)
@@ -52,7 +60,7 @@ const methods = {
 		})
 	},
 	get_plans_hr: (callback) => {
-		con.query(`select plans.id, users.name as name, positions.id as position_id, positions.name as position, grades.name as grade,  worker_id, date_creation, super_id, hr_id, step_id, steps.name as step, date_start, date_end, result, grade_id, comment  from plans left join users on users.id=plans.worker_id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id left join steps on steps.id = plans.step_id`,
+		connector.query(get_plans_hr_sql,
 		(err, result) => {
 			if (err)
 				return callback(err)
@@ -61,7 +69,7 @@ const methods = {
 		})
 	},
 	get_dict_grades: (callback) => {
-		con.query(`select id, name from grades`,
+		connector.query(get_dict_grades_sql,
 		(err, result) => {
 			if (err)
 				return callback(err)
@@ -70,7 +78,7 @@ const methods = {
 		})
 	},
 	get_dict_names: (role_id, callback) => {
-		con.query(`select id, name from users where role_id = ?`,
+		connector.query(get_dict_names_sql,
 		[role_id],
 		(err, result) => {
 			if (err)
@@ -80,7 +88,7 @@ const methods = {
 		})
 	},
 	get_dict_steps: (callback) => {
-		con.query(`select id, name from steps`,
+		connector.query(get_dict_steps_sql,
 		(err, result) => {
 			if (err)
 				return callback(err)
@@ -89,7 +97,7 @@ const methods = {
 		})
 	},
 	get_dict_positions: (callback) => {
-		con.query(`select id, name from positions`,
+		connector.query(get_dict_positions_sql,
 		(err, result) => {
 			if (err)
 				return callback(err)
@@ -98,7 +106,7 @@ const methods = {
 		})
 	},
 	insert_plan: (data, callback) => {
-		con.query(`insert into plans (worker_id,position_id,date_creation,super_id,hr_id,step_id,date_start,date_end,result,grade_id,comment) values (?,?,?,?,?,?,?,?,?,?,?)`,
+		connector.query(insert_plan_sql,
 		[
 			data.worker_id,
 			data.position_id,
@@ -119,7 +127,7 @@ const methods = {
 		})
 	},
 	insert_task: (data, callback) => {
-		con.query(`insert into tasks (plan_id,name,date_creation,content,date_start,date_end,result) values (?,?,?,?,?,?,?)`,
+		connector.query(insert_task_sql,
 		[
 			data.plan_id,
 			data.name,
@@ -136,7 +144,7 @@ const methods = {
 		})
 	},
 	update_plan: (data, callback) => {
-		con.query(`update plans set worker_id = ?, position_id = ?, date_creation = ?, super_id = ?, hr_id = ?, step_id = ?, date_start = ?, date_end = ?, result = ?, grade_id = ?, comment = ? where id = ?`,
+		connector.query(update_plan_sql,
 		[
 			data.worker_id,
 			data.position_id,
@@ -158,7 +166,7 @@ const methods = {
 		})
 	},
 	update_task: (data, callback) => {
-		con.query(`update tasks set plan_id = ?, name = ?, date_creation = ?, content = ?, date_start = ?, date_end = ?, result = ? where id = ?`,
+		connector.query(update_task_sql,
 		[
 			data.plan_id,
 			data.name,
@@ -176,7 +184,7 @@ const methods = {
 		})
 	},
 	delete_plan: (id, callback) => {
-		con.query(`delete from plans where id = ?`,
+		connector.query(delete_plan_sql,
 		[id],
 		(err, result) => {
 			if (err)
@@ -185,7 +193,7 @@ const methods = {
 		})
 	},
 	delete_task: (id, callback) => {
-		con.query(`delete from tasks where id = ?`,
+		connector.query(delete_task_sql,
 		[id],
 		(err, result) => {
 			if (err)
