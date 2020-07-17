@@ -1,7 +1,7 @@
 if (process.env.NODE_ENV !== 'production')
 	require('dotenv').config()
 
-const { get_user, get_worker_data, get_user_name, get_tasks, get_plans_super } = require('./dbconnector')
+const { get_user, get_worker_data, get_user_name, get_tasks, get_plans_super, get_plans_hr } = require('./dbconnector')
 const hashing = require('./hashing')
 const express = require('express')
 const cors = require('cors')
@@ -59,10 +59,18 @@ app.get('/api/get_plans_super', (req, res) => {
 		await result
 		if (err)
 			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
-		res.status(200).send(result ? result : {empty: true})
+		res.status(200).send(result[0] ? result : {empty: true})
 	})
 })
 
+app.get('/api/get_plans_hr', (req, res) => {
+	get_plans_super(req.query.user_id, (err, result) => {
+		result
+		if (err)
+			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
+		res.status(200).send(result[0] ? result : {empty: true})
+	})
+})
 
 app.listen(port, _ => {
 	console.log(`Сервер запущен по адресу: http://localhost:${port}`)
