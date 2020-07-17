@@ -1,0 +1,25 @@
+@import '../../../variables';
+
+.Container{
+    
+    .LeftSide{
+        font-size: 16px;
+        line-height: 21px;
+        color:$additionText;
+    }
+
+    .RightSide{
+        font-size: 11pt;
+        line-height: 21px;
+        color: $textColor;
+        font-weight: 400;
+    }
+
+    tr{
+        padding-top: 6px;
+    }
+
+    td {
+        padding-top: 6px;
+    }
+}

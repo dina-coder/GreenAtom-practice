@@ -1,11 +1,16 @@
 import React from 'react'
+import HeaderContainer from '../Header/HeaderContainer'
+import EmployeeInformation from './EmployeeInformation/EmployeeInformation'
+import s from './Employee.module.scss'
 
-const Employee = (props) =>{
+
+const Employee = (props) => {
     return (
         <div>
-            
-            Страница сотрудника:
-            {props.name}
+            <HeaderContainer role="Сотрудник"/>
+            <div className={s.wrapper}>
+                <EmployeeInformation employee={props.employee} />
+            </div>
         </div>
     )
 }

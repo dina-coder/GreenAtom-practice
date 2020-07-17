@@ -14,6 +14,10 @@ export const MainAPI = {
       console.log(user_id)
        return axios.get(`http://localhost:9000/api/get_plans_super?user_id=${user_id}`)
        .then(response=>{  return response.data})
-   }
+   },
+   getemployeeinfo(user_id){ 
+     return axios.get(`http://localhost:9000/api/get_worker_data?user_id=${user_id}`)
+     .then(response=>{  return response.data})
     
+}
 }
