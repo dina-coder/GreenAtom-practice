@@ -64,7 +64,7 @@ app.get('/api/get_plans_super', (req, res) => {
 })
 
 app.get('/api/get_plans_hr', (req, res) => {
-	get_plans_hr(req.query.user_id, async (err, result) => {
+	get_plans_hr(async (err, result) => {
 		await result
 		if (err)
 			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
