@@ -1,27 +1,21 @@
 if (process.env.NODE_ENV !== 'production')
 	require('dotenv').config()
 
+const express = require('express')
+const cors = require('cors')
+
+const hashing = require('./misc/hashing')
+const { db_error, server_running, frontend_origin, inserted, updated, deleted,
+	empty, default_express_port } = require('./misc/resources')
 const { login, get_worker_data, get_user_name, get_tasks,
 	get_plans_super, get_plans_hr, get_dict_grades, get_dict_names,
 	get_dict_steps, get_dict_positions, insert_plan } = require('./misc/dbconnector')
-const hashing = require('./misc/hashing')
-const express = require('express')
-const cors = require('cors')
+
 const app = express()
-const dbconnect = require('./misc/dbconnector')
 const port = process.env.EXPRESS_PORT || 9000
 
-//app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-app.use(cors({
-	origin: "http://localhost:3000"
-}))
-
-/*app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});*/
+app.use(cors({origin: frontend_origin}))
 
 app.post('/api/login', (req, res) => {
 	login(req.body.email, hashing(req.body.email, req.body.password), (err, result) => {
