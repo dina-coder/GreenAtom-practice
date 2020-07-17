@@ -78,9 +78,26 @@ const methods = {
 		})
 	},
 	get_dict_names: (role_id, callback) => {
-		console.log(role_id)
 		con.query(`select id, name from users where role_id = ?`,
 		[role_id],
+		async (err, result) => {
+			if (err)
+				return await callback(err)
+			else
+				return await callback(null, result)
+		})
+	},
+	get_dict_steps: (callback) => {
+		con.query(`select id, name from steps`,
+		async (err, result) => {
+			if (err)
+				return await callback(err)
+			else
+				return await callback(null, result)
+		})
+	},
+	get_dict_positions: (callback) => {
+		con.query(`select id, name from positions`,
 		async (err, result) => {
 			if (err)
 				return await callback(err)
