@@ -5,7 +5,7 @@ let  initialState={
     user_id:null,
     role_id:null,
     isAuth:false,
-    profile:{}
+    profile:[]
 }
 
 const AuthReducer=(state = initialState,action)=>{
@@ -18,7 +18,8 @@ const AuthReducer=(state = initialState,action)=>{
           
         }
         case TAKE_PROFILE_INFO :{
-            return {...state, ...action.profile}
+            console.log(action.profile)
+            return {...state, profile:action.profile}
         }
         default:
             return state
@@ -37,6 +38,7 @@ export const SetLogOut = () =>{
     return({type : SET_LOGIN_OUT})}
 
 export const SetProfileInfo =(profile) => {
+    console.log(profile)
     return ({type:TAKE_PROFILE_INFO, profile})
 }
 

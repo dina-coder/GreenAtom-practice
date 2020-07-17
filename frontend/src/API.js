@@ -12,8 +12,8 @@ export const MainAPI = {
     },
     takeData(user_id){ 
       console.log(user_id)
-       return axios.get(`http://localhost:9000/api/get_plans_super`, user_id)
-       .then(response=>{return response.data})
+       return axios.get(`http://localhost:9000/api/get_plans_super?user_id=${user_id}`)
+       .then(response=>{  return response.data})
    }
     
 }

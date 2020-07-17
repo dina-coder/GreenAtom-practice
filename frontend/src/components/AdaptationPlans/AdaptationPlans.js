@@ -6,12 +6,15 @@ class AdaptationPlans extends React.Component
 {
     render()
     {
-        return <AdaptationPlansForm/>
+        return <AdaptationPlansForm profile={this.props.profile}
+                                    name={this.props.name}/>
+       
     }
 }
 
 const mapStateToProps=(state)=>({
-    
+    profile:state.AuthReducer.profile,
+    name:state.AuthReducer.name
 });
 
-//export default connect(mapStateToProps)(ContentContainer);
+export default connect(mapStateToProps)(AdaptationPlans);

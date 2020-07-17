@@ -1,12 +1,12 @@
 import React from 'react';
-import AdaptationPlansForm from '../AdaptationPlans/AdaptationPlansForm';
+import AdaptationPlans from '../AdaptationPlans/AdaptationPlans';
 import HeaderContainer from '../Header/HeaderContainer';
 
 const Director = (props) =>{
     return (
         <div>
             <HeaderContainer role="Руководитель"/>
-            <AdaptationPlansForm />
+            <AdaptationPlans />
         </div>
     )
 }
