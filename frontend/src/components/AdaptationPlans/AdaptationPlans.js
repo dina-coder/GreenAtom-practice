@@ -7,7 +7,8 @@ class AdaptationPlans extends React.Component
     render()
     {
         return <AdaptationPlansForm profile={this.props.profile}
-                                    name={this.props.name}/>
+                                    name={this.props.name} 
+                                    onPlanClick={()=>console.log("Подробнее")} />
        
     }
 }
