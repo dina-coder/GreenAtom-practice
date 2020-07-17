@@ -1,0 +1,7 @@
+@import '../../variables.scss';
+
+.wrapper {
+    width: $fixedWidth;
+    margin: auto;
+    align-items:flex-start;
+}
