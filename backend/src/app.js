@@ -1,7 +1,7 @@
 if (process.env.NODE_ENV !== 'production')
 	require('dotenv').config()
 
-const { get_user, get_worker_data, get_user_name, get_tasks,
+const { login, get_worker_data, get_user_name, get_tasks,
 	get_plans_super, get_plans_hr, get_dict_grades, get_dict_names,
 	get_dict_steps, get_dict_positions, insert_plan } = require('./misc/dbconnector')
 const hashing = require('./misc/hashing')
@@ -24,7 +24,7 @@ app.use(cors({
 });*/
 
 app.post('/api/login', (req, res) => {
-	get_user(req.body.email, hashing(req.body.email, req.body.password), async (err, result) => {
+	login(req.body.email, hashing(req.body.email, req.body.password), async (err, result) => {
 		await result
 		if (err)
 			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
