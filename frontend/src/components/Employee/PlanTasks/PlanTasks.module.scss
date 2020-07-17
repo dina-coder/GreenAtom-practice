@@ -1,0 +1,14 @@
+@import '../../../variables';
+
+.Container{
+    
+    position: relative;
+    top: 50px;
+    h1{
+        font-size: 28px;
+        line-height: 33px;
+        font-weight: 600;
+        color: $textColor;
+    }
+    
+}
