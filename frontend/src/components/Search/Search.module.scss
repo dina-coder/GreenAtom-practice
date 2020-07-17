@@ -1,33 +1,43 @@
-.search{
+@import '../../variables.scss';
+
+.search {
     background: rgba(140, 197, 71, 0.1);
     padding: 19px 30px;
     display: grid;
     grid-gap: 30px;
+    color: $textColor;
     grid-template-columns: 516px 247px 227px;
 
-    input{
+    input {
         padding: 8px 40px;
         height: 20px;
         border: none;
+        outline-color:rgba(140, 197, 71, 0.65);
+    }
+
+    input::placeholder {
         color: rgba(90, 90, 93, 0.25);
     }
 
-    select{
+    select:invalid{
+        color:rgba(90, 90, 93, 0.25);
+    }
+    
+    select {
         padding: 8px 30px;
         border: none;
-        color: rgba(90, 90, 93, 0.25);
     }
 
     .peopleSearch {
-        background: white url('../../img/search.png') no-repeat 10px 8px ;
+        background: white url('../../img/search.png') no-repeat 10px 8px;
     }
 
     .stepSearch {
-        background: white url('../../img/step.png') no-repeat 10px 8px ;
+        background: white url('../../img/step.png') no-repeat 10px 8px;
     }
 
     .dateSearch {
         background: white url('../../img/calendar.png') no-repeat 10px 8px;
-    }   
+    }
 
 }
