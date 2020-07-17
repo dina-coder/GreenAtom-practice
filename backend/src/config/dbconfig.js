@@ -1,6 +1,8 @@
-const mysql = require('mysql');
 if (process.env.NODE_ENV !== 'production')
 	require('dotenv').config()
+
+const mysql = require('mysql');
+
 
 const connector = mysql.createConnection({
   host: process.env.MYSQL_HOST,

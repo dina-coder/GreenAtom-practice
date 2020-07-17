@@ -3,11 +3,11 @@ if (process.env.NODE_ENV !== 'production')
 
 const express = require('express')
 const cors = require('cors')
+const sha1 = require('sha1')
 
-const hashing = require('./misc/hashing')
 const { db_error, server_running, frontend_origin, inserted, updated, deleted,
 	empty, default_express_port } = require('./misc/resources')
-	const { login: login, get_worker_data, get_user_name, get_tasks,
+	const { login, get_worker_data, get_user_name, get_tasks,
 		get_plans_super, get_plans_hr, get_dict_grades, get_dict_names,
 		get_dict_steps, get_dict_positions, insert_plan, insert_task,
 		update_plan, update_task, delete_plan, delete_task } = require('./misc/dbconnector')
@@ -19,7 +19,7 @@ app.use(express.json())
 app.use(cors({origin: frontend_origin}))
 
 app.post('/api/login', (req, res) => {
-	login(req.body.email, hashing(req.body.email, req.body.password), (err, result) => {
+	login(req.body.email, sha1(req.body.email + req.body.password), (err, result) => {
 		if (err)
 			res.status(500).send(db_error)
 		res.status(200).send(result ? result : empty)
