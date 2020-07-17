@@ -1,7 +1,7 @@
 if (process.env.NODE_ENV !== 'production')
 	require('dotenv').config()
 
-const { get_user, get_worker_data, get_user_name, get_tasks, get_plans_super, get_plans_hr } = require('./dbconnector')
+const { get_user, get_worker_data, get_user_name, get_tasks, get_plans_super, get_plans_hr, get_dict_grades, get_dict_names } = require('./dbconnector')
 const hashing = require('./hashing')
 const express = require('express')
 const cors = require('cors')
@@ -64,11 +64,27 @@ app.get('/api/get_plans_super', (req, res) => {
 })
 
 app.get('/api/get_plans_hr', (req, res) => {
-	get_plans_super(req.query.user_id, (err, result) => {
-		result
+	get_plans_hr(req.query.user_id, async (err, result) => {
+		await result
 		if (err)
 			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
 		res.status(200).send(result[0] ? result : {empty: true})
+	})
+})
+
+app.get('/api/dict/grades', (req, res) => {
+	get_dict_grades((err, result) => {
+		if (err)
+			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
+		res.status(200).send(result[0] ? result : {empty: true})
+	})
+})
+
+app.get('/api/dict/names', (req, res) => {
+	get_dict_names(req.query.role_id, (err, result) => {
+		if (err)
+			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
+		res.status(200).send(result ? result : {empty: true})
 	})
 })
 

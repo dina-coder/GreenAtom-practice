@@ -59,10 +59,29 @@ const methods = {
 				return await callback(null, result)
 		})
 	},
-	get_plans_hr: (user_id, callback) => {
-		con.query(`select users.name as name, positions.id as position_id, positions.name as position, grades.name as grade,  worker_id, date_creation, super_id, hr_id, step_id, steps.name as step, date_start, date_end, result, grade_id, comment  from plans left join users on users.id=plans.worker_id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id left join steps on steps.id = plans.step_id`,
+	get_plans_hr: async (user_id, callback) => {
+		await con.query(`select users.name as name, positions.id as position_id, positions.name as position, grades.name as grade,  worker_id, date_creation, super_id, hr_id, step_id, steps.name as step, date_start, date_end, result, grade_id, comment  from plans left join users on users.id=plans.worker_id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id left join steps on steps.id = plans.step_id where hr_id = ?`,
 		[user_id],
 		async (err, result) => {
+			if (err)
+				return await callback(err)
+			else
+				return await callback(null, result)
+		})
+	},
+	get_dict_grades: (callback) => {
+		con.query(`select id, name from grades`,
+		(err, result) => {
+			if (err)
+				return callback(err)
+			else
+				return callback(null, result)
+		})
+	},
+	get_dict_names: (role_id, callback) => {
+		con.query(`select id, name from names where role_id = ?`,
+		[role_id],
+		(err, result) => {
 			if (err)
 				return callback(err)
 			else
