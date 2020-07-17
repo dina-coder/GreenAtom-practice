@@ -1,15 +1,12 @@
 if (process.env.NODE_ENV !== 'production')
 	require('dotenv').config()
 
+const { get_user, get_worker_data, get_user_name, get_tasks,
+	get_plans_super, get_plans_hr, get_dict_grades, get_dict_names,
+	get_dict_steps, get_dict_positions, insert_plan } = require('./misc/dbconnector')
+const hashing = require('./misc/hashing')
 const express = require('express')
 const cors = require('cors')
-
-const hashing = require('./misc/hashing')
-const { db_error, server_running, frontend_origin, inserted, updated, deleted,
-	empty, default_express_port } = require('./misc/resources')
-const { get_user, get_worker_data, get_user_name, get_tasks,
-	get_plans_super, get_plans_hr, get_dict_grades, get_dict_names } = require('./misc/dbconnector')
-
 const app = express()
 const dbconnect = require('./misc/dbconnector')
 const port = process.env.EXPRESS_PORT || 9000
@@ -89,7 +86,31 @@ app.get('/api/dict/names', (req, res) => {
 	get_dict_names(req.query.role_id, (err, result) => {
 		if (err)
 			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
-		res.status(200).send(result ? result : {empty: true})
+		res.status(200).send(result[0] ? result : {empty: true})
+	})
+})
+
+app.get('/api/dict/steps', (req, res) => {
+	get_dict_steps((err, result) => {
+		if (err)
+			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
+		res.status(200).send(result[0] ? result : {empty: true})
+	})
+})
+
+app.get('/api/dict/positions', (req, res) => {
+	get_dict_positions((err, result) => {
+		if (err)
+			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
+		res.status(200).send(result[0] ? result : {empty: true})
+	})
+})
+
+app.post('/api/insert/plan', (req, res) => {
+	insert_plan(req.body, (err, result) => {
+		if (err)
+			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
+		res.status(200).send({inserted : result ? true : false})
 	})
 })
 
