@@ -2,7 +2,7 @@ PUT http://localhost:9000/api/update/task HTTP/1.1
 content-type: application/json
 
 {
-	"id": 9,
+	"id": 13,
 	"plan_id": 7,
 	"name": "Сходить за пивом",
 	"date_creation": "2020-07-17",

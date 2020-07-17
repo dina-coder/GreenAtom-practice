@@ -115,6 +115,81 @@ const { login_sql, get_worker_data_sql,
 				return callback(err)
 			return callback(null, result)
 		})
+	},
+	insert_task: (data, callback) => {
+		connector.query(insert_task_sql,
+		[
+			data.plan_id,
+			data.name,
+			data.date_creation,
+			data.content,
+			data.date_start,
+			data.date_end,
+			data.result
+		],
+		(err, result) => {
+			if (err)
+				return callback(err)
+			return callback(null, result)
+		})
+	},
+	update_plan: (data, callback) => {
+		connector.query(update_plan_sql,
+		[
+			data.worker_id,
+			data.position_id,
+			data.date_creation,
+			data.super_id,
+			data.hr_id,
+			data.step_id,
+			data.date_start,
+			data.date_end,
+			data.result,
+			data.grade_id,
+			data.comment,
+			data.id
+		],
+		(err, result) => {
+			if (err)
+				return callback(err)
+			return callback(null, result)
+		})
+	},
+	update_task: (data, callback) => {
+		connector.query(update_task_sql,
+		[
+			data.plan_id,
+			data.name,
+			data.date_creation,
+			data.content,
+			data.date_start,
+			data.date_end,
+			data.result,
+			data.id
+		],
+		(err, result) => {
+			if (err)
+				return callback(err)
+			return callback(null, result)
+		})
+	},
+	delete_plan: (id, callback) => {
+		connector.query(delete_plan_sql,
+		[id],
+		(err, result) => {
+			if (err)
+				return callback(err)
+			return callback(null, result)
+		})
+	},
+	delete_task: (id, callback) => {
+		connector.query(delete_task_sql,
+		[id],
+		(err, result) => {
+			if (err)
+				return callback(err)
+			return callback(null, result)
+		})
 	}
 }
 
