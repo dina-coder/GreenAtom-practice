@@ -20,91 +20,91 @@ app.use(cors({origin: frontend_origin}))
 app.post('/api/login', (req, res) => {
 	login(req.body.email, hashing(req.body.email, req.body.password), (err, result) => {
 		if (err)
-			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
-		res.status(200).send(result ? result : {empty: true})
+			res.status(500).send(db_error)
+		res.status(200).send(result ? result : empty)
 	})
 })
 
 app.get('/api/get_worker_data', (req, res) => {
 	get_worker_data(req.query.user_id, (err, result) => {
 		if (err)
-			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
-		res.status(200).send(result ? result : {empty: true})
+			res.status(500).send(db_error)
+		res.status(200).send(result[0] ? result : empty)
 	})
 })
 
 app.get('/api/get_user_name', (req, res) => {
 	get_user_name(req.query.user_id, (err, result) => {
 		if (err)
-			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
-		res.status(200).send(result ? result : {empty: true})
+			res.status(500).send(db_error)
+		res.status(200).send(result ? result : empty)
 	})
 })
 
 app.get('/api/get_tasks', (req, res) => {
 	get_tasks(req.query.plan_id, (err, result) => {
 		if (err)
-			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
-			res.status(200).send(result[0] ? result : {empty: true})
+			res.status(500).send(db_error)
+			res.status(200).send(result[0] ? result : empty)
 	})
 })
 
 app.get('/api/get_plans_super', (req, res) => {
 	get_plans_super(req.query.user_id, (err, result) => {
 		if (err)
-			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
-		res.status(200).send(result[0] ? result : {empty: true})
+			res.status(500).send(db_error)
+		res.status(200).send(result[0] ? result : empty)
 	})
 })
 
 app.get('/api/get_plans_hr', (req, res) => {
 	get_plans_hr((err, result) => {
 		if (err)
-			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
-		res.status(200).send(result[0] ? result : {empty: true})
+			res.status(500).send(db_error)
+		res.status(200).send(result[0] ? result : empty)
 	})
 })
 
 app.get('/api/dict/grades', (req, res) => {
 	get_dict_grades((err, result) => {
 		if (err)
-			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
-		res.status(200).send(result[0] ? result : {empty: true})
+			res.status(500).send(db_error)
+		res.status(200).send(result[0] ? result : empty)
 	})
 })
 
 app.get('/api/dict/names', (req, res) => {
 	get_dict_names(req.query.role_id, (err, result) => {
 		if (err)
-			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
-		res.status(200).send(result[0] ? result : {empty: true})
+			res.status(500).send(db_error)
+		res.status(200).send(result[0] ? result : empty)
 	})
 })
 
 app.get('/api/dict/steps', (req, res) => {
 	get_dict_steps((err, result) => {
 		if (err)
-			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
-		res.status(200).send(result[0] ? result : {empty: true})
+			res.status(500).send(db_error)
+		res.status(200).send(result[0] ? result : empty)
 	})
 })
 
 app.get('/api/dict/positions', (req, res) => {
 	get_dict_positions((err, result) => {
 		if (err)
-			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
-		res.status(200).send(result[0] ? result : {empty: true})
+			res.status(500).send(db_error)
+		res.status(200).send(result[0] ? result : empty)
 	})
 })
 
 app.post('/api/insert/plan', (req, res) => {
 	insert_plan(req.body, (err, result) => {
 		if (err)
-			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
-		res.status(200).send({inserted : result ? true : false})
+			res.status(500).send(db_error)
+		res.status(200).send(inserted)
 	})
 })
 
 app.listen(port, _ => {
-	console.log(`Сервер запущен по адресу: http://localhost:${port}`)
+	console.log(server_running(port))
 })
