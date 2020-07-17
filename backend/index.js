@@ -3,7 +3,8 @@ if (process.env.NODE_ENV !== 'production')
 
 const { get_user, get_worker_data, get_user_name, get_tasks,
 	get_plans_super, get_plans_hr, get_dict_grades, get_dict_names,
-	get_dict_steps, get_dict_positions, insert_plan } = require('./dbconnector')
+	get_dict_steps, get_dict_positions, insert_plan, insert_task,
+	update_plan, update_task } = require('./dbconnector')
 const hashing = require('./hashing')
 const express = require('express')
 const cors = require('cors')
@@ -111,6 +112,30 @@ app.post('/api/insert/plan', (req, res) => {
 		if (err)
 			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
 		res.status(200).send({inserted : result ? true : false})
+	})
+})
+
+app.post('/api/insert/task', (req, res) => {
+	insert_task(req.body, (err, result) => {
+		if (err)
+			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
+		res.status(200).send({inserted : result ? true : false})
+	})
+})
+
+app.put('/api/update/plan', (req, res) => {
+	update_plan(req.body, (err, result) => {
+		if (err)
+			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
+		res.status(200).send({updated : result ? true : false})
+	})
+})
+
+app.put('/api/update/task', (req, res) => {
+	update_task(req.body, (err, result) => {
+		if (err)
+			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
+		res.status(200).send({updated : result ? true : false})
 	})
 })
 
