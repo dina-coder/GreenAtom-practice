@@ -1,1 +1,0 @@
-GET http://localhost:9000/api/dict/names?role_id=2
