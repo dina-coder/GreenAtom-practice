@@ -1,11 +1,6 @@
 const con = require('./config/dbconfig')
 
 const methods = {
-	// Возвращает id роли (role_id) и id пользователя (user_id) внутри объекта, если имя и пароль правильные, undefined в противном случае; err != NULL при ошибке связи с бд
-	// role_id:
-	// 1 - hr
-	// 2 - руководитель
-	// 3 - сотрудник
 	get_user: async (email, password, callback) => {
 		await con.query(`select name, id as user_id, role_id from users where email = ? and password = ?`,
 		[email, password],
@@ -13,10 +8,7 @@ const methods = {
 			if (err)
 				return await callback(err)
 			else
-			{
-				console.log(result)
 				return await callback(null, result[0])
-			}
 		})
 	},
 	get_worker_data: (user_id, callback) => {
@@ -125,7 +117,6 @@ const methods = {
 				return callback(err)
 			return callback(null, result)
 		})
-		console.log(typeof(x))
 	},
 	insert_task: (data, callback) => {
 		con.query(`insert into tasks (plan_id,name,date_creation,content,date_start,date_end,result) values (?,?,?,?,?,?,?)`,
@@ -143,7 +134,6 @@ const methods = {
 				return callback(err)
 			return callback(null, result)
 		})
-		console.log(typeof(x))
 	},
 	update_plan: (data, callback) => {
 		con.query(`update plans set worker_id = ?, position_id = ?, date_creation = ?, super_id = ?, hr_id = ?, step_id = ?, date_start = ?, date_end = ?, result = ?, grade_id = ?, comment = ? where id = ?`,
