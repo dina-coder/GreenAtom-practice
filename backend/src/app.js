@@ -12,7 +12,7 @@ const { login, get_worker_data, get_user_name, get_tasks,
 	get_dict_steps, get_dict_positions, insert_plan } = require('./misc/dbconnector')
 
 const app = express()
-const port = process.env.EXPRESS_PORT || 9000
+const port = process.env.EXPRESS_PORT || default_express_port
 
 app.use(express.json())
 app.use(cors({origin: frontend_origin}))

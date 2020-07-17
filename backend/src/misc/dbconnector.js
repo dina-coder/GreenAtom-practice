@@ -7,9 +7,10 @@ const { login_sql, get_worker_data_sql,
 	insert_plan_sql, insert_task_sql,
 	update_plan_sql, update_task_sql,
 	delete_plan_sql, delete_task_sql } = require('./resources')
-const methods = {
+
+	const methods = {
 	login: (email, password, callback) => {
-		connector.query(`select name, id as user_id, role_id from users where email = ? and password = ?`,
+		connector.query(login_sql,
 		[email, password],
 		(err, result) => {
 			if (err)
@@ -18,7 +19,7 @@ const methods = {
 		})
 	},
 	get_worker_data: (user_id, callback) => {
-		connector.query(`select plans.id as plan_id, users.name as name, worker_id, positions.name as position, date_creation, super_id, hr_id, steps.name as step, date_start, date_end, result, comment, grades.name as grade from users left join plans on plans.worker_id = users.id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id left join steps on steps.id = plans.step_id where users.id = ?`,
+		connector.query(get_worker_data_sql,
 		[user_id],
 		(err, result) => {
 			if (err)
@@ -27,7 +28,7 @@ const methods = {
 		})
 	},
 	get_user_name: (user_id, callback) => {
-		connector.query(`select name from users where id = ?`,
+		connector.query(get_user_name_sql,
 		[user_id],
 		(err, result) => {
 			if (err)
@@ -36,7 +37,7 @@ const methods = {
 		})
 	},
 	get_tasks: (plan_id, callback) => {
-		connector.query(`select id, name, date_creation, content, date_start, date_end, result from tasks where plan_id = ?`,
+		connector.query(get_tasks_sql,
 		[plan_id],
 		(err, result) => {
 			if (err)
@@ -45,7 +46,7 @@ const methods = {
 		})
 	},
 	get_plans_super: (user_id, callback) => {
-		connector.query(`select users.name as name, positions.id as position_id, positions.name as position, grades.name as grade,  worker_id, date_creation, super_id, hr_id, step_id, steps.name as step, date_start, date_end, result, grade_id, comment  from plans left join users on users.id=plans.worker_id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id left join steps on steps.id = plans.step_id where super_id = ?`,
+		connector.query(get_plans_super_sql,
 		[user_id],
 		(err, result) => {
 			if (err)
@@ -54,7 +55,7 @@ const methods = {
 		})
 	},
 	get_plans_hr: (callback) => {
-		connector.query(`select users.name as name, positions.id as position_id, positions.name as position, grades.name as grade,  worker_id, date_creation, super_id, hr_id, step_id, steps.name as step, date_start, date_end, result, grade_id, comment  from plans left join users on users.id=plans.worker_id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id left join steps on steps.id = plans.step_id`,
+		connector.query(get_plans_hr_sql,
 		(err, result) => {
 			if (err)
 				return callback(err)
@@ -62,7 +63,7 @@ const methods = {
 		})
 	},
 	get_dict_grades: (callback) => {
-		connector.query(`select id, name from grades`,
+		connector.query(get_dict_grades_sql,
 		(err, result) => {
 			if (err)
 				return callback(err)
@@ -70,7 +71,7 @@ const methods = {
 		})
 	},
 	get_dict_names: (role_id, callback) => {
-		connector.query(`select id, name from users where role_id = ?`,
+		connector.query(get_dict_names_sql,
 		[role_id],
 		(err, result) => {
 			if (err)
@@ -79,7 +80,7 @@ const methods = {
 		})
 	},
 	get_dict_steps: (callback) => {
-		connector.query(`select id, name from steps`,
+		connector.query(get_dict_steps_sql,
 		(err, result) => {
 			if (err)
 				return callback(err)
@@ -87,7 +88,7 @@ const methods = {
 		})
 	},
 	get_dict_positions: (callback) => {
-		connector.query(`select id, name from positions`,
+		connector.query(get_dict_positions_sql,
 		(err, result) => {
 			if (err)
 				return callback(err)
@@ -95,7 +96,7 @@ const methods = {
 		})
 	},
 	insert_plan: (data, callback) => {
-		let x = connector.query(`insert into plans (worker_id,position_id,date_creation,super_id,hr_id,step_id,date_start,date_end,result,grade_id,comment) values (?,?,?,?,?,?,?,?,?,?,?)`,
+		let x = connector.query(insert_plan_sql,
 		[
 			data.worker_id,
 			data.position_id,
@@ -114,7 +115,6 @@ const methods = {
 				return callback(err)
 			return callback(null, result)
 		})
-		console.log(typeof(x))
 	}
 }
 
