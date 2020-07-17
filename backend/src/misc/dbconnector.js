@@ -1,11 +1,6 @@
-const con = require('./config/dbconfig')
+const con = require('../config/dbconfig')
 
 const methods = {
-	// Возвращает id роли (role_id) и id пользователя (user_id) внутри объекта, если имя и пароль правильные, undefined в противном случае; err != NULL при ошибке связи с бд
-	// role_id:
-	// 1 - hr
-	// 2 - руководитель
-	// 3 - сотрудник
 	get_user: async (email, password, callback) => {
 		await con.query(`select name, id as user_id, role_id from users where email = ? and password = ?`,
 		[email, password],

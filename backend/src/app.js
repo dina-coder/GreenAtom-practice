@@ -1,12 +1,17 @@
 if (process.env.NODE_ENV !== 'production')
 	require('dotenv').config()
 
-const { get_user, get_worker_data, get_user_name, get_tasks, get_plans_super, get_plans_hr, get_dict_grades, get_dict_names } = require('./dbconnector')
-const hashing = require('./hashing')
 const express = require('express')
 const cors = require('cors')
+
+const hashing = require('./misc/hashing')
+const { db_error, server_running, frontend_origin, inserted, updated, deleted,
+	empty, default_express_port } = require('./misc/resources')
+const { get_user, get_worker_data, get_user_name, get_tasks,
+	get_plans_super, get_plans_hr, get_dict_grades, get_dict_names } = require('./misc/dbconnector')
+
 const app = express()
-const dbconnect = require('./dbconnector')
+const dbconnect = require('./misc/dbconnector')
 const port = process.env.EXPRESS_PORT || 9000
 
 //app.use(express.urlencoded({ extended: false }))
