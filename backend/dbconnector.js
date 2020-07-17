@@ -104,6 +104,28 @@ const methods = {
 			else
 				return await callback(null, result)
 		})
+	},
+	insert_plan: (data, callback) => {
+		let x = con.query(`insert into plans (worker_id,position_id,date_creation,super_id,hr_id,step_id,date_start,date_end,result,grade_id,comment) values (?,?,?,?,?,?,?,?,?,?,?)`,
+		[
+			data.worker_id,
+			data.position_id,
+			data.date_creation,
+			data.super_id,
+			data.hr_id,
+			data.step_id,
+			data.date_start,
+			data.date_end,
+			data.result,
+			data.grade_id,
+			data.comment,
+		],
+		async (err, result) => {
+			if (err)
+				return await callback(err)
+			return await callback(null, result)
+		})
+		console.log(typeof(x))
 	}
 }
 
