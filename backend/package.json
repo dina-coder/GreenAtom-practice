@@ -14,9 +14,9 @@
     "nodemon": "^2.0.4"
   },
   "scripts": {
-	"start": "node index.js",
-	"production": "export NODE_ENV=production; node index.js",
-	"auto": "nodemon index.js"
+    "start": "node index.js",
+    "production": "export NODE_ENV=production; node index.js",
+    "auto": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
