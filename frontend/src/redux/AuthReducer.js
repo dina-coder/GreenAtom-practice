@@ -4,7 +4,8 @@ let  initialState={
     name:null,
     user_id:null,
     role_id:null,
-    isAuth:false
+    isAuth:false,
+    profile:{}
 }
 
 const AuthReducer=(state = initialState,action)=>{
@@ -16,6 +17,9 @@ const AuthReducer=(state = initialState,action)=>{
             return {...state,name : null,user_id : null,role_id : null, isAuth : false }
           
         }
+        case TAKE_PROFILE_INFO :{
+            return {...state, ...action.profile}
+        }
         default:
             return state
     }
@@ -24,6 +28,7 @@ export default AuthReducer
 
 const SET_AUTH_USER='SET_AUTH_USER'
 const SET_LOGIN_OUT='SET_LOGIN_OUT'
+const TAKE_PROFILE_INFO='TAKE_PROFILE_INFO'
 
 export const SetAuthCreation=(name,user_id,role_id, isAuth)=>{
     return({type:SET_AUTH_USER, payload:{name,user_id,role_id,isAuth}});
@@ -31,6 +36,18 @@ export const SetAuthCreation=(name,user_id,role_id, isAuth)=>{
 export const SetLogOut = () =>{
     return({type : SET_LOGIN_OUT})}
 
+export const SetProfileInfo =(profile) => {
+    return ({type:TAKE_PROFILE_INFO, profile})
+}
+
+export const TakeInfo=(user_id)=> async (dispatch)=>{
+    let response=await MainAPI.takeData(user_id)
+    console.log(response)
+        let info =response.data;
+        console.log(info)
+                dispatch(SetProfileInfo(info))
+}
+         
 
 
 export const login=(email,password)=>
@@ -44,6 +61,7 @@ export const login=(email,password)=>
         
          else { 
             dispatch(SetAuthCreation(response.name,response.user_id,response.role_id,true))
+            dispatch(TakeInfo(response.user_id))
    }
 }
 
