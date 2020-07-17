@@ -43,9 +43,7 @@ export const SetProfileInfo =(profile) => {
 export const TakeInfo=(user_id)=> async (dispatch)=>{
     let response=await MainAPI.takeData(user_id)
     console.log(response)
-        let info =response.data;
-        console.log(info)
-                dispatch(SetProfileInfo(info))
+                dispatch(SetProfileInfo(response))
 }
          
 
@@ -53,8 +51,6 @@ export const TakeInfo=(user_id)=> async (dispatch)=>{
 export const login=(email,password)=>
     async (dispatch)=>{
         let response=await MainAPI.login(email,password);
-        console.log(response)
-        
         if (response.empty===true){
             let message = 'Неверный логин или пароль'
             dispatch(stopSubmit('login', {_error :message}))}
