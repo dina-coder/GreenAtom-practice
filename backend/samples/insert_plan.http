@@ -12,5 +12,5 @@ content-type: application/json
 	"date_end": "2020-08-16",
 	"result": 0,
 	"grade_id": null,
-	"comment": "TLDR"
+	"comment": "to delete"
 }

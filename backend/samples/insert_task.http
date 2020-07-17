@@ -3,9 +3,9 @@ content-type: application/json
 
 {
 	"plan_id": 7,
-	"name": "Сходить за пивом",
+	"name": "Сходить за шаурмой",
 	"date_creation": "2020-07-17",
-	"content": "В общем, сходи за пивом",
+	"content": "В общем, сходи за шаурмой",
 	"date_start": "2020-07-17",
 	"date_end": "2020-07-18",
 	"result": 0

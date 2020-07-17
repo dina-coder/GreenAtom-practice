@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== 'production')
 const { get_user, get_worker_data, get_user_name, get_tasks,
 	get_plans_super, get_plans_hr, get_dict_grades, get_dict_names,
 	get_dict_steps, get_dict_positions, insert_plan, insert_task,
-	update_plan, update_task } = require('./dbconnector')
+	update_plan, update_task, delete_plan, delete_task } = require('./dbconnector')
 const hashing = require('./hashing')
 const express = require('express')
 const cors = require('cors')
@@ -136,6 +136,22 @@ app.put('/api/update/task', (req, res) => {
 		if (err)
 			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
 		res.status(200).send({updated : result ? true : false})
+	})
+})
+
+app.delete('/api/delete/plan', (req, res) => {
+	delete_plan(req.body.id, (err, result) => {
+		if (err)
+			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
+		res.status(200).send({deleted : result ? true : false})
+	})
+})
+
+app.delete('/api/delete/task', (req, res) => {
+	delete_task(req.body.id, (err, result) => {
+		if (err)
+			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
+		res.status(200).send({deleted : result ? true : false})
 	})
 })
 

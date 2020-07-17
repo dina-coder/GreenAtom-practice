@@ -120,10 +120,10 @@ const methods = {
 			data.grade_id,
 			data.comment
 		],
-		async (err, result) => {
+		(err, result) => {
 			if (err)
-				return await callback(err)
-			return await callback(null, result)
+				return callback(err)
+			return callback(null, result)
 		})
 		console.log(typeof(x))
 	},
@@ -138,10 +138,10 @@ const methods = {
 			data.date_end,
 			data.result
 		],
-		async (err, result) => {
+		(err, result) => {
 			if (err)
-				return await callback(err)
-			return await callback(null, result)
+				return callback(err)
+			return callback(null, result)
 		})
 		console.log(typeof(x))
 	},
@@ -161,10 +161,10 @@ const methods = {
 			data.comment,
 			data.id
 		],
-		async (err, result) => {
+		(err, result) => {
 			if (err)
-				return await callback(err)
-			return await callback(null, result)
+				return callback(err)
+			return callback(null, result)
 		})
 	},
 	update_task: (data, callback) => {
@@ -179,10 +179,28 @@ const methods = {
 			data.result,
 			data.id
 		],
-		async (err, result) => {
+		(err, result) => {
 			if (err)
-				return await callback(err)
-			return await callback(null, result)
+				return callback(err)
+			return callback(null, result)
+		})
+	},
+	delete_plan: (id, callback) => {
+		con.query(`delete from plans where id = ?`,
+		[id],
+		(err, result) => {
+			if (err)
+				return callback(err)
+			return callback(null, result)
+		})
+	},
+	delete_task: (id, callback) => {
+		con.query(`delete from tasks where id = ?`,
+		[id],
+		(err, result) => {
+			if (err)
+				return callback(err)
+			return callback(null, result)
 		})
 	}
 }
