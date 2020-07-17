@@ -18,6 +18,9 @@ export const MainAPI = {
    getemployeeinfo(user_id){ 
      return axios.get(`http://localhost:9000/api/get_worker_data?user_id=${user_id}`)
      .then(response=>{  return response.data})
-    
-}
+},
+  taketask(plan_id){ 
+    return axios.get(`http://localhost:9000/api/get_tasks?plan_id=${plan_id}`)
+    .then(response=>{  return response.data})
+  }
 }
