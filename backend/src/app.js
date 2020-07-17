@@ -45,7 +45,7 @@ app.get('/api/get_tasks', (req, res) => {
 	get_tasks(req.query.plan_id, (err, result) => {
 		if (err)
 			res.status(500).send(db_error)
-			res.status(200).send(result[0] ? result : empty)
+		res.status(200).send(result[0] ? result : empty)
 	})
 })
 

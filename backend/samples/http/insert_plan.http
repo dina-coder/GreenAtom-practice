@@ -1,0 +1,16 @@
+POST http://localhost:9000/api/insert/plan HTTP/1.1
+content-type: application/json
+
+{
+	"worker_id": 6,
+	"position_id": 1,
+	"date_creation": "2020-07-17",
+	"super_id": 4,
+	"hr_id": 2,
+	"step_id": 1,
+	"date_start": "2020-07-17",
+	"date_end": "2020-08-16",
+	"result": 0,
+	"grade_id": null,
+	"comment": "to delete"
+}
