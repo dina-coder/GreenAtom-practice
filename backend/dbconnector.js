@@ -78,13 +78,14 @@ const methods = {
 		})
 	},
 	get_dict_names: (role_id, callback) => {
-		con.query(`select id, name from names where role_id = ?`,
+		console.log(role_id)
+		con.query(`select id, name from users where role_id = ?`,
 		[role_id],
-		(err, result) => {
+		async (err, result) => {
 			if (err)
-				return callback(err)
+				return await callback(err)
 			else
-				return callback(null, result)
+				return await callback(null, result)
 		})
 	}
 }

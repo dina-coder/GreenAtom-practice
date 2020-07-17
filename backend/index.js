@@ -84,7 +84,7 @@ app.get('/api/dict/names', (req, res) => {
 	get_dict_names(req.query.role_id, (err, result) => {
 		if (err)
 			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
-		res.status(200).send(result ? result : {empty: true})
+			res.status(200).send(result[0] ? result : {empty: true})
 	})
 })
 
