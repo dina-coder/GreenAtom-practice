@@ -108,3 +108,5 @@ app.post('/api/insert/plan', (req, res) => {
 app.listen(port, _ => {
 	console.log(server_running(port))
 })
+
+module.exports = app
