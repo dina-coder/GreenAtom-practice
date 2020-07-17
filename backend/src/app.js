@@ -24,8 +24,7 @@ app.use(cors({
 });*/
 
 app.post('/api/login', (req, res) => {
-	login(req.body.email, hashing(req.body.email, req.body.password), async (err, result) => {
-		await result
+	login(req.body.email, hashing(req.body.email, req.body.password), (err, result) => {
 		if (err)
 			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
 		res.status(200).send(result ? result : {empty: true})
@@ -57,8 +56,7 @@ app.get('/api/get_tasks', (req, res) => {
 })
 
 app.get('/api/get_plans_super', (req, res) => {
-	get_plans_super(req.query.user_id, async (err, result) => {
-		await result
+	get_plans_super(req.query.user_id, (err, result) => {
 		if (err)
 			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
 		res.status(200).send(result[0] ? result : {empty: true})
@@ -66,8 +64,7 @@ app.get('/api/get_plans_super', (req, res) => {
 })
 
 app.get('/api/get_plans_hr', (req, res) => {
-	get_plans_hr(async (err, result) => {
-		await result
+	get_plans_hr((err, result) => {
 		if (err)
 			res.status(500).send({error_message: "Невозможно подключиться к БД", error_flag: true})
 		res.status(200).send(result[0] ? result : {empty: true})

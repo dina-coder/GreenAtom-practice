@@ -8,66 +8,57 @@ const { login_sql, get_worker_data_sql,
 	update_plan_sql, update_task_sql,
 	delete_plan_sql, delete_task_sql } = require('./resources')
 const methods = {
-	login: async (email, password, callback) => {
-		await connector.query(`select name, id as user_id, role_id from users where email = ? and password = ?`,
+	login: (email, password, callback) => {
+		connector.query(`select name, id as user_id, role_id from users where email = ? and password = ?`,
 		[email, password],
-		async (err, result) => {
+		(err, result) => {
 			if (err)
-				return await callback(err)
-			else
-			{
-				console.log(result)
-				return await callback(null, result[0])
-			}
+				return callback(err)
+			return callback(null, result[0])
 		})
 	},
 	get_worker_data: (user_id, callback) => {
 		connector.query(`select plans.id as plan_id, users.name as name, worker_id, positions.name as position, date_creation, super_id, hr_id, steps.name as step, date_start, date_end, result, comment, grades.name as grade from users left join plans on plans.worker_id = users.id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id left join steps on steps.id = plans.step_id where users.id = ?`,
 		[user_id],
-		async (err, result) => {
+		(err, result) => {
 			if (err)
-				return await callback(err)
-			else
-				return await callback(null, result)
+				return callback(err)
+			return callback(null, result)
 		})
 	},
 	get_user_name: (user_id, callback) => {
 		connector.query(`select name from users where id = ?`,
 		[user_id],
-		async (err, result) => {
+		(err, result) => {
 			if (err)
-				return await callback(err)
-			else
-				return await callback(null, result[0])
+				return callback(err)
+			return callback(null, result[0])
 		})
 	},
 	get_tasks: (plan_id, callback) => {
 		connector.query(`select id, name, date_creation, content, date_start, date_end, result from tasks where plan_id = ?`,
 		[plan_id],
-		async (err, result) => {
+		(err, result) => {
 			if (err)
-				return await callback(err)
-			else
-				return await callback(null, result)
+				return callback(err)
+			return callback(null, result)
 		})
 	},
-	get_plans_super: async (user_id, callback) => {
-		await connector.query(`select users.name as name, positions.id as position_id, positions.name as position, grades.name as grade,  worker_id, date_creation, super_id, hr_id, step_id, steps.name as step, date_start, date_end, result, grade_id, comment  from plans left join users on users.id=plans.worker_id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id left join steps on steps.id = plans.step_id where super_id = ?`,
+	get_plans_super: (user_id, callback) => {
+		connector.query(`select users.name as name, positions.id as position_id, positions.name as position, grades.name as grade,  worker_id, date_creation, super_id, hr_id, step_id, steps.name as step, date_start, date_end, result, grade_id, comment  from plans left join users on users.id=plans.worker_id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id left join steps on steps.id = plans.step_id where super_id = ?`,
 		[user_id],
-		async (err, result) => {
+		(err, result) => {
 			if (err)
-				return await callback(err)
-			else
-				return await callback(null, result)
+				return callback(err)
+			return callback(null, result)
 		})
 	},
-	get_plans_hr: async (callback) => {
-		await connector.query(`select users.name as name, positions.id as position_id, positions.name as position, grades.name as grade,  worker_id, date_creation, super_id, hr_id, step_id, steps.name as step, date_start, date_end, result, grade_id, comment  from plans left join users on users.id=plans.worker_id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id left join steps on steps.id = plans.step_id`,
-		async (err, result) => {
+	get_plans_hr: (callback) => {
+		connector.query(`select users.name as name, positions.id as position_id, positions.name as position, grades.name as grade,  worker_id, date_creation, super_id, hr_id, step_id, steps.name as step, date_start, date_end, result, grade_id, comment  from plans left join users on users.id=plans.worker_id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id left join steps on steps.id = plans.step_id`,
+		(err, result) => {
 			if (err)
-				return await callback(err)
-			else
-				return await callback(null, result)
+				return callback(err)
+			return callback(null, result)
 		})
 	},
 	get_dict_grades: (callback) => {
@@ -75,36 +66,32 @@ const methods = {
 		(err, result) => {
 			if (err)
 				return callback(err)
-			else
-				return callback(null, result)
+			return callback(null, result)
 		})
 	},
 	get_dict_names: (role_id, callback) => {
 		connector.query(`select id, name from users where role_id = ?`,
 		[role_id],
-		async (err, result) => {
+		(err, result) => {
 			if (err)
-				return await callback(err)
-			else
-				return await callback(null, result)
+				return callback(err)
+			return callback(null, result)
 		})
 	},
 	get_dict_steps: (callback) => {
 		connector.query(`select id, name from steps`,
-		async (err, result) => {
+		(err, result) => {
 			if (err)
-				return await callback(err)
-			else
-				return await callback(null, result)
+				return callback(err)
+			return callback(null, result)
 		})
 	},
 	get_dict_positions: (callback) => {
 		connector.query(`select id, name from positions`,
-		async (err, result) => {
+		(err, result) => {
 			if (err)
-				return await callback(err)
-			else
-				return await callback(null, result)
+				return callback(err)
+			return callback(null, result)
 		})
 	},
 	insert_plan: (data, callback) => {
@@ -122,10 +109,10 @@ const methods = {
 			data.grade_id,
 			data.comment,
 		],
-		async (err, result) => {
+		(err, result) => {
 			if (err)
-				return await callback(err)
-			return await callback(null, result)
+				return callback(err)
+			return callback(null, result)
 		})
 		console.log(typeof(x))
 	}
