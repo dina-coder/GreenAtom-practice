@@ -1,6 +1,6 @@
 const con = require('./config/dbconfig')
 
-module.exports = {
+const methods = {
 	// Возвращает id роли (role_id) и id пользователя (user_id) внутри объекта, если имя и пароль правильные, undefined в противном случае; err != NULL при ошибке связи с бд
 	// role_id:
 	// 1 - hr
@@ -20,13 +20,12 @@ module.exports = {
 		})
 	},
 	get_worker_data: (user_id, callback) => {
-		con.query(`select users.name as name, worker_id, positions.name as position, date_creation, super_id, hr_id, steps.name as step, date_start, date_end, result, comment, grades.name as grade from users left join plans on plans.worker_id = users.id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id left join steps on steps.id = plans.step_id where users.id = ?`,
+		con.query(`select plans.id as plan_id, users.name as name, worker_id, positions.name as position, date_creation, super_id, hr_id, steps.name as step, date_start, date_end, result, comment, grades.name as grade from users left join plans on plans.worker_id = users.id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id left join steps on steps.id = plans.step_id where users.id = ?`,
 		[user_id],
 		async (err, result) => {
 			if (err)
 				return await callback(err)
 			else
-				//result.tasks = await get_tasks(result.worker_id)
 				return await callback(null, result)
 		})
 	},
@@ -41,7 +40,7 @@ module.exports = {
 		})
 	},
 	get_tasks: (plan_id, callback) => {
-		con.query(`select id, name, date_creation from tasks where plan_id = ?`,
+		con.query(`select id, name, date_creation, content, date_start, date_end, result from tasks where plan_id = ?`,
 		[plan_id],
 		async (err, result) => {
 			if (err)
@@ -50,9 +49,8 @@ module.exports = {
 				return await callback(null, result)
 		})
 	},
-	//выпадает ошибка
 	get_plans_super: (user_id, callback) => {
-		con.query(`select users.name as name, positions.id as positionid, positions.name as position, grades.name as grade,  worker_id, date_creation, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment  from plans left join users on users.id=plans.worker_id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id where super_id = ?`,
+		con.query(`select users.name as name, positions.id as position_id, positions.name as position, grades.name as grade,  worker_id, date_creation, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment  from plans left join users on users.id=plans.worker_id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id where super_id = ?`,
 		[user_id],
 		async (err, result) => {
 			if (err)
@@ -63,3 +61,5 @@ module.exports = {
 	}
 
 }
+
+module.exports = methods
