@@ -1,0 +1,115 @@
+@import '../../../../variables';
+
+.ContainerBig{
+    display: grid;
+    grid-template-columns: 8% 66% 14% 4% 4% 4% ;
+    grid-template-areas: 'C T date down E D';
+    position: relative;
+    width: 1110px;
+    height: 130px;
+    background-color:white;
+    border-radius: 15px;
+    border: 1px solid #8CC547;
+    margin-bottom: 20px;
+    
+}
+.Container{
+    display: grid;
+    grid-template-columns: 8% 66% 14% 4% 4% 4% ;
+    grid-template-areas: 'C T date down E D';
+    position: relative;
+    width: 1110px;
+    height: 48px;
+    background-color:white;
+    border-radius: 15px;
+    border: 1px solid #8CC547;
+    margin-bottom: 20px;
+
+  
+    
+}
+.CircleFalse{
+    grid-area: C;
+    position: absolute;
+    width: 35px; 
+    height: 35px;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid #8CC547;
+    top: 6px;
+    left:6px;
+}
+.CircleTrue{
+    grid-area: C;
+    position: absolute;
+    width: 35px; 
+    height: 35px;
+    background-color: #8CC547;
+    border-radius: 50%;
+    top: 6px;
+    left:6px;
+}
+.Title{
+    grid-area: T;
+    position: absolute;
+    font-size: 16px;
+    line-height: 21px;
+    font-weight: 500;
+    color:$textColor
+}
+.Date{
+    grid-area: date;
+    position: absolute;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 500;
+    color: $additionText;
+}
+.Edit{
+    grid-area: E;
+    float: left;
+    position: absolute;
+    width: 20px; 
+    height: 20px;
+    top: 12px;
+}
+.Delete{
+    grid-area: D;
+    float: left;
+    position: absolute;
+    width: 20px; 
+    height: 20px;
+    top: 12px;
+}
+.downarrow{
+    grid-area: down;
+    position: absolute;
+    width: 20px; 
+    height: 20px;
+    top: 12px;
+}
+.downarrowTransofm{
+    grid-area: down;
+    position: absolute;
+    width: 20px; 
+    height: 20px;
+    top: 12px;
+    transform: rotate(180deg);
+}
+.Description{
+    position: absolute;
+    top: 50px;
+    left: 80px;
+    width: 933.66px;
+    height: 69px;
+    background-color:white;
+    border-radius: 15px;
+    border: 0.003px solid #c4cfb5;
+    color: $additionText;
+}
+.DescriptionText{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 10pt;
+}

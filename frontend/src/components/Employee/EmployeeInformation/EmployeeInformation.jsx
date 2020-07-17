@@ -4,6 +4,7 @@ import s from './EmployeeInformation.module.scss'
 const EmployeeInformation = (props) =>{
     return (
         <div  className={s.Container}>
+            <h1>План адаптации</h1>
             <table>
                 <tr>
                     <td className={s.LeftSide}> Должность: </td>
