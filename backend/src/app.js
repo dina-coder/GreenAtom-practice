@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== 'production')
 const express = require('express')
 const cors = require('cors')
 const sha1 = require('sha1')
+const morgan = require('morgan')
 
 const { generic_db_error, db_error,
 	server_running, frontend_origin,
@@ -27,6 +28,7 @@ const port = process.env.EXPRESS_PORT || default_express_port
 
 app.use(express.json())
 app.use(cors({origin: frontend_origin}))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 
 app.post('/api/login', async (req, res) => {
 	try {
