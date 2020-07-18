@@ -36,7 +36,7 @@ app.post('/api/login', async (req, res) => {
 app.get('/api/get_worker_data', async (req, res) => {
 	try {
 		const result = await get_worker_data(req.query.user_id)
-		res.status(200).send(result ? result : empty)
+		res.status(200).send(result[0] ? result : empty)
 	} catch (ex) {
 		res.status(500).send(db_error("Ошибка подключения"))
 	}
@@ -51,12 +51,13 @@ app.get('/api/get_user_name', async (req, res) => {
 	}
 })
 
-app.get('/api/get_tasks', (req, res) => {
-	get_tasks(req.query.plan_id, (err, result) => {
-		if (err)
-			res.status(500).send(db_error("Ошибка подключения"))
+app.get('/api/get_tasks', async (req, res) => {
+	try {
+		const result = await get_tasks(req.query.plan_id)
 		res.status(200).send(result[0] ? result : empty)
-	})
+	} catch (ex) {
+		res.status(500).send(db_error("Ошибка подключения"))
+	}
 })
 
 app.get('/api/get_plans_super', (req, res) => {
