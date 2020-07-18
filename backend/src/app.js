@@ -60,12 +60,14 @@ app.get('/api/get_tasks', async (req, res) => {
 	}
 })
 
-app.get('/api/get_plans_super', (req, res) => {
-	get_plans_super(req.query.user_id, (err, result) => {
-		if (err)
-			res.status(500).send(db_error("Ошибка подключения"))
+app.get('/api/get_plans_super', async (req, res) => {
+	try {
+		const result = await get_plans_super(req.query.user_id)
 		res.status(200).send(result[0] ? result : empty)
-	})
+	} catch (ex) {
+		console.log(ex)
+		res.status(500).send(db_error("Ошибка подключения"))
+	}
 })
 
 app.get('/api/get_plans_hr', (req, res) => {

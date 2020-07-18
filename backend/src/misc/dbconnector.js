@@ -32,14 +32,19 @@ const { login_sql, get_worker_data_sql,
 		const [rows] = await pool.query(get_tasks_sql, [plan_id])
 		return rows
 	},
-	get_plans_super: (user_id, callback) => {
-		connector.query(get_plans_super_sql,
-		[user_id],
-		(err, result) => {
-			if (err)
-				return callback(err)
-			return callback(null, result)
-		})
+	get_plans_super: async user_id => {
+		let [rows] = await pool.query(get_plans_super_sql, [user_id])
+		console.log("2")
+		if (!rows[0])
+			return (rows)
+		await Promise.all(rows.map(async element => {
+			let [hr_rows] = await pool.query(get_user_name_sql, [element.hr_id])
+			let [super_rows] = await pool.query(get_user_name_sql, [element.super_id])
+			element.hr = hr_rows[0].name
+			element.super = super_rows[0].name
+			return element
+		}))
+		return rows
 	},
 	get_plans_hr: (callback) => {
 		connector.query(get_plans_hr_sql,
