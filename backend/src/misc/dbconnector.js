@@ -3,9 +3,7 @@ const legacy = require('../config/dbconfig')
 const pool = require('../config/db2config')
 
 const { login_sql, get_user_name_sql,
-	get_tasks_sql, get_dict_grades_sql,
-	get_dict_names_sql, get_dict_steps_sql,
-	get_dict_positions_sql, insert_plan_sql,
+	get_tasks_sql, insert_plan_sql,
 	insert_task_sql, update_plan_sql,
 	update_task_sql, delete_plan_sql,
 	delete_task_sql } = require('./resources')
@@ -32,38 +30,9 @@ const methods = {
 		}))
 		return rows
 	},
-	get_dict_grades: (callback) => {
-		legacy.query(get_dict_grades_sql,
-		(err, result) => {
-			if (err)
-				return callback(err)
-			return callback(null, result)
-		})
-	},
-	get_dict_names: (role_id, callback) => {
-		legacy.query(get_dict_names_sql,
-		[role_id],
-		(err, result) => {
-			if (err)
-				return callback(err)
-			return callback(null, result)
-		})
-	},
-	get_dict_steps: (callback) => {
-		legacy.query(get_dict_steps_sql,
-		(err, result) => {
-			if (err)
-				return callback(err)
-			return callback(null, result)
-		})
-	},
-	get_dict_positions: (callback) => {
-		legacy.query(get_dict_positions_sql,
-		(err, result) => {
-			if (err)
-				return callback(err)
-			return callback(null, result)
-		})
+	get_dict: async (sql, role_id) => {
+		const [rows] = await pool.query(sql, role_id ? [role_id] : undefined)
+		return rows
 	},
 	insert_plan: (data, callback) => {
 		legacy.query(insert_plan_sql,

@@ -11,12 +11,12 @@ const { generic_db_error, db_error,
 	inserted, updated, deleted,
 	empty, default_express_port,
 	get_worker_data_sql, get_plans_super_sql,
-	get_plans_hr_sql
+	get_plans_hr_sql, get_dict_grades_sql,
+	get_dict_names_sql, get_dict_steps_sql,
+	get_dict_positions_sql
 } = require('./misc/resources')
 
-const { login, get_user_name, get_tasks,
-	get_dict_grades, get_dict_names,
-	get_dict_steps, get_dict_positions,
+const { login, get_tasks, get_dict,
 	insert_plan, insert_task,
 	update_plan, update_task,
 	delete_plan, delete_task,
@@ -75,36 +75,40 @@ app.get('/api/get_plans_hr', async (req, res) => {
 	}
 })
 
-app.get('/api/dict/grades', (req, res) => {
-	get_dict_grades((err, result) => {
-		if (err)
-			res.status(500).send(db_error(generic_db_error))
+app.get('/api/dict/grades', async (req, res) => {
+	try {
+		const result = await get_dict(get_dict_grades_sql)
 		res.status(200).send(result[0] ? result : empty)
-	})
+	} catch (ex) {
+		res.status(500).send(db_error(generic_db_error))
+	}
 })
 
-app.get('/api/dict/names', (req, res) => {
-	get_dict_names(req.query.role_id, (err, result) => {
-		if (err)
-			res.status(500).send(db_error(generic_db_error))
+app.get('/api/dict/names', async (req, res) => {
+	try {
+		const result = await get_dict(get_dict_names_sql, req.query.role_id)
 		res.status(200).send(result[0] ? result : empty)
-	})
+	} catch (ex) {
+		res.status(500).send(db_error(generic_db_error))
+	}
 })
 
-app.get('/api/dict/steps', (req, res) => {
-	get_dict_steps((err, result) => {
-		if (err)
-			res.status(500).send(db_error(generic_db_error))
+app.get('/api/dict/steps', async (req, res) => {
+	try {
+		const result = await get_dict(get_dict_steps_sql)
 		res.status(200).send(result[0] ? result : empty)
-	})
+	} catch (ex) {
+		res.status(500).send(db_error(generic_db_error))
+	}
 })
 
-app.get('/api/dict/positions', (req, res) => {
-	get_dict_positions((err, result) => {
-		if (err)
-			res.status(500).send(db_error(generic_db_error))
+app.get('/api/dict/positions', async (req, res) => {
+	try {
+		const result = await get_dict(get_dict_positions_sql)
 		res.status(200).send(result[0] ? result : empty)
-	})
+	} catch (ex) {
+		res.status(500).send(db_error(generic_db_error))
+	}
 })
 
 app.post('/api/insert/plan', (req, res) => {
