@@ -20,7 +20,7 @@ class AdaptationPlans extends React.Component {
     render() {
        let  DataAboutPlans = [];
       if (this.props.planForHr.length === 0){
-          DataAboutPlans = this.props.profile;
+          DataAboutPlans = this.props.planForSuper;
       }
       else {DataAboutPlans = this.props.planForHr};
         return (
@@ -37,7 +37,7 @@ class AdaptationPlans extends React.Component {
 
 const mapStateToProps=(state)=>({
     user_id: state.AuthReducer.user_id,
-    profile: state.SuperReducer.profile,
+    planForSuper: state.SuperReducer.planForSuper,
     planForHr: state.HrReducer.planForHr,
     name: state.AuthReducer.name,
     role_id:state.AuthReducer.role_id

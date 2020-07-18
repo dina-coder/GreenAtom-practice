@@ -1,13 +1,12 @@
 import { MainAPI } from '../../API.js'
 let initialState = {
-    profile: []
+    planForSuper: []
 }
 
 const SuperReducer = (state = initialState, action) => {
     switch (action.type) {
         case TAKE_PROFILE_INFO: {
-            console.log(action.profile)
-            return { ...state, profile: action.profile }
+            return { ...state, planForSuper: action.planForSuper }
         }
         default:
             return state
@@ -18,8 +17,8 @@ export default SuperReducer
 const TAKE_PROFILE_INFO = 'TAKE_PROFILE_INFO'
 
 
-export const SetProfileInfo = (profile) => {
-    return ({ type: TAKE_PROFILE_INFO, profile })
+export const SetProfileInfo = (planForSuper) => {
+    return ({ type: TAKE_PROFILE_INFO, planForSuper })
 }
 
 
