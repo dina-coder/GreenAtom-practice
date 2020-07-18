@@ -105,3 +105,6 @@ dist
 
 # vim backups
 *~
+
+# backend sql requests
+backend/request/*.sql

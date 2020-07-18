@@ -1,5 +1,4 @@
 'use strict'
-
 const resources = {
 	generic_db_error: "Ошибка подключения к базе данных",
 	db_error: msg => { return {error_message: msg, error_flag: true} },

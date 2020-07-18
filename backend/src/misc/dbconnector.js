@@ -1,5 +1,4 @@
 'use strict'
-
 const legacy = require('../config/dbconfig')
 const pool = require('../config/db2config')
 
@@ -22,10 +21,13 @@ const methods = {
 		const [rows] = await pool.query(get_worker_data_sql, [user_id])
 		if (!rows[0])
 			return (rows)
-		const [hr_rows] = await pool.query(get_user_name_sql, [rows[0].hr_id])
-		const [super_rows] = await pool.query(get_user_name_sql, [rows[0].super_id])
-		rows[0].hr = hr_rows[0].name
-		rows[0].super = super_rows[0].name
+		await Promise.all(rows.map(async element => {
+			let [hr_rows] = await pool.query(get_user_name_sql, [element.hr_id])
+			let [super_rows] = await pool.query(get_user_name_sql, [element.super_id])
+			element.hr = hr_rows[0].name
+			element.super = super_rows[0].name
+			return element
+		}))
 		return rows
 	},
 	get_user_name: async user_id => {
@@ -49,13 +51,18 @@ const methods = {
 		}))
 		return rows
 	},
-	get_plans_hr: (callback) => {
-		legacy.query(get_plans_hr_sql,
-		(err, result) => {
-			if (err)
-				return callback(err)
-			return callback(null, result)
-		})
+	get_plans_hr: async _ => {
+		let [rows] = await pool.query(get_plans_hr_sql)
+		if (!rows[0])
+			return (rows)
+		await Promise.all(rows.map(async element => {
+			let [hr_rows] = await pool.query(get_user_name_sql, [element.hr_id])
+			let [super_rows] = await pool.query(get_user_name_sql, [element.super_id])
+			element.hr = hr_rows[0].name
+			element.super = super_rows[0].name
+			return element
+		}))
+		return rows
 	},
 	get_dict_grades: (callback) => {
 		legacy.query(get_dict_grades_sql,
