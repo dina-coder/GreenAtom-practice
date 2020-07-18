@@ -1,5 +1,6 @@
-const connector = require('../config/dbconfig')
+const legacy = require('../config/dbconfig')
 const pool = require('../config/db2config')
+
 const { login_sql, get_worker_data_sql,
 	get_user_name_sql, get_tasks_sql,
 	get_plans_super_sql, get_plans_hr_sql,
@@ -7,9 +8,10 @@ const { login_sql, get_worker_data_sql,
 	get_dict_steps_sql, get_dict_positions_sql,
 	insert_plan_sql, insert_task_sql,
 	update_plan_sql, update_task_sql,
-	delete_plan_sql, delete_task_sql } = require('./resources')
+	delete_plan_sql, delete_task_sql
+} = require('./resources')
 
-	const methods = {
+const methods = {
 	login: async (email, password) => {
 		const [rows] = await pool.query(login_sql, [email, password])
 		return rows[0]
@@ -47,7 +49,7 @@ const { login_sql, get_worker_data_sql,
 		return rows
 	},
 	get_plans_hr: (callback) => {
-		connector.query(get_plans_hr_sql,
+		legacy.query(get_plans_hr_sql,
 		(err, result) => {
 			if (err)
 				return callback(err)
@@ -55,7 +57,7 @@ const { login_sql, get_worker_data_sql,
 		})
 	},
 	get_dict_grades: (callback) => {
-		connector.query(get_dict_grades_sql,
+		legacy.query(get_dict_grades_sql,
 		(err, result) => {
 			if (err)
 				return callback(err)
@@ -63,7 +65,7 @@ const { login_sql, get_worker_data_sql,
 		})
 	},
 	get_dict_names: (role_id, callback) => {
-		connector.query(get_dict_names_sql,
+		legacy.query(get_dict_names_sql,
 		[role_id],
 		(err, result) => {
 			if (err)
@@ -72,7 +74,7 @@ const { login_sql, get_worker_data_sql,
 		})
 	},
 	get_dict_steps: (callback) => {
-		connector.query(get_dict_steps_sql,
+		legacy.query(get_dict_steps_sql,
 		(err, result) => {
 			if (err)
 				return callback(err)
@@ -80,7 +82,7 @@ const { login_sql, get_worker_data_sql,
 		})
 	},
 	get_dict_positions: (callback) => {
-		connector.query(get_dict_positions_sql,
+		legacy.query(get_dict_positions_sql,
 		(err, result) => {
 			if (err)
 				return callback(err)
@@ -88,7 +90,7 @@ const { login_sql, get_worker_data_sql,
 		})
 	},
 	insert_plan: (data, callback) => {
-		connector.query(insert_plan_sql,
+		legacy.query(insert_plan_sql,
 		[
 			data.worker_id,
 			data.position_id,
@@ -109,7 +111,7 @@ const { login_sql, get_worker_data_sql,
 		})
 	},
 	insert_task: (data, callback) => {
-		connector.query(insert_task_sql,
+		legacy.query(insert_task_sql,
 		[
 			data.plan_id,
 			data.name,
@@ -126,7 +128,7 @@ const { login_sql, get_worker_data_sql,
 		})
 	},
 	update_plan: (data, callback) => {
-		connector.query(update_plan_sql,
+		legacy.query(update_plan_sql,
 		[
 			data.worker_id,
 			data.position_id,
@@ -148,7 +150,7 @@ const { login_sql, get_worker_data_sql,
 		})
 	},
 	update_task: (data, callback) => {
-		connector.query(update_task_sql,
+		legacy.query(update_task_sql,
 		[
 			data.plan_id,
 			data.name,
@@ -166,7 +168,7 @@ const { login_sql, get_worker_data_sql,
 		})
 	},
 	delete_plan: (id, callback) => {
-		connector.query(delete_plan_sql,
+		legacy.query(delete_plan_sql,
 		[id],
 		(err, result) => {
 			if (err)
@@ -175,7 +177,7 @@ const { login_sql, get_worker_data_sql,
 		})
 	},
 	delete_task: (id, callback) => {
-		connector.query(delete_task_sql,
+		legacy.query(delete_task_sql,
 		[id],
 		(err, result) => {
 			if (err)

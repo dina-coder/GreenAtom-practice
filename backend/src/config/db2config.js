@@ -3,7 +3,6 @@ if (process.env.NODE_ENV !== 'production')
 
 const mysql = require('mysql2');
 
-
 const pool = mysql.createConnection({
 	host: process.env.MYSQL_HOST,
 	user: process.env.MYSQL_USER,
