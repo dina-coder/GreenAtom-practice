@@ -24,14 +24,9 @@ const { login_sql, get_worker_data_sql,
 		rows[0].super = super_rows[0].name
 		return rows
 	},
-	get_user_name: (user_id, callback) => {
-		connector.query(get_user_name_sql,
-		[user_id],
-		(err, result) => {
-			if (err)
-				return callback(err)
-			return callback(null, result[0])
-		})
+	get_user_name: async (user_id) => {
+		const [rows] = await pool.query(get_user_name_sql, [user_id])
+		return rows[0]
 	},
 	get_tasks: (plan_id, callback) => {
 		connector.query(get_tasks_sql,
