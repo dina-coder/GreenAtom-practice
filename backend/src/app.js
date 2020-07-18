@@ -7,7 +7,7 @@ const sha1 = require('sha1')
 
 const { db_error, server_running, frontend_origin, inserted, updated, deleted,
 	empty, default_express_port } = require('./misc/resources')
-	const { login, login2, get_worker_data,
+	const { login, get_worker_data,
 		get_user_name, get_tasks,
 		get_plans_super, get_plans_hr,
 		get_dict_grades, get_dict_names,
@@ -25,27 +25,27 @@ app.use(cors({origin: frontend_origin}))
 
 app.post('/api/login', async (req, res) => {
 	try {
-		const result = await login2(req.body.email,
+		const result = await login(req.body.email,
 			sha1(req.body.email + req.body.password))
 		res.status(200).send(result ? result : empty)
 	} catch (ex) {
-		res.status(500).send(db_error)
+		res.status(500).send(db_error("Ошибка подключения"))
 	}
-	console.log(ret)
 })
 
-app.get('/api/get_worker_data', (req, res) => {
-	get_worker_data(req.query.user_id, (err, result) => {
-		if (err)
-			res.status(500).send(db_error)
-		res.status(200).send(result[0] ? result : empty)
-	})
+app.get('/api/get_worker_data', async (req, res) => {
+	try {
+		const result = await get_worker_data(req.query.user_id)
+		res.status(200).send(result ? result : empty)
+	} catch (ex) {
+		res.status(500).send(db_error("Ошибка подключения"))
+	}
 })
 
 app.get('/api/get_user_name', (req, res) => {
 	get_user_name(req.query.user_id, (err, result) => {
 		if (err)
-			res.status(500).send(db_error)
+			res.status(500).send(db_error("Ошибка подключения"))
 		res.status(200).send(result ? result : empty)
 	})
 })
@@ -53,7 +53,7 @@ app.get('/api/get_user_name', (req, res) => {
 app.get('/api/get_tasks', (req, res) => {
 	get_tasks(req.query.plan_id, (err, result) => {
 		if (err)
-			res.status(500).send(db_error)
+			res.status(500).send(db_error("Ошибка подключения"))
 		res.status(200).send(result[0] ? result : empty)
 	})
 })
@@ -61,7 +61,7 @@ app.get('/api/get_tasks', (req, res) => {
 app.get('/api/get_plans_super', (req, res) => {
 	get_plans_super(req.query.user_id, (err, result) => {
 		if (err)
-			res.status(500).send(db_error)
+			res.status(500).send(db_error("Ошибка подключения"))
 		res.status(200).send(result[0] ? result : empty)
 	})
 })
@@ -69,7 +69,7 @@ app.get('/api/get_plans_super', (req, res) => {
 app.get('/api/get_plans_hr', (req, res) => {
 	get_plans_hr((err, result) => {
 		if (err)
-			res.status(500).send(db_error)
+			res.status(500).send(db_error("Ошибка подключения"))
 		res.status(200).send(result[0] ? result : empty)
 	})
 })
@@ -77,7 +77,7 @@ app.get('/api/get_plans_hr', (req, res) => {
 app.get('/api/dict/grades', (req, res) => {
 	get_dict_grades((err, result) => {
 		if (err)
-			res.status(500).send(db_error)
+			res.status(500).send(db_error("Ошибка подключения"))
 		res.status(200).send(result[0] ? result : empty)
 	})
 })
@@ -85,7 +85,7 @@ app.get('/api/dict/grades', (req, res) => {
 app.get('/api/dict/names', (req, res) => {
 	get_dict_names(req.query.role_id, (err, result) => {
 		if (err)
-			res.status(500).send(db_error)
+			res.status(500).send(db_error("Ошибка подключения"))
 		res.status(200).send(result[0] ? result : empty)
 	})
 })
@@ -93,7 +93,7 @@ app.get('/api/dict/names', (req, res) => {
 app.get('/api/dict/steps', (req, res) => {
 	get_dict_steps((err, result) => {
 		if (err)
-			res.status(500).send(db_error)
+			res.status(500).send(db_error("Ошибка подключения"))
 		res.status(200).send(result[0] ? result : empty)
 	})
 })
@@ -101,7 +101,7 @@ app.get('/api/dict/steps', (req, res) => {
 app.get('/api/dict/positions', (req, res) => {
 	get_dict_positions((err, result) => {
 		if (err)
-			res.status(500).send(db_error)
+			res.status(500).send(db_error("Ошибка подключения"))
 		res.status(200).send(result[0] ? result : empty)
 	})
 })
@@ -109,7 +109,7 @@ app.get('/api/dict/positions', (req, res) => {
 app.post('/api/insert/plan', (req, res) => {
 	insert_plan(req.body, (err, result) => {
 		if (err)
-			res.status(500).send(db_error)
+			res.status(500).send(db_error("Ошибка подключения"))
 		res.status(200).send(inserted)
 	})
 })
@@ -117,7 +117,7 @@ app.post('/api/insert/plan', (req, res) => {
 app.post('/api/insert/task', (req, res) => {
 	insert_task(req.body, (err, result) => {
 		if (err)
-			res.status(500).send(db_error)
+			res.status(500).send(db_error("Ошибка подключения"))
 		res.status(200).send(inserted)
 	})
 })
@@ -125,7 +125,7 @@ app.post('/api/insert/task', (req, res) => {
 app.put('/api/update/plan', (req, res) => {
 	update_plan(req.body, (err, result) => {
 		if (err)
-			res.status(500).send(db_error)
+			res.status(500).send(db_error("Ошибка подключения"))
 		res.status(200).send(updated)
 	})
 })
@@ -133,7 +133,7 @@ app.put('/api/update/plan', (req, res) => {
 app.put('/api/update/task', (req, res) => {
 	update_task(req.body, (err, result) => {
 		if (err)
-			res.status(500).send(db_error)
+			res.status(500).send(db_error("Ошибка подключения"))
 		res.status(200).send(updated)
 	})
 })
@@ -141,7 +141,7 @@ app.put('/api/update/task', (req, res) => {
 app.delete('/api/delete/plan', (req, res) => {
 	delete_plan(req.body.id, (err, result) => {
 		if (err)
-			res.status(500).send(db_error)
+			res.status(500).send(db_error("Ошибка подключения"))
 		res.status(200).send(deleted)
 	})
 })
@@ -149,7 +149,7 @@ app.delete('/api/delete/plan', (req, res) => {
 app.delete('/api/delete/task', (req, res) => {
 	delete_task(req.body.id, (err, result) => {
 		if (err)
-			res.status(500).send(db_error)
+			res.status(500).send(db_error("Ошибка подключения"))
 		res.status(200).send(deleted)
 	})
 })

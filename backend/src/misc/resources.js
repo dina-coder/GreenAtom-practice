@@ -1,5 +1,5 @@
 const resources = {
-	db_error: {error_message: 'Невозможно подключиться к БД', error_flag: true},
+	db_error: msg => { return {error_message: msg, error_flag: true} },
 	server_running: port => { return `Сервер запущен по адресу: http://localhost:${port}`},
 	frontend_origin: 'http://localhost:3000',
 	inserted: {inserted: true},

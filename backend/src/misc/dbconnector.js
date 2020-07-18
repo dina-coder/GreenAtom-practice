@@ -10,32 +10,19 @@ const { login_sql, get_worker_data_sql,
 	delete_plan_sql, delete_task_sql } = require('./resources')
 
 	const methods = {
-	login: (email, password, callback) => {
-		connector.query(login_sql,
-		[email, password],
-		(err, result) => {
-			if (err)
-				return callback(err)
-			return callback(null, result[0])
-		})
+	login: async (email, password) => {
+		const [rows] = await pool.query(login_sql, [email, password])
+		return rows[0]
 	},
-	login2: async (email, password) => {
-		try {
-			const [rows] = await pool.query(login_sql, [email, password])
-			let row = rows[0]
-			return row
-		} catch (ex) {
-			console.error(ex)
-		}
-	},
-	get_worker_data: (user_id, callback) => {
-		connector.query(get_worker_data_sql,
-		[user_id],
-		(err, result) => {
-			if (err)
-				return callback(err)
-			return callback(null, result)
-		})
+	get_worker_data: async (user_id) => {
+		const [rows] = await pool.query(get_worker_data_sql, [user_id])
+		if (!rows[0])
+			return (rows)
+		const [hr_rows] = await pool.query(get_user_name_sql, [rows[0].hr_id])
+		const [super_rows] = await pool.query(get_user_name_sql, [rows[0].super_id])
+		rows[0].hr = hr_rows[0].name
+		rows[0].super = super_rows[0].name
+		return rows
 	},
 	get_user_name: (user_id, callback) => {
 		connector.query(get_user_name_sql,
