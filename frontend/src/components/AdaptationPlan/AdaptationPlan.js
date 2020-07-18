@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import Employee from './Employee'
+import AdaptationPlanForm from './AdaptationPlanForm'
 
 
 
 
 
-class EmployeeComponent extends React.Component
+class AdaptationPlan extends React.Component
 {
     componentDidMount(){
     //для запросиков
@@ -17,7 +17,7 @@ class EmployeeComponent extends React.Component
     render (){
         if (this.props.isAuth === false) return <Redirect to={'/'}/>
         console.log(this.props.employee)
-         return <Employee name={this.props.name} employee={this.props.employee} plantasks={this.props.plantasks}/>
+         return <AdaptationPlanForm name={this.props.name} employee={this.props.employee} plantasks={this.props.plantasks}/>
        
     }
 }
@@ -30,4 +30,4 @@ const mapStateToProps=(state)=>({
     plantasks:state.AuthReducer.plantasks
 });
 
-export default  connect (mapStateToProps) (EmployeeComponent)
+export default  connect (mapStateToProps) (AdaptationPlan)

@@ -1,7 +1,7 @@
 import React from 'react'
-import s from './EmployeeInformation.module.scss'
+import s from './AdaptationPlanInfo.module.scss'
 
-const EmployeeInformation = (props) =>{
+const AdaptationPlanInfo = (props) =>{
     return (
         <div  className={s.Container}>
             <h1>План адаптации</h1>
@@ -46,4 +46,4 @@ const EmployeeInformation = (props) =>{
     )
 }
 
-export default EmployeeInformation
+export default AdaptationPlanInfo

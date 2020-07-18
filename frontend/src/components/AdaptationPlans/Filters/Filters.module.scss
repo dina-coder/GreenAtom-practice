@@ -1,4 +1,4 @@
-@import '../../variables.scss';
+@import '../../../variables';
 
 .search {
     background: rgba(140, 197, 71, 0.1);
@@ -29,15 +29,15 @@
     }
 
     .peopleSearch {
-        background: white url('../../img/search.png') no-repeat 10px 8px;
+        background: white url('../../../img/search.png') no-repeat 10px 8px;
     }
 
     .stepSearch {
-        background: white url('../../img/step.png') no-repeat 10px 8px;
+        background: white url('../../../img/step.png') no-repeat 10px 8px;
     }
 
     .dateSearch {
-        background: white url('../../img/calendar.png') no-repeat 10px 8px;
+        background: white url('../../../img/calendar.png') no-repeat 10px 8px;
     }
 
 }

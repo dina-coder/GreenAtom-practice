@@ -1,32 +1,28 @@
 import React from 'react';
-import {connect} from 'react-redux'
-import {SetLogOut} from '../../redux/AuthReducer'
+import { connect } from 'react-redux';
+import { SetLogOut } from '../../redux/reducers/AuthReducer';
 import Header from './Header';
-import { Redirect } from 'react-router-dom';
+import { mapRoleToRoleRU } from '../../utils/mapRoleToRoleRU';
+import { mapRoleIdToRole } from '../../utils/mapRoleIdToRole';
 
+class HeaderContainer extends React.Component {
+    render() {
+        const translatedRole = mapRoleToRoleRU(mapRoleIdToRole(this.props.roleId));
+        return (
+            <Header
+                name={this.props.name}
+                role={translatedRole}
+                setLogOut={this.props.SetLogOut}
+            />
+        );
 
-
-
-
-
-class HeaderContainer extends React.Component
-{
-    
-    render (){
-        if (this.props.isAuth === false) return <Redirect to={'/'}/>
-         return <Header name={this.props.name}
-                SetLogOut={this.props.SetLogOut}
-                role={this.props.role}
-                isAuth={this.props.isAuth}/>
-       
     }
 }
-const mapStateToProps=(state)=>({
-    
-    isAuth:state.AuthReducer.isAuth,
-    name:state.AuthReducer.name,
-    user_id:state.AuthReducer.user_id
+
+const mapStateToProps = (state) => ({
+    name: state.AuthReducer.name,
+    roleId: state.AuthReducer['role_id'],
 });
 
-export default  connect (mapStateToProps,{SetLogOut}) (HeaderContainer);
+export default connect(mapStateToProps, { SetLogOut })(HeaderContainer);
 

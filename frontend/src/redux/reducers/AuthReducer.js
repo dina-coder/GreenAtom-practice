@@ -1,4 +1,4 @@
-import { MainAPI } from '../API.js'
+import { MainAPI } from '../../API.js'
 import { stopSubmit } from 'redux-form'
 let initialState = {
     name: null,
@@ -87,12 +87,11 @@ export const GetEmployeeProfileInfo = (user_id) => async (dispatch) => {
 export const login = (email, password) =>
     async (dispatch) => {
         let response = await MainAPI.login(email, password);
+
         if (response.empty === true) {
             let message = 'Неверный логин или пароль'
             dispatch(stopSubmit('login', { _error: message }))
-        }
-
-        else {
+        } else {
             dispatch(SetAuthCreation(response.name, response.user_id, response.role_id, true))
             if (response.role_id !== 3) {
                 dispatch(TakeInfo(response.user_id))

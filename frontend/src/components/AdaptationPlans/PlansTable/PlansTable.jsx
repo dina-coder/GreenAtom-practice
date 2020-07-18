@@ -1,7 +1,7 @@
 import React from 'react';
-import arrow from '../../img/down-arrow.png';
-import greenArrow from '../../img/down-arrow-green.png';
-import rightArrow from '../../img/right-arrow.png';
+import arrow from '../../../img/down-arrow.png';
+import greenArrow from '../../../img/down-arrow-green.png';
+import rightArrow from '../../../img/right-arrow.png';
 import style from "./PlansTable.module.scss";
 
 const PlansTable = (props) => {
