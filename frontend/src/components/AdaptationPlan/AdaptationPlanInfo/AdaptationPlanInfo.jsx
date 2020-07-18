@@ -13,12 +13,12 @@ const AdaptationPlanInfo = (props) =>{
 
                 <tr>
                     <td className={s.LeftSide}> Руководитель: </td>
-                    <td td className={s.RightSide}>{props.employee.super_id} дима дай имя</td>
+                    <td td className={s.RightSide}>{props.employee.super}</td>
                 </tr>
 
                 <tr>
                     <td className={s.LeftSide}> HR-менеджер: </td>
-                    <td td className={s.RightSide}> {props.employee.hr_id} дима дай имя </td>
+                    <td td className={s.RightSide}> {props.employee.hr}</td>
                 </tr>
 
                 <tr>
@@ -38,7 +38,7 @@ const AdaptationPlanInfo = (props) =>{
 
                 <tr>
                     <td className={s.LeftSide}> Оценка: </td>
-                    <td td className={s.RightSide}> {props.employee.grade} </td>
+                    <td td className={s.RightSide}> {props.employee.grade !=null ? props.employee.grade : "Оценка не выставлена"} </td>
                 </tr>
             </table>
 

@@ -8,7 +8,7 @@ const PlanTasks = (props) =>{
     const AllTasks=props.plantasks.map((x, key)=><Task key={key} name={x.name} date_end={x.date_end} result={x.result} content={x.content}/>)
     return (
         <div className={s.Container}>
-        <TopPanelWithCreate title="Задачи" buttonTitle="задачу" amount="0" />
+        <TopPanelWithCreate title="Задачи" buttonTitle="задачу" amount={props.plantasks.length} />
             {AllTasks}    
         </div>
     )
