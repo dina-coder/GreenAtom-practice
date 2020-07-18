@@ -1,4 +1,5 @@
 const connector = require('../config/dbconfig')
+const pool = require('../config/db2config')
 const { login_sql, get_worker_data_sql,
 	get_user_name_sql, get_tasks_sql,
 	get_plans_super_sql, get_plans_hr_sql,
@@ -17,6 +18,15 @@ const { login_sql, get_worker_data_sql,
 				return callback(err)
 			return callback(null, result[0])
 		})
+	},
+	login2: async (email, password) => {
+		try {
+			const [rows] = await pool.query(login_sql, [email, password])
+			let row = rows[0]
+			return row
+		} catch (ex) {
+			console.error(ex)
+		}
 	},
 	get_worker_data: (user_id, callback) => {
 		connector.query(get_worker_data_sql,
@@ -96,7 +106,7 @@ const { login_sql, get_worker_data_sql,
 		})
 	},
 	insert_plan: (data, callback) => {
-		let x = connector.query(insert_plan_sql,
+		connector.query(insert_plan_sql,
 		[
 			data.worker_id,
 			data.position_id,

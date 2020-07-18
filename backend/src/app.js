@@ -7,10 +7,15 @@ const sha1 = require('sha1')
 
 const { db_error, server_running, frontend_origin, inserted, updated, deleted,
 	empty, default_express_port } = require('./misc/resources')
-	const { login, get_worker_data, get_user_name, get_tasks,
-		get_plans_super, get_plans_hr, get_dict_grades, get_dict_names,
-		get_dict_steps, get_dict_positions, insert_plan, insert_task,
-		update_plan, update_task, delete_plan, delete_task } = require('./misc/dbconnector')
+	const { login, login2, get_worker_data,
+		get_user_name, get_tasks,
+		get_plans_super, get_plans_hr,
+		get_dict_grades, get_dict_names,
+		get_dict_steps, get_dict_positions,
+		insert_plan, insert_task,
+		update_plan, update_task,
+		delete_plan, delete_task
+	} = require('./misc/dbconnector')
 
 const app = express()
 const port = process.env.EXPRESS_PORT || default_express_port
@@ -18,12 +23,15 @@ const port = process.env.EXPRESS_PORT || default_express_port
 app.use(express.json())
 app.use(cors({origin: frontend_origin}))
 
-app.post('/api/login', (req, res) => {
-	login(req.body.email, sha1(req.body.email + req.body.password), (err, result) => {
-		if (err)
-			res.status(500).send(db_error)
+app.post('/api/login', async (req, res) => {
+	try {
+		const result = await login2(req.body.email,
+			sha1(req.body.email + req.body.password))
 		res.status(200).send(result ? result : empty)
-	})
+	} catch (ex) {
+		res.status(500).send(db_error)
+	}
+	console.log(ret)
 })
 
 app.get('/api/get_worker_data', (req, res) => {
