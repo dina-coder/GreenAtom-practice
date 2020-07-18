@@ -2,33 +2,18 @@
 const legacy = require('../config/dbconfig')
 const pool = require('../config/db2config')
 
-const { login_sql, get_worker_data_sql,
-	get_user_name_sql, get_tasks_sql,
-	get_plans_super_sql, get_plans_hr_sql,
-	get_dict_grades_sql, get_dict_names_sql,
-	get_dict_steps_sql, get_dict_positions_sql,
-	insert_plan_sql, insert_task_sql,
-	update_plan_sql, update_task_sql,
-	delete_plan_sql, delete_task_sql
-} = require('./resources')
+const { login_sql, get_user_name_sql,
+	get_tasks_sql, get_dict_grades_sql,
+	get_dict_names_sql, get_dict_steps_sql,
+	get_dict_positions_sql, insert_plan_sql,
+	insert_task_sql, update_plan_sql,
+	update_task_sql, delete_plan_sql,
+	delete_task_sql } = require('./resources')
 
 const methods = {
 	login: async (email, password) => {
 		const [rows] = await pool.query(login_sql, [email, password])
 		return rows[0]
-	},
-	get_worker_data: async user_id => {
-		const [rows] = await pool.query(get_worker_data_sql, [user_id])
-		if (!rows[0])
-			return (rows)
-		await Promise.all(rows.map(async element => {
-			let [hr_rows] = await pool.query(get_user_name_sql, [element.hr_id])
-			let [super_rows] = await pool.query(get_user_name_sql, [element.super_id])
-			element.hr = hr_rows[0].name
-			element.super = super_rows[0].name
-			return element
-		}))
-		return rows
 	},
 	get_user_name: async user_id => {
 		const [rows] = await pool.query(get_user_name_sql, [user_id])
@@ -38,23 +23,10 @@ const methods = {
 		const [rows] = await pool.query(get_tasks_sql, [plan_id])
 		return rows
 	},
-	get_plans_super: async user_id => {
-		let [rows] = await pool.query(get_plans_super_sql, [user_id])
-		if (!rows[0])
-			return (rows)
-		await Promise.all(rows.map(async element => {
-			let [hr_rows] = await pool.query(get_user_name_sql, [element.hr_id])
-			let [super_rows] = await pool.query(get_user_name_sql, [element.super_id])
-			element.hr = hr_rows[0].name
-			element.super = super_rows[0].name
-			return element
-		}))
-		return rows
-	},
-	get_plans_hr: async _ => {
-		let [rows] = await pool.query(get_plans_hr_sql)
-		if (!rows[0])
-			return (rows)
+	get_plans: async (sql, user_id) => {
+		let [rows] = await pool.query(sql, user_id ? [user_id] : undefined)
+		if (!rows[0] || !rows[0].hr_id || !rows[0].super_id)
+			return []
 		await Promise.all(rows.map(async element => {
 			let [hr_rows] = await pool.query(get_user_name_sql, [element.hr_id])
 			let [super_rows] = await pool.query(get_user_name_sql, [element.super_id])
