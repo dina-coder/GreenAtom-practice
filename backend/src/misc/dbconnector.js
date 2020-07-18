@@ -15,10 +15,6 @@ const methods = {
 		const [rows] = await pool.query(login_sql, [email, password])
 		return rows[0]
 	},
-	get_user_name: async user_id => {
-		const [rows] = await pool.query(get_user_name_sql, [user_id])
-		return rows[0]
-	},
 	get_tasks: async plan_id => {
 		const [rows] = await pool.query(get_tasks_sql, [plan_id])
 		return rows

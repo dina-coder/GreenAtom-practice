@@ -48,15 +48,6 @@ app.get('/api/get_worker_data', async (req, res) => {
 	}
 })
 
-app.get('/api/get_user_name', async (req, res) => {
-	try {
-		const result = await get_user_name(req.query.user_id)
-		res.status(200).send(result ? result : empty)
-	} catch (ex) {
-		res.status(500).send(db_error(generic_db_error))
-	}
-})
-
 app.get('/api/get_tasks', async (req, res) => {
 	try {
 		const result = await get_tasks(req.query.plan_id)
