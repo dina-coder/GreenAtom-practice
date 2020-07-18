@@ -38,7 +38,6 @@ const methods = {
 	},
 	get_plans_super: async user_id => {
 		let [rows] = await pool.query(get_plans_super_sql, [user_id])
-		console.log("2")
 		if (!rows[0])
 			return (rows)
 		await Promise.all(rows.map(async element => {
