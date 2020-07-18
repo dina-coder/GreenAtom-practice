@@ -22,5 +22,10 @@ export const MainAPI = {
   taketask(plan_id){ 
     return axios.get(`http://localhost:9000/api/get_tasks?plan_id=${plan_id}`)
     .then(response=>{  return response.data})
+  },
+  takeplan_HR(){ 
+    return axios.get(`http://localhost:9000/api/get_plans_hr`)
+    .then(response=>{  return response.data})
   }
+
 }

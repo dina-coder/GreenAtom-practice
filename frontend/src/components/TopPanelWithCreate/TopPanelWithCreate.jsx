@@ -6,7 +6,11 @@ const TopPanelWithCreate = (props) => {
 return(
     <div className={style.header}>
         <h1>{props.title} ({props.amount})</h1>
-        <AddButton title={props.buttonTitle}/>
+        {props.role_id === 1 ?
+        <AddButton title={props.buttonTitle}/>:
+        ''
+        }
+        
     </div>
 )
 }

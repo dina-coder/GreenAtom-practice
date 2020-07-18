@@ -7,9 +7,11 @@ import style from './AdaptationPlansForm.module.scss'
 const AdaptationPlansForm = (props)=> {
     return(
         <div className={style.wrapper}> 
-            <TopPanelWithCreate title="Планы адаптации" buttonTitle="план" amount={props.profile.length} />
+            <TopPanelWithCreate role_id = {props.role_id} title="Планы адаптации" buttonTitle="план" amount={props.DataAboutPlans.length} />
             <Filters />
-            <PlansTable profile={props.profile} name={props.name} onPlanClick={props.onPlanClick} />
+             <PlansTable DataAboutPlans={props.DataAboutPlans} name={props.name} onPlanClick={props.onPlanClick} />
+            
+           
         </div>
     )
 }

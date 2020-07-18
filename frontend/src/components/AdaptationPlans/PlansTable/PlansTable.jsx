@@ -17,10 +17,10 @@ const PlansTable = (props) => {
             <th></th>
             </tr>
             </thead>
-           {props.profile.map(x=>
+           {props.DataAboutPlans.map(x=>
                <tr className={style.plan}>
                <th className={style.choosen}>{x.name}</th>
-           <th>{props.name}</th>
+                 <th>{x.super}</th>
                <th>{x.step}</th>
            <th>{x.date_start.slice(0,10).replace(/[-]/g,'.')}-{x.date_end.slice(0,10).replace(/[-]/g,'.')}</th>
            <th><button className={style.planButton} onClick={props.onPlanClick}>Перейти  <img src={rightArrow}></img></button></th>
