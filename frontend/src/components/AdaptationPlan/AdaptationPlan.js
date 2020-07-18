@@ -17,7 +17,7 @@ class AdaptationPlan extends React.Component
     render (){
         if (this.props.isAuth === false) return <Redirect to={'/'}/>
         console.log(this.props.employee)
-         return <AdaptationPlanForm name={this.props.name} employee={this.props.employee} plantasks={this.props.plantasks}/>
+         return <AdaptationPlanForm name={this.props.name} employee={this.props.employee} plantasks={this.props.plantasks} date_creation={this.props.date_creation}/>
        
     }
 }
@@ -27,7 +27,8 @@ const mapStateToProps=(state)=>({
     name:state.AuthReducer.name,
     user_id:state.AuthReducer.user_id,
     employee:state.AuthReducer.employee_info,
-    plantasks:state.AuthReducer.plantasks
+    plantasks:state.AuthReducer.plantasks,
+    date_creation: state.AuthReducer.date_creation
 });
 
 export default  connect (mapStateToProps) (AdaptationPlan)
