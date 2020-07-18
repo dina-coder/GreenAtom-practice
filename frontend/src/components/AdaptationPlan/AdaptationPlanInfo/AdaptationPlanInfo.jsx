@@ -4,7 +4,12 @@ import s from './AdaptationPlanInfo.module.scss'
 const AdaptationPlanInfo = (props) =>{
     return (
         <div  className={s.Container}>
-            <h1>План адаптации</h1>
+            <table>
+                 <tr>
+                     <td><h1 className={s.Title}>План адаптации</h1></td>
+                     <td><div className={s.DateOfCreation}>Дата создания {props.employee.date_creation}</div></td>
+                </tr>
+            </table>
             <table>
                 <tr>
                     <td className={s.LeftSide}> Должность: </td>
