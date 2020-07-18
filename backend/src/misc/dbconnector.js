@@ -1,3 +1,5 @@
+'use strict'
+
 const legacy = require('../config/dbconfig')
 const pool = require('../config/db2config')
 
