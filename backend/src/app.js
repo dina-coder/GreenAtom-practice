@@ -45,12 +45,14 @@ app.use(api_path, getDictStepsRouter)
 app.use(api_path, getDictNamesRouter)
 app.use(api_path, getDictPositionsRouter)
 
-app.post('/api/insert/plan', (req, res) => {
-	insert_plan(req.body, (err, result) => {
-		if (err)
-			res.status(500).send(db_error(generic_db_error))
+app.post('/api/insert/plan', async (req, res) => {
+	try {
+		const result = await insert_plan(req.body)
 		res.status(200).send(inserted)
-	})
+	} catch (ex) {
+		console.error(ex)
+		res.status(500).send(db_error(generic_db_error))
+	}
 })
 
 app.post('/api/insert/task', (req, res) => {
