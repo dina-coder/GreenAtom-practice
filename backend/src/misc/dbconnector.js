@@ -54,8 +54,8 @@ const methods = {
 			data.comment
 		])
 	},
-	insert_task: (data, callback) => {
-		legacy.query(insert_task_sql,
+	insert_task: async data => {
+		await pool.query(insert_task_sql,
 		[
 			data.plan_id,
 			data.name,
@@ -63,12 +63,7 @@ const methods = {
 			data.date_start,
 			data.date_end,
 			data.result
-		],
-		(err, result) => {
-			if (err)
-				return callback(err)
-			return callback(null, result)
-		})
+		])
 	},
 	update_plan: (data, callback) => {
 		legacy.query(update_plan_sql,

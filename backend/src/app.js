@@ -55,12 +55,14 @@ app.post('/api/insert/plan', async (req, res) => {
 	}
 })
 
-app.post('/api/insert/task', (req, res) => {
-	insert_task(req.body, (err, result) => {
-		if (err)
-			res.status(500).send(db_error(generic_db_error))
+app.post('/api/insert/task', async (req, res) => {
+	try {
+		const result = await insert_task(req.body)
 		res.status(200).send(inserted)
-	})
+	} catch (ex) {
+		console.error(ex)
+		res.status(500).send(db_error(generic_db_error))
+	}
 })
 
 app.put('/api/update/plan', (req, res) => {
