@@ -21,7 +21,7 @@ class AdaptationPlans extends React.Component {
     }
      
     render() {
-        const privilege = (role) => {
+        const privilegeToAdd = (role) => {
             return role === Roles.HR ? true : false;
         }
        let  DataAboutPlans = [];
@@ -36,7 +36,7 @@ class AdaptationPlans extends React.Component {
                 SetInfoForPlan = {this.props.SetInfoForPlan}
                 DataAboutPlans = {DataAboutPlans}
                 name = {this.props.name}
-                canCreate = {privilege(this.props.role)}
+                canCreate = {privilegeToAdd(this.props.role)}
             />
     
         );
