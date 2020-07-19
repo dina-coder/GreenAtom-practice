@@ -21,8 +21,8 @@ const resources = {
 	get_dict_positions_sql: 'select id, name from positions',
 	insert_plan_sql: 'insert into plans (worker_id,position_id,date_creation,super_id,hr_id,step_id,date_start,date_end,result,grade_id,comment) values (?,?,?,?,?,?,?,?,?,?,?)',
 	insert_task_sql: 'insert into tasks (plan_id,name,date_creation,content,date_start,date_end,result) values (?,?,?,?,?,?,?)',
-	update_plan_sql: 'update plans set worker_id = ?, position_id = ?, date_creation = ?, super_id = ?, hr_id = ?, step_id = ?, date_start = ?, date_end = ?, result = ?, grade_id = ?, comment = ? where id = ?',
-	update_task_sql: 'update tasks set plan_id = ?, name = ?, date_creation = ?, content = ?, date_start = ?, date_end = ?, result = ? where id = ?',
+	update_plan_sql: 'update plans set worker_id = ?, position_id = ?, super_id = ?, hr_id = ?, step_id = ?, date_start = ?, date_end = ?, result = ?, grade_id = ?, comment = ? where id = ?',
+	update_task_sql: 'update tasks set plan_id = ?, name = ?, content = ?, date_start = ?, date_end = ?, result = ? where id = ?',
 	delete_plan_sql: 'delete from plans where id = ?',
 	delete_task_sql: 'delete from tasks where id = ?'
 }

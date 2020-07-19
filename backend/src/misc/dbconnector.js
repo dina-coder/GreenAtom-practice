@@ -77,7 +77,6 @@ const methods = {
 		[
 			data.worker_id,
 			data.position_id,
-			data.date_creation,
 			data.super_id,
 			data.hr_id,
 			data.step_id,
@@ -99,7 +98,6 @@ const methods = {
 		[
 			data.plan_id,
 			data.name,
-			data.date_creation,
 			data.content,
 			data.date_start,
 			data.date_end,
