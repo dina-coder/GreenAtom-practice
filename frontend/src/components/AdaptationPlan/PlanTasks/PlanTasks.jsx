@@ -9,7 +9,7 @@ const PlanTasks = (props) =>{
     {
         AllTasks=props.plantasks.map((x, key)=><Task plan_id={props.plan_id} id = {x.id}
                                                     DeleteTaskFromEmployee = {props.DeleteTaskFromEmployee} key={key} name={x.name} 
-                                                    date_end={x.date_end} result={x.result} content={x.content}/>)
+                                                    date_end={x.date_end} result={x.result} content={x.content} plan_id={props.plan_id} TakeTasks={props.TakeTasks}/>)
     }
     else AllTasks="Задачи не добавлены"
     return (

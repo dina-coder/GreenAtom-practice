@@ -7,8 +7,9 @@ import downarrow from '../../../../img/down-arrow-green.png'
 
 const Task = (props) =>{
     const [isFullInfo,setFullInfo] = useState(null)
-    const DeleteTaskFunction = (id) =>{
+    const DeleteTaskFunction = (id, plan_id) =>{
         props.DeleteTaskFromEmployee(id)
+        props.TakeTasks(plan_id)
     } 
     return (
         <div className={isFullInfo === props.key ? s.ContainerBig : s.Container}>
