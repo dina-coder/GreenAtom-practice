@@ -18,6 +18,7 @@ const methods = {
 		return rows
 	},
 	get_plans: async (sql, user_id) => {
+		console.log(sql)
 		let [rows] = await pool.query(sql, user_id ? [user_id] : undefined)
 		if (!rows[0] || !rows[0].hr_id || !rows[0].super_id)
 			return []
