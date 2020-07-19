@@ -41,28 +41,21 @@ const methods = {
 		const [rows] = await pool.query(sql, role_id ? [role_id] : undefined)
 		return rows
 	},
-	insert_plan: (data, callback) => {
-		legacy.query(insert_plan_sql,
-		[
+	insert_plan: async data => {
+		await pool.query(insert_plan_sql, [
 			data.worker_id,
 			data.position_id,
 			data.super_id,
 			data.hr_id,
-			data.step_id,
 			data.date_start,
 			data.date_end,
 			data.result,
 			data.grade_id,
 			data.comment
-		],
-		(err, result) => {
-			if (err)
-				return callback(err)
-			return callback(null, result)
-		})
+		])
 	},
-	insert_task: (data, callback) => {
-		legacy.query(insert_task_sql,
+	insert_task: async data => {
+		await pool.query(insert_task_sql,
 		[
 			data.plan_id,
 			data.name,
@@ -70,12 +63,7 @@ const methods = {
 			data.date_start,
 			data.date_end,
 			data.result
-		],
-		(err, result) => {
-			if (err)
-				return callback(err)
-			return callback(null, result)
-		})
+		])
 	},
 	update_plan: (data, callback) => {
 		legacy.query(update_plan_sql,
