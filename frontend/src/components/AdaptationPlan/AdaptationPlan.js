@@ -1,25 +1,22 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {Redirect} from 'react-router-dom'
 import AdaptationPlanForm from './AdaptationPlanForm'
 import {GetEmployeeProfileInfo} from '../../redux/reducers/EmployeeReducer'
-
-
-
-
 
 class AdaptationPlan extends React.Component
 {
     componentDidMount(){
-   
-       this.props.GetEmployeeProfileInfo(this.props.user_id)
-       
+       this.props.GetEmployeeProfileInfo(this.props.user_id) 
     }
-    render (){
-        if (this.props.isAuth === false) return <Redirect to={'/'}/>
-        console.log(this.props.employee)
-         return <AdaptationPlanForm name={this.props.name} employee={this.props.employee} plantasks={this.props.plantasks} date_creation={this.props.date_creation}/>
-       
+
+    render() {
+         return (
+            <AdaptationPlanForm 
+                name={this.props.name} 
+                employee={this.props.employee}
+                plantasks={this.props.plantasks} 
+                date_creation={this.props.date_creation}
+            />)
     }
 }
 const mapStateToProps=(state)=>({
@@ -30,10 +27,6 @@ const mapStateToProps=(state)=>({
 
     employee:state.EmployeeReducer.employee_info,
     plantasks:state.EmployeeReducer.plantasks
-
-    
-
-   
 });
 
 export default  connect (mapStateToProps,{GetEmployeeProfileInfo}) (AdaptationPlan)
