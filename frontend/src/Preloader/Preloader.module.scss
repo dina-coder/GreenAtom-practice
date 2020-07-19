@@ -1,0 +1,28 @@
+.container{
+    height: 300px;
+    width: 300px;
+    position: absolute;
+    left:40%;
+    top:50%;
+}
+.container img{
+    animation: Preloader 1s;
+    animation-iteration-count:infinite;
+    height: 100%;
+    width: 100%;
+}
+
+@keyframes Preloader {   
+    0% {     
+      scale: 1;
+      opacity: 0.5; 
+    }  
+    50% {
+        scale: 1.2;
+        opacity: 0.75;
+    } 
+    100% {
+     scale: 1.4;
+     opacity: 1;
+     }
+  }

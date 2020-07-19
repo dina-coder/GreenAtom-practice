@@ -1,4 +1,5 @@
 import { MainAPI } from '../../API.js'
+import {setToggle} from './AuthReducer'
 
 let initialState = {
     plansList: [],
@@ -64,8 +65,9 @@ export const SetHrPlanInfo = (plansList) => {
 }
 
 export const TakeHRPlan = () => async (dispatch) => {
+    dispatch (setToggle(true))
     let response = await MainAPI.takeplan_HR()
-    console.log(response)
+    dispatch (setToggle(false))
     dispatch(SetHrPlanInfo(response))
 }
 
