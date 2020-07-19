@@ -9,92 +9,41 @@ const morgan = require('morgan')
 const { generic_db_error, db_error,
 	server_running, frontend_origin,
 	inserted, updated, deleted,
-	empty, default_express_port, get_plans_worker_sql,
-	get_plans_super_sql, get_plans_hr_sql,
+	empty, default_express_port,
 	get_dict_grades_sql, get_dict_names_sql,
-	get_dict_steps_sql, get_dict_positions_sql, api_path
+	get_dict_steps_sql, get_dict_positions_sql, api_path, morgan_string
 } = require('./misc/resources')
 
-const { get_tasks, get_dict,
+const { get_dict,
 	insert_plan, insert_task,
 	update_plan, update_task,
-	delete_plan, delete_task,
-	get_plans } = require('./misc/dbconnector')
+	delete_plan, delete_task } = require('./misc/dbconnector')
 
 const app = express()
 const port = process.env.EXPRESS_PORT || default_express_port
 
 const loginRouter = require('./api/login')
 const getPlansWorkerRouter = require('./api/getPlansWorker')
+const getTasksRouter = require('./api/getTasks')
+const getPlansSuperRouter = require('./api/getPlansSuper')
+const getPlansHrRouter = require('./api/getPlansHr')
+const getDictGradesRouter = require('./api/dict/grades')
+const getDictStepsRouter = require('./api/dict/steps')
+const getDictNamesRouter = require('./api/dict/names')
+const getDictPositionsRouter = require('./api/dict/positions')
 
 app.use(express.json())
 app.use(cors({origin: frontend_origin}))
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
+app.use(morgan(morgan_string))
 app.use(api_path, loginRouter)
 app.use(api_path, getPlansWorkerRouter)
-
-app.get('/api/get_tasks', async (req, res) => {
-	try {
-		const result = await get_tasks(req.query.plan_id)
-		res.status(200).send(result[0] ? result : empty)
-	} catch (ex) {
-		res.status(500).send(db_error(generic_db_error))
-	}
-})
-
-app.get('/api/get_plans_super', async (req, res) => {
-	try {
-		const result = await get_plans(get_plans_super_sql, req.query.user_id)
-		res.status(200).send(result[0] ? result : empty)
-	} catch (ex) {
-		res.status(500).send(db_error(generic_db_error))
-	}
-})
-
-app.get('/api/get_plans_hr', async (req, res) => {
-	try {
-		const result = await get_plans(get_plans_hr_sql)
-		res.status(200).send(result[0] ? result : empty)
-	} catch (ex) {
-		res.status(500).send(db_error(generic_db_error))
-	}
-})
-
-app.get('/api/dict/grades', async (req, res) => {
-	try {
-		const result = await get_dict(get_dict_grades_sql)
-		res.status(200).send(result[0] ? result : empty)
-	} catch (ex) {
-		res.status(500).send(db_error(generic_db_error))
-	}
-})
-
-app.get('/api/dict/names', async (req, res) => {
-	try {
-		const result = await get_dict(get_dict_names_sql, req.query.role_id)
-		res.status(200).send(result[0] ? result : empty)
-	} catch (ex) {
-		res.status(500).send(db_error(generic_db_error))
-	}
-})
-
-app.get('/api/dict/steps', async (req, res) => {
-	try {
-		const result = await get_dict(get_dict_steps_sql)
-		res.status(200).send(result[0] ? result : empty)
-	} catch (ex) {
-		res.status(500).send(db_error(generic_db_error))
-	}
-})
-
-app.get('/api/dict/positions', async (req, res) => {
-	try {
-		const result = await get_dict(get_dict_positions_sql)
-		res.status(200).send(result[0] ? result : empty)
-	} catch (ex) {
-		res.status(500).send(db_error(generic_db_error))
-	}
-})
+app.use(api_path, getTasksRouter)
+app.use(api_path, getPlansSuperRouter)
+app.use(api_path, getPlansHrRouter)
+app.use(api_path, getDictGradesRouter)
+app.use(api_path, getDictStepsRouter)
+app.use(api_path, getDictNamesRouter)
+app.use(api_path, getDictPositionsRouter)
 
 app.post('/api/insert/plan', (req, res) => {
 	insert_plan(req.body, (err, result) => {
