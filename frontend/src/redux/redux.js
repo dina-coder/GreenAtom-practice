@@ -1,13 +1,17 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux'
 import {reducer as formReducer} from 'redux-form'
-import AuthReducer from "./AuthReducer";
+import AuthReducer from "./reducers/AuthReducer";
 import thunkMiddleware from 'redux-thunk'
+import EmployeeReducer from './reducers/EmployeeReducer';
+import SuperReducer from './reducers/SuperReducer';
+import HrReducer from './reducers/HrReducer';
 
 let reducers=combineReducers({
     form:formReducer,
-    AuthReducer:AuthReducer
+    AuthReducer:AuthReducer,
+    EmployeeReducer:EmployeeReducer,
+    SuperReducer:SuperReducer,
+    HrReducer:HrReducer
+});
 
-})
-let store=createStore(reducers, applyMiddleware(thunkMiddleware));
-
-export default store;
+export const store = createStore(reducers, applyMiddleware(thunkMiddleware));

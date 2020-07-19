@@ -1,10 +1,15 @@
 import React from 'react'
-import s from './EmployeeInformation.module.scss'
+import s from './AdaptationPlanInfo.module.scss'
 
-const EmployeeInformation = (props) =>{
+const AdaptationPlanInfo = (props) =>{
     return (
         <div  className={s.Container}>
-            <h1>План адаптации</h1>
+            <table>
+                 <tr>
+                     <td><h1 className={s.Title}>План адаптации</h1></td>
+                     <td><div className={s.DateOfCreation}>Дата создания {props.employee.date_creation}</div></td>
+                </tr>
+            </table>
             <table>
                 <tr>
                     <td className={s.LeftSide}> Должность: </td>
@@ -13,12 +18,12 @@ const EmployeeInformation = (props) =>{
 
                 <tr>
                     <td className={s.LeftSide}> Руководитель: </td>
-                    <td td className={s.RightSide}>{props.employee.super_id} дима дай имя</td>
+                    <td td className={s.RightSide}>{props.employee.super}</td>
                 </tr>
 
                 <tr>
                     <td className={s.LeftSide}> HR-менеджер: </td>
-                    <td td className={s.RightSide}> {props.employee.hr_id} дима дай имя </td>
+                    <td td className={s.RightSide}> {props.employee.hr}</td>
                 </tr>
 
                 <tr>
@@ -38,7 +43,7 @@ const EmployeeInformation = (props) =>{
 
                 <tr>
                     <td className={s.LeftSide}> Оценка: </td>
-                    <td td className={s.RightSide}> {props.employee.grade} </td>
+                    <td td className={s.RightSide}> {props.employee.grade !=null ? props.employee.grade : "Оценка не выставлена"} </td>
                 </tr>
             </table>
 
@@ -46,4 +51,4 @@ const EmployeeInformation = (props) =>{
     )
 }
 
-export default EmployeeInformation
+export default AdaptationPlanInfo

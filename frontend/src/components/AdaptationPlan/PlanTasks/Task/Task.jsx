@@ -12,7 +12,7 @@ const Task = (props) =>{
         <div className={isFullInfo === props.key ? s.ContainerBig : s.Container}>
             <div className={props.result==0 ? s.CircleFalse : s.CircleTrue}></div>
             <h3 className={s.Title}>{props.name}</h3>
-            <h3 className={s.Date}>{props.date_end.slice(0,10).replace(/[-]/g,'.')}</h3>
+            <h3 className={s.Date}>До {props.date_end.slice(0,10).replace(/[-]/g,'.')}</h3>
             <img className={s.Edit} src={editionicon} />
             <img className={s.Delete} src={deleteicon} />
             {isFullInfo === props.key ?  

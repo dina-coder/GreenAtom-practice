@@ -1,4 +1,4 @@
-@import '../../variables.scss';
+@import '../../../variables';
 
 
 table{
@@ -22,7 +22,7 @@ thead {
 
 
 .plan {
-    th{
+    td{
         padding: 15px 0;
         text-align: left;
     }
@@ -30,11 +30,12 @@ thead {
     border-bottom: 1px solid rgba(140, 197, 71, 0.7);
 }
 
-th:first-child{
+th:first-child,
+td:first-child{
     padding-left:30px;
 }
 
-th:last-child 
+td:last-child 
 {
     padding-right: 30px;
 }
