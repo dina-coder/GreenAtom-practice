@@ -6,7 +6,7 @@ const { login_sql, get_user_name_sql,
 	get_tasks_sql, insert_plan_sql,
 	insert_task_sql, update_plan_sql,
 	update_task_sql, delete_plan_sql,
-	delete_task_sql } = require('./resources')
+	delete_task_sql, entriesOnPage } = require('./resources')
 
 const methods = {
 	login: async (email, password) => {
@@ -17,9 +17,15 @@ const methods = {
 		const [rows] = await pool.query(get_tasks_sql, [plan_id])
 		return rows
 	},
-	get_plans: async (sql, user_id) => {
-		console.log(sql)
-		let [rows] = await pool.query(sql, user_id ? [user_id] : undefined)
+	get_plans: async (sql, user_id, page) => {
+		let obj = []
+		if (user_id)
+			obj.push(user_id)
+		if (page) {
+			obj.push(page * entriesOnPage - entriesOnPage + 1)
+			obj.push(entriesOnPage)
+		}
+		let [rows] = await pool.query(sql, obj)
 		if (!rows[0] || !rows[0].hr_id || !rows[0].super_id)
 			return []
 		await Promise.all(rows.map(async element => {
@@ -47,7 +53,7 @@ const methods = {
 			data.date_end,
 			data.result,
 			data.grade_id,
-			data.comment,
+			data.comment
 		],
 		(err, result) => {
 			if (err)

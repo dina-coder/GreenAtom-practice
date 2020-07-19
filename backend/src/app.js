@@ -37,18 +37,20 @@ app.use(api_path, getTasksRouter)
 
 app.get('/api/get_plans_super', async (req, res) => {
 	try {
-		const result = await get_plans(get_plans_super_sql, req.query.user_id)
+		const result = await get_plans(get_plans_super_sql, req.query.user_id, req.query.page)
 		res.status(200).send(result[0] ? result : empty)
 	} catch (ex) {
+		console.error(ex)
 		res.status(500).send(db_error(generic_db_error))
 	}
 })
 
 app.get('/api/get_plans_hr', async (req, res) => {
 	try {
-		const result = await get_plans(get_plans_hr_sql)
+		const result = await get_plans(get_plans_hr_sql, undefined, req.query.page)
 		res.status(200).send(result[0] ? result : empty)
 	} catch (ex) {
+		console.error(ex)
 		res.status(500).send(db_error(generic_db_error))
 	}
 })
