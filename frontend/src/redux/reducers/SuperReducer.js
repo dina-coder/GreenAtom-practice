@@ -1,4 +1,6 @@
 import { MainAPI } from '../../API.js'
+import {setToggle} from './AuthReducer'
+
 let initialState = {
     planForSuper: []
 }
@@ -8,6 +10,7 @@ const SuperReducer = (state = initialState, action) => {
         case TAKE_PROFILE_INFO: {
             return { ...state, planForSuper: action.planForSuper }
         }
+        
         default:
             return state
     }
@@ -22,9 +25,10 @@ export const SetProfileInfo = (planForSuper) => {
 }
 
 
-
 export const TakeInfo = (user_id) => async (dispatch) => {
+    dispatch(setToggle(true))
     let response = await MainAPI.takeData(user_id)
+    dispatch(setToggle(false))
     dispatch(SetProfileInfo(response))
 }
 

@@ -5,6 +5,7 @@ import greenArrow from '../../../img/down-arrow-green.png';
 import rightArrow from '../../../img/right-arrow.png';
 import style from "./PlansTable.module.scss";
 import ParticularPlanContainer from '../ParticularPlan/ParticularPlanContainer';
+import Preloader from '../../../Preloader/Preloader';
 
 
 
@@ -16,6 +17,7 @@ const PlansTable = (props) => {
     }
     return(
     <div>
+        {props.isFetching === true ? <Preloader/>:
         <table>
             <thead>
             <tr>
@@ -27,23 +29,28 @@ const PlansTable = (props) => {
             </tr>
             </thead>
             <tbody>
-            {props.DataAboutPlans.map(x=>
-                <tr className={style.plan}>
-                    <td className={style.choosen}>{x.name}</td>
-                    <td>{x.super}</td>
-                    <td>{x.step}</td>
-                    <td>{moment(x.date_start).format('DD.MM.YYYY')}&nbsp;-&nbsp;{moment(x.date_end).format('DD.MM.YYYY')}</td>
-                    <td><button className={style.planButton}
-                     onClick={()=>TakeDataForPlanClick(true,x.worker_id)}> Перейти  <img src={rightArrow}></img>
-                     </button></td>
-                </tr> 
-                )}
+                {props.DataAboutPlans.length > 0 ?
+                 props.DataAboutPlans.map(x=>
+                    <tr className={style.plan}>
+                        <td className={style.choosen}>{x.name}</td>
+                        <td>{x.super}</td>
+                        <td>{x.step}</td>
+                        <td>{moment(x.date_start).format('DD.MM.YYYY')}&nbsp;-&nbsp;{moment(x.date_end).format('DD.MM.YYYY')}</td>
+                        <td><button className={style.planButton}
+                         onClick={()=>TakeDataForPlanClick(true,x.worker_id)}> Перейти  <img src={rightArrow}></img>
+                         </button></td>
+                    </tr> 
+                    )
+                : 'Нет планов'}
+           
             </tbody>
         </table>
+}
                 {isPlanClick === true ? <ParticularPlanContainer/>:''}
-
     </div> 
+            
     )
+            
 }
 
 export default PlansTable;

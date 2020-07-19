@@ -32,17 +32,20 @@ class AdaptationPlans extends React.Component {
     
         return (
             <AdaptationPlansForm
-            SetInfoForPlan = {this.props.SetInfoForPlan}
+                isFetching = {this.props.isFetching}
+                SetInfoForPlan = {this.props.SetInfoForPlan}
                 DataAboutPlans = {DataAboutPlans}
                 name = {this.props.name}
                 canCreate = {privilege(this.props.role)}
             />
+    
         );
 
     }
 }
 
 const mapStateToProps=(state)=>({
+    isFetching: state.AuthReducer.isFetching,
     user_id: state.AuthReducer.user_id,
     planForSuper: state.SuperReducer.planForSuper,
     allPlans: state.HrReducer.plansList,

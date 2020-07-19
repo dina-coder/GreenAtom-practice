@@ -9,7 +9,7 @@ const AdaptationPlansForm = (props)=> {
         <div className={style.wrapper}> 
             <TopPanelWithCreate canCreate = {props.canCreate} title="Планы адаптации" buttonTitle="план" amount={props.DataAboutPlans.length} />
             <Filters />
-            <PlansTable SetInfoForPlan={props.SetInfoForPlan} DataAboutPlans={props.DataAboutPlans} name={props.name}  />
+            <PlansTable isFetching = {props.isFetching} SetInfoForPlan={props.SetInfoForPlan} DataAboutPlans={props.DataAboutPlans} name={props.name}  />
             
            
         </div>

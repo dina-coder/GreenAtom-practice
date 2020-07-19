@@ -4,7 +4,8 @@ let initialState = {
     name: null,
     user_id: null,
     role_id: null,
-    isAuth: false
+    isAuth: false,
+    isFetching:false
 }
 
 const AuthReducer = (state = initialState, action) => {
@@ -16,7 +17,11 @@ const AuthReducer = (state = initialState, action) => {
             return { ...state, name: null, user_id: null, role_id: null, isAuth: false }
 
         }
-        
+        case TOGGLE_FETCHING:{
+            return{...state,isFetching:action.isFetching}
+        }
+
+
         default:
             return state
     }
@@ -25,6 +30,11 @@ export default AuthReducer
 
 const SET_AUTH_USER = 'SET_AUTH_USER'
 const SET_LOGIN_OUT = 'SET_LOGIN_OUT'
+const TOGGLE_FETCHING = 'TOGGLE_FETCHING'
+
+export const setToggle = (isFetching) => {
+    return ({type:TOGGLE_FETCHING,isFetching})
+    }
 
 export const SetAuthCreation = (name, user_id, role_id, isAuth) => {
     return ({ type: SET_AUTH_USER, payload: { name, user_id, role_id, isAuth } });

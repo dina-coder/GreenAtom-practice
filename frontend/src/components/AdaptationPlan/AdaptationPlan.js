@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import AdaptationPlanForm from './AdaptationPlanForm'
 import {DeleteTaskFromEmployee,GetEmployeeProfileInfo} from '../../redux/reducers/EmployeeReducer'
+import Preloader from '../../Preloader/Preloader';
 
 class AdaptationPlan extends React.Component
 {
@@ -12,7 +13,7 @@ class AdaptationPlan extends React.Component
 
 
     componentDidUpdate(prevProps){
-        if (prevProps.plantasks!=this.props.plantasks){
+        if (prevProps.plantasks.length!=this.props.plantasks.length){
         this.setState({plantasks:this.props.plantasks})
         }
         }
@@ -20,20 +21,24 @@ class AdaptationPlan extends React.Component
 
     render() {
       
-         return (
+         return (<>
+            {this.props.isFetching === true ? 
+            <Preloader/>
+            :
             <AdaptationPlanForm 
                 name={this.props.name} 
                 employee={this.props.employee}
                 plantasks={this.props.plantasks} 
-                DeleteTaskFromEmployee={this.props.DeleteTaskFromEmployee}
-                
-            />)
+                DeleteTaskFromEmployee={this.props.DeleteTaskFromEmployee} 
+            />
+    }
+            </>)
 
 
     }
 }
 const mapStateToProps=(state)=>({
-    
+    isFetching:state.AuthReducer.isFetching,
     isAuth:state.AuthReducer.isAuth,
     name:state.AuthReducer.name,
     user_id:state.AuthReducer.user_id,
