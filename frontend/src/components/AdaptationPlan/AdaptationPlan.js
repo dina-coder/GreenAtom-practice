@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import AdaptationPlanForm from './AdaptationPlanForm'
-import {GetEmployeeProfileInfo} from '../../redux/reducers/EmployeeReducer'
+import {GetEmployeeProfileInfo, DeleteTaskFromEmployee} from '../../redux/reducers/EmployeeReducer'
 
 class AdaptationPlan extends React.Component
 {
@@ -9,7 +9,11 @@ class AdaptationPlan extends React.Component
        this.props.GetEmployeeProfileInfo(this.props.user_id) 
     }
 
-
+    componentDidUpdate(prevProps){
+        if (prevProps.plantasks!=this.props.plantasks){
+        this.setState({plantasks:this.props.plantasks})
+        }
+        }
 
 
     render() {
@@ -18,6 +22,7 @@ class AdaptationPlan extends React.Component
                 name={this.props.name} 
                 employee={this.props.employee}
                 plantasks={this.props.plantasks} 
+                DeleteTaskFromEmployee={this.props.DeleteTaskFromEmployee}
             />)
 
 
@@ -32,4 +37,4 @@ const mapStateToProps=(state)=>({
     plantasks:state.EmployeeReducer.plantasks
 });
 
-export default  connect (mapStateToProps,{GetEmployeeProfileInfo}) (AdaptationPlan)
+export default  connect (mapStateToProps,{GetEmployeeProfileInfo,DeleteTaskFromEmployee}) (AdaptationPlan)

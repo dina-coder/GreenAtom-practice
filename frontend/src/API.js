@@ -12,7 +12,7 @@ export const MainAPI = {
     },
     takeData(user_id){ 
       console.log(user_id)
-       return axios.get(`http://localhost:9000/api/get_plans_super?user_id=${user_id}`)
+       return axios.get(`http://localhost:9000/api/get_plans_super?user_id=${user_id}&page=1`)
        .then(response=>{  return response.data})
    },
    getemployeeinfo(user_id){ 
@@ -24,7 +24,12 @@ export const MainAPI = {
     .then(response=>{  return response.data})
   },
   takeplan_HR(){ 
-    return axios.get(`http://localhost:9000/api/get_plans_hr`)
+    return axios.get(`http://localhost:9000/api/get_plans_hr?page=1`)
+    .then(response=>{  return response.data})
+  },
+  deleteTask(id){ 
+    console.log(id)
+    axios.delete("http://localhost:9000/api/delete/task", { data: { id: id }})
     .then(response=>{  return response.data})
   }
 

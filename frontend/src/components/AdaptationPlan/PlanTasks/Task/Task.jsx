@@ -14,7 +14,7 @@ const Task = (props) =>{
             <h3 className={s.Title}>{props.name}</h3>
             <h3 className={s.Date}>До {props.date_end}</h3>
             <img className={s.Edit} src={editionicon} />
-            <img className={s.Delete} src={deleteicon} />
+            <img onClick={()=>props.DeleteTaskFromEmployee(props.id)} className={s.Delete} src={deleteicon} />
             {isFullInfo === props.key ?  
              <img className={s.downarrowTransofm} onClick={()=>{setFullInfo(-1)}} src={downarrow} /> :
             <img className={s.downarrow} onClick={()=>{setFullInfo(props.key)}} src={downarrow} />

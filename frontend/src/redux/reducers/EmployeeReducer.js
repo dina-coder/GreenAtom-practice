@@ -54,9 +54,13 @@ export const TakeTasks = (plan_id) => async (dispatch) => {
 export const GetEmployeeProfileInfo = (user_id) => async (dispatch) => {
     let response = await MainAPI.getemployeeinfo(user_id)
     dispatch(SetEmployeeProfileInfo(response))
-
     dispatch(TakeTasks(response[0].plan_id))
 }
+
+export const DeleteTaskFromEmployee = (task_id) => async () => {
+     let responce=await MainAPI.deleteTask(task_id)
+}
+
 
 
 

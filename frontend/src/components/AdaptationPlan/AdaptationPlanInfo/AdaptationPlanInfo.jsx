@@ -12,6 +12,11 @@ const AdaptationPlanInfo = (props) =>{
             </table>
             <table>
                 <tr>
+                    <td className={s.LeftSide}> ФИО сотрудника: </td>
+                    <td className={s.RightSide}>{props.employee.name}</td>
+                </tr>
+
+                <tr>
                     <td className={s.LeftSide}> Должность: </td>
                     <td className={s.RightSide}>{props.employee.position}</td>
                 </tr>
