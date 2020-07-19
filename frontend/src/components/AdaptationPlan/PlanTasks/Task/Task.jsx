@@ -7,14 +7,16 @@ import downarrow from '../../../../img/down-arrow-green.png'
 
 const Task = (props) =>{
     const [isFullInfo,setFullInfo] = useState(null)
-  
+    const DeleteTaskFunction = (id) =>{
+        props.DeleteTaskFromEmployee(id)
+    } 
     return (
         <div className={isFullInfo === props.key ? s.ContainerBig : s.Container}>
             <div className={props.result==0 ? s.CircleFalse : s.CircleTrue}></div>
             <h3 className={s.Title}>{props.name}</h3>
             <h3 className={s.Date}>До {props.date_end}</h3>
             <img className={s.Edit} src={editionicon} />
-            <img onClick={()=>props.DeleteTaskFromEmployee(props.id)} className={s.Delete} src={deleteicon} />
+            <img onClick={()=>DeleteTaskFunction(props.id,props.plan_id)} className={s.Delete} src={deleteicon} />
             {isFullInfo === props.key ?  
              <img className={s.downarrowTransofm} onClick={()=>{setFullInfo(-1)}} src={downarrow} /> :
             <img className={s.downarrow} onClick={()=>{setFullInfo(props.key)}} src={downarrow} />
