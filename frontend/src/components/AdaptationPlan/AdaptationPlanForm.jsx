@@ -10,7 +10,6 @@ const AdaptationPlanForm = (props) => {
             <div className={s.wrapper}>
                 <AdaptationPlanInfo employee={props.employee} />
                 <PlanTasks 
-
                 DeleteTaskFromEmployee={props.DeleteTaskFromEmployee} 
                 plantasks={props.plantasks}/>
             </div>

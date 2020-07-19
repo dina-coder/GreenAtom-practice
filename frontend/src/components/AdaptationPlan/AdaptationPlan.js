@@ -7,7 +7,7 @@ class AdaptationPlan extends React.Component
 {
     componentDidMount(){
        this.props.GetEmployeeProfileInfo(this.props.user_id) 
-    
+        console.log(this.props.plantasks)
     }
 
 
