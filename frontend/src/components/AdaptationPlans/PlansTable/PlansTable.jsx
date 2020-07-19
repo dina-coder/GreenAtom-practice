@@ -5,6 +5,7 @@ import greenArrow from '../../../img/down-arrow-green.png';
 import rightArrow from '../../../img/right-arrow.png';
 import style from "./PlansTable.module.scss";
 
+
 const PlansTable = (props) => {
     return(
     <div>
@@ -32,6 +33,7 @@ const PlansTable = (props) => {
                 )}
             </tbody>
         </table>
+
 
     </div> 
     )
