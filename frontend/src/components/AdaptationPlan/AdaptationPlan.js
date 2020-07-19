@@ -13,7 +13,7 @@ class AdaptationPlan extends React.Component
 
 
     componentDidUpdate(prevProps){
-        if (prevProps.plantasks!=this.props.plantasks){
+        if (prevProps.plantasks.length!=this.props.plantasks.length){
         this.setState({plantasks:this.props.plantasks})
         }
         }
