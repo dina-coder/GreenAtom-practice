@@ -4,7 +4,6 @@ content-type: application/json
 {
 	"worker_id": 6,
 	"position_id": 1,
-	"date_creation": "2020-07-17",
 	"super_id": 4,
 	"hr_id": 2,
 	"step_id": 1,
