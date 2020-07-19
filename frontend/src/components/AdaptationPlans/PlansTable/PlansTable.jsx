@@ -7,6 +7,7 @@ import style from "./PlansTable.module.scss";
 import ParticularPlanContainer from '../ParticularPlan/ParticularPlanContainer';
 
 
+
 const PlansTable = (props) => {
     const [isPlanClick, setPlanClick] = useState(false)
     const TakeDataForPlanClick = (bool, user_id_for_superhr) => {

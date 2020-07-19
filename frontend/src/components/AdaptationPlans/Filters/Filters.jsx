@@ -1,5 +1,8 @@
 import React from 'react';
 import style from './Filters.module.scss';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'moment/locale/ru';
+import  MomentLocaleUtils from 'react-day-picker/moment';
 
 
 const Filters = () =>{
@@ -10,7 +13,7 @@ const Filters = () =>{
             <option value="" disabled selected hidden>Этап</option>
             <option value="test">test</option>
         </select>
-        <input className={style.dateSearch} placeholder="Период" />
+        <DayPickerInput localeUtils={MomentLocaleUtils} locale="ru" className={style.DayPickerInput} placeholder="Период" />
         </div>
     )
 }
