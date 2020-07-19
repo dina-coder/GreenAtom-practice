@@ -9,12 +9,15 @@ const PlanTasks = (props) =>{
     {
         AllTasks=props.plantasks.map((x, key)=><Task plan_id={props.plan_id} id = {x.id}
                                                     DeleteTaskFromEmployee = {props.DeleteTaskFromEmployee} key={key} name={x.name} 
-                                                    date_end={x.date_end} result={x.result} content={x.content} plan_id={props.plan_id} TakeTasks={props.TakeTasks}/>)
+                                                    date_end={x.date_end} result={x.result} content={x.content} plan_id={props.plan_id} />)
     }
     else AllTasks="Задачи не добавлены"
     return (
         <div className={s.Container}>
-        <TopPanelWithCreate title="Задачи" buttonTitle="задачу" amount={props.plantasks.length>0?props.plantasks.length: 0} />
+        <h1> Задачи ({props.plantasks.length>0?props.plantasks.length: 0}) </h1>
+        <div className={s.ButtonContainer}>
+        <button className={s.addButton}>+Добавить задачу</button>
+        </div>
             {AllTasks}
         </div>
     )
