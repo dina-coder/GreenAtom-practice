@@ -16,7 +16,7 @@ class AdaptationPlan extends React.Component
        
     }
     render (){
-        if (this.props.isAuth === false) return <Redirect to={'/'}/>
+        if (this.props.isAuth === false) return <Redirect to={'/login'}/>
         console.log(this.props.employee)
          return <AdaptationPlanForm name={this.props.name} employee={this.props.employee} plantasks={this.props.plantasks} date_creation={this.props.date_creation}/>
        
