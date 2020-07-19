@@ -25,7 +25,22 @@ const resources = {
 	update_task_sql: 'update tasks set plan_id = ?, name = ?, content = ?, date_start = ?, date_end = ?, result = ? where id = ?',
 	delete_plan_sql: 'delete from plans where id = ?',
 	delete_task_sql: 'delete from tasks where id = ?',
-	login_path: '/api/login'
+	api_path: '/api',
+	login_path: '/login',
+	get_plans_worker_path: '/get_worker_data',
+	get_tasks_path: '/get_tasks',
+	get_plans_super_path: '/get_plans_super',
+	get_plans_hr_path: '/get_plans_hr',
+	get_dict_grades_path: '/dict/grades',
+	get_dict_names_path: '/dict/names',
+	get_dict_steps_path: '/dict/steps',
+	get_dict_positions_path: '/dict/positions',
+	insert_plan_path: '/insert/plan',
+	insert_task_path: '/insert/task',
+	update_plan_path: '/update/plan',
+	update_task_path: 'update/task',
+	delete_plan_sql: '/delete/plan',
+	delete_task_path: '/delete/task'
 }
 
 module.exports = resources
