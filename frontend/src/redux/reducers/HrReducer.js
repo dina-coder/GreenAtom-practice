@@ -1,6 +1,5 @@
 import { MainAPI } from '../../API.js'
-import moment from 'moment';
-import { act } from 'react-dom/test-utils'
+
 let initialState = {
     plansList: [],
     filters: {

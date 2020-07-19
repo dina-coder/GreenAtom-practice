@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import arrow from '../../../img/down-arrow.png';
 import greenArrow from '../../../img/down-arrow-green.png';
 import rightArrow from '../../../img/right-arrow.png';
 import style from "./PlansTable.module.scss";
+import ParticularPlanContainer from '../ParticularPlan/ParticularPlanContainer';
 
 
 const PlansTable = (props) => {
+    const [isPlanClick, setPlanClick] = useState(false)
+    const TakeDataForPlanClick = (bool, user_id_for_superhr) => {
+        setPlanClick(bool)
+        props.SetInfoForPlan(user_id_for_superhr)
+    }
     return(
     <div>
         <table>
@@ -27,13 +33,13 @@ const PlansTable = (props) => {
                     <td>{x.step}</td>
                     <td>{moment(x.date_start).format('DD.MM.YYYY')}&nbsp;-&nbsp;{moment(x.date_end).format('DD.MM.YYYY')}</td>
                     <td><button className={style.planButton}
-                     onClick={props.onPlanClick}>Перейти  <img src={rightArrow}></img>
+                     onClick={()=>TakeDataForPlanClick(true,x.worker_id)}>Перейти  <img src={rightArrow}></img>
                      </button></td>
                 </tr> 
                 )}
             </tbody>
         </table>
-
+                {isPlanClick === true ? <ParticularPlanContainer/>:''}
 
     </div> 
     )

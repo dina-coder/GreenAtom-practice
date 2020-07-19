@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {TakeInfo} from '../../redux/reducers/SuperReducer';
 import {TakeHRPlan} from '../../redux/reducers/HrReducer';
 import AdaptationPlansForm from './AdaptationPlansForm';
+import {SetInfoForPlan} from '../../redux/reducers/EmployeeReducer'
 import { mapRoleIdToRole } from '../../utils/mapRoleIdToRole';
 import { Roles } from '../../constants/roles';
 
@@ -28,11 +29,12 @@ class AdaptationPlans extends React.Component {
           DataAboutPlans = this.props.planForSuper;
       }
       else {DataAboutPlans = this.props.allPlans};
+    
         return (
             <AdaptationPlansForm
+            SetInfoForPlan = {this.props.SetInfoForPlan}
                 DataAboutPlans = {DataAboutPlans}
                 name = {this.props.name}
-                onPlanClick = {()=>console.log("Подробнее")}
                 canCreate = {privilege(this.props.role)}
             />
         );
@@ -43,9 +45,9 @@ class AdaptationPlans extends React.Component {
 const mapStateToProps=(state)=>({
     user_id: state.AuthReducer.user_id,
     planForSuper: state.SuperReducer.planForSuper,
-    allPlans: state.HrReducer.planForHr,
+    allPlans: state.HrReducer.plansList,
     name: state.AuthReducer.name,
     role: mapRoleIdToRole(state.AuthReducer['role_id'])
 });
 
-export default connect(mapStateToProps,{TakeInfo,TakeHRPlan})(AdaptationPlans);
+export default connect(mapStateToProps,{TakeInfo,TakeHRPlan,SetInfoForPlan})(AdaptationPlans);
