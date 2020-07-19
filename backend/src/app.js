@@ -65,36 +65,44 @@ app.post('/api/insert/task', async (req, res) => {
 	}
 })
 
-app.put('/api/update/plan', (req, res) => {
-	update_plan(req.body, (err, result) => {
-		if (err)
-			res.status(500).send(db_error(generic_db_error))
+app.put('/api/update/plan', async (req, res) => {
+	try {
+		const result = await update_plan(req.body)
 		res.status(200).send(updated)
-	})
+	} catch (ex) {
+		console.error(ex)
+		res.status(500).send(db_error(generic_db_error))
+	}
 })
 
-app.put('/api/update/task', (req, res) => {
-	update_task(req.body, (err, result) => {
-		if (err)
-			res.status(500).send(db_error(generic_db_error))
+app.put('/api/update/task', async (req, res) => {
+	try {
+		const result = await update_task(req.body)
 		res.status(200).send(updated)
-	})
+	} catch (ex) {
+		console.error(ex)
+		res.status(500).send(db_error(generic_db_error))
+	}
 })
 
-app.delete('/api/delete/plan', (req, res) => {
-	delete_plan(req.body.id, (err, result) => {
-		if (err)
-			res.status(500).send(db_error(generic_db_error))
+app.delete('/api/delete/plan', async (req, res) => {
+	try {
+		const result = await delete_plan(req.body.id)
 		res.status(200).send(deleted)
-	})
+	} catch (ex) {
+		console.error(ex)
+		res.status(500).send(db_error(generic_db_error))
+	}
 })
 
-app.delete('/api/delete/task', (req, res) => {
-	delete_task(req.body.id, (err, result) => {
-		if (err)
-			res.status(500).send(db_error(generic_db_error))
+app.delete('/api/delete/task', async (req, res) => {
+	try {
+		const result = await delete_task(req.body.id)
 		res.status(200).send(deleted)
-	})
+	} catch (ex) {
+		console.error(ex)
+		res.status(500).send(db_error(generic_db_error))
+	}
 })
 
 app.listen(port, _ => {

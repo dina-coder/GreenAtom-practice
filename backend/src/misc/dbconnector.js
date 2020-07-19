@@ -65,8 +65,8 @@ const methods = {
 			data.result
 		])
 	},
-	update_plan: (data, callback) => {
-		legacy.query(update_plan_sql,
+	update_plan: async data => {
+		await pool.query(update_plan_sql,
 		[
 			data.worker_id,
 			data.position_id,
@@ -79,15 +79,10 @@ const methods = {
 			data.grade_id,
 			data.comment,
 			data.id
-		],
-		(err, result) => {
-			if (err)
-				return callback(err)
-			return callback(null, result)
-		})
+		])
 	},
-	update_task: (data, callback) => {
-		legacy.query(update_task_sql,
+	update_task: async data => {
+		await pool.query(update_task_sql,
 		[
 			data.plan_id,
 			data.name,
@@ -96,30 +91,13 @@ const methods = {
 			data.date_end,
 			data.result,
 			data.id
-		],
-		(err, result) => {
-			if (err)
-				return callback(err)
-			return callback(null, result)
-		})
+		])
 	},
-	delete_plan: (id, callback) => {
-		legacy.query(delete_plan_sql,
-		[id],
-		(err, result) => {
-			if (err)
-				return callback(err)
-			return callback(null, result)
-		})
+	delete_plan: async id => {
+		await pool.query(delete_plan_sql, [id])
 	},
-	delete_task: (id, callback) => {
-		legacy.query(delete_task_sql,
-		[id],
-		(err, result) => {
-			if (err)
-				return callback(err)
-			return callback(null, result)
-		})
+	delete_task: async id => {
+		await pool.query(delete_task_sql, [id])
 	}
 }
 

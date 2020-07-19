@@ -41,7 +41,7 @@ const resources = {
 	insert_task_path: '/insert/task',
 	update_plan_path: '/update/plan',
 	update_task_path: '/update/task',
-	delete_plan_sql: '/delete/plan',
+	delete_plan_path: '/delete/plan',
 	delete_task_path: '/delete/task'
 }
 
