@@ -58,7 +58,7 @@ export const GetEmployeeProfileInfo = (user_id) => async (dispatch) => {
 }
 
 export const DeleteTaskFromEmployee = (task_id) => async () => {
-     let responce=await MainAPI.deleteTask(task_id)
+     await MainAPI.deleteTask(task_id)
 }
 
 

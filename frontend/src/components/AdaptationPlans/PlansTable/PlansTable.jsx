@@ -33,7 +33,7 @@ const PlansTable = (props) => {
                     <td>{x.step}</td>
                     <td>{moment(x.date_start).format('DD.MM.YYYY')}&nbsp;-&nbsp;{moment(x.date_end).format('DD.MM.YYYY')}</td>
                     <td><button className={style.planButton}
-                     onClick={()=>TakeDataForPlanClick(true,x.worker_id)}>Перейти  <img src={rightArrow}></img>
+                     onClick={()=>TakeDataForPlanClick(true,x.worker_id)}> Перейти  <img src={rightArrow}></img>
                      </button></td>
                 </tr> 
                 )}

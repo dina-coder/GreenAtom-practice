@@ -4,12 +4,15 @@ import TopPanelWithCreate from '../../TopPanelWithCreate/TopPanelWithCreate'
 import Task from './Task/Task'
 
 const PlanTasks = (props) =>{
-
-    const AllTasks=props.plantasks.map((x, key)=><Task id = {x.id} DeleteTaskFromEmployee = {props.DeleteTaskFromEmployee} key={key} name={x.name} date_end={x.date_end} result={x.result} content={x.content}/>)
+    
+    const AllTasks=props.plantasks.map((x, key)=><Task plan_id={props.plan_id} id = {x.id}
+                                                   
+                                                    DeleteTaskFromEmployee = {props.DeleteTaskFromEmployee} key={key} name={x.name} 
+                                                    date_end={x.date_end} result={x.result} content={x.content}/>)
     return (
         <div className={s.Container}>
         <TopPanelWithCreate title="Задачи" buttonTitle="задачу" amount={props.plantasks.length} />
-            {AllTasks}    
+            
         </div>
     )
 }
