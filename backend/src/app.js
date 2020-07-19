@@ -4,20 +4,18 @@ if (process.env.NODE_ENV !== 'production')
 
 const express = require('express')
 const cors = require('cors')
-const sha1 = require('sha1')
 const morgan = require('morgan')
 
 const { generic_db_error, db_error,
 	server_running, frontend_origin,
 	inserted, updated, deleted,
-	empty, default_express_port,
-	get_worker_data_sql, get_plans_super_sql,
-	get_plans_hr_sql, get_dict_grades_sql,
-	get_dict_names_sql, get_dict_steps_sql,
-	get_dict_positions_sql
+	empty, default_express_port, get_plans_worker_sql,
+	get_plans_super_sql, get_plans_hr_sql,
+	get_dict_grades_sql, get_dict_names_sql,
+	get_dict_steps_sql, get_dict_positions_sql, api_path
 } = require('./misc/resources')
 
-const { login, get_tasks, get_dict,
+const { get_tasks, get_dict,
 	insert_plan, insert_task,
 	update_plan, update_task,
 	delete_plan, delete_task,
@@ -26,29 +24,14 @@ const { login, get_tasks, get_dict,
 const app = express()
 const port = process.env.EXPRESS_PORT || default_express_port
 
+const loginRouter = require('./api/login')
+const getPlansWorkerRouter = require('./api/getPlansWorker')
+
 app.use(express.json())
 app.use(cors({origin: frontend_origin}))
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
-
-app.post('/api/login', async (req, res) => {
-	try {
-		const result = await login(req.body.email,
-			sha1(req.body.email + req.body.password))
-		res.status(200).send(result ? result : empty)
-	} catch (ex) {
-		res.status(500).send(db_error(generic_db_error))
-	}
-})
-
-app.get('/api/get_worker_data', async (req, res) => {
-	try {
-		const result = await get_plans(get_worker_data_sql, req.query.user_id)
-		res.status(200).send(result[0] ? result : empty)
-	} catch (ex) {
-		console.log(ex)
-		res.status(500).send(db_error(generic_db_error))
-	}
-})
+app.use(api_path, loginRouter)
+app.use(api_path, getPlansWorkerRouter)
 
 app.get('/api/get_tasks', async (req, res) => {
 	try {

@@ -1,14 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux'
-import {TakeInfo} from '../../redux/reducers/SuperReducer'
-import {TakeHRPlan} from '../../redux/reducers/HrReducer'
+import { connect } from 'react-redux';
+import {TakeInfo} from '../../redux/reducers/SuperReducer';
+import {TakeHRPlan} from '../../redux/reducers/HrReducer';
 import AdaptationPlansForm from './AdaptationPlansForm';
+import { mapRoleIdToRole } from '../../utils/mapRoleIdToRole';
+import { Roles } from '../../constants/roles';
 
 class AdaptationPlans extends React.Component {
 
 
     componentDidMount(){
-        if (this.props.role_id === 1){
+        if (this.props.role === Roles.HR){
             this.props.TakeHRPlan()
         }
         else {
@@ -18,17 +20,20 @@ class AdaptationPlans extends React.Component {
     }
      
     render() {
+        const privilege = (role) => {
+            return role === Roles.HR ? true : false;
+        }
        let  DataAboutPlans = [];
-      if (this.props.planForHr.length === 0){
+      if (this.props.role === Roles.Director){
           DataAboutPlans = this.props.planForSuper;
       }
-      else {DataAboutPlans = this.props.planForHr};
+      else {DataAboutPlans = this.props.allPlans};
         return (
             <AdaptationPlansForm
                 DataAboutPlans = {DataAboutPlans}
                 name = {this.props.name}
                 onPlanClick = {()=>console.log("Подробнее")}
-                role_id = {this.props.role_id}
+                canCreate = {privilege(this.props.role)}
             />
         );
 
@@ -38,9 +43,9 @@ class AdaptationPlans extends React.Component {
 const mapStateToProps=(state)=>({
     user_id: state.AuthReducer.user_id,
     planForSuper: state.SuperReducer.planForSuper,
-    planForHr: state.HrReducer.planForHr,
+    allPlans: state.HrReducer.planForHr,
     name: state.AuthReducer.name,
-    role_id:state.AuthReducer.role_id
+    role: mapRoleIdToRole(state.AuthReducer['role_id'])
 });
 
 export default connect(mapStateToProps,{TakeInfo,TakeHRPlan})(AdaptationPlans);
