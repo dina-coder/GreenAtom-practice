@@ -10,6 +10,7 @@ router.post(login_path, async (req, res) => {
 			sha1(req.body.email + req.body.password))
 		res.status(200).send(result ? result : empty)
 	} catch (ex) {
+		console.error(ex)
 		res.status(500).send(db_error(generic_db_error))
 	}
 })

@@ -27,6 +27,7 @@ const port = process.env.EXPRESS_PORT || default_express_port
 const loginRouter = require('./api/login')
 const getPlansWorkerRouter = require('./api/getPlansWorker')
 const getTasksRouter = require('./api/getTasks')
+const getPlansSuperRouter = require('./api/getPlansSuper')
 
 app.use(express.json())
 app.use(cors({origin: frontend_origin}))
@@ -34,16 +35,7 @@ app.use(morgan(morgan_string))
 app.use(api_path, loginRouter)
 app.use(api_path, getPlansWorkerRouter)
 app.use(api_path, getTasksRouter)
-
-app.get('/api/get_plans_super', async (req, res) => {
-	try {
-		const result = await get_plans(get_plans_super_sql, req.query.user_id, req.query.page)
-		res.status(200).send(result[0] ? result : empty)
-	} catch (ex) {
-		console.error(ex)
-		res.status(500).send(db_error(generic_db_error))
-	}
-})
+app.use(api_path, getPlansSuperRouter)
 
 app.get('/api/get_plans_hr', async (req, res) => {
 	try {
