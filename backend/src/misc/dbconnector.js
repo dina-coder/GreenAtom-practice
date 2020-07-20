@@ -26,6 +26,7 @@ const methods = {
 			obj.push(entriesOnPage)
 		}
 		let [rows] = await pool.query(sql, obj)
+		rows = rows[0]
 		if (!rows[0] || !rows[0].hr_id || !rows[0].super_id)
 			return []
 		await Promise.all(rows.map(async element => {
