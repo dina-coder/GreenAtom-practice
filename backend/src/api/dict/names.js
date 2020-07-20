@@ -1,18 +1,18 @@
 'use strict'
 const express = require('express')
 const router = express.Router()
-const { db_error, generic_db_error, empty,
-	get_dict_names_sql, get_dict_names_path
+const { dbError, genericDbError, empty,
+	getDictNamesSql, getDictNamesPath
 } = require('../../misc/resources')
-const { get_dict } = require('../../misc/dbconnector')
+const { getDict } = require('../../misc/dbconnector')
 
-router.get(get_dict_names_path, async (req, res) => {
+router.get(getDictNamesPath, async (req, res) => {
 	try {
-		const result = await get_dict(get_dict_names_sql, req.query.role_id)
+		const result = await getDict(getDictNamesSql, req.query.role_id)
 		res.status(200).send(result[0] ? result : empty)
 	} catch (ex) {
 		console.error(ex)
-		res.status(500).send(db_error(generic_db_error))
+		res.status(500).send(dbError(genericDbError))
 	}
 })
 

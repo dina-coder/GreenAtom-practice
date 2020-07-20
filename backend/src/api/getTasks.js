@@ -1,18 +1,18 @@
 'use strict'
 const express = require('express')
 const router = express.Router()
-const { db_error, generic_db_error, empty,
-	get_tasks_path
+const { dbError, genericDbError, empty,
+	getTasksPath
 } = require('../misc/resources')
-const { get_tasks } = require('../misc/dbconnector')
+const { getTasks } = require('../misc/dbconnector')
 
-router.get(get_tasks_path, async (req, res) => {
+router.get(getTasksPath, async (req, res) => {
 	try {
-		const result = await get_tasks(req.query.plan_id)
+		const result = await getTasks(req.query.plan_id)
 		res.status(200).send(result[0] ? result : empty)
 	} catch (ex) {
 		console.log(ex)
-		res.status(500).send(db_error(generic_db_error))
+		res.status(500).send(dbError(genericDbError))
 	}
 })
 

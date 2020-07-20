@@ -1,18 +1,18 @@
 'use strict'
 const express = require('express')
 const router = express.Router()
-const { db_error, generic_db_error,
-	inserted, insert_plan_path
+const { dbError, genericDbError: genericDbError,
+	inserted, insertPlanPath
 } = require('../../misc/resources')
-const { insert_plan } = require('../../misc/dbconnector')
+const { insertPlan } = require('../../misc/dbconnector')
 
-router.post(insert_plan_path, async (req, res) => {
+router.post(insertPlanPath, async (req, res) => {
 	try {
-		const result = await insert_plan(req.body)
+		const result = await insertPlan(req.body)
 		res.status(200).send(inserted)
 	} catch (ex) {
 		console.error(ex)
-		res.status(500).send(db_error(generic_db_error))
+		res.status(500).send(dbError(genericDbError))
 	}
 })
 

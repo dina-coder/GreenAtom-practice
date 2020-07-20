@@ -6,12 +6,12 @@ const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
 
-const { server_running, frontend_origin,
-	default_express_port, api_path,
-	morgan_string } = require('./misc/resources')
+const { serverRunning, frontendOrigin,
+	defaultExpressPort, apiPath,
+	morganString } = require('./misc/resources')
 
 const app = express()
-const port = process.env.EXPRESS_PORT || default_express_port
+const port = process.env.EXPRESS_PORT || defaultExpressPort
 
 const loginRouter = require('./api/login')
 const getPlansWorkerRouter = require('./api/getPlansWorker')
@@ -30,26 +30,26 @@ const deletePlanRouter = require('./api/delete/plan')
 const deleteTaskRouter = require('./api/delete/task')
 
 app.use(express.json())
-app.use(cors({origin: frontend_origin}))
-app.use(morgan(morgan_string))
-app.use(api_path, loginRouter)
-app.use(api_path, getPlansWorkerRouter)
-app.use(api_path, getTasksRouter)
-app.use(api_path, getPlansSuperRouter)
-app.use(api_path, getPlansHrRouter)
-app.use(api_path, getDictGradesRouter)
-app.use(api_path, getDictStepsRouter)
-app.use(api_path, getDictNamesRouter)
-app.use(api_path, getDictPositionsRouter)
-app.use(api_path, insertPlanRouter);
-app.use(api_path, insertTaskRouter);
-app.use(api_path, updatePlanRouter);
-app.use(api_path, updateTaskRouter);
-app.use(api_path, deletePlanRouter);
-app.use(api_path, deleteTaskRouter);
+app.use(cors({origin: frontendOrigin}))
+app.use(morgan(morganString))
+app.use(apiPath, loginRouter)
+app.use(apiPath, getPlansWorkerRouter)
+app.use(apiPath, getTasksRouter)
+app.use(apiPath, getPlansSuperRouter)
+app.use(apiPath, getPlansHrRouter)
+app.use(apiPath, getDictGradesRouter)
+app.use(apiPath, getDictStepsRouter)
+app.use(apiPath, getDictNamesRouter)
+app.use(apiPath, getDictPositionsRouter)
+app.use(apiPath, insertPlanRouter);
+app.use(apiPath, insertTaskRouter);
+app.use(apiPath, updatePlanRouter);
+app.use(apiPath, updateTaskRouter);
+app.use(apiPath, deletePlanRouter);
+app.use(apiPath, deleteTaskRouter);
 
 app.listen(port, _ => {
-	console.log(server_running(port))
+	console.log(serverRunning(port))
 })
 
 module.exports = app
