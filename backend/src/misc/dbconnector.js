@@ -2,7 +2,11 @@
 const pool = require('../config/dbconfig')
 
 const { loginSql, getUserNameSql,
-	getTasksSql, entriesOnPage } = require('./resources')
+	getTasksSql, updateTaskResultSql,
+	insertTaskSql, insertPlanSql,
+	updatePlanSql, updateTaskSql,
+	deletePlanSql, deleteTaskSql,
+	entriesOnPage } = require('./resources')
 
 const methods = {
 	login: async (email, password) => {
@@ -38,7 +42,7 @@ const methods = {
 		return rows
 	},
 	insertPlan: async data => {
-		await pool.query(insert_plan_sql, [
+		await pool.query(insertPlanSql, [
 			data.worker_id,
 			data.position_id,
 			data.super_id,
@@ -51,7 +55,7 @@ const methods = {
 		])
 	},
 	insertTask: async data => {
-		await pool.query(insert_task_sql,
+		await pool.query(insertTaskSql,
 		[
 			data.plan_id,
 			data.name,
@@ -62,7 +66,7 @@ const methods = {
 		])
 	},
 	updatePlan: async data => {
-		await pool.query(update_plan_sql,
+		await pool.query(updatePlanSql,
 		[
 			data.worker_id,
 			data.position_id,
@@ -78,7 +82,7 @@ const methods = {
 		])
 	},
 	updateTask: async data => {
-		await pool.query(update_task_sql,
+		await pool.query(updateTaskSql,
 		[
 			data.plan_id,
 			data.name,
@@ -89,11 +93,18 @@ const methods = {
 			data.id
 		])
 	},
+	updateTaskResult: async data => {
+		await pool.query(updateTaskResultSql,
+		[
+			data.result,
+			data.id
+		])
+	},
 	deletePlan: async id => {
-		await pool.query(delete_plan_sql, [id])
+		await pool.query(deletePlanSql, [id])
 	},
 	deleteTask: async id => {
-		await pool.query(delete_task_sql, [id])
+		await pool.query(deleteTaskSql, [id])
 	}
 }
 

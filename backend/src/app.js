@@ -8,7 +8,8 @@ const morgan = require('morgan')
 
 const { serverRunning, frontendOrigin,
 	defaultExpressPort, apiPath,
-	morganString } = require('./misc/resources')
+	morganString,
+	updateTaskResultPath} = require('./misc/resources')
 
 const app = express()
 const port = process.env.EXPRESS_PORT || defaultExpressPort
@@ -26,6 +27,7 @@ const insertPlanRouter = require('./api/insert/plan')
 const insertTaskRouter = require('./api/insert/task')
 const updatePlanRouter = require('./api/update/plan')
 const updateTaskRouter = require('./api/update/task')
+const updateTaskResultRouter = require('./api/update/taskResult')
 const deletePlanRouter = require('./api/delete/plan')
 const deleteTaskRouter = require('./api/delete/task')
 
@@ -45,6 +47,7 @@ app.use(apiPath, insertPlanRouter);
 app.use(apiPath, insertTaskRouter);
 app.use(apiPath, updatePlanRouter);
 app.use(apiPath, updateTaskRouter);
+app.use(apiPath, updateTaskResultRouter)
 app.use(apiPath, deletePlanRouter);
 app.use(apiPath, deleteTaskRouter);
 

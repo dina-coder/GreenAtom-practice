@@ -27,6 +27,7 @@ const resources = {
 	insertTaskSql: 'insert into tasks (plan_id,name,date_creation,content,date_start,date_end,result) values (?,?,curdate(),?,?,?,?)',
 	updatePlanSql: 'update plans set worker_id = ?, position_id = ?, super_id = ?, hr_id = ?, step_id = ?, date_start = ?, date_end = ?, result = ?, grade_id = ?, comment = ? where id = ?',
 	updateTaskSql: 'update tasks set plan_id = ?, name = ?, content = ?, date_start = ?, date_end = ?, result = ? where id = ?',
+	updateTaskResultSql: 'update tasks set result = ? where id = ?',
 	deletePlanSql: 'delete from plans where id = ?',
 	deleteTaskSql: 'delete from tasks where id = ?',
 
@@ -44,6 +45,7 @@ const resources = {
 	insertTaskPath: '/insert/task',
 	updatePlanPath: '/update/plan',
 	updateTaskPath: '/update/task',
+	updateTaskResultPath: '/update/task_result',
 	deletePlanPath: '/delete/plan',
 	deleteTaskPath: '/delete/task'
 }
