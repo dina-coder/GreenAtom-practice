@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import AdaptationPlanForm from './AdaptationPlanForm'
-import {DeleteTaskFromEmployee,GetEmployeeProfileInfo, TakeTasks, UpdateTaskStatusFromEmployee} from '../../redux/reducers/EmployeeReducer'
+import {DeleteTaskFromEmployee,GetEmployeeProfileInfo, TakeTasks, UpdateTaskStatusFromEmployee, 
+    UpdateTaskFromEmployee} from '../../redux/reducers/EmployeeReducer'
 import Preloader from '../../Preloader/Preloader';
 
 class AdaptationPlan extends React.Component
@@ -32,6 +33,7 @@ class AdaptationPlan extends React.Component
                 DeleteTaskFromEmployee={this.props.DeleteTaskFromEmployee} 
                 TakeTasks={this.props.TakeTasks}
                 UpdateTaskStatusFromEmployee={this.props.UpdateTaskStatusFromEmployee}
+                UpdateTaskFromEmployee={this.props.UpdateTaskFromEmployee}
             />
     }
             </>)
@@ -48,4 +50,5 @@ const mapStateToProps=(state)=>({
     plantasks:state.EmployeeReducer.plantasks
 });
 
-export default  connect (mapStateToProps,{GetEmployeeProfileInfo,DeleteTaskFromEmployee, TakeTasks, UpdateTaskStatusFromEmployee}) (AdaptationPlan)
+export default  connect (mapStateToProps,{GetEmployeeProfileInfo,DeleteTaskFromEmployee, 
+    TakeTasks, UpdateTaskStatusFromEmployee, UpdateTaskFromEmployee}) (AdaptationPlan)

@@ -35,6 +35,11 @@ export const MainAPI = {
     console.log(id, result)
     axios.put("http://localhost:9000/api/update/task_result", { id: id, result: result})
     .then(response=>{ return response.data})
+  },
+  updateTask(plan_id, name, content, date_start, date_end, result, id){ 
+    console.log(plan_id, name, content, date_start, date_end, result, id)
+    axios.put("http://localhost:9000/api/update/task", { plan_id: plan_id, name: name, content: content, date_start:date_start, date_end: date_end, result:result, id:id})
+    .then(response=>{ return response.data})
   }
 
 }
