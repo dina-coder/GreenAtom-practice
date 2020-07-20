@@ -18,7 +18,6 @@ const resources = {
 	getUserNameSql: 'select name from users where id = ?',
 	getTasksSql: 'select id, name, DATE_FORMAT(date_creation, "%d.%m.%Y") as date_creation, content, DATE_FORMAT(date_start, "%d.%m.%Y") as date_start, DATE_FORMAT(date_end, "%d.%m.%Y") as date_end, result from tasks where plan_id = ?',
 	getPlansSuperSql: 'call sp_get_plans_super(?, ?, ?)',
-	//getPlansHrSql: 'select plans.id, users.name as name, positions.id as position_id, positions.name as position, grades.name as grade,  worker_id, DATE_FORMAT(date_creation, "%d.%m.%Y") as date_creation, super_id, hr_id, step_id, steps.name as step, DATE_FORMAT(date_start, "%d.%m.%Y") as date_start, DATE_FORMAT(date_end, "%d.%m.%Y") as date_end, result, grade_id, comment  from plans left join users on users.id=plans.worker_id left join grades on grades.id = plans.grade_id left join positions on positions.id = plans.position_id left join steps on steps.id = plans.step_id limit ?, ?',
 	getPlansHrSql: 'call sp_get_plans_hr(?, ?)',
 	getDictGradesSql: 'select id, name from grades',
 	getDictNamesSql: 'select id, name from users where role_id = ?',
