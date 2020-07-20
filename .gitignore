@@ -108,3 +108,7 @@ dist
 
 # backend sql requests
 backend/request/*.sql
+
+# no more IDE
+backend/.idea
+backend/.vscode
