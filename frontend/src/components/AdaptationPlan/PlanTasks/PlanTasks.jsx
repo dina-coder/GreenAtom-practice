@@ -23,11 +23,14 @@ const PlanTasks = (props) =>{
         <div className={s.Container}>
         <h1> Задачи ({props.plantasks.length>0?props.plantasks.length: 0}) </h1>
         <div className={s.ButtonContainer}>
-        <button onClick = {() => SetTaskButton(true)} className={s.addButton}>+Добавить задачу</button>
+        <button onClick = {() =>SetTaskButton(true)} className={s.addButton}>+Добавить задачу</button>
         </div>
             {AllTasks}
             {AddTaskButton === true ?
-            <div><AddTaskMode plan_id = {props.plan_id}/></div>:
+            <div><AddTaskMode SetTaskButton = {SetTaskButton} date_end = {props.date_end} 
+            userName= {props.userName} plan_id = {props.plan_id}
+            CreatTaskForEmployee = {props.CreatTaskForEmployee}
+            TakeTasks={props.TakeTasks}/></div>:
             ''
             }
             
