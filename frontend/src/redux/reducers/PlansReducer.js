@@ -1,5 +1,6 @@
-import { MainAPI } from '../../API.js'
-import {setToggle} from './AuthReducer'
+import { MainAPI } from '../../API.js';
+import {setToggle} from './AuthReducer';
+import { Roles } from '../../constants/roles';
 
 let initialState = {
     plansList: [],
@@ -8,7 +9,8 @@ let initialState = {
         step:"",
         period:""
     },
-    filteredList: []
+    filteredList: [],
+    stepList:[]
 }
 
 const peopleFilter = (item, search) => {
@@ -36,7 +38,7 @@ const periodFilter = (item,search) => {
     
 }
 
-const HrReducer = (state = initialState, action) => {
+const PlansReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_PLANS_LIST: {
             return { ...state, plansList: action.plansList }
@@ -49,26 +51,43 @@ const HrReducer = (state = initialState, action) => {
                 .filter(item => periodFilter(item,period))
             return {...state, filters:action.filters, filteredList}
         }
-        
+        case STEPS: {
+            return {...state, stepList: action.stepList}
+        }
         default:
             return state
     }
 }
 
-export default HrReducer
+export default PlansReducer;
 
 const SET_PLANS_LIST='SET_PLANS_LIST';
-const FILTER ='FILTER';
+const FILTER = 'FILTER';
+const STEPS = 'STEPS';
 
-export const SetHrPlanInfo = (plansList) => {
+export const setPlansList = (plansList) => {
     return ({ type: SET_PLANS_LIST, plansList })
 }
-
-export const TakeHRPlan = () => async (dispatch) => {
-    dispatch (setToggle(true))
-    let response = await MainAPI.takeplan_HR()
-    dispatch (setToggle(false))
-    dispatch(SetHrPlanInfo(response))
+export const setSteps = (stepList) => {
+    return ({ type:STEPS, stepList})
 }
 
+export const setFilter = (filters) => {
+    return ({type:FILTER, filters});
+}
+
+export const takePlans = (role,userId) => async (dispatch) => {
+    let response; 
+    dispatch (setToggle(true))
+    if (role===Roles.HR) response = await MainAPI.takeplan_HR()
+    if (role===Roles.Director) response = await MainAPI.takeData(userId)
+    console.log(role, response);
+    dispatch (setToggle(false))
+    dispatch(setPlansList(response))
+}
+
+export const takeSteps = () => async(dispatch) => {
+    let response = await MainAPI.takeSteps();
+    dispatch(setSteps(response));
+}
 
