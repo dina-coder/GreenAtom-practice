@@ -50,6 +50,7 @@ export const login = (email, password) =>
             let message = 'Неверный логин или пароль'
             dispatch(stopSubmit('login', { _error: message }))
         } else {
+            console.log(response)
             dispatch(SetAuthCreation(response.name, response.user_id, response.role_id, true))
         }
     }

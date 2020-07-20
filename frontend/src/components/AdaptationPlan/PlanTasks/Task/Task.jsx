@@ -34,10 +34,12 @@ const Task = (props) =>{
         props.DeleteTaskFromEmployee(id)
         props.TakeTasks(plan_id)
     } 
+
     const UpdateTaskStatusFromEmployee=(id, result, plan_id)=>{
         props.UpdateTaskStatusFromEmployee(id, result)
         props.TakeTasks(plan_id)
     }
+    
     const UpdateTaskFromEmployee=(plan_id, name, content, date_start, date_end, result, id)=>{
         props.UpdateTaskFromEmployee(plan_id, name, content, date_start, date_end, result, id)
         props.TakeTasks(plan_id)
