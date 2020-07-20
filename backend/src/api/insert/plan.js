@@ -8,7 +8,7 @@ const { insertPlan } = require('../../misc/dbconnector')
 
 router.post(insertPlanPath, async (req, res) => {
 	try {
-		const result = await insertPlan(req.body)
+		await insertPlan(req.body)
 		res.status(200).send(inserted)
 	} catch (ex) {
 		console.error(ex)

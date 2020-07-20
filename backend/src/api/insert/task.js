@@ -8,7 +8,7 @@ const { insertTask } = require('../../misc/dbconnector')
 
 router.post(insertTaskPath, async (req, res) => {
 	try {
-		const result = await insertTask(req.body)
+		await insertTask(req.body)
 		res.status(200).send(inserted)
 	} catch (ex) {
 		console.error(ex)

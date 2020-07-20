@@ -8,7 +8,7 @@ const { deleteTask } = require('../../misc/dbconnector')
 
 router.delete(deleteTaskPath, async (req, res) => {
 	try {
-		const result = await deleteTask(req.body.id)
+		await deleteTask(req.body.id)
 		res.status(200).send(deleted)
 	} catch (ex) {
 		console.error(ex)

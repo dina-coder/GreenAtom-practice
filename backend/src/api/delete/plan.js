@@ -8,7 +8,7 @@ const { deletePlan } = require('../../misc/dbconnector')
 
 router.delete(deletePlanPath, async (req, res) => {
 	try {
-		const result = await deletePlan(req.body.id)
+		await deletePlan(req.body.id)
 		res.status(200).send(deleted)
 	} catch (ex) {
 		console.error(ex)

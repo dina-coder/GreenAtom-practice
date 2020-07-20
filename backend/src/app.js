@@ -8,8 +8,7 @@ const morgan = require('morgan')
 
 const { serverRunning, frontendOrigin,
 	defaultExpressPort, apiPath,
-	morganString,
-	updateTaskResultPath} = require('./misc/resources')
+	morganString } = require('./misc/resources')
 
 const app = express()
 const port = process.env.EXPRESS_PORT || defaultExpressPort
@@ -51,7 +50,7 @@ app.use(apiPath, updateTaskResultRouter)
 app.use(apiPath, deletePlanRouter);
 app.use(apiPath, deleteTaskRouter);
 
-app.listen(port, _ => {
+app.listen(port, () => {
 	console.log(serverRunning(port))
 })
 

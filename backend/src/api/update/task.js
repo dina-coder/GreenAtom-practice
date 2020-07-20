@@ -8,7 +8,7 @@ const { updateTask } = require('../../misc/dbconnector')
 
 router.put(updateTaskPath, async (req, res) => {
 	try {
-		const result = await updateTask(req.body)
+		await updateTask(req.body)
 		res.status(200).send(updated)
 	} catch (ex) {
 		console.error(ex)

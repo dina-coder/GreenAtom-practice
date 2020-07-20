@@ -8,7 +8,7 @@ const { updatePlan } = require('../../misc/dbconnector')
 
 router.put(updatePlanPath, async (req, res) => {
 	try {
-		const result = await updatePlan(req.body)
+		await updatePlan(req.body)
 		res.status(200).send(updated)
 	} catch (ex) {
 		console.error(ex)
