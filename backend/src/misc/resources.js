@@ -47,7 +47,9 @@ const resources = {
 	updateTaskPath: '/update/task',
 	updateTaskResultPath: '/update/task_result',
 	deletePlanPath: '/delete/plan',
-	deleteTaskPath: '/delete/task'
+	deleteTaskPath: '/delete/task',
+
+	dateConvertToMySql: date => { return date.split('.').reverse().join('-') }
 }
 
 module.exports = resources
