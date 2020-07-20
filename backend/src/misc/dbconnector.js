@@ -1,6 +1,5 @@
 'use strict'
-const legacy = require('../config/dbconfig')
-const pool = require('../config/db2config')
+const pool = require('../config/dbconfig')
 
 const { login_sql, get_user_name_sql,
 	get_tasks_sql, insert_plan_sql,

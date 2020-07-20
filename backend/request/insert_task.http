@@ -2,7 +2,7 @@ POST http://localhost:9000/api/insert/task HTTP/1.1
 content-type: application/json
 
 {
-	"plan_id": 15,
+	"plan_id": 18,
 	"name": "Сходить за шаурмой",
 	"content": "В общем, сходи за шаурмой",
 	"date_start": "2020-07-17",

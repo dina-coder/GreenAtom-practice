@@ -8,7 +8,8 @@ const morgan = require('morgan')
 
 const { server_running, frontend_origin,
 	default_express_port, api_path,
-	morgan_string } = require('./misc/resources')
+	morgan_string
+} = require('./misc/resources')
 
 const app = express()
 const port = process.env.EXPRESS_PORT || default_express_port
