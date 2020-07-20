@@ -11,7 +11,7 @@ const { loginSql, getUserNameSql,
 const methods = {
 	login: async (email, password) => {
 		const [rows] = await pool.query(loginSql, [email, password])
-		return rows[0]
+		return rows[0][0]
 	},
 	getTasks: async plan_id => {
 		const [rows] = await pool.query(getTasksSql, [plan_id])
