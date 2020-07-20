@@ -3,7 +3,7 @@ import style from './AddButton.module.scss';
 
 const AddButton = (props) => {
 return(
-    <div className={style.addButton}>
+    <div className = {style.addButton}>
        + Добавить {props.title}
     </div>
 )

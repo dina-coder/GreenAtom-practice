@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import s from './PlanTasks.module.scss'
-import TopPanelWithCreate from '../../TopPanelWithCreate/TopPanelWithCreate'
 import Task from './Task/Task'
+import AddTaskMode from '../AddTaskMode/AddTaskMode'
 
 const PlanTasks = (props) =>{
+    const [AddTaskButton,SetTaskButton] = useState(false)
     let AllTasks;
     if (props.plantasks.length>0)
     {
@@ -22,9 +23,14 @@ const PlanTasks = (props) =>{
         <div className={s.Container}>
         <h1> Задачи ({props.plantasks.length>0?props.plantasks.length: 0}) </h1>
         <div className={s.ButtonContainer}>
-        <button className={s.addButton}>+Добавить задачу</button>
+        <button onClick = {() => SetTaskButton(true)} className={s.addButton}>+Добавить задачу</button>
         </div>
             {AllTasks}
+            {AddTaskButton === true ?
+            <div><AddTaskMode plan_id = {props.plan_id}/></div>:
+            ''
+            }
+            
         </div>
     )
 }
