@@ -18,17 +18,17 @@ const Login = (props) => {
     };
 
     return (
-        <div className={s.Container}>
-            <div className={s.logo_container}>
-                <img className={s.logo} src={logo}/>
+        <div className = {s.Container}>
+            <div className = {s.logo_container}>
+                <img className = {s.logo} src={logo}/>
             </div>
-            <div className={s.content}>
-                <div className={s.title_container}>
-                    <h1 className={s.title}>
-                        Добро пожаловать в <div className={s.bold}>Гринатом!</div>
+            <div className = {s.content}>
+                <div className = {s.title_container}>
+                    <h1 className = {s.title}>
+                        Добро пожаловать в <div className = {s.bold}>Гринатом!</div>
                     </h1>
                 </div>
-                <ContactReduxForm onSubmit={onSubmit}/>
+                <ContactReduxForm onSubmit = {onSubmit}/>
             </div>
         </div>
     );
@@ -37,19 +37,19 @@ const ContactForm = (props) => {
     const {handleSubmit} = props;
 
     return (
-        <form className={s.Form} onSubmit={handleSubmit}>
-            <div className={s.field}>
-                <img className={s.mail_img} src={mail}/>
-                <Field name={'email'} placeholder={'E-mail'} component={TextArea}/>
+        <form className = {s.Form} onSubmit={handleSubmit}>
+            <div className = {s.field}>
+                <img className = {s.mail_img} src = {mail} alt = ""/>
+                <Field name = {'email'} placeholder={'E-mail'} component = {TextArea}/>
                 {props.error && <div className={s.error}>{props.error} </div>}
-                <div className={s.underline} />
+                <div className = {s.underline} />
             </div>
-            <div className={s.field}>
-                <img className={s.password_img} src={password}/>
-                <Field name={'password'} placeholder={'Пароль'} component={TextArea}/>
-                <div className={s.underline} />
+            <div className = {s.field}>
+                <img className = {s.password_img} src = {password} alt = ""/>
+                <Field name = {'password'} placeholder = {'Пароль'} component={TextArea}/>
+                <div className = {s.underline} />
             </div>
-            <button className={s.button}><span>Войти</span></button>
+            <button className = {s.button}><span>Войти</span></button>
         </form>
     );
 };

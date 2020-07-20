@@ -26,7 +26,7 @@ class AdaptationPlans extends React.Component {
                 SetInfoForPlan = {this.props.SetInfoForPlan}
                 DataAboutPlans = {this.props.allPlans}
                 name = {this.props.name}
-                steps={this.props.steps}
+                steps = {this.props.steps}
                 canCreate = {privilegeToAdd(this.props.role)}
             />
     
@@ -35,7 +35,7 @@ class AdaptationPlans extends React.Component {
     }
 }
 
-const mapStateToProps=(state)=>({
+const mapStateToProps = (state) =>({
     isFetching: state.AuthReducer.isFetching,
     user_id: state.AuthReducer.user_id,
     allPlans: state.PlansReducer.plansList,
