@@ -4,8 +4,8 @@ content-type: application/json
 {
 	"id": 4,
 	"plan_id": 1,
-	"name": "Сходить за пивом",
-	"content": "Мне светлого нефильтрованного",
+	"name": "Сходить за ",
+	"content": "Мне ",
 	"date_start": "2020-07-17",
 	"date_end": "2020-07-19",
 	"result": 0

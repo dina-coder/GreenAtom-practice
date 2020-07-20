@@ -1,17 +1,18 @@
+'use strict'
 const express = require('express')
 const router = express.Router()
-const { db_error, generic_db_error, empty,
-	get_plans_hr_path, get_plans_hr_sql
+const { dbError, genericDbError, empty,
+	getPlansHrPath, getPlansHrSql
 } = require('../misc/resources')
-const { get_plans } = require('../misc/dbconnector')
+const { getPlans } = require('../misc/dbconnector')
 
-router.get(get_plans_hr_path, async (req, res) => {
+router.get(getPlansHrPath, async (req, res) => {
 	try {
-		const result = await get_plans(get_plans_hr_sql, undefined, req.query.page)
+		const result = await getPlans(getPlansHrSql, undefined, req.query.page)
 		res.status(200).send(result[0] ? result : empty)
 	} catch (ex) {
 		console.error(ex)
-		res.status(500).send(db_error(generic_db_error))
+		res.status(500).send(dbError(genericDbError))
 	}
 })
 

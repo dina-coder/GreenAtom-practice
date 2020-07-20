@@ -38,14 +38,18 @@ export const MainAPI = {
   },
   deleteTask(id) {
     console.log(id)
-    axios.delete("http://localhost:9000/api/delete/task", {
-        data: {
-          id: id
-        }
-      })
-      .then(response => {
-        return response.data
-      })
+    axios.delete("http://localhost:9000/api/delete/task", { data: { id: id }})
+    .then(response=>{  return response.data})
+  },
+  updateTaskStatus(id, result){ 
+    console.log(id, result)
+    axios.put("http://localhost:9000/api/update/task_result", { id: id, result: result})
+    .then(response=>{ return response.data})
+  },
+  updateTask(plan_id, name, content, date_start, date_end, result, id){ 
+    console.log(plan_id, name, content, date_start, date_end, result, id)
+    axios.put("http://localhost:9000/api/update/task", { plan_id: plan_id, name: name, content: content, date_start:date_start, date_end: date_end, result:result, id:id})
+    .then(response=>{ return response.data})
   },
   takeSteps(){
     return axios.get('http://localhost:9000/api/dict/steps')
@@ -53,5 +57,4 @@ export const MainAPI = {
         return response.data
       })
   }
-
 }

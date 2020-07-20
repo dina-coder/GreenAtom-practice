@@ -3,14 +3,14 @@ content-type: application/json
 
 {
 	"id": 6,
-	"worker_id": 6,
+	"worker_id": 7,
 	"position_id": 2,
 	"super_id": 3,
 	"hr_id": 1,
 	"step_id": 1,
-	"date_start": "2020-06-09",
-	"date_end": "2020-08-09",
+	"date_start": "12.06.2020",
+	"date_end": "09.08.2020",
 	"result": 0,
 	"grade_id": null,
-	"comment": "Я. Любовь. Соболь. 3 в 1 бля"
+	"comment": "lol"
 }
