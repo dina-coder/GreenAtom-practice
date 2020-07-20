@@ -3,15 +3,13 @@ import {reducer as formReducer} from 'redux-form'
 import AuthReducer from "./reducers/AuthReducer";
 import thunkMiddleware from 'redux-thunk'
 import EmployeeReducer from './reducers/EmployeeReducer';
-import SuperReducer from './reducers/SuperReducer';
-import HrReducer from './reducers/HrReducer';
+import PlansReducer from './reducers/PlansReducer';
 
 let reducers=combineReducers({
     form:formReducer,
     AuthReducer:AuthReducer,
     EmployeeReducer:EmployeeReducer,
-    SuperReducer:SuperReducer,
-    HrReducer:HrReducer
+    PlansReducer:PlansReducer
 });
 
 export const store = createStore(reducers, applyMiddleware(thunkMiddleware));

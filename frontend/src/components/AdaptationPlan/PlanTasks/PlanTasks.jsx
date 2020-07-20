@@ -8,8 +8,14 @@ const PlanTasks = (props) =>{
     if (props.plantasks.length>0)
     {
         AllTasks=props.plantasks.map((x, key)=><Task plan_id={props.plan_id} id = {x.id}
-                                                    DeleteTaskFromEmployee = {props.DeleteTaskFromEmployee} key={key} name={x.name} 
-                                                    date_end={x.date_end} result={x.result} content={x.content} plan_id={props.plan_id} />)
+                                                    date_start={x.date_start}
+                                                    DeleteTaskFromEmployee = {props.DeleteTaskFromEmployee} 
+                                                    key={key} name={x.name} 
+                                                    date_end={x.date_end} result={x.result} 
+                                                    content={x.content} plan_id={props.plan_id} 
+                                                    TakeTasks={props.TakeTasks}
+                                                    UpdateTaskStatusFromEmployee={props.UpdateTaskStatusFromEmployee}
+                                                    UpdateTaskFromEmployee={props.UpdateTaskFromEmployee}/>)
     }
     else AllTasks="Задачи не добавлены"
     return (

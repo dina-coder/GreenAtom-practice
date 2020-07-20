@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {TakeInfo} from '../../redux/reducers/SuperReducer';
-import {TakeHRPlan} from '../../redux/reducers/HrReducer';
+import { takePlans, takeSteps } from '../../redux/reducers/PlansReducer';
 import AdaptationPlansForm from './AdaptationPlansForm';
 import {SetInfoForPlan} from '../../redux/reducers/EmployeeReducer'
 import { mapRoleIdToRole } from '../../utils/mapRoleIdToRole';
@@ -11,31 +10,23 @@ class AdaptationPlans extends React.Component {
 
 
     componentDidMount(){
-        if (this.props.role === Roles.HR){
-            this.props.TakeHRPlan()
-        }
-        else {
-            this.props.TakeInfo(this.props.user_id)
-        }
-        
+        this.props.takePlans(this.props.role, this.props.user_id)
+        this.props.takeSteps();
+        console.log("steps:"+this.props.steps,this.props.allPlans)
     }
      
     render() {
         const privilegeToAdd = (role) => {
             return role === Roles.HR ? true : false;
         }
-       let  DataAboutPlans = [];
-      if (this.props.role === Roles.Director){
-          DataAboutPlans = this.props.planForSuper;
-      }
-      else {DataAboutPlans = this.props.allPlans};
     
         return (
             <AdaptationPlansForm
                 isFetching = {this.props.isFetching}
                 SetInfoForPlan = {this.props.SetInfoForPlan}
-                DataAboutPlans = {DataAboutPlans}
+                DataAboutPlans = {this.props.allPlans}
                 name = {this.props.name}
+                steps={this.props.steps}
                 canCreate = {privilegeToAdd(this.props.role)}
             />
     
@@ -47,10 +38,10 @@ class AdaptationPlans extends React.Component {
 const mapStateToProps=(state)=>({
     isFetching: state.AuthReducer.isFetching,
     user_id: state.AuthReducer.user_id,
-    planForSuper: state.SuperReducer.planForSuper,
-    allPlans: state.HrReducer.plansList,
+    allPlans: state.PlansReducer.plansList,
     name: state.AuthReducer.name,
-    role: mapRoleIdToRole(state.AuthReducer['role_id'])
+    role: mapRoleIdToRole(state.AuthReducer['role_id']),
+    steps: state.PlansReducer.stepList
 });
 
-export default connect(mapStateToProps,{TakeInfo,TakeHRPlan,SetInfoForPlan})(AdaptationPlans);
+export default connect(mapStateToProps,{ takePlans,takeSteps, SetInfoForPlan })(AdaptationPlans);
