@@ -11,9 +11,15 @@ const Task = (props) =>{
         props.DeleteTaskFromEmployee(id)
         props.TakeTasks(plan_id)
     } 
+    const UpdateTaskStatusFromEmployee=(id, result, plan_id)=>{
+        props.UpdateTaskStatusFromEmployee(id, result)
+        props.TakeTasks(plan_id)
+    }
     return (
         <div className={isFullInfo === props.key ? s.ContainerBig : s.Container}>
-            <div className={props.result==0 ? s.CircleFalse : s.CircleTrue}></div>
+           {props.result === 0 ?
+            <div onClick={()=>{UpdateTaskStatusFromEmployee(props.id, 1, props.plan_id)}} className= {s.CircleFalse} ></div>:
+            <div onClick={()=>{UpdateTaskStatusFromEmployee(props.id, 0, props.plan_id)}} className={s.CircleTrue}></div>}
             <h3 className={s.Title}>{props.name}</h3>
             <h3 className={s.Date}>До {props.date_end}</h3>
             <img className={s.Edit} src={editionicon} />

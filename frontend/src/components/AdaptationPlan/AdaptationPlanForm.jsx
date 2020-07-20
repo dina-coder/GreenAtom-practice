@@ -11,7 +11,8 @@ const AdaptationPlanForm = (props) => {
                 <AdaptationPlanInfo employee={props.employee} />
                 <PlanTasks 
                 DeleteTaskFromEmployee={props.DeleteTaskFromEmployee} 
-                plantasks={props.plantasks} TakeTasks={props.TakeTasks} plan_id={props.employee.plan_id}/>
+                plantasks={props.plantasks} TakeTasks={props.TakeTasks} plan_id={props.employee.plan_id}
+                 UpdateTaskStatusFromEmployee={props.UpdateTaskStatusFromEmployee}/>
             </div>
         </div>
     )

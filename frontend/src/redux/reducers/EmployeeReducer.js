@@ -68,6 +68,9 @@ export const DeleteTaskFromEmployee = (task_id) => async () => {
      await MainAPI.deleteTask(task_id)
 }
 
-
+export const UpdateTaskStatusFromEmployee = (task_id, result) => async () => {
+   let response = await MainAPI.updateTaskStatus(task_id, result)
+   console.log(response)
+}
 
 

@@ -30,6 +30,11 @@ export const MainAPI = {
     console.log(id)
     axios.delete("http://localhost:9000/api/delete/task", { data: { id: id }})
     .then(response=>{  return response.data})
+  },
+  updateTaskStatus(id, result){ 
+    console.log(id, result)
+    axios.put("http://localhost:9000/api/update/task_result", { id: id, result: result})
+    .then(response=>{ return response.data})
   }
 
 }
