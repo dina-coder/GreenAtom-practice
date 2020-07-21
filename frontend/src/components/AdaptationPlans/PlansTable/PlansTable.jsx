@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import moment from 'moment';
 import arrow from '../../../img/down-arrow.png';
 import greenArrow from '../../../img/down-arrow-green.png';
 import rightArrow from '../../../img/right-arrow.png';

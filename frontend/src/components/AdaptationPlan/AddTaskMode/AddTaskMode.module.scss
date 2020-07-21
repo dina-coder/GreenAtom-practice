@@ -1,21 +1,92 @@
-.constainer{
+@import '../../../variables';
+
+.container{
     position: absolute;
-    top:-20em;
+    top:-25em;
     bottom: 10px;
     left : 15em;
-    width: 410px;
-    height: 600px;
+    height: 450px;
     background-color:white;
     border-radius: 15px;
-    border: 3px solid #8CC547;
+    width: 80%;
+    max-width: 550px;
+    margin: 2em auto;
+    padding: 1em;
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+    .Line{
+        background-color:#8CC547;
+        color: #8CC547;
+        height: 1px;
+    }
+}
+.Title{
+    font-family: Roboto, sans-serif;
+    font-size: 20pt;
+    font-weight: 600;
+    color: $textColor;
+    position: relative;
+    top: 10px;
+    text-align: center;
+}
+.NameOfField{
+    text-align: left;
+    font-size: 10pt;
+    font-weight: 400;
+    margin-left: 40px;
 
 }
+.AddTable{
+    font-family: Roboto, sans-serif;
+    font-size: 12pt;
+
+td{
+     padding: 6px 10px;
+}
+.Input{
+    height: 20px;
+    width: 300px;
+    border-radius:5px;
+    border: 0.5px solid rgb(92, 92, 92);
+    transition: .3s border-color;
+    padding: 5px;
+    font-family: Roboto;
+
+}
+.Input::placeholder{
+    color: $additionText
+}
+}
+.InputBig{
+    height: 100px;
+    width: 305px;
+    border-radius:5px;
+    border: 0.5px solid rgb(92, 92, 92);
+    transition: .3s border-color;
+    font-family: Roboto;
+
+}
+.InputBig::placeholder{
+    color: $additionText
+}
+.Input:focus{
+    outline:none;
+    border: 2px solid #8CC547;
+}
+.InputBig:focus{
+    outline:none;
+    border: 2px solid #8CC547;
+}
+
+
+// input.Input{
+//     border: 1px solid #8CC547;
+// }
 .close {
     position: absolute;
     right: 32px;
     top: 32px;
-    width: 32px;
-    height: 32px;
+    width: 17px;
+    height: 17px;
     opacity: 0.3;
     }
     .close:hover {
@@ -25,7 +96,7 @@
     position: absolute;
     left: 15px;
     content: ' ';
-    height: 33px;
+    height: 17px;
     width: 2px;
     background-color: #333;
     }
@@ -35,3 +106,26 @@
     .close:after {
     transform: rotate(-45deg);
     }
+.ButtonContainer{
+    padding-top: 20px;
+    text-align: center;
+
+.AddButton{
+    position: center;
+    height: 40px;
+    width: 120px;
+    border: none;
+     font: inherit;
+    color: inherit;
+    background-color: transparent;
+    color: #FFFFFF;
+    background-color: $brandColor;
+    font-size: 18px;
+    margin-left: auto;
+    border-radius: 16px;
+}
+.periodInput{
+    width:calc(100%-60px);
+    background: white url('../../../img/calendar.png') no-repeat 10px 8px;
+}
+}
