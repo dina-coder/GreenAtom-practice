@@ -9,9 +9,8 @@ import { Roles } from '../../constants/roles';
 class AdaptationPlans extends React.Component {
 
     componentDidMount(){
-        this.props.takePlans(this.props.role, this.props.user_id)
+        this.props.takePlans(this.props.role, this.props.user_id).then(()=>this.props.setFilter(this.props.filters));
         this.props.takeSteps();
-        console.log("steps:"+this.props.steps,this.props.allPlans)
     }
 
     onFilter = (filter,value) => {
@@ -27,10 +26,7 @@ class AdaptationPlans extends React.Component {
             <AdaptationPlansForm
                 isFetching = {this.props.isFetching}
                 SetInfoForPlan = {this.props.SetInfoForPlan}
-                DataAboutPlans = {Object.values(this.props.filters).every(x=> x===null) 
-                    ? this.props.allPlans
-                    : this.props.filteredList
-                }
+                DataAboutPlans = {this.props.filteredList}
                 name = {this.props.name}
                 steps={this.props.steps}
                 onFilter={this.onFilter}

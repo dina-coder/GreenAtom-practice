@@ -1,6 +1,7 @@
 import { MainAPI } from '../../API.js';
 import {setToggle} from './AuthReducer';
 import { Roles } from '../../constants/roles';
+import { formatDate } from '../../utils/formatDate';
 
 let initialState = {
     plansList: [],
@@ -13,16 +14,10 @@ let initialState = {
     stepList:[]
 }
 
-const formatDate = (date)=>{
-  return  +new Date(date.split('.').reverse().join('.'));
-}
-
-
 const peopleFilter = (item, search) => {
     if (!search) return true;
     const nameHasSearch = (item.name.toLowerCase().indexOf(search.toLowerCase())!==-1);
     const superNameHasSearch = (item.super.toLowerCase().indexOf(search.toLowerCase())!==-1);
-    console.log(nameHasSearch);
     if (nameHasSearch || superNameHasSearch) return true;
     return false;
 }
@@ -40,9 +35,8 @@ const periodFilter = (item,search) => {
      if (
          (formatDate(item['date_start'])) >= (formatDate(period[0])) 
         && (formatDate(item['date_end'])) <= (formatDate(period[1]))
-        ) {
-            console.log("imhere");
-         return true; }
+        )         
+         return true; 
     else return false;
     
 }
@@ -54,12 +48,10 @@ const PlansReducer = (state = initialState, action) => {
         }
         case FILTER: {
             const { search, step, period } = action.filters;
-            console.log(action.filters);
             const filteredList = [...state.plansList]
                 .filter(item => peopleFilter(item,search))
                 .filter(item => stepFilter(item, step))
                 .filter(item => periodFilter(item,period))
-                console.log(filteredList)
             return {...state, filters:action.filters, filteredList}
         }
         case STEPS: {
