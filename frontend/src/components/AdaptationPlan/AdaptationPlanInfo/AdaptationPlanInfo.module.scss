@@ -1,12 +1,14 @@
 @import '../../../variables';
 
-.DarkContainer{
-.Container{
+
     .Title{
+        font-family: Roboto, sans-serif;
         font-size: 28px;
         line-height: 33px;
         font-weight: 600;
         color: $textColor;
+        margin-left: -28px;
+
     }
     .DateOfCreation{
         text-align: right;
@@ -32,5 +34,3 @@
     td {
         padding-top: 3px;
     }
-}
-}
