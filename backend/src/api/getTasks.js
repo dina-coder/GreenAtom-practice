@@ -8,7 +8,7 @@ const { getTasks } = require('../misc/dbconnector')
 
 router.get(getTasksPath, async (req, res) => {
 	try {
-		const result = await getTasks(req.query.plan_id)
+		const result = await getTasks(req.query.plan_id, req.query.page)
 		res.status(200).send(result[0] ? result : empty)
 	} catch (ex) {
 		console.log(ex)
