@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { takePlans, takeSteps } from '../../redux/reducers/PlansReducer';
+import { takePlans, takeSteps, setFilter } from '../../redux/reducers/PlansReducer';
 import AdaptationPlansForm from './AdaptationPlansForm';
 import {SetInfoForPlan} from '../../redux/reducers/EmployeeReducer'
 import { mapRoleIdToRole } from '../../utils/mapRoleIdToRole';
@@ -8,11 +8,14 @@ import { Roles } from '../../constants/roles';
 
 class AdaptationPlans extends React.Component {
 
-
     componentDidMount(){
         this.props.takePlans(this.props.role, this.props.user_id)
         this.props.takeSteps();
         console.log("steps:"+this.props.steps,this.props.allPlans)
+    }
+
+    onFilter = (filter,value) => {
+        this.props.setFilter({...this.props.filters, [filter]: value})
     }
      
     render() {
@@ -24,9 +27,14 @@ class AdaptationPlans extends React.Component {
             <AdaptationPlansForm
                 isFetching = {this.props.isFetching}
                 SetInfoForPlan = {this.props.SetInfoForPlan}
-                DataAboutPlans = {this.props.allPlans}
+                DataAboutPlans = {Object.values(this.props.filters).every(x=> x===null) 
+                    ? this.props.allPlans
+                    : this.props.filteredList
+                }
                 name = {this.props.name}
                 steps={this.props.steps}
+                onFilter={this.onFilter}
+                filters={this.props.filters}
                 canCreate = {privilegeToAdd(this.props.role)}
             />
     
@@ -41,7 +49,9 @@ const mapStateToProps=(state)=>({
     allPlans: state.PlansReducer.plansList,
     name: state.AuthReducer.name,
     role: mapRoleIdToRole(state.AuthReducer['role_id']),
-    steps: state.PlansReducer.stepList
+    steps: state.PlansReducer.stepList,
+    filters: state.PlansReducer.filters,
+    filteredList: state.PlansReducer.filteredList
 });
 
-export default connect(mapStateToProps,{ takePlans,takeSteps, SetInfoForPlan })(AdaptationPlans);
+export default connect(mapStateToProps,{ takePlans,takeSteps, SetInfoForPlan, setFilter })(AdaptationPlans);

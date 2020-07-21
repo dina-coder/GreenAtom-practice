@@ -5,35 +5,44 @@ import { Roles } from '../../constants/roles';
 let initialState = {
     plansList: [],
     filters: {
-        search:"",
-        step:"",
-        period:""
+        search:null,
+        step:null,
+        period:null
     },
     filteredList: [],
     stepList:[]
 }
 
+const formatDate = (date)=>{
+  return  +new Date(date.split('.').reverse().join('.'));
+}
+
+
 const peopleFilter = (item, search) => {
     if (!search) return true;
-    const nameHasSearch = !~item.name.indexOf(search);
-    const superNameHasSearch = !~item.super.indexOf(search);
+    const nameHasSearch = (item.name.toLowerCase().indexOf(search.toLowerCase())!==-1);
+    const superNameHasSearch = (item.super.toLowerCase().indexOf(search.toLowerCase())!==-1);
+    console.log(nameHasSearch);
     if (nameHasSearch || superNameHasSearch) return true;
     return false;
 }
 
 const stepFilter = (item,search) => {
     if (!search) return true;
-    const stepHasSearch = !~item.step.indexOf(search);
+    const stepHasSearch = item.step.indexOf(search)!==-1;
+    if (stepHasSearch) return true;
+    return false;
 }
 
 const periodFilter = (item,search) => {
     if (!search) return true;
     const period = search.split("-"); 
      if (
-         (new Date(item.dateStart)) >= (new Date (period[0])) 
-        && (new Date(item.dateEnd)) <= (new Date (period[1]))
-        ) 
-    return true;
+         (formatDate(item['date_start'])) >= (formatDate(period[0])) 
+        && (formatDate(item['date_end'])) <= (formatDate(period[1]))
+        ) {
+            console.log("imhere");
+         return true; }
     else return false;
     
 }
@@ -45,10 +54,12 @@ const PlansReducer = (state = initialState, action) => {
         }
         case FILTER: {
             const { search, step, period } = action.filters;
+            console.log(action.filters);
             const filteredList = [...state.plansList]
                 .filter(item => peopleFilter(item,search))
                 .filter(item => stepFilter(item, step))
                 .filter(item => periodFilter(item,period))
+                console.log(filteredList)
             return {...state, filters:action.filters, filteredList}
         }
         case STEPS: {
@@ -81,7 +92,6 @@ export const takePlans = (role,userId) => async (dispatch) => {
     dispatch (setToggle(true))
     if (role===Roles.HR) response = await MainAPI.takeplan_HR()
     if (role===Roles.Director) response = await MainAPI.takeData(userId)
-    console.log(role, response);
     dispatch (setToggle(false))
     dispatch(setPlansList(response))
 }
