@@ -43,7 +43,7 @@ class AdaptationPlans extends React.Component {
     }
 }
 
-const mapStateToProps=(state)=>({
+const mapStateToProps = (state) =>({
     isFetching: state.AuthReducer.isFetching,
     user_id: state.AuthReducer.user_id,
     allPlans: state.PlansReducer.plansList,

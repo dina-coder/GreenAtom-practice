@@ -76,5 +76,9 @@ export const UpdateTaskFromEmployee = (plan_id, name, content, date_start, date_
     let response = await MainAPI.updateTask(plan_id, name, content, date_start, date_end, result, id)
     console.log(response)
  }
+ export const CreatTaskForEmployee = (plan_id, name, content, date_start, date_end, result) => async () => {
+    let response = await MainAPI.creactTasks(plan_id, name, content, date_start, date_end, result)
+    console.log(response)
+ }
 
 

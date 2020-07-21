@@ -3,7 +3,7 @@ import s from './AdaptationPlanInfo.module.scss'
 
 const AdaptationPlanInfo = (props) =>{
     return (
-        <div  className={s.Container}>
+        <div>
             <table>
                  <tr>
                      <td><h1 className={s.Title}>План адаптации</h1></td>

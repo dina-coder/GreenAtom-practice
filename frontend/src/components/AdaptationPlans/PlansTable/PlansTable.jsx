@@ -20,23 +20,23 @@ const PlansTable = (props) => {
         <table>
             <thead>
             <tr>
-            <th className={style.choosen}>ФИО<img src={greenArrow}></img></th>
-            <th>РУКОВОДИТЕЛЬ<img src={arrow}></img></th>
-            <th>ЭТАП<img src={arrow}></img></th>
-            <th>ПЕРИОД<img src={arrow}></img></th>
+            <th className={style.choosen}>ФИО<img src = {greenArrow} alt = ""></img></th>
+            <th>РУКОВОДИТЕЛЬ<img src = {arrow} alt = ""></img></th>
+            <th>ЭТАП<img src = {arrow} alt = ""></img></th>
+            <th>ПЕРИОД<img src = {arrow} alt = ""></img></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
                 {props.DataAboutPlans.length > 0 ?
-                 props.DataAboutPlans.map(x=>
-                    <tr className={style.plan}>
-                        <td className={style.choosen}>{x.name}</td>
+                 props.DataAboutPlans.map(x =>
+                    <tr className = {style.plan}>
+                        <td className = {style.choosen}>{x.name}</td>
                         <td>{x.super}</td>
                         <td>{x.step}</td>
                         <td>{x.date_start}&nbsp;-&nbsp;{x.date_end}</td>
-                        <td><button className={style.planButton}
-                         onClick={()=>TakeDataForPlanClick(true,x.worker_id)}> Перейти  <img src={rightArrow}></img>
+                        <td><button className = {style.planButton}
+                         onClick = {()=>TakeDataForPlanClick(true,x.worker_id)}> Перейти  <img src = {rightArrow} alt = ""></img>
                          </button></td>
                     </tr> 
                     )
