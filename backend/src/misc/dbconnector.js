@@ -17,7 +17,7 @@ const methods = {
 		const [rows] = await pool.query(getTasksSql,
 			[
 				plan_id,
-				page * entriesOnPage - entriesOnPage + 1,
+				page * entriesOnPage - entriesOnPage,
 				entriesOnPage
 			])
 		return rows[0]
@@ -27,7 +27,7 @@ const methods = {
 		if (user_id)
 			obj.push(user_id)
 		if (page) {
-			obj.push(page * entriesOnPage - entriesOnPage + 1)
+			obj.push(page * entriesOnPage - entriesOnPage)
 			obj.push(entriesOnPage)
 		}
 		let [rows] = await pool.query(sql, obj)
