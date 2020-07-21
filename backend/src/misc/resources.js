@@ -15,7 +15,6 @@ const resources = {
 
 	loginSql: 'call sp_login(?, ?)',
 	getPlansWorkerSql: 'call sp_get_plans_worker(?)',
-	getUserNameSql: 'select name from users where id = ?',
 	getTasksSql: 'select id, name, DATE_FORMAT(date_creation, "%d.%m.%Y") as date_creation, content, DATE_FORMAT(date_start, "%d.%m.%Y") as date_start, DATE_FORMAT(date_end, "%d.%m.%Y") as date_end, result from tasks where plan_id = ? limit ?, ?',
 	getPlansSuperSql: 'call sp_get_plans_super(?, ?, ?)',
 	getPlansHrSql: 'call sp_get_plans_hr(?, ?)',

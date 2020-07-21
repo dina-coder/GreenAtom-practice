@@ -1,7 +1,7 @@
 'use strict'
 const pool = require('../config/dbconfig')
 
-const { loginSql, getUserNameSql,
+const { loginSql,
 	getTasksSql, updateTaskResultSql,
 	insertTaskSql, insertPlanSql,
 	updatePlanSql, updateTaskSql,
@@ -34,13 +34,6 @@ const methods = {
 		rows = rows[0]
 		if (!rows[0] || !rows[0].hr_id || !rows[0].super_id)
 			return []
-		await Promise.all(rows.map(async element => {
-			let [hrRows] = await pool.query(getUserNameSql, [element.hr_id])
-			let [superRows] = await pool.query(getUserNameSql, [element.super_id])
-			element.hr = hrRows[0].name
-			element.super = superRows[0].name
-			return element
-		}))
 		return rows
 	},
 	getDict: async (sql, role_id) => {
