@@ -27,7 +27,7 @@ class AdaptationPlan extends React.Component
             <Preloader/>
             :
             <AdaptationPlanForm 
-            CreatTaskForEmployee = {this.props.CreatTaskForEmployee}
+                CreatTaskForEmployee = {this.props.CreatTaskForEmployee}
                 name={this.props.name} 
                 employee={this.props.employee}
                 plantasks={this.props.plantasks} 

@@ -46,7 +46,8 @@ const PlansTable = (props) => {
             </tbody>
         </table>
 }
-                {isPlanClick === true ? <ParticularPlanContainer/>:''}
+                {isPlanClick === true ? <ParticularPlanContainer 
+                setPlanClick = {setPlanClick} />:''}
     </div> 
             
     )

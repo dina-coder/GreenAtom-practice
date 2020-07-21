@@ -21,6 +21,10 @@ const Task = (props) =>{
         updateTaskName(e.currentTarget.value)
     }
 
+    const UpdateTask = (plan_id, name, description, date_start, date, result, id) => {
+        UpdateTaskFromEmployee(plan_id, name, description, date_start, date, result, id)
+        updateTaskInfo(false)
+    }
     const SetTaskDate = (e) =>{
         updateTaskDate(e.currentTarget.value)
         }
@@ -61,7 +65,7 @@ const Task = (props) =>{
             {isFullInfo === props.key ? <div className={s.Description}>
             {istaskEdited==false ? <p className={s.DescriptionText}>{props.content}</p> : 
             <div><input value = {description} onChange ={SetTaskDescription} className ={s.DescriptionText}/> 
-            <img onClick={()=>UpdateTaskFromEmployee(props.plan_id, name, description, props.date_start, date, props.result, props.id)} className={s.CheckMark} src={checkmark} /> </div>}
+            <img onClick={()=>UpdateTask(props.plan_id, name, description, props.date_start, date, props.result, props.id)} className={s.CheckMark} src={checkmark} /> </div>}
             </div>:''}
         </div>
     )
