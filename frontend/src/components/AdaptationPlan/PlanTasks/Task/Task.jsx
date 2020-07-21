@@ -4,6 +4,7 @@ import editionicon from '../../../../img/edit 2.png'
 import deleteicon from '../../../../img/bin 1.png'
 import downarrow from '../../../../img/down-arrow-green.png'
 import checkmark from '../../../../img/checkmark.png'
+import { isButtonAddEnable, isTaskDone } from '../../../../utils/isButtonAccess'
 
 
 const Task = (props) =>{
@@ -50,13 +51,22 @@ const Task = (props) =>{
     }
     return (
         <div className={isFullInfo === props.key ? s.ContainerBig : s.Container}>
-           {props.result === 0 ?
+           { isTaskDone(props.role_id,props.step) ?
+           props.result === 0 ?
             <div onClick={()=>{UpdateTaskStatusFromEmployee(props.id, 1, props.plan_id)}} className= {s.CircleFalse} ></div>:
-            <div onClick={()=>{UpdateTaskStatusFromEmployee(props.id, 0, props.plan_id)}} className={s.CircleTrue}></div>}
+            <div onClick={()=>{UpdateTaskStatusFromEmployee(props.id, 0, props.plan_id)}} className={s.CircleTrue}></div>:
+            ''}
             {istaskEdited==false ? <h3 className={s.Title}>{props.name}</h3> :<input value = {name} onChange ={SetTaskName} className ={s.Title}/>} 
             {istaskEdited==false ? <h3 className={s.Date}>До {props.date_end}</h3> : <input value = {date} onChange ={SetTaskDate} className ={s.Date}/>}
-            <img onClick={()=>EditModeShow(props.key)} className={s.Edit} src={editionicon} />
-            <img onClick={()=>DeleteTaskFunction(props.id,props.plan_id)} className={s.Delete} src={deleteicon} />
+            {isButtonAddEnable(props.role_id,props.step) ?
+             <img onClick={()=>EditModeShow(props.key)} className={s.Edit} src={editionicon} />:
+             ''
+            }
+           
+            {isButtonAddEnable(props.role_id, props.step) ?
+            <img onClick={()=>DeleteTaskFunction(props.id,props.plan_id)} className={s.Delete} src={deleteicon} /> :
+            ''
+            }
             {isFullInfo === props.key ?  
              <img className={s.downarrowTransofm} onClick={()=>{setFullInfo(-1)}} src={downarrow} /> :
             <img className={s.downarrow} onClick={()=>{setFullInfo(props.key)}} src={downarrow} />
