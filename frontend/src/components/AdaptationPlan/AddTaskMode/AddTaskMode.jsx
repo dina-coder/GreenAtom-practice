@@ -56,7 +56,7 @@ const AddTaskMode = (props) => {
                     placeholder = "Период"
                     formatDate = {formatDate}
                     parseDate = {parseDate}
-                    value = {moment(range.from).format("DD.MM.YYYY")}
+                    value = {props.date_end}
                   
                     dayPickerProps = {{
                         localeUtils:MomentLocaleUtils,
