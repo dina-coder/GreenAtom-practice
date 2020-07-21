@@ -76,3 +76,17 @@ BEGIN
 	left join steps on steps.id = plans.step_id
 	limit si_, ei_;
 END;
+
+drop PROCEDURE if EXISTS sp_get_tasks;
+CREATE PROCEDURE sp_get_tasks(
+	IN plan_id_ INT,
+	IN si_ INT,
+	IN ei_ INT
+)
+BEGIN
+	select id, name,
+	DATE_FORMAT(date_creation, "%d.%m.%Y") as date_creation,
+	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start,
+	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end,
+	content, result from tasks where plan_id = plan_id_ limit si_, ei_;
+END;

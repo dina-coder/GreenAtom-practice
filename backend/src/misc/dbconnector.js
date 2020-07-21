@@ -20,7 +20,7 @@ const methods = {
 				page * entriesOnPage - entriesOnPage + 1,
 				entriesOnPage
 			])
-		return rows
+		return rows[0]
 	},
 	getPlans: async (sql, user_id, page) => {
 		let obj = []
@@ -32,7 +32,7 @@ const methods = {
 		}
 		let [rows] = await pool.query(sql, obj)
 		rows = rows[0]
-		if (!rows[0] || !rows[0].hr_id || !rows[0].super_id)
+		if (!rows[0])
 			return []
 		return rows
 	},
