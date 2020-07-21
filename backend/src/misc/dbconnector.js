@@ -13,8 +13,13 @@ const methods = {
 		const [rows] = await pool.query(loginSql, [email, password])
 		return rows[0][0]
 	},
-	getTasks: async plan_id => {
-		const [rows] = await pool.query(getTasksSql, [plan_id])
+	getTasks: async (plan_id, page) => {
+		const [rows] = await pool.query(getTasksSql,
+			[
+				plan_id,
+				page * entriesOnPage - entriesOnPage + 1,
+				entriesOnPage
+			])
 		return rows
 	},
 	getPlans: async (sql, user_id, page) => {

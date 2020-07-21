@@ -13,7 +13,16 @@ const AdaptationPlansForm = (props)=> {
                 buttonTitle = "план" 
                 amount = {props.DataAboutPlans.length} 
             />
-            <Filters steps = {props.steps} />
+            <Filters 
+                search={props.filters.search}
+                period={props.filters.period}
+                step={props.filters.step}
+                onSearchFilter={(value) => props.onFilter('search', value)} 
+                onStepFilter={(value) => props.onFilter('step', value)} 
+                onPeriodFilter={(value) => props.onFilter('period', value)} 
+                steps={props.steps} 
+            />
+
             <PlansTable 
                 isFetching = {props.isFetching} 
                 SetInfoForPlan = {props.SetInfoForPlan} 
