@@ -1,9 +1,15 @@
 import React from 'react'
 import s from './AdaptationPlanInfo.module.scss'
+import update from '../../../img/edit 2.png'
+import { isAdaptationPlanEnable } from '../../../utils/isButtonAccess'
 
 const AdaptationPlanInfo = (props) =>{
+
     return (
         <div>
+            {isAdaptationPlanEnable(props.role_id,props.employee.step)
+            ?  <img className = {s.editMode} src = {update}/> : ''}
+           
             <table>
                  <tr>
                      <td><h1 className={s.Title}>План адаптации</h1></td>

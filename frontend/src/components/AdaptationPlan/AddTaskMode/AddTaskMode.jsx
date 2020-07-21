@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import s from './AddTaskMode.module.scss'
-import { DateUtils } from 'react-day-picker';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import moment from 'moment';
 import 'moment/locale/ru';
@@ -22,6 +21,13 @@ const AddTaskMode = (props) => {
     const ChangeTaskDescription = (e) => {
         setDescription(e.currentTarget.value)
     }
+    
+    const PushNewTask = (plan_id,name,description,CurrentData, date, result) => {
+        SendNewDataForPlan(plan_id,name, description,CurrentData, date, result)
+        props.SetTaskButton(false)
+    }
+        
+    
 
     const SendNewDataForPlan = (plan_id,name, content, date_start, date_end, result) => {
         props.CreatTaskForEmployee(plan_id,name, content, date_start, date_end, result)
@@ -70,9 +76,8 @@ const AddTaskMode = (props) => {
         </tr>
         </table>
         <div className={s.ButtonContainer}>
-        <button className={s.AddButton} onClick = {() => SendNewDataForPlan(props.plan_id,name, description,CurrentData, date, 0)}>Сохранить</button>
+        <button className={s.AddButton} onClick = {() => PushNewTask(props.plan_id,name, description,CurrentData, date, 0)}>Сохранить</button>
         </div>
-
     </div>)
 }
 

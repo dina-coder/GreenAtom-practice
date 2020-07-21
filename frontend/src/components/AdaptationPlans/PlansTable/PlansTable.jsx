@@ -3,16 +3,17 @@ import arrow from '../../../img/down-arrow.png';
 import greenArrow from '../../../img/down-arrow-green.png';
 import rightArrow from '../../../img/right-arrow.png';
 import style from "./PlansTable.module.scss";
-import ParticularPlanContainer from '../ParticularPlan/ParticularPlanContainer';
 import Preloader from '../../../Preloader/Preloader';
+import AdaptationPlan from '../../AdaptationPlan/AdaptationPlan';
 
 
 
 const PlansTable = (props) => {
+    const [worker_id, setWorker_id] = useState(undefined)
     const [isPlanClick, setPlanClick] = useState(false)
-    const TakeDataForPlanClick = (bool, user_id_for_superhr) => {
+    const TakeDataForPlanClick = (bool,worker_id) => {
         setPlanClick(bool)
-        props.SetInfoForPlan(user_id_for_superhr)
+        setWorker_id(worker_id)
     }
     return(
     <div>
@@ -45,7 +46,9 @@ const PlansTable = (props) => {
             </tbody>
         </table>
 }
-                {isPlanClick === true ? <ParticularPlanContainer/>:''}
+                {isPlanClick === true ? <AdaptationPlan
+                worker_id = {worker_id}
+                setPlanClick = {setPlanClick} />:''}
     </div> 
             
     )

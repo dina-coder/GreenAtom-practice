@@ -8,8 +8,9 @@ import Preloader from '../../Preloader/Preloader';
 class AdaptationPlan extends React.Component
 {
     componentDidMount(){
+        console.log(this.props.worker_id)
+        this.props.worker_id ?  this.props.GetEmployeeProfileInfo(this.props.worker_id) :
        this.props.GetEmployeeProfileInfo(this.props.user_id) 
-        console.log(this.props.plantasks)
     }
 
 
@@ -27,7 +28,9 @@ class AdaptationPlan extends React.Component
             <Preloader/>
             :
             <AdaptationPlanForm 
-            CreatTaskForEmployee = {this.props.CreatTaskForEmployee}
+                setPlanClick = {this.props.setPlanClick}
+                role_id = {this.props.role_id}
+                CreatTaskForEmployee = {this.props.CreatTaskForEmployee}
                 name={this.props.name} 
                 employee={this.props.employee}
                 plantasks={this.props.plantasks} 
@@ -43,6 +46,7 @@ class AdaptationPlan extends React.Component
     }
 }
 const mapStateToProps=(state)=>({
+    role_id:state.AuthReducer.role_id,
     isFetching:state.AuthReducer.isFetching,
     isAuth:state.AuthReducer.isAuth,
     name:state.AuthReducer.name,
