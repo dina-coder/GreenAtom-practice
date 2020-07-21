@@ -38,7 +38,7 @@ const methods = {
 	},
 	getDict: async (sql, role_id) => {
 		const [rows] = await pool.query(sql, role_id ? [role_id] : undefined)
-		return rows
+		return rows[0]
 	},
 	insertPlan: async data => {
 		await pool.query(insertPlanSql, [

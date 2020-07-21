@@ -90,3 +90,29 @@ BEGIN
 	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end,
 	content, result from tasks where plan_id = plan_id_ limit si_, ei_;
 END;
+
+drop PROCEDURE if EXISTS sp_get_dict_grades;
+CREATE PROCEDURE sp_get_dict_grades()
+BEGIN
+	select id, name from grades;
+END;
+
+drop PROCEDURE if EXISTS sp_get_dict_names;
+CREATE PROCEDURE sp_get_dict_names(
+	IN role_id_ INT
+)
+BEGIN
+select id, name from users where role_id = role_id_;
+END;
+
+drop PROCEDURE if EXISTS sp_get_dict_steps;
+CREATE PROCEDURE sp_get_dict_steps()
+BEGIN
+	select id, name from steps;
+END;
+
+drop PROCEDURE if EXISTS sp_get_dict_positions;
+CREATE PROCEDURE sp_get_dict_positions()
+BEGIN
+	select id, name from positions;
+END;
