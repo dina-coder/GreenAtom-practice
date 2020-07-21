@@ -62,4 +62,10 @@ export const MainAPI = {
     axios.post("http://localhost:9000/api/insert/task", { plan_id: plan_id, name: name, content: content, date_start:date_start, date_end: date_end, result:result})
     .then(response=>{ return response.data})
   },
+  takeNames(){
+    return axios.get('http://localhost:9000/api/dict/names')
+      .then(response => {
+        return response.data
+      })
+  },
 }

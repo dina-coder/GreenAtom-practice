@@ -7,11 +7,7 @@ const TopPanelWithCreate = (props) => {
 return(
     <div className={style.header}>
         <h1>{props.title} ({props.amount})</h1>
-        {props.canCreate ?
-        <AddButton title={props.buttonTitle}/>:
-        ''
-        }
-        
+        {props.canCreate && <AddButton onClick={props.onClick} title={props.buttonTitle}/>}
     </div>
 )
 }

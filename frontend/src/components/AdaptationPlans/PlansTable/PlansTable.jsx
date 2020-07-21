@@ -45,10 +45,11 @@ const PlansTable = (props) => {
            
             </tbody>
         </table>
-}
-                {isPlanClick === true ? <AdaptationPlan
+        }
+                {isPlanClick && <AdaptationPlan
                 worker_id = {worker_id}
-                setPlanClick = {setPlanClick} />:''}
+                setPlanClick = {setPlanClick} />}
+
     </div> 
             
     )

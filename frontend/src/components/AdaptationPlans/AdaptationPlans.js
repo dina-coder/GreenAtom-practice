@@ -9,7 +9,8 @@ import { Roles } from '../../constants/roles';
 class AdaptationPlans extends React.Component {
 
     componentDidMount(){
-        this.props.takePlans(this.props.role, this.props.user_id).then(()=>this.props.setFilter(this.props.filters));
+        this.props.takePlans(this.props.role, this.props.user_id)
+            .then(()=>this.props.setFilter(this.props.filters));
         this.props.takeSteps();
     }
 

@@ -3,9 +3,9 @@ import style from './AddButton.module.scss';
 
 const AddButton = (props) => {
 return(
-    <div className = {style.addButton}>
+    <button onClick={props.onClick} className = {style.addButton}>
        + Добавить {props.title}
-    </div>
+    </button>
 )
 }
 
