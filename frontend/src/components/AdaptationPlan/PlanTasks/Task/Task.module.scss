@@ -120,3 +120,7 @@
     left: 5px;
     font-size: 10pt;
 }
+.CircleFalse:hover, .CircleTrue:hover, img:hover{
+    opacity: 50%;
+    cursor: pointer;
+}

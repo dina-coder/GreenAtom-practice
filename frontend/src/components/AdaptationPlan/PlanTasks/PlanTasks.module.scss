@@ -30,6 +30,15 @@
         margin-left: auto;
         border-radius: 16px;
     }
+    .addButton:hover{
+        cursor: pointer;
+        background-color: #FFFFFF;
+        color: $brandColor;
+        border-radius: 16px;
+        border: 1px solid $brandColor
+    }
+
+    
 }
     
 }
