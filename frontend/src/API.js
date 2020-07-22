@@ -87,7 +87,7 @@ export const MainAPI = {
       comment: comment
     })
     .then(response=>{ return response.data})
-  }
+  },
   updatePlanApi(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id){ 
     console.log(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id)
     let body = {
