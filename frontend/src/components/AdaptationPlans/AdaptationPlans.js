@@ -20,8 +20,9 @@ class AdaptationPlans extends React.Component {
 
     }
     componentDidUpdate(prevProps){
-        if (prevProps.filteredList!=this.props.filteredList){
-        this.setState({filteredList:this.props.filteredList})
+
+        if (prevProps.allPlans!==this.props.allPlans){
+        this.setState({allPlans:this.props.allPlans})
         }
         }
     
@@ -31,7 +32,6 @@ class AdaptationPlans extends React.Component {
     }
      
     render() {
-
         const privilegeToAdd = (role) => {
             return role === Roles.HR ? true : false;
         }
@@ -39,6 +39,7 @@ class AdaptationPlans extends React.Component {
             <AdaptationPlansForm
                 isFetching = {this.props.isFetching}
                 SetInfoForPlan = {this.props.SetInfoForPlan}
+                //тут должен быть filteredList но с ним не работает componentDidUpdate
                 DataAboutPlans = {this.props.filteredList}
                 name = {this.props.name}
                 steps={this.props.steps}
