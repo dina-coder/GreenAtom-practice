@@ -5,7 +5,8 @@ const resources = {
 	serverRunning: port => { return `Сервер запущен по адресу: http://localhost:${port}`},
 	morganString: ':method :url :status :res[content-length] - :response-time ms',
 	frontendOrigin: 'http://localhost:3000',
-	entriesOnPage: 5,
+	plansOnPage: 5,
+	tasksOnPage: 5,
 	defaultExpressPort: 9000,
 
 	inserted: {inserted: true},

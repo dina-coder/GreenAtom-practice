@@ -6,7 +6,8 @@ const { loginSql,
 	insertTaskSql, insertPlanSql,
 	updatePlanSql, updateTaskSql,
 	deletePlanSql, deleteTaskSql,
-	entriesOnPage } = require('./resources')
+	plansOnPage, tasksOnPage
+} = require('./resources')
 
 const methods = {
 	login: async (email, password) => {
@@ -17,8 +18,8 @@ const methods = {
 		const [rows] = await pool.query(getTasksSql,
 			[
 				plan_id,
-				page * entriesOnPage - entriesOnPage,
-				entriesOnPage
+				page * tasksOnPage - tasksOnPage,
+				tasksOnPage
 			])
 		return rows[0]
 	},
@@ -27,8 +28,8 @@ const methods = {
 		if (user_id)
 			obj.push(user_id)
 		if (page) {
-			obj.push(page * entriesOnPage - entriesOnPage)
-			obj.push(entriesOnPage)
+			obj.push(page * plansOnPage - plansOnPage)
+			obj.push(plansOnPage)
 		}
 		let [rows] = await pool.query(sql, obj)
 		rows = rows[0]
