@@ -56,8 +56,8 @@ const Task = (props) =>{
             <div onClick={()=>{UpdateTaskStatusFromEmployee(props.id, 1, props.plan_id)}} className= {s.CircleFalse} ></div>:
             <div onClick={()=>{UpdateTaskStatusFromEmployee(props.id, 0, props.plan_id)}} className={s.CircleTrue}></div>:
             ''}
-            {istaskEdited==false ? <h3 className={s.Title}>{props.name}</h3> :<input value = {name} onChange ={SetTaskName} className ={s.Title}/>} 
-            {istaskEdited==false ? <h3 className={s.Date}>До {props.date_end}</h3> : <input value = {date} onChange ={SetTaskDate} className ={s.Date}/>}
+            {istaskEdited==false ? <h3 className={s.Title1}>{props.name}</h3> :<input value = {name} onChange ={SetTaskName} className ={s.Title}/>} 
+            {istaskEdited==false ? <h3 className={s.Date1}>До {props.date_end}</h3> : <input value = {date} onChange ={SetTaskDate} className ={s.Date}/>}
             {isButtonAddEnable(props.role_id,props.step) ?
              <img onClick={()=>EditModeShow(props.key)} className={s.Edit} src={editionicon} />:
              ''
@@ -74,7 +74,7 @@ const Task = (props) =>{
            
             {isFullInfo === props.key ? <div className={s.Description}>
             {istaskEdited==false ? <p className={s.DescriptionText}>{props.content}</p> : 
-            <div><input value = {description} onChange ={SetTaskDescription} className ={s.DescriptionText}/> 
+            <div><textarea value = {description} onChange ={SetTaskDescription} className ={s.DescriptionText}/> 
             <img onClick={()=>UpdateTask(props.plan_id, name, description, props.date_start, date, props.result, props.id)} className={s.CheckMark} src={checkmark} /> </div>}
             </div>:''}
         </div>

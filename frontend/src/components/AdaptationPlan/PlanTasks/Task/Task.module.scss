@@ -11,6 +11,8 @@
     border-radius: 15px;
     border: 1px solid #8CC547;
     margin-bottom: 20px;
+    font-family: Roboto, sans-serif;
+
     
 }
 .Container{
@@ -54,8 +56,23 @@
     position: absolute;
     font-size: 16px;
     line-height: 21px;
+    font-weight: 600;
+    color:$additionText;
+    font-family: Roboto, sans-serif;
+    font-size: 12pt;
     font-weight: 500;
-    color:$textColor
+
+    top:1px;
+    height: 40px;
+    width: 95%;
+    border-bottom: 0.003px solid #c4cfb5;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.Title:focus{
+    outline:none;
+    border-bottom: 1px solid #8CC547;
 }
 .Date{
     grid-area: date;
@@ -64,6 +81,21 @@
     line-height: 18px;
     font-weight: 500;
     color: $additionText;
+    font-family: Roboto, sans-serif;
+    font-size: 10pt;
+
+
+    top:1px;
+    height: 40px;
+    width: 80%;
+    border-bottom: 0.003px solid #c4cfb5;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.Date:focus{
+    outline:none;
+    border-bottom: 1px solid #8CC547;
 }
 .Edit{
     grid-area: E;
@@ -106,6 +138,8 @@
     border-radius: 15px;
     border: 0.003px solid #c4cfb5;
     color: $additionText;
+    font-family: Roboto, sans-serif;
+    font-size: 12pt;
 }
 .CheckMark{
     position: absolute;
@@ -116,11 +150,57 @@
 }
 .DescriptionText{
     position: absolute;
-    top: 5px;
-    left: 5px;
-    font-size: 10pt;
+    width: 928px;
+    height: 64px;
+    background-color:white;
+    border-radius: 15px;
+    border: none;
+    color: $additionText;
+    font-family: Roboto, sans-serif;
+    font-size: 12pt;
+    font-weight: 500;
+	resize: none;
+
+
 }
+.DescriptionText:focus{
+    outline:none;
+    border: 1px solid #8CC547;
+    font-family: Roboto, sans-serif;
+}
+
 .CircleFalse:hover, .CircleTrue:hover, img:hover{
     opacity: 50%;
     cursor: pointer;
+}
+
+.Date1{
+    grid-area: date;
+    position: absolute;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 500;
+    color: $additionText;
+    font-family: Roboto, sans-serif;
+    font-size: 10pt;
+
+
+    top:1px;
+    height: 40px;
+    width: 80%;
+
+}
+
+.Title1{
+    grid-area: T;
+    position: absolute;
+    font-size: 16px;
+    line-height: 21px;
+    font-weight: 500;
+    color:$textColor;
+    font-size: 12pt;
+
+    height: 40px;
+    width: 95%;
+
 }
