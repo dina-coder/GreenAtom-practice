@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { takePlans, takeSteps, setFilter } from '../../redux/reducers/PlansReducer';
+import { takePlans, takeNames, takeSteps, setFilter, takePositions, createPlan } from '../../redux/reducers/PlansReducer';
 import AdaptationPlansForm from './AdaptationPlansForm';
-import {SetInfoForPlan} from '../../redux/reducers/EmployeeReducer'
+import { SetInfoForPlan } from '../../redux/reducers/EmployeeReducer'
 import { mapRoleIdToRole } from '../../utils/mapRoleIdToRole';
 import { Roles } from '../../constants/roles';
 
@@ -12,6 +12,11 @@ class AdaptationPlans extends React.Component {
         this.props.takePlans(this.props.role, this.props.user_id)
             .then(()=>this.props.setFilter(this.props.filters));
         this.props.takeSteps();
+        if (this.props.role===Roles.HR) {
+           this.props.takeNames(2);
+           this.props.takeNames(3);
+           this.props.takePositions();
+        }
     }
 
     onFilter = (filter,value) => {
@@ -22,7 +27,6 @@ class AdaptationPlans extends React.Component {
         const privilegeToAdd = (role) => {
             return role === Roles.HR ? true : false;
         }
-    
         return (
             <AdaptationPlansForm
                 isFetching = {this.props.isFetching}
@@ -33,6 +37,11 @@ class AdaptationPlans extends React.Component {
                 onFilter={this.onFilter}
                 filters={this.props.filters}
                 canCreate = {privilegeToAdd(this.props.role)}
+                workersNames={ this.props.workersNames}
+                supersNames= {this.props.supersNames}
+                positions = {this.props.positions}
+                user_id= {this.props.user_id}
+                createPlan = {this.props.createPlan}
             />
     
         );
@@ -48,7 +57,10 @@ const mapStateToProps = (state) =>({
     role: mapRoleIdToRole(state.AuthReducer['role_id']),
     steps: state.PlansReducer.stepList,
     filters: state.PlansReducer.filters,
-    filteredList: state.PlansReducer.filteredList
+    filteredList: state.PlansReducer.filteredList,
+    workersNames: state.PlansReducer.workersNames,
+    supersNames: state.PlansReducer.supersNames,
+    positions: state.PlansReducer.positions
 });
 
-export default connect(mapStateToProps,{ takePlans,takeSteps, SetInfoForPlan, setFilter })(AdaptationPlans);
+export default connect(mapStateToProps,{ takePlans,takeSteps, takeNames, SetInfoForPlan, setFilter, takePositions, createPlan })(AdaptationPlans);

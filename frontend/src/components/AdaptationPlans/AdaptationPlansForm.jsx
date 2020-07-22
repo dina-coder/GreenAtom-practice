@@ -33,7 +33,13 @@ const AdaptationPlansForm = (props)=> {
                 name = {props.name} 
             />
 
-            {isCreationOpen && <PlanCreation setIsCreationOpen={setIsCreationOpen}/>}
+            {isCreationOpen && <PlanCreation 
+            createPlan={props.createPlan}
+            user_id={props.user_id}
+            positions={props.positions} 
+            workers={props.workersNames}
+            supers={props.supersNames}
+            setIsCreationOpen={setIsCreationOpen}/>}
         </div>
     )
 }

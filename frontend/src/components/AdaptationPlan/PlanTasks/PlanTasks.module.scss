@@ -16,9 +16,9 @@
     .ButtonContainer{
         position: absolute;
         top: -6px;
-        left: 925px;
+        right: 21%;
     .addButton {
-        height: 43px;
+        height: 48px;
         width: 185px;
         border: none;
          font: inherit;
@@ -37,8 +37,7 @@
         border-radius: 16px;
         border: 1px solid $brandColor
     }
-
-    
 }
+
     
 }

@@ -62,10 +62,48 @@ export const MainAPI = {
     axios.post("http://localhost:9000/api/insert/task", { plan_id: plan_id, name: name, content: content, date_start:date_start, date_end: date_end, result:result})
     .then(response=>{ return response.data})
   },
-  takeNames(){
-    return axios.get('http://localhost:9000/api/dict/names')
+  takeNames(role_id){
+    return axios.get(`http://localhost:9000/api/dict/names?role_id=${role_id}`)
       .then(response => {
         return response.data
       })
+  },
+  takePositions(){
+    return axios.get(`http://localhost:9000/api/dict/positions`)
+      .then(response => {
+        return response.data
+      })
+  },
+  createPlan(worker_id, position_id, super_id, hr_id, date_start, date_end, result, grade_id, comment){
+    axios.post("http://localhost:9000/api/insert/plan", { 
+      worker_id: worker_id, 
+      position_id: position_id, 
+      super_id: super_id,
+      hr_id: hr_id,
+      date_start: date_start,
+      date_end: date_end,
+      result: result,
+      grade_id: grade_id, 
+      comment: comment
+    })
+    .then(response=>{ return response.data})
+  },
+  updatePlanApi(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id){ 
+    console.log(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id)
+    let body = {
+      "id": id,
+      "worker_id": worker_id,
+      "position_id": position_id,
+      "super_id": super_id,
+      "hr_id": hr_id,
+      "step_id": step_id,
+      "date_start": date_start,
+      "date_end": date_end,
+      "result": result,
+      "grade_id": grade_id,
+      "comment": "KeK"
+    }
+    axios.put("http://localhost:9000/api/update/plan", { worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id})
+    .then(response=>{ return response.data})
   },
 }
