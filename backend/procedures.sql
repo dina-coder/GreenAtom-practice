@@ -116,3 +116,40 @@ CREATE PROCEDURE sp_get_dict_positions()
 BEGIN
 	select id, name from positions;
 END;
+
+drop PROCEDURE if EXISTS sp_insert_plan;
+CREATE PROCEDURE sp_insert_plan(
+	IN worker_id_ INT,
+	IN position_id_ INT,
+	IN super_id_ INT,
+	IN hr_id_ INT,
+	IN date_start_ DATE,
+	IN date_end_ DATE,
+	IN result_ TINYINT(1),
+	IN grade_id_ INT,
+	IN comment_ TEXT
+)
+BEGIN
+	insert into plans (worker_id, position_id, date_creation,
+	super_id, hr_id, step_id, date_start, date_end, result,
+	grade_id, comment)
+	values (worker_id_, position_id_, curdate(), super_id_,
+	hr_id_, 1, date_start_, date_end_, result_, grade_id_,
+	comment_);
+END;
+
+drop PROCEDURE if EXISTS sp_insert_task;
+CREATE PROCEDURE sp_insert_task(
+	IN plan_id_ INT,
+	IN name_ VARCHAR(50),
+	IN content_ TEXT,
+	IN date_start_ DATE,
+	IN date_end_ DATE,
+	IN result_ TINYINT
+)
+BEGIN
+	insert into tasks (plan_id, name, date_creation,
+	content, date_start, date_end, result)
+	values (plan_id_, name_, curdate(), content_,
+	date_start_, date_end_, result_);
+END;

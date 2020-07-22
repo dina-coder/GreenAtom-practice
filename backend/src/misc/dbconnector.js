@@ -41,7 +41,7 @@ const methods = {
 		return rows[0]
 	},
 	insertPlan: async data => {
-		await pool.query(insertPlanSql, [
+		const result = await pool.query(insertPlanSql, [
 			data.worker_id,
 			data.position_id,
 			data.super_id,
@@ -52,9 +52,10 @@ const methods = {
 			data.grade_id,
 			data.comment
 		])
+		return result[0].affectedRows > 0
 	},
 	insertTask: async data => {
-		await pool.query(insertTaskSql,
+		const result = await pool.query(insertTaskSql,
 		[
 			data.plan_id,
 			data.name,
@@ -63,6 +64,7 @@ const methods = {
 			data.date_end,
 			data.result
 		])
+		return result[0].affectedRows > 0
 	},
 	updatePlan: async data => {
 		await pool.query(updatePlanSql,
