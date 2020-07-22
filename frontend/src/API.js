@@ -106,4 +106,10 @@ export const MainAPI = {
     axios.put("http://localhost:9000/api/update/plan", { worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id})
     .then(response=>{ return response.data})
   },
+  gradesAPI(){
+    return axios.get(`http://localhost:9000/api/dict/grades`)
+      .then(response => {
+        return response.data
+      })
+  },
 }
