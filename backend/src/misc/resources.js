@@ -8,7 +8,7 @@ const resources = {
 	entriesOnPage: 5,
 	defaultExpressPort: 9000,
 
-	inserted: state => { return {inserted: state} },
+	inserted: {inserted: true},
 	updated: {updated: true},
 	deleted: {deleted: true},
 	empty: {empty: true},
@@ -24,9 +24,9 @@ const resources = {
 	getDictPositionsSql: 'call sp_get_dict_positions()',
 	insertPlanSql: 'call sp_insert_plan(?, ?, ?, ?, ?, ?, ?, ?, ?)',
 	insertTaskSql: 'call sp_insert_task(?, ?, ?, ?, ?, ?)',
-	updatePlanSql: 'update plans set worker_id = ?, position_id = ?, super_id = ?, hr_id = ?, step_id = ?, date_start = ?, date_end = ?, result = ?, grade_id = ?, comment = ? where id = ?',
-	updateTaskSql: 'update tasks set plan_id = ?, name = ?, content = ?, date_start = ?, date_end = ?, result = ? where id = ?',
-	updateTaskResultSql: 'update tasks set result = ? where id = ?',
+	updatePlanSql: 'call sp_update_plan(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+	updateTaskSql: 'call sp_update_task(?, ?, ?, ?, ?, ?, ?)',
+	updateTaskResultSql: 'call sp_update_task_result(?, ?)',
 	deletePlanSql: 'delete from plans where id = ?',
 	deleteTaskSql: 'delete from tasks where id = ?',
 

@@ -7,7 +7,6 @@ const { dbError, genericDbError,
 const { updateTaskResult } = require('../../misc/dbconnector')
 
 router.put(updateTaskResultPath, async (req, res) => {
-	console.log("x")
 	try {
 		await updateTaskResult(req.body)
 		res.status(200).send(updated)

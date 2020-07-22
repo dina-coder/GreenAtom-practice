@@ -145,7 +145,7 @@ CREATE PROCEDURE sp_insert_task(
 	IN content_ TEXT,
 	IN date_start_ DATE,
 	IN date_end_ DATE,
-	IN result_ TINYINT
+	IN result_ TINYINT(1)
 )
 BEGIN
 	insert into tasks (plan_id, name, date_creation,
@@ -153,3 +153,54 @@ BEGIN
 	values (plan_id_, name_, curdate(), content_,
 	date_start_, date_end_, result_);
 END;
+
+drop PROCEDURE if EXISTS sp_update_plan;
+CREATE PROCEDURE sp_update_plan(
+	IN worker_id_ INT,
+	IN position_id_ INT,
+	IN super_id_ INT,
+	IN hr_id_ INT,
+	IN step_id_ INT,
+	IN date_start_ DATE,
+	IN date_end_ DATE,
+	IN result_ TINYINT(1),
+	IN grade_id_ INT,
+	IN comment_ TEXT,
+	IN plan_id_ INT
+)
+BEGIN
+	update plans set
+	worker_id = worker_id_, position_id = position_id_, super_id = super_id_,
+	hr_id = hr_id_, step_id = step_id_, date_start = date_start_,
+	date_end = date_end_, result = result_, grade_id = grade_id_,
+	comment = comment_
+	where id = plan_id_;
+END;
+
+drop PROCEDURE if EXISTS sp_update_task;
+CREATE PROCEDURE sp_update_task(
+	IN plan_id_ INT,
+	IN name_ VARCHAR(50),
+	IN content_ TEXT,
+	IN date_start_ DATE,
+	IN date_end_ DATE,
+	IN result_ TINYINT(1),
+	IN task_id_ INT
+)
+BEGIN
+	update tasks set
+	plan_id = plan_id_, name = name_, content = content_, date_start = date_start_,
+	date_end = date_end_, result = result_
+	where id = task_id_;
+END;
+
+drop PROCEDURE if EXISTS sp_update_task_result;
+CREATE PROCEDURE sp_update_task_result(
+	IN result_ TINYINT(1),
+	IN task_id_ INT
+)
+BEGIN
+	update tasks
+	set result = result_ where id = task_id_;
+END;
+
