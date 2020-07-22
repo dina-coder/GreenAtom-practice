@@ -39,3 +39,30 @@
         top:5em;
         left:15em;
     }
+    .ButtonContainer2{
+
+    .addButton2 {
+        height: 48px;
+        width: 185px;
+        border: none;
+         font: inherit;
+        color: inherit;
+        background-color: transparent;
+        font-size: 18px;
+        margin-left: auto;
+        border-radius: 16px;
+
+        background-color: #FFFFFF;
+        color: $brandColor;
+        border-radius: 16px;
+        border: 1px solid $brandColor
+    }
+    .addButton2:hover{
+        cursor: pointer;
+        background-color: $brandColor;
+        color: #FFFFFF;
+        border-radius: 16px;
+
+    }
+    
+}

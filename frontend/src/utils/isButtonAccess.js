@@ -29,3 +29,10 @@ export const isTaskDone = (role_id,step) => {
     } 
     else return false;
 }
+export const PostToNextStep = (role_id,step) => {
+    if ( mapRoleIdToRole(role_id) === Roles.Employee && (step === Steps.EmployeeCompliting || step === Steps.EmployeeFilling))
+    {
+        return true;
+    } 
+    else return false;
+}

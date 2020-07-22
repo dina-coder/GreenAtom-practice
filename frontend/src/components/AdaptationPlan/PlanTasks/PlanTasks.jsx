@@ -6,6 +6,7 @@ import { isButtonAddEnable } from '../../../utils/isButtonAccess'
 
 const PlanTasks = (props) =>{
     const [AddTaskButton,SetTaskButton] = useState(false)
+    
     let AllTasks;
     if (props.plantasks.length>0)
     {
@@ -32,6 +33,7 @@ const PlanTasks = (props) =>{
             ''
         }
         </div>
+       
             {AllTasks}
             {AddTaskButton === true ?
             <div><AddTaskMode SetTaskButton = {SetTaskButton} date_end = {props.date_end} 
