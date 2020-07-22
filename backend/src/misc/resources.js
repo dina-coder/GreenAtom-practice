@@ -27,8 +27,8 @@ const resources = {
 	updatePlanSql: 'call sp_update_plan(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
 	updateTaskSql: 'call sp_update_task(?, ?, ?, ?, ?, ?, ?)',
 	updateTaskResultSql: 'call sp_update_task_result(?, ?)',
-	deletePlanSql: 'delete from plans where id = ?',
-	deleteTaskSql: 'delete from tasks where id = ?',
+	deletePlanSql: 'call sp_delete_plan(?)',
+	deleteTaskSql: 'call sp_delete_task(?)',
 
 	apiPath: '/api',
 	loginPath: '/login',

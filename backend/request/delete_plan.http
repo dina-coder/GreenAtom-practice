@@ -2,5 +2,5 @@ DELETE http://localhost:9000/api/delete/plan HTTP/1.1
 content-type: application/json
 
 {
-	"id": 21
+	"id": 25
 }

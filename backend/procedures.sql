@@ -204,3 +204,18 @@ BEGIN
 	set result = result_ where id = task_id_;
 END;
 
+drop PROCEDURE if EXISTS sp_delete_plan;
+CREATE PROCEDURE sp_delete_plan(
+	IN plan_id_ INT
+)
+BEGIN
+	delete from plans where id = plan_id_;
+END;
+
+drop PROCEDURE if EXISTS sp_delete_task;
+CREATE PROCEDURE sp_delete_task(
+	IN task_id_ INT
+)
+BEGIN
+	delete from tasks where id = task_id_;
+END;
