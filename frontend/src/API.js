@@ -24,8 +24,8 @@ export const MainAPI = {
         return response.data
       })
   },
-  taketask(plan_id) {
-    return axios.get(`http://localhost:9000/api/get_tasks?plan_id=${plan_id}&page=1` )
+  taketask(plan_id, currentPage=1) {
+    return axios.get(`http://localhost:9000/api/get_tasks?plan_id=${plan_id}&page=${currentPage}` )
       .then(response => {
         return response.data
       })
@@ -112,4 +112,10 @@ export const MainAPI = {
         return response.data
       })
   },
+  getAmountOfTasks(plan_id){
+    return axios.get(`http://localhost:9000/api/count_tasks?plan_id=${plan_id}`)
+    .then(response => {
+      return response.data
+    })
+  }
 }

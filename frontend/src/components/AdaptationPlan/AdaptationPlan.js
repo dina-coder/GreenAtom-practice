@@ -55,6 +55,7 @@ class AdaptationPlan extends React.Component
                 UpdateTaskFromEmployee={this.props.UpdateTaskFromEmployee}
                 updatePlan={this.props.updatePlan}
                 GetEmployeeProfileInfo={this.props.GetEmployeeProfileInfo}
+                amountOfTask={this.props.amountOfTask}
             />
     }
             </>)
@@ -76,7 +77,8 @@ const mapStateToProps=(state)=>({
     employee:state.EmployeeReducer.employee_info,
     plantasks:state.EmployeeReducer.plantasks,
     workersNames : state.PlansReducer.workersNames,
-    supersNames : state.PlansReducer.supersNames
+    supersNames : state.PlansReducer.supersNames,
+    amountOfTask: state.EmployeeReducer.amountOfTask
 });
 
 export default  connect (mapStateToProps,{GetEmployeeProfileInfo,DeleteTaskFromEmployee, 

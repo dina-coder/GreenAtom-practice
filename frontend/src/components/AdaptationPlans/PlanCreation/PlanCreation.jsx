@@ -12,12 +12,44 @@ const PlanCreation=(props)=>{
     const [workerName, setWorkerName] = useState("");
     const [superName, setSuperName] = useState("");
     const [workerPosition, setWorkerPosition] = useState("");
-    const createNewPlan = (worker_id, position_id, super_id, date_start, date_end) => {
-        props.createPlan(worker_id, position_id, super_id, props.user_id, date_start, date_end, 0, 6, '');
+    const [isError, setIsError] = useState(false);
+    const createNewPlan = () => {
+        props.createPlan(
+            findID(workerName, props.workers), 
+            findID(workerPosition, props.positions), 
+            findID(superName, props.supers), 
+            props.user_id,
+            moment(range.from).format("DD.MM.YYYY"), 
+            moment(range.to).format("DD.MM.YYYY"), 
+            0, 
+            null, 
+            ''
+        );
         props.setIsCreationOpen(false);
     }
     const findID = (value,list) => {
        return list.filter(item=> item.name===value)[0].id;
+    }
+
+    const isCreatable = () => {
+        const isWorkerExist= props.workers.filter(item=> item.name===workerName).length!==0;
+        const isSuperExist= props.supers.filter(item=> item.name===superName).length!==0;
+        const isPositionExist= props.positions.filter(item=> item.name===workerPosition).length!==0;
+        const isDateFull = !!(range.to);
+        const isPlanExist = props.plans.some(item=> item.name === workerName);
+        const isCreateError=!isWorkerExist || !isSuperExist || !isPositionExist || !isDateFull || isPlanExist
+        isCreateError&&setIsError(true);
+        if(!isCreateError) return true;
+        if ((!isWorkerExist || isPlanExist)&& isDateFull) setWorkerName("");
+        if (!isSuperExist) setSuperName("");
+        if (!isPositionExist) setWorkerPosition("");
+        if (!isDateFull) {
+            alert('Выберите период полностью');
+        }
+        if (isPlanExist && isDateFull) alert("План для этого сотрудника уже создан")
+
+        
+        return false;
     }
 
     return(  
@@ -40,7 +72,14 @@ const PlanCreation=(props)=>{
                                 </div>}
                                 value={workerName}
                                 shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
-                                inputProps={{placeholder:'Имя сотрудника' }}
+                                inputProps={
+                                    isError&&(workerName=="") ?
+                                        {className: style.errorInput,
+                                        placeholder:"Выберите корректные данные из списка"}
+                                        : {placeholder:'Имя сотрудника' }
+                                    
+                                    
+                                }
                                 onChange={(e)=> setWorkerName(e.target.value)}
                                 onSelect={(val)=> setWorkerName(val)}
                             />
@@ -60,7 +99,13 @@ const PlanCreation=(props)=>{
                                 </div>}
                                 value={workerPosition}
                                 shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
-                                inputProps={{placeholder:'Должность сотрудника' }}
+                                inputProps={
+                                    isError&&(workerPosition=="") ?
+                                        {className: style.errorInput,
+                                        placeholder:"Выберите корректные данные из списка"}
+                                        : {placeholder:'Должность сотрудника'}
+                                    
+                                }
                                 onChange={(e)=> setWorkerPosition(e.target.value)}
                                 onSelect={(val)=> setWorkerPosition(val)}
                             />
@@ -80,7 +125,13 @@ const PlanCreation=(props)=>{
                                 </div>}
                                 value={superName}
                                 shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
-                                inputProps={{placeholder:'Имя руководителя' }}
+                                inputProps={
+                                    isError&&(superName=="") ?
+                                        {className: style.errorInput,
+                                        placeholder:"Выберите корректные данные из списка"}
+                                        : {placeholder:'Имя руководителя'}
+                                    
+                                }
                                 onChange={(e)=> setSuperName(e.target.value)}
                                 onSelect={(val)=> setSuperName(val)}
                             />
@@ -90,7 +141,10 @@ const PlanCreation=(props)=>{
                         <td><div className={style.fieldName}> Период:</div></td>
                         <td>
                             <DayPickerInput 
-                                component={props =><input className={style.periodInput}  {...props}/>}
+                                component={props =><input 
+                                    className={(isError&&!range.to) ? style.errorInput : style.periodInput}
+                                    {...props}
+                                />}
                                 placeholder="Период"
                                 formatDate ={formatDate}
                                 parseDate={parseDate}
@@ -103,18 +157,14 @@ const PlanCreation=(props)=>{
                                     locale:"ru",
                                     selectedDays:range,
                                     onDayClick:((day)=> setRange(range => DateUtils.addDayToRange(day,range)))
-                                    }}  
+                                }}  
                             />
                         </td>
                     </tr>
                 </table>
                 <div className={style.btnWrapper}>
                     <button className={style.addBtn}
-                     onClick={()=> createNewPlan( findID(workerName, props.workers), 
-                     findID(workerPosition, props.positions),
-                     findID(superName, props.supers),
-                     moment(range.from).format("DD.MM.YYYY"),
-                     moment(range.to).format("DD.MM.YYYY"))}>Создать</button>
+                     onClick={()=> isCreatable() && createNewPlan()}>Создать</button>
                 </div>
             </div>
         </div>
