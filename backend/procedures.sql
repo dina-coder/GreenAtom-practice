@@ -16,7 +16,7 @@ BEGIN
 	select plans.id as plan_id, users.name as name,
 	worker_id, positions.name as position,
 	DATE_FORMAT(date_creation, "%d.%m.%Y") as date_creation,
-	super_id, hr_id, steps.name as step,
+	super_id, hr_id, position_id, grade_id, step_id, steps.name as step,
 	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start,
 	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end, result,
 	comment, grades.name as grade, susers.name as super,
