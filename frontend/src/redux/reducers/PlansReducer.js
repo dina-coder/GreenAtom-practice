@@ -150,7 +150,6 @@ export const takePlans = (role, userId) => async (dispatch) => {
     dispatch(setToggle(true))
     if (role === Roles.HR) response = await MainAPI.takeplan_HR()
     if (role === Roles.Director) response = await MainAPI.takeData(userId)
-    console.log(response)
     dispatch(setToggle(false))
     dispatch(setPlansList(response))
 }
@@ -167,7 +166,6 @@ export const TakeGradesInfo = () => async (dispatch) => {
 
 export const takeNames = (role_id) => async (dispatch) => {
     const response = await MainAPI.takeNames(role_id);
-    console.log(response)
    if (mapRoleIdToRole(role_id)===Roles.HR) dispatch(setHrNames(response));
    if (mapRoleIdToRole(role_id)===Roles.Employee) dispatch(setWorkersNames(response));
    if (mapRoleIdToRole(role_id)===Roles.Director) dispatch(setSupersNames(response));

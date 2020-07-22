@@ -37,6 +37,7 @@ class AdaptationPlan extends React.Component
             <Preloader/>
             :
             <AdaptationPlanForm 
+                takePlans = {this.props.takePlans}
                 grades = {this.props.grades}
                 stepList ={this.props.stepList}
                 hrNames = {this.props.hrNames}

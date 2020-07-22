@@ -17,7 +17,13 @@ class AdaptationPlans extends React.Component {
            this.props.takeNames(3);
            this.props.takePositions();
         }
+
     }
+    componentDidUpdate(prevProps){
+        if (prevProps.filteredList!=this.props.filteredList){
+        this.setState({filteredList:this.props.filteredList})
+        }
+        }
     
         
     onFilter = (filter,value) => {
@@ -25,6 +31,7 @@ class AdaptationPlans extends React.Component {
     }
      
     render() {
+
         const privilegeToAdd = (role) => {
             return role === Roles.HR ? true : false;
         }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import AdaptationPlanInfo from './AdaptationPlanInfo/AdaptationPlanInfo'
 import s from './AdaptationPlan.module.scss'
 import PlanTasks from './PlanTasks/PlanTasks'
@@ -9,11 +9,13 @@ import { Roles } from '../../constants/roles'
 const AdaptationPlanForm = (props) => {
     const RerenderPlans = () =>{
         props.setPlanClick(false);
+        props.takePlans('HR');
     }
+
     return (
         <div className={mapRoleIdToRole(props.role_id) === Roles.Employee ? s.wrapper : s.container}>
             { (mapRoleIdToRole(props.role_id) !== Roles.Employee)&&
-             <div className={s.close} onClick={() => RerenderPlans(props.user_id)}></div>}
+             <div className={s.close} onClick={() => RerenderPlans()}></div>}
            
             <AdaptationPlanInfo 
                                 positions = {props.positions}
