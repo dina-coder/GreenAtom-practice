@@ -38,6 +38,27 @@
         border: 1px solid $brandColor
     }
 }
+.PaginationContainer{
+    text-align: center;
+    .Pagination{
+        color: #8CC547;
+        margin-right: 10px;
+        font-size: 14pt;
+        font-weight: 500;
 
+    }
+    .PaginationActive{
+        color: #8CC547;
+        margin-right: 10px;
+        font-size: 14pt;
+        font-weight: 900;
+    }
+    .Pagination:hover{
+        cursor: pointer;
+        opacity: 50%;
+    }
+
+
+}
     
 }

@@ -35,6 +35,8 @@ const AdaptationPlanForm = (props) => {
                 plan_id={props.employee.plan_id}
                 UpdateTaskStatusFromEmployee={props.UpdateTaskStatusFromEmployee}
                 UpdateTaskFromEmployee={props.UpdateTaskFromEmployee}
+                amountOfTask={props.amountOfTask}
+                TakeTasks={props.TakeTasks}
                  />
         </div>
     )
