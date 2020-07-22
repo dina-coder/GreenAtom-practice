@@ -13,7 +13,7 @@ const PlanCreation=(props)=>{
     const [superName, setSuperName] = useState("");
     const [workerPosition, setWorkerPosition] = useState("");
     const createNewPlan = (worker_id, position_id, super_id, date_start, date_end) => {
-        props.createPlan(worker_id, position_id, super_id, props.user_id, date_start, date_end, 0, null, '');
+        props.createPlan(worker_id, position_id, super_id, props.user_id, date_start, date_end, 0, 6, '');
         props.setIsCreationOpen(false);
     }
     const findID = (value,list) => {
