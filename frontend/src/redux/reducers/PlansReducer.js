@@ -15,7 +15,9 @@ let initialState = {
     stepList: [],
     workersNames: [],
     supersNames: [],
-    positions: []
+    hrNames: [],
+    positions: [],
+    grades: []
 }
 
 const peopleFilter = (item, search) => {
@@ -78,6 +80,12 @@ const PlansReducer = (state = initialState, action) => {
         case SUPERS_NAMES: {
            return {...state,  supersNames: action.nameList}
         }
+        case HR_NAMES: {
+            return {...state, hrNames:action.nameList}
+        }
+        case GRADES: {
+            return {...state, grades:action.grades}
+        }
         case POSITIONS: {
             return {...state, positions: action.positions}
         }
@@ -94,6 +102,8 @@ const STEPS = 'STEPS';
 const WORKERS_NAMES = 'WORKERS_NAMES';
 const SUPERS_NAMES = 'SUPERS_NAMES';
 const POSITIONS = 'POSITIONS';
+const HR_NAMES = 'HR_NAMES';
+const GRADES = 'GRADES';
 
 export const setPlansList = (plansList) => {
     return ({
@@ -114,9 +124,17 @@ export const setWorkersNames = (nameList) => {
         nameList
     })
 }
-
+export const setHrNames = (nameList) => {
+    return ({
+        type: HR_NAMES,
+        nameList
+    })
+}
 export const setSupersNames = (nameList) => {
     return({ type:SUPERS_NAMES, nameList})
+}
+export const takeGrades = (grades) => {
+    return({ type:GRADES, grades})
 }
 
 export const setFilter = (filters) => {
@@ -132,6 +150,7 @@ export const takePlans = (role, userId) => async (dispatch) => {
     dispatch(setToggle(true))
     if (role === Roles.HR) response = await MainAPI.takeplan_HR()
     if (role === Roles.Director) response = await MainAPI.takeData(userId)
+    console.log(response)
     dispatch(setToggle(false))
     dispatch(setPlansList(response))
 }
@@ -140,9 +159,16 @@ export const takeSteps = () => async (dispatch) => {
     let response = await MainAPI.takeSteps();
     dispatch(setSteps(response));
 }
+export const TakeGradesInfo = () => async (dispatch) => {
+    let response = await MainAPI.gradesAPI();
+    console.log(response)
+    dispatch(takeGrades(response));
+}
 
 export const takeNames = (role_id) => async (dispatch) => {
     const response = await MainAPI.takeNames(role_id);
+    console.log(response)
+   if (mapRoleIdToRole(role_id)===Roles.HR) dispatch(setHrNames(response));
    if (mapRoleIdToRole(role_id)===Roles.Employee) dispatch(setWorkersNames(response));
    if (mapRoleIdToRole(role_id)===Roles.Director) dispatch(setSupersNames(response));
 }

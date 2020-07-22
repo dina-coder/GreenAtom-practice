@@ -18,7 +18,8 @@ class AdaptationPlans extends React.Component {
            this.props.takePositions();
         }
     }
-
+    
+        
     onFilter = (filter,value) => {
         this.props.setFilter({...this.props.filters, [filter]: value})
     }

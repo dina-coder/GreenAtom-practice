@@ -7,15 +7,23 @@ import { Roles } from '../../constants/roles'
 
 
 const AdaptationPlanForm = (props) => {
-
+    const RerenderPlans = () =>{
+        props.setPlanClick(false);
+    }
     return (
         <div className={mapRoleIdToRole(props.role_id) === Roles.Employee ? s.wrapper : s.container}>
             { (mapRoleIdToRole(props.role_id) !== Roles.Employee)&&
-             <div className={s.close} onClick={() => props.setPlanClick(false)}></div>}
+             <div className={s.close} onClick={() => RerenderPlans(props.user_id)}></div>}
            
-            <AdaptationPlanInfo role_id={props.role_id} employee={props.employee}
-                                updatePlan={props.updatePlan}
-                                GetEmployeeProfileInfo={props.GetEmployeeProfileInfo} />
+            <AdaptationPlanInfo 
+                                positions = {props.positions}
+                                stepList = {props.stepList}
+                                supersNames ={props.supersNames}
+                                role_id = {props.role_id} employee = {props.employee}
+                                updatePlan = {props.updatePlan}
+                                GetEmployeeProfileInfo = {props.GetEmployeeProfileInfo}
+                                hrNames = {props.hrNames} 
+                                grades = {props.grades}/>
             <PlanTasks
                 role_id={props.role_id}
                 step = {props.employee.step}
