@@ -3,8 +3,8 @@ const express = require('express')
 const router = express.Router()
 const { dbError, genericDbError, empty,
 	getDictStepsSql, getDictStepsPath
-} = require('../../misc/resources')
-const { getDict } = require('../../misc/dbconnector')
+} = require('../../resources')
+const { getDict } = require('../../dbmethods')
 
 router.get(getDictStepsPath, async (req, res) => {
 	try {

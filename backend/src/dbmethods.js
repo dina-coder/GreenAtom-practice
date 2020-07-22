@@ -1,5 +1,5 @@
 'use strict'
-const pool = require('../config/dbconfig')
+const pool = require('./config/dbconfig')
 
 const { loginSql,
 	getTasksSql, updateTaskResultSql,

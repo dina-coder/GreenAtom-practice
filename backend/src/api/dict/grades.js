@@ -3,8 +3,8 @@ const express = require('express')
 const router = express.Router()
 const { dbError, genericDbError, empty,
 	getDictGradesSql, getDictGradesPath
-} = require('../../misc/resources')
-const { getDict } = require('../../misc/dbconnector')
+} = require('../../resources')
+const { getDict } = require('../../dbmethods')
 
 router.get(getDictGradesPath, async (req, res) => {
 	try {

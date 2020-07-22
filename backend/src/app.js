@@ -8,7 +8,7 @@ const morgan = require('morgan')
 
 const { serverRunning, frontendOrigin,
 	defaultExpressPort, apiPath,
-	morganString } = require('./misc/resources')
+	morganString } = require('./resources')
 
 const loginRouter = require('./api/login')
 const getPlansWorkerRouter = require('./api/getPlansWorker')

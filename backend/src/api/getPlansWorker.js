@@ -2,8 +2,8 @@ const express = require('express')
 const router = express.Router()
 const { dbError, genericDbError, empty,
 	getPlansWorkerPath, getPlansWorkerSql
-} = require('../misc/resources')
-const { getPlans } = require('../misc/dbconnector')
+} = require('../resources')
+const { getPlans } = require('../dbmethods')
 
 router.get(getPlansWorkerPath, async (req, res) => {
 	try {

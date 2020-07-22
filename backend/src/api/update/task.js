@@ -4,8 +4,8 @@ const router = express.Router()
 const { dbError, genericDbError,
 	updated, updateTaskPath,
 	dateConvertToMySql
-} = require('../../misc/resources')
-const { updateTask } = require('../../misc/dbconnector')
+} = require('../../resources')
+const { updateTask } = require('../../dbmethods')
 
 router.put(updateTaskPath, async (req, res) => {
 	req.body.date_start = req.body.date_start ? await dateConvertToMySql(req.body.date_start) : req.body.date_start

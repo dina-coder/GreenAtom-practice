@@ -3,8 +3,8 @@ const express = require('express')
 const router = express.Router()
 const { dbError, genericDbError, deleted,
 	deletePlanPath
-} = require('../../misc/resources')
-const { deletePlan } = require('../../misc/dbconnector')
+} = require('../../resources')
+const { deletePlan } = require('../../dbmethods')
 
 router.delete(deletePlanPath, async (req, res) => {
 	try {

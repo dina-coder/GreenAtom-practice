@@ -3,8 +3,8 @@ const express = require('express')
 const router = express.Router()
 const { dbError, genericDbError,
 	updated, updateTaskResultPath
-} = require('../../misc/resources')
-const { updateTaskResult } = require('../../misc/dbconnector')
+} = require('../../resources')
+const { updateTaskResult } = require('../../dbmethods')
 
 router.put(updateTaskResultPath, async (req, res) => {
 	try {

@@ -4,8 +4,8 @@ const router = express.Router()
 const sha1 = require('sha1')
 const { dbError, genericDbError, empty,
 	loginPath
-} = require('../misc/resources')
-const { login } = require('../misc/dbconnector')
+} = require('../resources')
+const { login } = require('../dbmethods')
 
 router.post(loginPath, async (req, res) => {
 	try {
