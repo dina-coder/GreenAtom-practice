@@ -209,6 +209,7 @@ CREATE PROCEDURE sp_delete_plan(
 	IN plan_id_ INT
 )
 BEGIN
+	delete from tasks where plan_id = plan_id_;
 	delete from plans where id = plan_id_;
 END;
 
@@ -218,4 +219,12 @@ CREATE PROCEDURE sp_delete_task(
 )
 BEGIN
 	delete from tasks where id = task_id_;
+END;
+
+drop PROCEDURE if EXISTS sp_count_tasks;
+CREATE PROCEDURE sp_count_tasks(
+	IN plan_id_ INT
+)
+BEGIN
+	select count(*) as count from tasks where plan_id = plan_id_;
 END;

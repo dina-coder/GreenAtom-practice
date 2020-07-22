@@ -26,6 +26,7 @@ const updateTaskRouter = require('./api/update/task')
 const updateTaskResultRouter = require('./api/update/taskResult')
 const deletePlanRouter = require('./api/delete/plan')
 const deleteTaskRouter = require('./api/delete/task')
+const countTasksRouter = require('./api/countTasks')
 
 const port = process.env.EXPRESS_PORT || defaultExpressPort
 
@@ -44,13 +45,14 @@ app.use(apiPath, getDictGradesRouter)
 app.use(apiPath, getDictStepsRouter)
 app.use(apiPath, getDictNamesRouter)
 app.use(apiPath, getDictPositionsRouter)
-app.use(apiPath, insertPlanRouter);
-app.use(apiPath, insertTaskRouter);
-app.use(apiPath, updatePlanRouter);
-app.use(apiPath, updateTaskRouter);
+app.use(apiPath, insertPlanRouter)
+app.use(apiPath, insertTaskRouter)
+app.use(apiPath, updatePlanRouter)
+app.use(apiPath, updateTaskRouter)
 app.use(apiPath, updateTaskResultRouter)
-app.use(apiPath, deletePlanRouter);
-app.use(apiPath, deleteTaskRouter);
+app.use(apiPath, deletePlanRouter)
+app.use(apiPath, deleteTaskRouter)
+app.use(apiPath, countTasksRouter)
 
 app.listen(port, () => console.log(serverRunning(port)))
 

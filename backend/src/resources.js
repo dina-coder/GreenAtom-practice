@@ -1,6 +1,6 @@
 'use strict'
 const resources = {
-	genericDbError: "Ошибка подключения к базе данных",
+	genericDbError: 'Ошибка подключения к базе данных',
 	dbError: msg => { return {error_message: msg, error_flag: true} },
 	serverRunning: port => { return `Сервер запущен по адресу: http://localhost:${port}`},
 	morganString: ':method :url :status :res[content-length] - :response-time ms',
@@ -30,6 +30,7 @@ const resources = {
 	updateTaskResultSql: 'call sp_update_task_result(?, ?)',
 	deletePlanSql: 'call sp_delete_plan(?)',
 	deleteTaskSql: 'call sp_delete_task(?)',
+	countTasksSql: 'call sp_count_tasks(?)',
 
 	apiPath: '/api',
 	loginPath: '/login',
@@ -48,6 +49,7 @@ const resources = {
 	updateTaskResultPath: '/update/task_result',
 	deletePlanPath: '/delete/plan',
 	deleteTaskPath: '/delete/task',
+	countTasksPath: '/count_tasks',
 
 	dateConvertToMySql: date => { return date.split('.').reverse().join('-') }
 }

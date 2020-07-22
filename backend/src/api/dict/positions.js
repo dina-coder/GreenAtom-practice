@@ -11,6 +11,7 @@ router.get(getDictPositionsPath, async (req, res) => {
 		const result = await getDict(getDictPositionsSql)
 		res.status(200).send(result[0] ? result : empty)
 	} catch (ex) {
+		console.error(ex)
 		res.status(500).send(dbError(genericDbError))
 	}
 })

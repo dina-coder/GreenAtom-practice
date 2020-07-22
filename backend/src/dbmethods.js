@@ -6,7 +6,8 @@ const { loginSql,
 	insertTaskSql, insertPlanSql,
 	updatePlanSql, updateTaskSql,
 	deletePlanSql, deleteTaskSql,
-	plansOnPage, tasksOnPage
+	plansOnPage, tasksOnPage,
+	countTasksSql
 } = require('./resources')
 
 const methods = {
@@ -22,6 +23,10 @@ const methods = {
 				tasksOnPage
 			])
 		return rows[0]
+	},
+	countTasks: async (plan_id) => {
+		const [rows] = await pool.query(countTasksSql, [plan_id])
+		return rows[0][0]
 	},
 	getPlans: async (sql, user_id, page) => {
 		let obj = []
