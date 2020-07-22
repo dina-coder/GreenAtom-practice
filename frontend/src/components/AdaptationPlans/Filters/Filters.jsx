@@ -40,7 +40,7 @@ const Filters = (props) =>{
                 <option value="all">Все этапы</option>
 
                 { props.steps.map(step =>
-                  <option value = {step.name}>{step.name}</option>
+                  <option value = {step.name} key={step.name}>{step.name}</option>
                 )}
                 
             </select>

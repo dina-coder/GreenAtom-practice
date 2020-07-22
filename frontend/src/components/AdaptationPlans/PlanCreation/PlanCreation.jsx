@@ -12,6 +12,14 @@ const PlanCreation=(props)=>{
     const [workerName, setWorkerName] = useState("");
     const [superName, setSuperName] = useState("");
     const [workerPosition, setWorkerPosition] = useState("");
+    const createNewPlan = (worker_id, position_id, super_id, date_start, date_end) => {
+        props.createPlan(worker_id, position_id, super_id, props.user_id, date_start, date_end, 0, null, '');
+        props.setIsCreationOpen(false);
+    }
+    const findID = (value,list) => {
+       return list.filter(item=> item.name===value)[0].id;
+    }
+
     return(  
         <div className={style.fixed}>
             <div className={style.container}>
@@ -24,12 +32,7 @@ const PlanCreation=(props)=>{
                             <Autocomplete
                                 getItemValue={(item)=> item.label}
                                 items={
-                                    [
-                                        {label: 'person'},
-                                        {label: 'buk'},
-                                        {label: 'duck'},
-                                        {label: 'olly'},
-                                    ]
+                                   props.workers.map(worker=> ({label:worker.name}))
                                 } 
                                 renderItem={(item, isHighlighted)=>
                                 <div style={{background: isHighlighted? 'rgba(140, 197, 71, 0.5)':'white'}}>
@@ -48,10 +51,9 @@ const PlanCreation=(props)=>{
                         <td>
                         <Autocomplete
                                 getItemValue={(item)=> item.label}
-                                items={
-                                    [
-                                    ]
-                                } 
+                                 items={
+                                        props.positions.map(position=> ({label:position.name}))
+                                 } 
                                 renderItem={(item, isHighlighted)=>
                                 <div style={{background: isHighlighted? 'rgba(140, 197, 71, 0.5)':'white'}}>
                                     {item.label}
@@ -70,12 +72,7 @@ const PlanCreation=(props)=>{
                              <Autocomplete
                                 getItemValue={(item)=> item.label}
                                 items={
-                                    [
-                                        {label: 'ddd'},
-                                        {label: 'aaaa'},
-                                        {label: 'eds'},
-                                        {label: 'saf'},
-                                    ]
+                                    props.supers.map(item=>({label:item.name}))
                                 } 
                                 renderItem={(item, isHighlighted)=>
                                 <div style={{background: isHighlighted? 'rgba(140, 197, 71, 0.5)':'white'}}>
@@ -112,7 +109,12 @@ const PlanCreation=(props)=>{
                     </tr>
                 </table>
                 <div className={style.btnWrapper}>
-                    <button className={style.addBtn}>Создать</button>
+                    <button className={style.addBtn}
+                     onClick={()=> createNewPlan( findID(workerName, props.workers), 
+                     findID(workerPosition, props.positions),
+                     findID(superName, props.supers),
+                     moment(range.from).format("DD.MM.YYYY"),
+                     moment(range.to).format("DD.MM.YYYY"))}>Создать</button>
                 </div>
             </div>
         </div>

@@ -31,7 +31,7 @@ const PlansTable = (props) => {
             <tbody>
                 {props.DataAboutPlans.length > 0 ?
                  props.DataAboutPlans.map(x =>
-                    <tr className = {style.plan}>
+                    <tr className = {style.plan} key={x.name}>
                         <td className = {style.choosen}>{x.name}</td>
                         <td>{x.super}</td>
                         <td>{x.step}</td>
