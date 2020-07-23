@@ -59,7 +59,9 @@ const Task = (props) =>{
            props.result === 0 ?
             <div onClick={()=>{UpdateTaskStatusFromEmployee(props.id, 1, props.plan_id)}} className= {s.CircleFalse} ></div>:
             <div onClick={()=>{UpdateTaskStatusFromEmployee(props.id, 0, props.plan_id)}} className={s.CircleTrue}></div>:
-            ''}
+            props.result === 0 ?
+            <div className= {s.CircleFalse} ></div>:
+            <div className={s.CircleTrue}></div>}
             {istaskEdited==false ? <h3 className={s.Title1}>{props.name}</h3> :<input value = {name} onChange ={SetTaskName} className ={s.Title}/>} 
             {istaskEdited==false ? <h3 className={s.Date1}>До {props.date_end}</h3> : 
             <div className={s.Date1}>
