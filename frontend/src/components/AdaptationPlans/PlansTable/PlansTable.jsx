@@ -50,7 +50,7 @@ const PlansTable = (props) => {
     return(
     <div>
         {props.isFetching === true ? <Preloader/>:
-        props.DataAboutPlans.length > 0 ?
+        props.DataAboutPlans !== null ?
         <>
         <table>
             <thead>
