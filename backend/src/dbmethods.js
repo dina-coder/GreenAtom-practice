@@ -7,7 +7,8 @@ const { loginSql,
 	updatePlanSql, updateTaskSql,
 	deletePlanSql, deleteTaskSql,
 	plansOnPage, tasksOnPage,
-	countTasksSql
+	countTasksSql, getPlansLimitedSql,
+	countPlansSql, countPlansSuperSql
 } = require('./resources')
 
 const methods = {
@@ -28,6 +29,12 @@ const methods = {
 		const [rows] = await pool.query(countTasksSql, [plan_id])
 		return rows[0][0]
 	},
+	countPlans: async (super_id) => {
+		const [rows] = await pool.query(
+			super_id ? countPlansSuperSql : countPlansSql,
+			super_id ? [super_id] : undefined)
+		return rows[0][0]
+	},
 	getPlans: async (sql, user_id, page) => {
 		let obj = []
 		if (user_id)
@@ -37,6 +44,13 @@ const methods = {
 			obj.push(plansOnPage)
 		}
 		let [rows] = await pool.query(sql, obj)
+		rows = rows[0]
+		if (!rows[0])
+			return []
+		return rows
+	},
+	getPlansLimited: async () => {
+		let [rows] = await pool.query(getPlansLimitedSql)
 		rows = rows[0]
 		if (!rows[0])
 			return []
