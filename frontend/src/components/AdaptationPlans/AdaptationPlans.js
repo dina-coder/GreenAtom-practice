@@ -22,9 +22,9 @@ class AdaptationPlans extends React.Component {
     componentDidUpdate(prevProps){
 
         if (prevProps.allPlans!==this.props.allPlans){
-        this.setState({allPlans:this.props.allPlans})
+            this.props.setFilter(this.props.filters);   
         }
-        }
+    }
     
         
     onFilter = (filter,value) => {

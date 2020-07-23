@@ -1,0 +1,73 @@
+@import '../../../variables';
+@mixin box{
+    position: relative;
+    width: 215px;
+    height: 39px;
+    border: 1px solid #8CC547;
+    box-sizing: border-box;
+    border-radius: 16px;
+    text-align: center;
+    margin-left: -40px;
+    vertical-align:middle;
+}
+.container{
+    display: inline-flex;
+    width: 97%;
+    height: 60px;
+    margin-left: 40px;
+    margin-top: 40px;
+}
+.InProcess{
+    @include box;
+    font-weight: 600;
+    color: $brandColor;
+    background-color: white;
+}
+.Completed{
+    @include box;
+    color: white;
+    background-color: #A1D760;
+
+}
+.NotCompleted{
+    @include box;
+    background-color: white;
+    font-weight: 600;
+
+    color: rgba(90, 90, 93, 0.7);
+}
+.ZIndex1{
+    z-index: 6;
+    line-height: 39px;
+    font-size: 15px;
+
+}
+.ZIndex2{
+    z-index: 5;
+    font-size: 13px;
+
+}
+.ZIndex3{
+    z-index: 4;
+    font-size: 13px;
+
+}
+.ZIndex4{
+    z-index: 3;
+    line-height: 39px;
+    font-size: 15px;
+
+
+}
+.ZIndex5{
+    z-index: 2;
+    line-height: 39px;
+    font-size: 15px;
+
+}
+.ZIndex6{
+    padding-left: 20px;
+    z-index: 1;
+    line-height: 39px;
+    font-size: 15px;
+}

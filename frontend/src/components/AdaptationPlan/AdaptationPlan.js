@@ -45,6 +45,7 @@ class AdaptationPlan extends React.Component
                 supersNames = {this.props.supersNames}
                 setPlanClick = {this.props.setPlanClick}
                 role_id = {this.props.role_id}
+                user_id = {this.props.user_id}
                 CreatTaskForEmployee = {this.props.CreatTaskForEmployee}
                 name={this.props.name} 
                 employee={this.props.employee}

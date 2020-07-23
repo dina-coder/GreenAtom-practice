@@ -24,6 +24,9 @@ const EmployeeReducer = (state = initialState, action) => {
         case TAKE_AMOUNT_OF_TASKS: {
             return {...state, amountOfTask:action.amountOfTask}
         }
+        case LOG_OUT: {
+            return {...state, employee_info:null,plantasks:null }
+        }
         
         default:
             return state
@@ -32,12 +35,15 @@ const EmployeeReducer = (state = initialState, action) => {
 export default EmployeeReducer
 
 
+const LOG_OUT = 'LOG_OUT'
 const TAKE_EMPLOYEE_PROFILE_INFO='TAKE_EMPLOYEE_PROFILE_INFO';
 const TAKE_TASKS_FOR_PLAN = 'TAKE_TASKS_FOR_PLAN'
 const TAKE_INFO_ABOUT_PLAN = 'TAKE_INFO_ABOUT_PLAN'
-const TOGGLE_FETCHING = 'TOGGLE_FETCHING'
 const TAKE_AMOUNT_OF_TASKS='TAKE_AMOUNT_OF_TASKS'
 
+export const LogOut = () => {
+    return ({type:LOG_OUT})
+} 
 export const SetPlanTasks = (plantasks) => {
     return ({type: TAKE_TASKS_FOR_PLAN, plantasks})
 }
@@ -69,10 +75,13 @@ export const GetEmployeeProfileInfo = (user_id) => async (dispatch) => {
     dispatch(setToggle(true))
     let response = await MainAPI.getemployeeinfo(user_id)
     dispatch(setToggle(false))
-    dispatch(GetTaskAmount(response[0].plan_id))
-    dispatch(SetEmployeeProfileInfo(response))
-    dispatch(TakeTasks(response[0].plan_id))
-}
+    if (response[0] !== undefined ){
+        dispatch(GetTaskAmount(response[0].plan_id))
+        dispatch(SetEmployeeProfileInfo(response))
+        dispatch(TakeTasks(response[0].plan_id))
+    }
+    }
+
 
 export const DeleteTaskFromEmployee = (task_id) => async () => {
      await MainAPI.deleteTask(task_id)
