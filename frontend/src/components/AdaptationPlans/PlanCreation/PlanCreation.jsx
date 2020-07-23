@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import style from './PlanCreation.module.scss';
 import { DateUtils } from 'react-day-picker';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
+import errorImg from '../../../img/error.png'
 import moment from 'moment';
 import 'moment/locale/ru';
 import Autocomplete from 'react-autocomplete';
@@ -13,6 +14,7 @@ const PlanCreation=(props)=>{
     const [superName, setSuperName] = useState("");
     const [workerPosition, setWorkerPosition] = useState("");
     const [isError, setIsError] = useState(false);
+    const [errMessage, setErrMessage] = useState("");
     const createNewPlan = () => {
         props.createPlan(
             findID(workerName, props.workers), 
@@ -40,14 +42,25 @@ const PlanCreation=(props)=>{
         const isCreateError=!isWorkerExist || !isSuperExist || !isPositionExist || !isDateFull || isPlanExist
         isCreateError&&setIsError(true);
         if(!isCreateError) return true;
-        if ((!isWorkerExist || isPlanExist)&& isDateFull) setWorkerName("");
-        if (!isSuperExist) setSuperName("");
-        if (!isPositionExist) setWorkerPosition("");
-        if (!isDateFull) {
-            alert('Выберите период полностью');
+        if (workerName==""||workerPosition==""||superName==""||!range.to) setErrMessage('Заполните все поля');
+        else {
+            if ((!isWorkerExist || isPlanExist)&& isDateFull){ 
+                setErrMessage('Данного работника не существует');
+                setWorkerName("");
+            }
+            if (!isSuperExist) {
+                setErrMessage('Данного руководителя не существует');
+                setSuperName("");
+            }
+            if (!isPositionExist) {
+                setErrMessage('Данной позиции не существует');
+                setWorkerPosition("");
+            }
+            if (!isDateFull) {
+                setErrMessage('Выберите период полностью');
+            }
+            if (isPlanExist && isDateFull) setErrMessage("План для этого сотрудника уже создан");
         }
-        if (isPlanExist && isDateFull) alert("План для этого сотрудника уже создан")
-
         
         return false;
     }
@@ -163,6 +176,10 @@ const PlanCreation=(props)=>{
                     </tr>
                 </table>
                 <div className={style.btnWrapper}>
+                    {isError&&(<div style={{display:'flex'}}>
+                        <img src={errorImg} alt="error"/>
+                        <p>{errMessage}</p>
+                    </div>) } 
                     <button className={style.addBtn}
                      onClick={()=> isCreatable() && createNewPlan()}>Создать</button>
                 </div>
