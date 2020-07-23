@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import arrow from '../../../img/down-arrow.png';
 import greenArrow from '../../../img/down-arrow-green.png';
 import rightArrow from '../../../img/right-arrow.png';
+import previousPageArrow from '../../../img/previous-page.png';
+import nextPageArrow from '../../../img/next-page.png';
 import style from "./PlansTable.module.scss";
 import Preloader from '../../../Preloader/Preloader';
 import AdaptationPlan from '../../AdaptationPlan/AdaptationPlan';
@@ -9,17 +11,33 @@ import AdaptationPlan from '../../AdaptationPlan/AdaptationPlan';
 
 
 const PlansTable = (props) => {
-    const [worker_id, setWorker_id] = useState(undefined)
-    const [isPlanClick, setPlanClick] = useState(false)
+    const [worker_id, setWorker_id] = useState(undefined);
+    const [isPlanClick, setPlanClick] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
     const TakeDataForPlanClick = (bool,worker_id) => {
         setPlanClick(bool)
         setWorker_id(worker_id)
     }
-    const getNewPage = (pageNum) => {
-        console.log(props.role, props.userId, pageNum);
-        props.takePlans(props.role, props.userId, pageNum);
+    const getNewPage = (page) => {
+        let curPage = currentPage;
+        switch(page){
+            case 'prev':
+                (currentPage>1)&&setCurrentPage(currentPage-1);
+                curPage--;
+                console.log(currentPage);
+                break;
+            case 'next': 
+                (currentPage<pagination.length)&&setCurrentPage(currentPage+1);
+                curPage++;
+                break;
+            default:
+                setCurrentPage(page);
+                curPage = page;
+                break;  
+        }
+        props.takePlans(props.role, props.userId, curPage);
     }
-
+       
     let pagination = [];
     const pagesAmount = Math.ceil(props.amount / 5);
     for (let i = 1; i <= pagesAmount; i++) {
@@ -58,7 +76,9 @@ const PlansTable = (props) => {
             </tbody>
         </table>
             <div className={style.paginationContainer}>
+            <img src={previousPageArrow} alt='previous page' onClick={()=>getNewPage('prev')} />
             {pagination.map((x) => <span key={x} className={style.pagination} onClick={() => getNewPage(x) }>{x}</span>)}
+            <img src={nextPageArrow} alt="next page" onClick={()=>getNewPage('next')} />
             </div>
         </>
         : <div style={{
