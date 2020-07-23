@@ -13,7 +13,8 @@ const PlanTasks = (props) => {
         setActivepage(x-1);
     }
     let AllTasks;
-    if (props.plantasks !==null) {
+    if ( props.plantasks) {
+        if (props.plantasks.length > 0){
         AllTasks = props.plantasks.map((x, key) => <Task plan_id={props.plan_id} id={x.id}
             role_id={props.role_id}
             step={props.step}
@@ -26,6 +27,8 @@ const PlanTasks = (props) => {
             UpdateTaskStatusFromEmployee={props.UpdateTaskStatusFromEmployee}
             UpdateTaskFromEmployee={props.UpdateTaskFromEmployee} />)
     }
+    else AllTasks = "Задачи не добавлены"
+}
     else AllTasks = "Задачи не добавлены"
     let Pagination = [];
     let PagesAmount = Math.ceil(props.amountOfTask / 5);

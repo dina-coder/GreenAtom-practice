@@ -1,6 +1,7 @@
 'use strict'
 const resources = {
 	genericDbError: 'Ошибка подключения к базе данных',
+	invalidTokenError: 'Невозможно разобрать выражение фильтра',
 	dbError: msg => { return {error_message: msg, error_flag: true} },
 	serverRunning: port => { return `Сервер запущен по адресу: http://localhost:${port}`},
 	morganString: ':method :url :status :res[content-length] - :response-time ms',
@@ -31,12 +32,16 @@ const resources = {
 	deletePlanSql: 'call sp_delete_plan(?)',
 	deleteTaskSql: 'call sp_delete_task(?)',
 	countTasksSql: 'call sp_count_tasks(?)',
+	countPlansSql: 'call sp_count_plans()',
+	countPlansSuperSql: 'call sp_count_plans_super(?)',
+	getPlansLimitedSql: 'call sp_get_plans_limited()',
 
 	apiPath: '/api',
 	loginPath: '/login',
 	getPlansWorkerPath: '/get_worker_data',
 	getTasksPath: '/get_tasks',
 	getPlansSuperPath: '/get_plans_super',
+	getPlansSuperFilteredPath: '/get_plans_super_filtered',
 	getPlansHrPath: '/get_plans_hr',
 	getDictGradesPath: '/dict/grades',
 	getDictNamesPath: '/dict/names',
@@ -50,8 +55,10 @@ const resources = {
 	deletePlanPath: '/delete/plan',
 	deleteTaskPath: '/delete/task',
 	countTasksPath: '/count_tasks',
+	countPlansPath: '/count_plans',
 
-	dateConvertToMySql: date => { return date.split('.').reverse().join('-') }
+	dateConvertToMySql: date => { return date.split('.').reverse().join('-') },
+	dateReverse: date => {return date.split('.').reverse().join('.')}
 }
 
 module.exports = resources

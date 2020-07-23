@@ -27,6 +27,8 @@ const updateTaskResultRouter = require('./api/update/taskResult')
 const deletePlanRouter = require('./api/delete/plan')
 const deleteTaskRouter = require('./api/delete/task')
 const countTasksRouter = require('./api/countTasks')
+const countPlansRouter = require('./api/countPlans')
+const getPlansSuperFilteredRouter = require('./api/getPlansSuperFiltered')
 
 const port = process.env.EXPRESS_PORT || defaultExpressPort
 
@@ -53,6 +55,8 @@ app.use(apiPath, updateTaskResultRouter)
 app.use(apiPath, deletePlanRouter)
 app.use(apiPath, deleteTaskRouter)
 app.use(apiPath, countTasksRouter)
+app.use(apiPath, countPlansRouter)
+app.use(apiPath, getPlansSuperFilteredRouter)
 
 app.listen(port, () => console.log(serverRunning(port)))
 

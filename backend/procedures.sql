@@ -228,3 +228,29 @@ CREATE PROCEDURE sp_count_tasks(
 BEGIN
 	select count(*) as count from tasks where plan_id = plan_id_;
 END;
+
+drop PROCEDURE if EXISTS sp_count_plans;
+CREATE PROCEDURE sp_count_plans()
+BEGIN
+	select count(*) as count from plans;
+END;
+
+drop PROCEDURE if EXISTS sp_count_plans_super;
+CREATE PROCEDURE sp_count_plans_super(
+	IN super_id_ INT
+)
+BEGIN
+	select count(*) as count from plans
+	where super_id = super_id_;
+END;
+
+drop PROCEDURE if EXISTS sp_get_plans_limited;
+CREATE PROCEDURE sp_get_plans_limited()
+BEGIN
+	select plans.id, DATE_FORMAT(plans.date_start, "%Y.%m.%d") as date_start,
+	DATE_FORMAT(plans.date_end, "%Y.%m.%d") as date_end,
+	plans.step_id, wusers.name as wname, susers.name as sname
+	from plans
+	left join users as wusers on wusers.id = plans.worker_id
+	left join users as susers on susers.id = plans.super_id;
+END;
