@@ -8,17 +8,19 @@ import { Roles } from '../../constants/roles';
 
 class AdaptationPlans extends React.Component {
 
+    
     componentDidMount(){
         this.props.takePlans(this.props.role, this.props.user_id)
-            .then(()=>this.props.setFilter(this.props.filters));
+            .then(()=>!(this.props.allPlans.hasOwnProperty('empty'))
+            && this.props.setFilter(this.props.filters));
         this.props.takeSteps();
         if (this.props.role===Roles.HR) {
            this.props.takeNames(2);
            this.props.takeNames(3);
            this.props.takePositions();
         }
-
     }
+
     componentDidUpdate(prevProps){
 
         if (prevProps.allPlans!==this.props.allPlans){
@@ -35,11 +37,11 @@ class AdaptationPlans extends React.Component {
         const privilegeToAdd = (role) => {
             return role === Roles.HR ? true : false;
         }
+        
         return (
             <AdaptationPlansForm
                 isFetching = {this.props.isFetching}
                 SetInfoForPlan = {this.props.SetInfoForPlan}
-                //тут должен быть filteredList но с ним не работает componentDidUpdate
                 DataAboutPlans = {this.props.filteredList}
                 name = {this.props.name}
                 steps={this.props.steps}

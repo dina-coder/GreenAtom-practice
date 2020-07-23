@@ -18,6 +18,7 @@ const PlansTable = (props) => {
     return(
     <div>
         {props.isFetching === true ? <Preloader/>:
+        props.DataAboutPlans.length > 0 ?
         <table>
             <thead>
             <tr>
@@ -29,8 +30,7 @@ const PlansTable = (props) => {
             </tr>
             </thead>
             <tbody>
-                {props.DataAboutPlans.length > 0 ?
-                 props.DataAboutPlans.map(x =>
+                { props.DataAboutPlans.map(x =>
                     <tr className = {style.plan} key={x.name}>
                         <td className = {style.choosen}>{x.name}</td>
                         <td>{x.super}</td>
@@ -41,10 +41,16 @@ const PlansTable = (props) => {
                          </button></td>
                     </tr> 
                     )
-                : 'Нет планов'}
+                }
            
             </tbody>
         </table>
+        : <div style={{
+            'font-size':'26px',
+            'text-align': 'center',
+            'margin-top': '20px',
+            color:'rgba(90, 90, 93, 0.7)'}}
+        > Планов нет </div>
         }
                 {isPlanClick && <AdaptationPlan
                 worker_id = {worker_id}

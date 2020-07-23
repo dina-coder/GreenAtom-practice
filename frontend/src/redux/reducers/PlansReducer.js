@@ -61,6 +61,7 @@ const PlansReducer = (state = initialState, action) => {
                 step,
                 period
             } = action.filters;
+            if(state.plansList.hasOwnProperty('empty')) return {...state} 
             const filteredList = [...state.plansList]
                 .filter(item => peopleFilter(item, search))
                 .filter(item => stepFilter(item, step))
