@@ -12,8 +12,8 @@ export const MainAPI = {
         return response.data
       })
   },
-  takeData(user_id) {
-    return axios.get(`http://localhost:9000/api/get_plans_super?user_id=${user_id}&page=1`)
+  takeData(user_id, currentPage=1) {
+    return axios.get(`http://localhost:9000/api/get_plans_super?user_id=${user_id}&page=${currentPage}`)
       .then(response => {
         return response.data
       })
@@ -30,8 +30,8 @@ export const MainAPI = {
         return response.data
       })
   },
-  takeplan_HR() {
-    return axios.get(`http://localhost:9000/api/get_plans_hr?page=1`)
+  takeplan_HR(currentPage=1) {
+    return axios.get(`http://localhost:9000/api/get_plans_hr?page=${currentPage}`)
       .then(response => {
         return response.data
       })
@@ -101,6 +101,12 @@ export const MainAPI = {
   },
   getAmountOfTasks(plan_id){
     return axios.get(`http://localhost:9000/api/count_tasks?plan_id=${plan_id}`)
+    .then(response => {
+      return response.data
+    })
+  },
+  getAmountOfPlans(id){
+    return axios.get(`http://localhost:9000/api/count_plans?id=${id}`)
     .then(response => {
       return response.data
     })

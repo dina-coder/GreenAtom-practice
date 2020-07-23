@@ -230,10 +230,12 @@ const AdaptationPlanInfo = (props) => {
                     <input value = {comment} onChange = {NewComment}/>        }
                 </tr>
             </table>
-            {isUpdateMode === true ? <button onClick={() => UpdatePlan(InfoPlan.worker_id, FindIdUser(Position, props.positions),
+            <div className={s.UpdateContainer}> 
+            {isUpdateMode === true ? <button className={s.Update} onClick={() => UpdatePlan(InfoPlan.worker_id, FindIdUser(Position, props.positions),
                 FindIdUser(superName, props.supersNames), FindIdUser(hrName, props.hrNames), FindIdUser(Step, props.stepList),
                 date_start_plan, date_end_plan, ResultId(Result), FindIdUser(Grade, props.grades),
                comment, InfoPlan.plan_id)}>Изменить</button> : ''}
+               </div>
         </div>
     )
 }

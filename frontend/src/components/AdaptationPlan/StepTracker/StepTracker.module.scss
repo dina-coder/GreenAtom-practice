@@ -5,6 +5,7 @@
     height: 39px;
     border: 1px solid #8CC547;
     box-sizing: border-box;
+    padding-left: 35px;
     border-radius: 16px;
     text-align: center;
     margin-left: -40px;
@@ -29,11 +30,13 @@
     background-color: #A1D760;
 
 }
+.Completed:first-child{
+    padding:0;
+}
 .NotCompleted{
     @include box;
     background-color: white;
     font-weight: 600;
-
     color: rgba(90, 90, 93, 0.7);
 }
 .ZIndex1{
@@ -66,8 +69,8 @@
 
 }
 .ZIndex6{
-    padding-left: 20px;
     z-index: 1;
     line-height: 39px;
     font-size: 15px;
+
 }

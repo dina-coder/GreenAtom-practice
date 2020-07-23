@@ -17,7 +17,8 @@ let initialState = {
     supersNames: [],
     hrNames: [],
     positions: [],
-    grades: []
+    grades: [],
+    amount: null
 }
 
 const peopleFilter = (item, search) => {
@@ -90,6 +91,9 @@ const PlansReducer = (state = initialState, action) => {
         case POSITIONS: {
             return {...state, positions: action.positions}
         }
+        case AMOUNT: {
+            return {...state, amount: action.amount.count}
+        }
         default:
             return state
     }
@@ -105,6 +109,7 @@ const SUPERS_NAMES = 'SUPERS_NAMES';
 const POSITIONS = 'POSITIONS';
 const HR_NAMES = 'HR_NAMES';
 const GRADES = 'GRADES';
+const AMOUNT = 'AMOUNT';
 
 export const setPlansList = (plansList) => {
     return ({
@@ -143,15 +148,18 @@ export const setFilter = (filters) => {
 }
 
 export const setPositions = (positions) => {
-    return ({type: POSITIONS, positions})
+    return ({type: POSITIONS, positions});
 }
 
-export const takePlans = (role, userId) => async (dispatch) => {
+export const setPlansAmount = (amount) => {
+    return ({type: AMOUNT, amount});
+}
+export const takePlans = (role, userId,curPage) => async (dispatch) => {
     let response;
-    dispatch(setToggle(true))
-    if (role === Roles.HR) response = await MainAPI.takeplan_HR()
-    if (role === Roles.Director) response = await MainAPI.takeData(userId)
-    dispatch(setToggle(false))
+    dispatch(setToggle(true));
+    if (role === Roles.HR) response = await MainAPI.takeplan_HR(curPage);
+    if (role === Roles.Director) response = await MainAPI.takeData(userId,curPage);
+    dispatch(setToggle(false));
     dispatch(setPlansList(response))
 }
 
@@ -176,7 +184,7 @@ export const takePositions = () => async (dispatch) => {
     dispatch(setPositions(response));
 }
 
-export const createPlan = (worker_id, position_id, super_id, hr_id, date_start, date_end, result, grade_id, comment) => async (dispatch) => {
+export const createPlan = (worker_id, position_id, super_id, hr_id, date_start, date_end, result, grade_id, comment) => async () => {
     const response = await MainAPI.createPlan(worker_id, position_id, super_id, hr_id, date_start, date_end, result, grade_id, comment);
     console.log(response);
 }
@@ -184,6 +192,10 @@ export const createPlan = (worker_id, position_id, super_id, hr_id, date_start, 
 export const updatePlan = (worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id) => async () => {
     let response = await MainAPI.updatePlanApi(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment,id)
     console.log(response)
- }
+}
 
- 
+export const getPlansAmount = (id) => async(dispatch) => {
+    const response = await MainAPI.getAmountOfPlans(id);
+    dispatch(setPlansAmount(response));
+    console.log(response);
+}
