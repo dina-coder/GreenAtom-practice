@@ -26,7 +26,7 @@ const AdaptationPlanInfo = (props) => {
     const [hrName, setHrName] = useState(props.employee.hr);
     const UpdatePlan = (worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id) => {
         props.updatePlan(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id)
-        props.GetEmployeeProfileInfo(worker_id)
+        .then(()=>props.GetEmployeeProfileInfo(worker_id));
         setUpdateMode(false)
     }
     let InfoPlan = props.employee

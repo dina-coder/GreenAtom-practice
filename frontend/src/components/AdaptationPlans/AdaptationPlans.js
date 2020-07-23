@@ -22,9 +22,9 @@ class AdaptationPlans extends React.Component {
     componentDidUpdate(prevProps){
 
         if (prevProps.allPlans!==this.props.allPlans){
-        this.setState({allPlans:this.props.allPlans})
+            this.props.setFilter(this.props.filters);   
         }
-        }
+    }
     
         
     onFilter = (filter,value) => {
@@ -40,7 +40,7 @@ class AdaptationPlans extends React.Component {
                 isFetching = {this.props.isFetching}
                 SetInfoForPlan = {this.props.SetInfoForPlan}
                 //тут должен быть filteredList но с ним не работает componentDidUpdate
-                DataAboutPlans = {this.props.allPlans}
+                DataAboutPlans = {this.props.filteredList}
                 name = {this.props.name}
                 steps={this.props.steps}
                 onFilter={this.onFilter}
