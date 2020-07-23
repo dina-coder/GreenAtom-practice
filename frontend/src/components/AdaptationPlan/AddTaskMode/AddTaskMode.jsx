@@ -15,7 +15,6 @@ const AddTaskMode = (props) => {
         setName(e.currentTarget.value)
     }
     const  ChangeTaskDate = (value) => {
-        console.log(moment(value).format("DD.MM.YYYY"))
         setDate(moment(value).format("DD.MM.YYYY"))
     }
     const ChangeTaskDescription = (e) => {
