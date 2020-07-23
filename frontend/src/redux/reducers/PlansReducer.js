@@ -94,6 +94,9 @@ const PlansReducer = (state = initialState, action) => {
         case AMOUNT: {
             return {...state, amount: action.amount.count}
         }
+        case LOG_OUT_SUPER: {
+            return {...state,plansList:null, filteredList:null }
+        }
         default:
             return state
     }
@@ -110,7 +113,11 @@ const POSITIONS = 'POSITIONS';
 const HR_NAMES = 'HR_NAMES';
 const GRADES = 'GRADES';
 const AMOUNT = 'AMOUNT';
+const LOG_OUT_SUPER = 'LOG_OUT_SUPER'
 
+export const loginOutSuper = () => {
+    return ({type:LOG_OUT_SUPER})
+}
 export const setPlansList = (plansList) => {
     return ({
         type: SET_PLANS_LIST,

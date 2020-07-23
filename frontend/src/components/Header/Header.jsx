@@ -5,7 +5,8 @@ import logoHeader from './../../img/logo_header.svg';
 const Header = (props) => {
     const LogOutFrom = ()=> {
         props.LogOut();
-        props.setLogOut()
+        props.setLogOut();
+        props.loginOutSuper();
     }
     return (
         <div className = {style.header}>
