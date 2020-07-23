@@ -3,8 +3,8 @@ import { Roles } from '../constants/roles';
 import { Steps } from '../constants/steps';
 
 export const isAdaptationPlanEnable = (role_id,step) =>{
-    if ((mapRoleIdToRole(role_id) === Roles.HR && (step === Steps.DirectorAgreement || step === Steps.Assessment)) ||
-    (mapRoleIdToRole(role_id) === Roles.HR && step !== Steps.AssessmentOver))
+    if ((mapRoleIdToRole(role_id) === Roles.Director && (step === Steps.DirectorAgreement || step === Steps.Assessment)) ||
+        (mapRoleIdToRole(role_id) === Roles.HR && step !== Steps.AssessmentOver))
     {
          return true
      }

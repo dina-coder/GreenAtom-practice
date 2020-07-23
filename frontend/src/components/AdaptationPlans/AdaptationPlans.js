@@ -40,7 +40,7 @@ class AdaptationPlans extends React.Component {
                 isFetching = {this.props.isFetching}
                 SetInfoForPlan = {this.props.SetInfoForPlan}
                 //тут должен быть filteredList но с ним не работает componentDidUpdate
-                DataAboutPlans = {this.props.filteredList}
+                DataAboutPlans = {this.props.allPlans}
                 name = {this.props.name}
                 steps={this.props.steps}
                 onFilter={this.onFilter}

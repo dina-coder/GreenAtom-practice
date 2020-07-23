@@ -6,7 +6,6 @@ import PlanCreation from './PlanCreation/PlanCreation';
 import style from './AdaptationPlansForm.module.scss';
 
 const AdaptationPlansForm = (props)=> {
-    console.log(props.DataAboutPlans)
     const [isCreationOpen, setIsCreationOpen] = useState(false);
     return(
         <div className = {style.wrapper}> 
