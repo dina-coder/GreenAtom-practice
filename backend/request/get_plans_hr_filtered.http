@@ -1,0 +1,1 @@
+GET http://localhost:9000/api/get_plans_hr_filtered?filter_by=name,step,date&name_filter=нойз&edate_filter=28.08.2020&sdate_filter=27.06.2020&step_filter=2&page=1

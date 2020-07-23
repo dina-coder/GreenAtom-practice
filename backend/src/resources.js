@@ -34,7 +34,8 @@ const resources = {
 	countTasksSql: 'call sp_count_tasks(?)',
 	countPlansSql: 'call sp_count_plans()',
 	countPlansSuperSql: 'call sp_count_plans_super(?)',
-	getPlansLimitedSql: 'call sp_get_plans_limited()',
+	getPlansAllSql: 'call sp_get_plans_all()',
+	getPlansAllSuperSql: 'call sp_get_plans_all_super(?)',
 
 	apiPath: '/api',
 	loginPath: '/login',
@@ -43,6 +44,7 @@ const resources = {
 	getPlansSuperPath: '/get_plans_super',
 	getPlansSuperFilteredPath: '/get_plans_super_filtered',
 	getPlansHrPath: '/get_plans_hr',
+	getPlansHrFilteredPath: '/get_plans_hr_filtered',
 	getDictGradesPath: '/dict/grades',
 	getDictNamesPath: '/dict/names',
 	getDictStepsPath: '/dict/steps',
@@ -58,7 +60,7 @@ const resources = {
 	countPlansPath: '/count_plans',
 
 	dateConvertToMySql: date => { return date.split('.').reverse().join('-') },
-	dateReverse: date => {return date.split('.').reverse().join('.')}
+	dateReverse: date => {return date.split('.').reverse().join('.')},
 }
 
 module.exports = resources

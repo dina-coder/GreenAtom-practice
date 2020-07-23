@@ -2,12 +2,12 @@
 const express = require('express')
 const router = express.Router()
 const { dbError, genericDbError, empty,
-	getPlansSuperFilteredPath,
+	getPlansHrFilteredPath,
 	invalidTokenError, dateReverse
 } = require('../resources')
-const { getPlansAllSuper } = require('../dbmethods')
+const { getPlansAll } = require('../dbmethods')
 
-router.get(getPlansSuperFilteredPath, async (req, res) => {
+router.get(getPlansHrFilteredPath, async (req, res) => {
 	try {
 		if (!req.query.filter_by)
 			res.status(500).send(dbError(invalidTokenError))
@@ -19,10 +19,11 @@ router.get(getPlansSuperFilteredPath, async (req, res) => {
 		if (tokens.includes('step') && !req.query.step_filter)
 			res.status(500).send(dbError(invalidTokenError))
 
-		const result = await getPlansAllSuper(req.query.user_id)
+		const result = await getPlansAll()
 		const filteredResult = await Promise.all(result.filter(element => {
 			if (tokens.includes('name')) {
-				if (-1 === String(element.name).toLowerCase().indexOf(String(req.query.name_filter).toLowerCase()))
+				if (-1 === String(element.name).toLowerCase().indexOf(String(req.query.name_filter).toLowerCase()) &&
+				-1 === String(element.super).toLowerCase().indexOf(String(req.query.name_filter).toLowerCase()))
 						return false
 			}
 			if (tokens.includes('date')) {
