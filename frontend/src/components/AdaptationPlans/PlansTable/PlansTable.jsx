@@ -15,10 +15,20 @@ const PlansTable = (props) => {
         setPlanClick(bool)
         setWorker_id(worker_id)
     }
+    const getNewPage = (pageNum) => {
+        props.takePlans(props.role, props.userId, pageNum);
+    }
+
+    let pagination = [];
+    const pagesAmount = Math.ceil(props.amount / 5);
+    for (let i = 1; i <= pagesAmount; i++) {
+        pagination.push(i);
+    }
     return(
     <div>
         {props.isFetching === true ? <Preloader/>:
         props.DataAboutPlans.length > 0 ?
+        <>
         <table>
             <thead>
             <tr>
@@ -45,10 +55,14 @@ const PlansTable = (props) => {
            
             </tbody>
         </table>
+            <div className={style.paginationContainer}>
+            {pagination.map((x) => <span key={x} className={style.pagination} onClick={() => getNewPage(x) }>{x}</span>)}
+            </div>
+        </>
         : <div style={{
-            'font-size':'26px',
-            'text-align': 'center',
-            'margin-top': '20px',
+            fontSize:'26px',
+            textAlign: 'center',
+            marginTop: '20px',
             color:'rgba(90, 90, 93, 0.7)'}}
         > Планов нет </div>
         }

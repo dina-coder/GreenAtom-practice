@@ -14,7 +14,7 @@ const AdaptationPlansForm = (props)=> {
                 title = "Планы адаптации" 
                 buttonTitle = "план" 
                 onClick={()=>setIsCreationOpen(true)}
-                amount = {props.DataAboutPlans.length} 
+                amount = {props.amount} 
             />
             <Filters 
                 search={props.filters.search}
@@ -30,7 +30,11 @@ const AdaptationPlansForm = (props)=> {
                 isFetching = {props.isFetching} 
                 SetInfoForPlan = {props.SetInfoForPlan} 
                 DataAboutPlans = {props.DataAboutPlans} 
+                takePlans={props.takePlans}
+                role={props.role}
+                userId={props.user_id}
                 name = {props.name} 
+                amount={props.amount}
             />
 
             {isCreationOpen && <PlanCreation 
