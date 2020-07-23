@@ -154,12 +154,12 @@ export const setPositions = (positions) => {
 export const setPlansAmount = (amount) => {
     return ({type: AMOUNT, amount});
 }
-export const takePlans = (role, userId) => async (dispatch) => {
+export const takePlans = (role, userId,curPage) => async (dispatch) => {
     let response;
-    dispatch(setToggle(true))
-    if (role === Roles.HR) response = await MainAPI.takeplan_HR()
-    if (role === Roles.Director) response = await MainAPI.takeData(userId)
-    dispatch(setToggle(false))
+    dispatch(setToggle(true));
+    if (role === Roles.HR) response = await MainAPI.takeplan_HR(curPage);
+    if (role === Roles.Director) response = await MainAPI.takeData(userId,curPage);
+    dispatch(setToggle(false));
     dispatch(setPlansList(response))
 }
 

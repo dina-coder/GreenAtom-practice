@@ -16,6 +16,7 @@ const PlansTable = (props) => {
         setWorker_id(worker_id)
     }
     const getNewPage = (pageNum) => {
+        console.log(props.role, props.userId, pageNum);
         props.takePlans(props.role, props.userId, pageNum);
     }
 
@@ -24,6 +25,7 @@ const PlansTable = (props) => {
     for (let i = 1; i <= pagesAmount; i++) {
         pagination.push(i);
     }
+    console.log(pagination);
     return(
     <div>
         {props.isFetching === true ? <Preloader/>:
