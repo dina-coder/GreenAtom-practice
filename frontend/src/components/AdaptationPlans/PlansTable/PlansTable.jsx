@@ -22,19 +22,22 @@ const PlansTable = (props) => {
         let curPage = currentPage;
         switch(page){
             case 'prev':
-                (currentPage>1)&&setCurrentPage(currentPage-1);
-                curPage--;
-                console.log(currentPage);
+                if (curPage>1) {
+                    setCurrentPage(currentPage-1);
+                    curPage--;
+                }
                 break;
             case 'next': 
-                (currentPage<pagination.length)&&setCurrentPage(currentPage+1);
-                curPage++;
+                if (curPage<pagination.length){
+                    setCurrentPage(currentPage+1);
+                    curPage++;
+                }
                 break;
             default:
                 setCurrentPage(page);
                 curPage = page;
-                break;  
-        }
+                break;
+            }
         props.takePlans(props.role, props.userId, curPage);
     }
        

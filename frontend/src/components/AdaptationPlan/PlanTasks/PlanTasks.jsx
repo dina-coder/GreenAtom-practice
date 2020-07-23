@@ -14,13 +14,16 @@ const PlanTasks = (props) => {
         let curPage = currentPage;
         switch(page){
             case 'prev':
-                (currentPage>1)&&setCurrentPage(currentPage-1);
-                curPage--;
-                console.log(currentPage);
+                if (curPage>1) {
+                    setCurrentPage(currentPage-1);
+                    curPage--;
+                }
                 break;
             case 'next': 
-                (currentPage<Pagination.length)&&setCurrentPage(currentPage+1);
-                curPage++;
+                if (curPage<Pagination.length){
+                    setCurrentPage(currentPage+1);
+                    curPage++;
+                }
                 break;
             default:
                 setCurrentPage(page);
