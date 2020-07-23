@@ -45,7 +45,7 @@ const AdaptationPlanInfo = (props) => {
         else return 0
     }
     return (
-        <div>
+        <div className={s.container}>
             {isAdaptationPlanEnable(props.role_id, props.employee.step)
                 ? <img onClick={() => setUpdateMode(true)} className={s.editMode} src={update} /> : ''}
 
@@ -218,6 +218,10 @@ const AdaptationPlanInfo = (props) => {
                         />
                     }
 
+                </tr>
+                <tr>
+                    <td className={s.LeftSide}> Комментарий: </td>
+                    <td className={s.RightSide}> {props.employee.content} </td>
                 </tr>
             </table>
             {isUpdateMode === true ? <button onClick={() => UpdatePlan(InfoPlan.worker_id, FindIdUser(Position, props.positions),
