@@ -24,10 +24,14 @@ const AdaptationPlanInfo = (props) => {
     const [superName, setSuperName] = useState(props.employee.super);
     const [Position, setPosition] = useState(props.employee.position);
     const [hrName, setHrName] = useState(props.employee.hr);
+    const [comment, setComment] = useState(props.employee.comment)
     const UpdatePlan = (worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id) => {
         props.updatePlan(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id)
         .then(()=>props.GetEmployeeProfileInfo(worker_id));
         setUpdateMode(false)
+    }
+    const NewComment = (e) =>{
+        setComment(e.currentTarget.value)
     }
     let InfoPlan = props.employee
 
@@ -45,7 +49,7 @@ const AdaptationPlanInfo = (props) => {
         else return 0
     }
     return (
-        <div>
+        <div className={s.container}>
             {isAdaptationPlanEnable(props.role_id, props.employee.step)
                 ? <img onClick={() => setUpdateMode(true)} className={s.editMode} src={update} /> : ''}
 
@@ -219,11 +223,17 @@ const AdaptationPlanInfo = (props) => {
                     }
 
                 </tr>
+                <tr>
+                    <td className={s.LeftSide}> Комментарий: </td>
+                    {isUpdateMode === false ? 
+                    <td className={s.RightSide}> {InfoPlan.comment} </td>:
+                    <input value = {comment} onChange = {NewComment}/>        }
+                </tr>
             </table>
             {isUpdateMode === true ? <button onClick={() => UpdatePlan(InfoPlan.worker_id, FindIdUser(Position, props.positions),
                 FindIdUser(superName, props.supersNames), FindIdUser(hrName, props.hrNames), FindIdUser(Step, props.stepList),
                 date_start_plan, date_end_plan, ResultId(Result), FindIdUser(Grade, props.grades),
-                InfoPlan.comment, InfoPlan.plan_id)}>Изменить</button> : ''}
+               comment, InfoPlan.plan_id)}>Изменить</button> : ''}
         </div>
     )
 }

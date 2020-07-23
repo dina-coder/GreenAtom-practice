@@ -20,22 +20,21 @@
     .addButton {
         height: 48px;
         width: 185px;
-        border: none;
+        border: 1px solid $brandColor;
          font: inherit;
         color: inherit;
         background-color: transparent;
-        color: #FFFFFF;
-        background-color: $brandColor;
+        background-color: #FFFFFF;
+        color: $brandColor;
         font-size: 18px;
         margin-left: auto;
         border-radius: 16px;
     }
     .addButton:hover{
         cursor: pointer;
-        background-color: #FFFFFF;
-        color: $brandColor;
+        color: #FFFFFF;
+        background-color: $brandColor;
         border-radius: 16px;
-        border: 1px solid $brandColor
     }
 }
 .PaginationContainer{

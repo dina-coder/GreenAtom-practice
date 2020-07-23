@@ -4,6 +4,7 @@ import s from './AdaptationPlan.module.scss'
 import PlanTasks from './PlanTasks/PlanTasks'
 import { mapRoleIdToRole } from '../../utils/mapRoleIdToRole';
 import { Roles } from '../../constants/roles'
+import StepTracker from './StepTracker/StepTracker';
 
 
 const AdaptationPlanForm = (props) => {
@@ -20,7 +21,7 @@ const AdaptationPlanForm = (props) => {
         <div className={mapRoleIdToRole(props.role_id) === Roles.Employee ? s.wrapper : s.container}>
             { (mapRoleIdToRole(props.role_id) !== Roles.Employee)&&
              <div className={s.close} onClick={() => RerenderPlans(props.user_id, props.role_id)}></div>}
-           
+            <StepTracker step={props.employee.step_id}/>
             <AdaptationPlanInfo 
                                 positions = {props.positions}
                                 stepList = {props.stepList}
