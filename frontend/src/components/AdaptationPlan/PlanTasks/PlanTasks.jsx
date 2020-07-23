@@ -13,7 +13,7 @@ const PlanTasks = (props) => {
         setActivepage(x-1);
     }
     let AllTasks;
-    if (props.plantasks.length > 0) {
+    if (props.plantasks !==null) {
         AllTasks = props.plantasks.map((x, key) => <Task plan_id={props.plan_id} id={x.id}
             role_id={props.role_id}
             step={props.step}

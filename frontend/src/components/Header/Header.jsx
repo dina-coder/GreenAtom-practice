@@ -3,6 +3,10 @@ import style from './Header.module.scss';
 import logoHeader from './../../img/logo_header.svg';
 
 const Header = (props) => {
+    const LogOutFrom = ()=> {
+        props.LogOut();
+        props.setLogOut()
+    }
     return (
         <div className = {style.header}>
             <div className = {style.headerContainer}>
@@ -11,7 +15,7 @@ const Header = (props) => {
                     <p>{props.name}</p>
                     <div className = {style.userAdditionInfo}>
                         <p>{props.role}</p>
-                        <button onClick = {props.setLogOut} className = {style.headerButton}>Выйти</button>
+                        <button onClick = {LogOutFrom} className = {style.headerButton}>Выйти</button>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { SetLogOut } from '../../redux/reducers/AuthReducer';
+import {LogOut} from '../../redux/reducers/EmployeeReducer';
 import Header from './Header';
 import { mapRoleToRoleRU } from '../../utils/mapRoleToRoleRU';
 import { mapRoleIdToRole } from '../../utils/mapRoleIdToRole';
@@ -13,6 +14,7 @@ class HeaderContainer extends React.Component {
                 name={this.props.name}
                 role={translatedRole}
                 setLogOut={this.props.SetLogOut}
+                LogOut = {this.props.LogOut}
             />
         );
 
@@ -24,5 +26,5 @@ const mapStateToProps = (state) => ({
     roleId: state.AuthReducer['role_id'],
 });
 
-export default connect(mapStateToProps, { SetLogOut })(HeaderContainer);
+export default connect(mapStateToProps, { SetLogOut,LogOut })(HeaderContainer);
 

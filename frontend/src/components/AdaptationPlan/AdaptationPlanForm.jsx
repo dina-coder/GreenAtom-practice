@@ -19,7 +19,9 @@ const AdaptationPlanForm = (props) => {
 
     return (
         <div className={mapRoleIdToRole(props.role_id) === Roles.Employee ? s.wrapper : s.container}>
-            { (mapRoleIdToRole(props.role_id) !== Roles.Employee)&&
+            {props.employee !== null ?
+            <div>
+             {(mapRoleIdToRole(props.role_id) !== Roles.Employee) &&
              <div className={s.close} onClick={() => RerenderPlans(props.user_id, props.role_id)}></div>}
             <StepTracker step={props.employee.step_id}/>
             <AdaptationPlanInfo 
@@ -45,6 +47,8 @@ const AdaptationPlanForm = (props) => {
                 amountOfTask={props.amountOfTask}
                 TakeTasks={props.TakeTasks}
                  />
+                 </div>
+            :'Нет плана'}
         </div>
     )
 }
