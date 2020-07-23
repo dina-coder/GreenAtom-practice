@@ -32,10 +32,7 @@ const PlanTasks = (props) => {
         }
         props.TakeTasks(props.plan_id, curPage);
     }
-    const ClickPaginator = (plan_id, x) => {
-        props.TakeTasks(plan_id, x);
-        setActivepage(x-1);
-    }
+    
 
     let AllTasks;
     if ( props.plantasks) {

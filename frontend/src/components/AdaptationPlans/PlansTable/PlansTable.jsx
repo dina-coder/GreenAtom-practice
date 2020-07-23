@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import arrow from '../../../img/down-arrow.png';
 import greenArrow from '../../../img/down-arrow-green.png';
 import rightArrow from '../../../img/right-arrow.png';
@@ -14,31 +14,23 @@ const PlansTable = (props) => {
     const [worker_id, setWorker_id] = useState(undefined);
     const [isPlanClick, setPlanClick] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+    useEffect(()=>{
+        props.onPageChange(currentPage);
+    },[currentPage]);
     const TakeDataForPlanClick = (bool,worker_id) => {
         setPlanClick(bool)
         setWorker_id(worker_id)
     }
-    const getNewPage = (page) => {
-        let curPage = currentPage;
-        switch(page){
-            case 'prev':
-                if (curPage>1) {
-                    setCurrentPage(currentPage-1);
-                    curPage--;
-                }
-                break;
-            case 'next': 
-                if (curPage<pagination.length){
-                    setCurrentPage(currentPage+1);
-                    curPage++;
-                }
-                break;
-            default:
-                setCurrentPage(page);
-                curPage = page;
-                break;
-            }
-        props.takePlans(props.role, props.userId, curPage);
+
+    const setPrevPage=()=> {
+        if (currentPage>1) {
+            setCurrentPage(previous=> previous - 1);
+        }
+    } 
+    const setNextPage = () => {
+        if (currentPage<pagination.length){
+            setCurrentPage(previous=> previous + 1);
+        }
     }
        
     let pagination = [];
@@ -46,7 +38,6 @@ const PlansTable = (props) => {
     for (let i = 1; i <= pagesAmount; i++) {
         pagination.push(i);
     }
-    console.log(pagination);
     return(
     <div>
         {props.isFetching === true ? <Preloader/>:
@@ -79,9 +70,9 @@ const PlansTable = (props) => {
             </tbody>
         </table>
             <div className={style.paginationContainer}>
-            <img src={previousPageArrow} alt='previous page' onClick={()=>getNewPage('prev')} />
-            {pagination.map((x) => <span key={x} className={style.pagination} onClick={() => getNewPage(x) }>{x}</span>)}
-            <img src={nextPageArrow} alt="next page" onClick={()=>getNewPage('next')} />
+            <img src={previousPageArrow} alt='previous page' onClick={setPrevPage} />
+            {pagination.map((x) => <span key={x} className={style.pagination} onClick={() => setCurrentPage(x) }>{x}</span>)}
+            <img src={nextPageArrow} alt="next page" onClick={setNextPage} />
             </div>
         </>
         : <div style={{
