@@ -3,7 +3,6 @@ import s from './StepTracker.module.scss'
 
 
 const StepTracker = (props) => {
-console.log(props.step);
     return (
     <div className = {s.container}>
         <div className={s.ZIndex1+ " " +(props.step===1?s.InProcess: s.Completed)}>Создание плана</div> 

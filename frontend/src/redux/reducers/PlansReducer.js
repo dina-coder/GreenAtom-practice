@@ -160,7 +160,6 @@ export const takeSteps = () => async (dispatch) => {
 }
 export const TakeGradesInfo = () => async (dispatch) => {
     let response = await MainAPI.gradesAPI();
-    console.log(response)
     dispatch(takeGrades(response));
 }
 
