@@ -7,8 +7,9 @@ const { loginSql,
 	updatePlanSql, updateTaskSql,
 	deletePlanSql, deleteTaskSql,
 	plansOnPage, tasksOnPage,
-	countTasksSql, getPlansLimitedSql,
-	countPlansSql, countPlansSuperSql
+	countTasksSql, getPlansAllSql,
+	countPlansSql, countPlansSuperSql,
+	getPlansAllSuperSql
 } = require('./resources')
 
 const methods = {
@@ -49,8 +50,15 @@ const methods = {
 			return []
 		return rows
 	},
-	getPlansLimited: async () => {
-		let [rows] = await pool.query(getPlansLimitedSql)
+	getPlansAll: async () => {
+		let [rows] = await pool.query(getPlansAllSql)
+		rows = rows[0]
+		if (!rows[0])
+			return []
+		return rows
+	},
+	getPlansAllSuper: async id => {
+		let [rows] = await pool.query(getPlansAllSuperSql, [id])
 		rows = rows[0]
 		if (!rows[0])
 			return []

@@ -74,4 +74,45 @@
     }
     
 }
+input{
+    height: 20px;
+    width: 300px;
+    border-radius:5px;
+    border: 0.5px solid rgb(92, 92, 92);
+    transition: .3s border-color;
+    padding-left: 5px;
+    font-family: Roboto;
+}
+input::placeholder{
+    color: $additionText
+}
+input:focus{
+    outline:none;
+    border: 2px solid #8CC547;
+}
+.Update{
+    position: center;
+    height: 35px;
+    width: 100px;
+    border: none;
+     font: inherit;
+    color: inherit;
+    color: #FFFFFF;
+    background-color: $brandColor;
+    font-size: 15px;
+    margin-left: auto;
+    border-radius: 16px;
+}
+.Update:hover{
+    cursor: pointer;
+    color: $brandColor;
+    background-color:  #FFFFFF;
+    border: 1px solid $brandColor;
+    border-radius: 16px;
+}
+.UpdateContainer{
+    position: absolute;
+    top: 33em;
+    left: 36.5em;
+}
 }
