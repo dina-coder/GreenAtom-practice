@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { takePlans, takeNames, takeSteps, setFilter, takePositions, createPlan } from '../../redux/reducers/PlansReducer';
+import { takePlans, takeNames, takeSteps, setFilter, takePositions, createPlan, getPlansAmount } from '../../redux/reducers/PlansReducer';
 import AdaptationPlansForm from './AdaptationPlansForm';
 import { SetInfoForPlan } from '../../redux/reducers/EmployeeReducer'
 import { mapRoleIdToRole } from '../../utils/mapRoleIdToRole';
@@ -15,9 +15,13 @@ class AdaptationPlans extends React.Component {
             && this.props.setFilter(this.props.filters));
         this.props.takeSteps();
         if (this.props.role===Roles.HR) {
-           this.props.takeNames(2);
-           this.props.takeNames(3);
-           this.props.takePositions();
+            this.props.getPlansAmount('');
+            this.props.takeNames(2);
+            this.props.takeNames(3);
+            this.props.takePositions();
+        } else{
+            console.log(this.props.user_id);
+            this.props.getPlansAmount(this.props.user_id);
         }
     }
 
@@ -40,19 +44,22 @@ class AdaptationPlans extends React.Component {
         
         return (
             <AdaptationPlansForm
-                isFetching = {this.props.isFetching}
-                SetInfoForPlan = {this.props.SetInfoForPlan}
-                DataAboutPlans = {this.props.filteredList}
-                name = {this.props.name}
+                isFetching={this.props.isFetching}
+                SetInfoForPlan={this.props.SetInfoForPlan}
+                DataAboutPlans={this.props.filteredList}
+                name={this.props.name}
+                amount={this.props.amount}
                 steps={this.props.steps}
                 onFilter={this.onFilter}
                 filters={this.props.filters}
-                canCreate = {privilegeToAdd(this.props.role)}
+                canCreate={privilegeToAdd(this.props.role)}
                 workersNames={ this.props.workersNames}
-                supersNames= {this.props.supersNames}
-                positions = {this.props.positions}
-                user_id= {this.props.user_id}
-                createPlan = {this.props.createPlan}
+                supersNames={this.props.supersNames}
+                positions={this.props.positions}
+                user_id={this.props.user_id}
+                createPlan={this.props.createPlan}
+                role={this.props.role}
+                takePlans={this.props.takePlans}
             />
     
         );
@@ -71,7 +78,10 @@ const mapStateToProps = (state) =>({
     filteredList: state.PlansReducer.filteredList,
     workersNames: state.PlansReducer.workersNames,
     supersNames: state.PlansReducer.supersNames,
-    positions: state.PlansReducer.positions
+    positions: state.PlansReducer.positions,
+    amount: state.PlansReducer.amount
 });
 
-export default connect(mapStateToProps,{ takePlans,takeSteps, takeNames, SetInfoForPlan, setFilter, takePositions, createPlan })(AdaptationPlans);
+export default connect(mapStateToProps,
+            { takePlans,takeSteps, takeNames, SetInfoForPlan, setFilter, takePositions, createPlan, getPlansAmount }
+            )(AdaptationPlans);

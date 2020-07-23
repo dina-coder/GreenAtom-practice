@@ -77,14 +77,13 @@
 .Date{
     grid-area: date;
     position: absolute;
+    left: 0.5em;
     font-size: 14px;
     line-height: 18px;
     font-weight: 500;
     color: $additionText;
     font-family: Roboto, sans-serif;
     font-size: 10pt;
-
-
     top:1px;
     height: 40px;
     width: 80%;
@@ -176,15 +175,12 @@
 
 .Date1{
     grid-area: date;
-    position: absolute;
     font-size: 14px;
     line-height: 18px;
     font-weight: 500;
     color: $additionText;
     font-family: Roboto, sans-serif;
     font-size: 10pt;
-
-
     top:1px;
     height: 40px;
     width: 80%;

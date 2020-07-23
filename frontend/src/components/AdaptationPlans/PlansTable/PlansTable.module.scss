@@ -51,3 +51,23 @@ font-size: 16px;
         margin-bottom: -5px;
     }
 }
+
+.paginationContainer {
+    text-align: center;
+    color: #8CC547;  
+    font-size: 14pt;
+    margin-bottom: 10px;
+    .pagination{
+        margin-right: 10px;
+        font-weight: 500;
+    }
+
+    .paginationActive{
+        font-weight: 900;
+    }
+
+    .pagination:hover{
+        cursor: pointer;
+        opacity: 50%;
+    }
+}

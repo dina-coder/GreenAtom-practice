@@ -5,14 +5,18 @@ import deleteicon from '../../../../img/bin 1.png'
 import downarrow from '../../../../img/down-arrow-green.png'
 import checkmark from '../../../../img/checkmark.png'
 import { isButtonAddEnable, isTaskDone } from '../../../../utils/isButtonAccess'
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import moment from 'moment';
+import 'moment/locale/ru';
+import  MomentLocaleUtils, { formatDate, parseDate }  from 'react-day-picker/moment';
 
 
 const Task = (props) =>{
     const [isFullInfo,setFullInfo] = useState(null)
     const [name,updateTaskName] = useState(props.name)
-    const [date,updateTaskDate] = useState(props.date_end)
     const [description, updateTaskDescription]= useState(props.content)
     const [istaskEdited,updateTaskInfo] = useState(false)
+    const [date, setDate] = useState(props.date_end)
 
     const EditModeShow = (key) =>{
         updateTaskInfo(true);
@@ -21,14 +25,14 @@ const Task = (props) =>{
     const SetTaskName = (e) =>{
         updateTaskName(e.currentTarget.value)
     }
+    const  ChangeTaskDate = (value) => {
+        setDate(moment(value).format("DD.MM.YYYY"))
+    }
 
     const UpdateTask = (plan_id, name, description, date_start, date, result, id) => {
         UpdateTaskFromEmployee(plan_id, name, description, date_start, date, result, id)
         updateTaskInfo(false)
     }
-    const SetTaskDate = (e) =>{
-        updateTaskDate(e.currentTarget.value)
-        }
 
     const SetTaskDescription = (e) =>{
         updateTaskDescription(e.currentTarget.value)
@@ -57,7 +61,21 @@ const Task = (props) =>{
             <div onClick={()=>{UpdateTaskStatusFromEmployee(props.id, 0, props.plan_id)}} className={s.CircleTrue}></div>:
             ''}
             {istaskEdited==false ? <h3 className={s.Title1}>{props.name}</h3> :<input value = {name} onChange ={SetTaskName} className ={s.Title}/>} 
-            {istaskEdited==false ? <h3 className={s.Date1}>До {props.date_end}</h3> : <input value = {date} onChange ={SetTaskDate} className ={s.Date}/>}
+            {istaskEdited==false ? <h3 className={s.Date1}>До {props.date_end}</h3> : 
+            <div className={s.Date1}>
+            <DayPickerInput 
+            component = {props =><input className={s.Date} {...props}/>}
+            placeholder = "Период"
+            formatDate = {formatDate}
+            parseDate = {parseDate}
+            value = {props.date_end}
+            dayPickerProps = {{
+                localeUtils:MomentLocaleUtils,
+                locale:"ru",
+                onDayClick: (value) => {
+                    ChangeTaskDate(value)}
+                }}  
+        /></div>}
             {isButtonAddEnable(props.role_id,props.step) ?
              <img onClick={()=>EditModeShow(props.key)} className={s.Edit} src={editionicon} />:
              ''
