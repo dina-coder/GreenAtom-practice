@@ -12,11 +12,12 @@ import  MomentLocaleUtils, { formatDate, parseDate }  from 'react-day-picker/mom
 
 
 const Task = (props) =>{
-    const [isFullInfo,setFullInfo] = useState(null)
-    const [name,updateTaskName] = useState(props.name)
-    const [description, updateTaskDescription]= useState(props.content)
-    const [istaskEdited,updateTaskInfo] = useState(false)
-    const [date, setDate] = useState(props.date_end)
+    const [isError, setError] = useState(false);
+    const [isFullInfo,setFullInfo] = useState(null);
+    const [name,updateTaskName] = useState(props.name);
+    const [description, updateTaskDescription]= useState(props.content);
+    const [istaskEdited,updateTaskInfo] = useState(false);
+    const [date, setDate] = useState(props.date_end);
 
     const EditModeShow = (key) =>{
         updateTaskInfo(true);
@@ -34,10 +35,20 @@ const Task = (props) =>{
     }
 
     const UpdateTask = (plan_id, name, description, date_start, date, result, id) => {
+
+
+       
+        if (name==="" || description==="")
+        {
+            setError(true);
+        }
+        else{
         props.UpdateTaskFromEmployee(plan_id, name, description, date_start, date, result, id)
         .then(() =>  props.TakeTasks(plan_id));
         updateTaskInfo(false);
-       
+        
+        }
+
     }
 
     const DeleteTaskFunction = (id, plan_id) =>{
@@ -60,7 +71,7 @@ const Task = (props) =>{
             props.result === 0 ?
             <div className= {s.CircleFalse} ></div>:
             <div className={s.CircleTrue}></div>}
-            {istaskEdited==false ? <h3 className={s.Title1}>{props.name}</h3> :<input value = {name} onChange ={SetTaskName} className ={s.Title}/>} 
+            {istaskEdited==false ? <h3 className={s.Title1}>{props.name}</h3> :<input value = {name} onChange ={SetTaskName} className ={s.Title+ ' ' + (isError === true && name === '' ? s.ErrorBorder1:'')}/>} 
             {istaskEdited==false ? <h3 className={s.Date1}>До {props.date_end}</h3> : 
             <div className={s.Date1}>
             <DayPickerInput 
@@ -92,7 +103,7 @@ const Task = (props) =>{
            
             {isFullInfo === props.key ? <div className={s.Description}>
             {istaskEdited==false ? <p className={s.DescriptionText}>{props.content}</p> : 
-            <div><textarea value = {description} onChange ={SetTaskDescription} className ={s.DescriptionText}/> 
+            <div><textarea value = {description} onChange ={SetTaskDescription} className ={s.DescriptionText + ' ' + (isError === true && description === '' ? s.ErrorBorder:'')}/> 
             <img onClick={()=>UpdateTask(props.plan_id, name, description, props.date_start, date, props.result, props.id)} className={s.CheckMark} src={checkmark} /> </div>}
             </div>:''}
         </div>
