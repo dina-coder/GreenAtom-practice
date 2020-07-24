@@ -24,7 +24,7 @@ const PlanCreation=(props)=>{
             moment(range.from).format("DD.MM.YYYY"), 
             moment(range.to).format("DD.MM.YYYY"), 
             0, 
-            null, 
+            6, 
             ''
         );
         props.setIsCreationOpen(false);

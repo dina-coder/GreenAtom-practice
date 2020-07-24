@@ -95,7 +95,7 @@ const PlansReducer = (state = initialState, action) => {
             return {...state, amount: action.amount.count}
         }
         case LOG_OUT_SUPER: {
-            return {...state,plansList:null, filteredList:null }
+            return {...state,plansList:null, filteredList:null}
         }
         default:
             return state

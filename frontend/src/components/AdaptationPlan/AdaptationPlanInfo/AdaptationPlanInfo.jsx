@@ -13,6 +13,7 @@ const AdaptationPlanInfo = (props) => {
     const ResultAccess = (result) => {
         if (result === 0) { return 'Не пройден' } else return 'Пройден'
     }
+    console.log(props.employee.grade)
     const resultNames = ['Пройден', 'Не пройден']
     const [range, setRange] = useState({});
     let date_start_plan = moment(range.from).format("DD.MM.YYYY");
