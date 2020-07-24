@@ -2,6 +2,7 @@
 const resources = {
 	genericDbError: 'Ошибка подключения к базе данных',
 	invalidTokenError: 'Невозможно разобрать выражение фильтра',
+	extraPlanError: 'Сотрудник уже имеет план адаптации',
 	dbError: msg => { return {error_message: msg, error_flag: true} },
 	serverRunning: port => { return `Сервер запущен по адресу: http://localhost:${port}`},
 	morganString: ':method :url :status :res[content-length] - :response-time ms',
