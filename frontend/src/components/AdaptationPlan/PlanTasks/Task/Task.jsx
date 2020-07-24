@@ -25,34 +25,31 @@ const Task = (props) =>{
     const SetTaskName = (e) =>{
         updateTaskName(e.currentTarget.value)
     }
+    
+    const SetTaskDescription = (e) =>{
+        updateTaskDescription(e.currentTarget.value)
+    }
     const  ChangeTaskDate = (value) => {
         setDate(moment(value).format("DD.MM.YYYY"))
     }
 
     const UpdateTask = (plan_id, name, description, date_start, date, result, id) => {
-        UpdateTaskFromEmployee(plan_id, name, description, date_start, date, result, id)
-        updateTaskInfo(false)
+        props.UpdateTaskFromEmployee(plan_id, name, description, date_start, date, result, id)
+        .then(() =>  props.TakeTasks(plan_id));
+        updateTaskInfo(false);
+       
     }
-
-    const SetTaskDescription = (e) =>{
-        updateTaskDescription(e.currentTarget.value)
-        }
-
 
     const DeleteTaskFunction = (id, plan_id) =>{
         props.DeleteTaskFromEmployee(id)
-        props.TakeTasks(plan_id)
+        .then(() => props.TakeTasks(plan_id))
         props.GetTaskAmount(plan_id)
     } 
 
     const UpdateTaskStatusFromEmployee=(id, result, plan_id)=>{
         props.UpdateTaskStatusFromEmployee(id, result)
-        props.TakeTasks(plan_id)
-    }
+        .then(() => props.TakeTasks(plan_id))
     
-    const UpdateTaskFromEmployee=(plan_id, name, content, date_start, date_end, result, id)=>{
-        props.UpdateTaskFromEmployee(plan_id, name, content, date_start, date_end, result, id)
-        props.TakeTasks(plan_id)
     }
     return (
         <div className={isFullInfo === props.key ? s.ContainerBig : s.Container}>

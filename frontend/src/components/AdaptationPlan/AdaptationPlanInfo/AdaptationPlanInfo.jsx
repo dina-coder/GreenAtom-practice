@@ -13,7 +13,6 @@ const AdaptationPlanInfo = (props) => {
     const ResultAccess = (result) => {
         if (result === 0) { return 'Не пройден' } else return 'Пройден'
     }
-    console.log(props.employee.grade)
     const resultNames = ['Пройден', 'Не пройден']
     const [range, setRange] = useState({});
     let date_start_plan;
@@ -36,7 +35,6 @@ const AdaptationPlanInfo = (props) => {
     const [hrName, setHrName] = useState(props.employee.hr);
     const [comment, setComment] = useState(props.employee.comment)
     const UpdatePlan = (worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id) => {
-        console.log(date_start_plan,date_end_plan)
         props.updatePlan(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id)
         .then(() => props.GetEmployeeProfileInfo(worker_id));
         setUpdateMode(false)

@@ -68,6 +68,7 @@ export const TakeTasks = (plan_id, currentPage) => async (dispatch) => {
     let response = await MainAPI.taketask(plan_id, currentPage)
     dispatch(setToggle(false))
     dispatch(SetPlanTasks(response))
+    console.log(response)
 
 }
 
@@ -79,6 +80,7 @@ export const GetEmployeeProfileInfo = (user_id, currPage) => async (dispatch) =>
         dispatch(GetTaskAmount(response[0].plan_id))
         dispatch(SetEmployeeProfileInfo(response))
         dispatch(TakeTasks(response[0].plan_id, currPage))
+       
     }
     }
 

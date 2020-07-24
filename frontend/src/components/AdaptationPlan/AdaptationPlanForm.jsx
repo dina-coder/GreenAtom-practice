@@ -16,7 +16,6 @@ const AdaptationPlanForm = (props) => {
         else props.takePlans('Director', user_id);
 
     }
-
     return (
         <div className={mapRoleIdToRole(props.role_id) === Roles.Employee ? s.wrapper : s.container}>
             {props.employee !== null ?
@@ -46,7 +45,6 @@ const AdaptationPlanForm = (props) => {
                 UpdateTaskStatusFromEmployee={props.UpdateTaskStatusFromEmployee}
                 UpdateTaskFromEmployee={props.UpdateTaskFromEmployee}
                 amountOfTask={props.amountOfTask}
-                TakeTasks={props.TakeTasks}
                  />
                  </div>
             :'Нет плана'}

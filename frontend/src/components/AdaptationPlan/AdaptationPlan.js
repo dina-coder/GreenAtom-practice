@@ -16,7 +16,6 @@ class AdaptationPlan extends React.Component
            this.props.takeNames(1);
            this.props.takeNames(2);
            this.props.takePositions();
-        
     }
 
 
