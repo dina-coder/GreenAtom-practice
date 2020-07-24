@@ -68,7 +68,6 @@ export const TakeTasks = (plan_id, currentPage) => async (dispatch) => {
     let response = await MainAPI.taketask(plan_id, currentPage)
     dispatch(setToggle(false))
     dispatch(SetPlanTasks(response))
-    console.log(response)
 
 }
 

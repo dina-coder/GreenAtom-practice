@@ -15,6 +15,7 @@ const Task = (props) =>{
     const [isError, setError] = useState(false);
     const [isFullInfo,setFullInfo] = useState(null);
     const [name,updateTaskName] = useState(props.name);
+    console.log(props.name,name)
     const [description, updateTaskDescription]= useState(props.content);
     const [istaskEdited,updateTaskInfo] = useState(false);
     const [date, setDate] = useState(props.date_end);
@@ -33,31 +34,30 @@ const Task = (props) =>{
     const  ChangeTaskDate = (value) => {
         setDate(moment(value).format("DD.MM.YYYY"))
     }
+    useEffect(()=>{
+        updateTaskName(props.name)},[props.name])
+        useEffect(()=>{
+            updateTaskDescription(props.content)},[props.content])
+    
 
-    const UpdateTask = (plan_id, name, description, date_start, date, result, id) => {
-
-
-       
-        if (name==="" || description==="")
-        {
-            setError(true);
-        }
-        else{
-        props.UpdateTaskFromEmployee(plan_id, name, description, date_start, date, result, id)
-        .then(() =>  props.TakeTasks(plan_id));
-        updateTaskInfo(false);
-        
-        }
-
+        const UpdateTask = (plan_id, name, description, date_start, date, result, id) => {
+            if (name==="" || description==="")
+            {
+                setError(true);
+            }
+            else{
+            props.UpdateTaskFromEmployee(plan_id, name, description, date_start, date, result, id)
+            .then(() =>  props.TakeTasks(plan_id));
+            updateTaskInfo(false);
+            }
     }
-
     const DeleteTaskFunction = (id, plan_id) =>{
         props.DeleteTaskFromEmployee(id)
         .then(() => props.TakeTasks(plan_id))
         props.GetTaskAmount(plan_id)
     } 
 
-    const UpdateTaskStatusFromEmployee=(id, result, plan_id)=>{
+    const UpdateTaskaStatusFromEmployee=(id, result, plan_id)=>{
         props.UpdateTaskStatusFromEmployee(id, result)
         .then(() => props.TakeTasks(plan_id))
     
@@ -66,8 +66,8 @@ const Task = (props) =>{
         <div className={isFullInfo === props.key ? s.ContainerBig : s.Container}>
            { isTaskDone(props.role_id,props.step) ?
            props.result === 0 ?
-            <div onClick={()=>{UpdateTaskStatusFromEmployee(props.id, 1, props.plan_id)}} className= {s.CircleFalse} ></div>:
-            <div onClick={()=>{UpdateTaskStatusFromEmployee(props.id, 0, props.plan_id)}} className={s.CircleTrue}></div>:
+            <div onClick={()=>{UpdateTaskaStatusFromEmployee(props.id, 1, props.plan_id)}} className= {s.CircleFalse} ></div>:
+            <div onClick={()=>{UpdateTaskaStatusFromEmployee(props.id, 0, props.plan_id)}} className={s.CircleTrue}></div>:
             props.result === 0 ?
             <div className= {s.CircleFalse} ></div>:
             <div className={s.CircleTrue}></div>}
