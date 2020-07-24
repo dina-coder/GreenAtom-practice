@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { takePlans, takeNames, takeSteps, setFilter, takePositions, createPlan, getPlansAmount } from '../../redux/reducers/PlansReducer';
+import { takePlans, setFilter, createPlan, getPlansAmount, getFilteredList } from '../../redux/reducers/PlansReducer';
+import { takeNames, takeSteps, takePositions} from '../../redux/reducers/DictReducer';
 import AdaptationPlansForm from './AdaptationPlansForm';
 import { SetInfoForPlan } from '../../redux/reducers/EmployeeReducer'
 import { mapRoleIdToRole } from '../../utils/mapRoleIdToRole';
@@ -10,9 +11,7 @@ class AdaptationPlans extends React.Component {
 
     
     componentDidMount(){
-              
-            // .then(()=>!(this.props.allPlans.hasOwnProperty('empty'))
-            // && this.props.setFilter(this.props.filters));
+      
         this.props.takeSteps();
         if (this.props.role===Roles.HR) {
             this.props.getPlansAmount('');
@@ -32,28 +31,38 @@ class AdaptationPlans extends React.Component {
         }
     }
     
+    arePlansExist=(list)=>{
+       return (list!=null&&list.length>0)
+    }
+
     onPageChange = (page) => {
-        this.props.takePlans(this.props.role, this.props.user_id, page);
+        this.arePlansExist(this.props.filteredList) ?
+            this.props.getFilteredList(this.props.role,this.props.filters, this.props.user_id, page)
+            : this.props.takePlans(this.props.role, this.props.user_id, page);
     }
         
     onFilter = (filter,value) => {
-        this.props.setFilter({...this.props.filters, [filter]: value})
+       this.props.setFilter({...this.props.filters,[filter]:value});
+        setTimeout(()=> {this.props.getFilteredList(this.props.role,this.props.filters, this.props.user_id)
+           }
+        ,0);
+        
     }
      
     render() {
         const privilegeToAdd = (role) => {
             return role === Roles.HR ? true : false;
         }
-        
         return (
             <AdaptationPlansForm
                 isFetching={this.props.isFetching}
                 SetInfoForPlan={this.props.SetInfoForPlan}
-                DataAboutPlans={this.props.filteredList}
+                DataAboutPlans={ this.props.allPlans }
+                arePlansExist={this.arePlansExist}
                 name={this.props.name}
                 amount={this.props.amount}
                 steps={this.props.steps}
-                onFilter={this.onFilter}
+                onFilter={this.updateList}
                 filters={this.props.filters}
                 canCreate={privilegeToAdd(this.props.role)}
                 workersNames={ this.props.workersNames}
@@ -62,6 +71,7 @@ class AdaptationPlans extends React.Component {
                 user_id={this.props.user_id}
                 createPlan={this.props.createPlan}
                 role={this.props.role}
+                onFilter={this.onFilter}
                 onPageChange={this.onPageChange}
             />
     
@@ -76,15 +86,15 @@ const mapStateToProps = (state) =>({
     allPlans: state.PlansReducer.plansList,
     name: state.AuthReducer.name,
     role: mapRoleIdToRole(state.AuthReducer['role_id']),
-    steps: state.PlansReducer.stepList,
+    steps: state.DictReducer.stepList,
     filters: state.PlansReducer.filters,
     filteredList: state.PlansReducer.filteredList,
-    workersNames: state.PlansReducer.workersNames,
-    supersNames: state.PlansReducer.supersNames,
-    positions: state.PlansReducer.positions,
+    workersNames: state.DictReducer.workersNames,
+    supersNames: state.DictReducer.supersNames,
+    positions: state.DictReducer.positions,
     amount: state.PlansReducer.amount
 });
 
 export default connect(mapStateToProps,
-            { takePlans,takeSteps, takeNames, SetInfoForPlan, setFilter, takePositions, createPlan, getPlansAmount }
+            { takePlans, takeSteps, takeNames, SetInfoForPlan, setFilter, takePositions, createPlan, getPlansAmount, getFilteredList }
             )(AdaptationPlans);

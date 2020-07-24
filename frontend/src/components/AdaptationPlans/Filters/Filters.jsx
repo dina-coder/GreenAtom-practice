@@ -17,7 +17,7 @@ const Filters = (props) =>{
 
     const onStepChange = useCallback((event) => {
         const value = event.target.value;
-        props.onStepFilter(value === 'all' ? null : value);
+        props.onStepFilter(value === 'all' ? 0 : value);
     });
 
     const onPeriodChange = useCallback((event) => {
@@ -40,7 +40,7 @@ const Filters = (props) =>{
                 <option value="all">Все этапы</option>
 
                 { props.steps.map(step =>
-                  <option value = {step.name} key={step.name}>{step.name}</option>
+                  <option value = {step.id} key={step.name}>{step.name}</option>
                 )}
                 
             </select>

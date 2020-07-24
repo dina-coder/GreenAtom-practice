@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import AdaptationPlanForm from './AdaptationPlanForm'
 import {DeleteTaskFromEmployee,GetEmployeeProfileInfo, TakeTasks, UpdateTaskStatusFromEmployee, 
     UpdateTaskFromEmployee,CreatTaskForEmployee} from '../../redux/reducers/EmployeeReducer'
-import {updatePlan,takeNames,takeSteps,takePositions,TakeGradesInfo,takePlans} from '../../redux/reducers/PlansReducer'
+import {updatePlan,takePlans} from '../../redux/reducers/PlansReducer';
+import {takeNames,takeSteps,takePositions,TakeGradesInfo} from '../../redux/reducers/DictReducer'
 import Preloader from '../../Preloader/Preloader';
 
 class AdaptationPlan extends React.Component
@@ -72,10 +73,10 @@ class AdaptationPlan extends React.Component
 }
 const mapStateToProps=(state)=>({
     allPlans: state.PlansReducer.plansList,
-    grades:state.PlansReducer.grades,
-    stepList: state.PlansReducer.stepList,
-    hrNames: state.PlansReducer.hrNames,
-    positions: state.PlansReducer.positions,
+    grades:state.DictReducer.grades,
+    stepList: state.DictReducer.stepList,
+    hrNames: state.DictReducer.hrNames,
+    positions: state.DictReducer.positions,
     role_id:state.AuthReducer.role_id,
     isFetching:state.AuthReducer.isFetching,
     isAuth:state.AuthReducer.isAuth,
@@ -83,8 +84,8 @@ const mapStateToProps=(state)=>({
     user_id:state.AuthReducer.user_id,
     employee:state.EmployeeReducer.employee_info,
     plantasks:state.EmployeeReducer.plantasks,
-    workersNames : state.PlansReducer.workersNames,
-    supersNames : state.PlansReducer.supersNames,
+    workersNames : state.DictReducer.workersNames,
+    supersNames : state.DictReducer.supersNames,
     amountOfTask: state.EmployeeReducer.amountOfTask
 });
 

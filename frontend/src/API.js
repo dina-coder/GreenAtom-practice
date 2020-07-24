@@ -110,5 +110,34 @@ export const MainAPI = {
     .then(response => {
       return response.data
     })
-  }
+  },
+  getFilteredList(role, stepValue=0,dateValue="",nameValue="",userId,page=1){
+    const step = (stepValue>0&&stepValue!='') ? 'step':'';
+    let date='';
+    let dateStart;
+    let dateEnd;
+    if (dateValue!=='') {
+      const period = dateValue.split("-");
+      dateStart = period[0];
+      dateEnd = period[1];
+      date = 'date'
+    }
+    const name = nameValue!=='' ? 'name' : '';
+    let workerRole;
+    let user='';
+    if (role==='HR') 
+    {
+      workerRole="hr"
+    }
+    else {
+      user=`&user_id=${userId}`;
+      workerRole = "super";
+    }
+    console.log(`/get_plans_${workerRole}_filtered?filter_by=${name},${step},${date}&name_filter=${nameValue}&edate_filter=${dateEnd}&sdate_filter=${dateStart}&step_filter=${stepValue}&page=${page}`)
+    return axios.get(`http://localhost:9000/api/get_plans_${workerRole}_filtered?filter_by=${name},${step},${date}&name_filter=${nameValue}&edate_filter=${dateEnd}&sdate_filter=${dateStart}&step_filter=${stepValue}&page=${page}`)
+    .then(response => {
+      return response.data
+    })
+  }, 
+ 
 }
