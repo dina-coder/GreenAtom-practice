@@ -15,7 +15,6 @@ const Task = (props) =>{
     const [isError, setError] = useState(false);
     const [isFullInfo,setFullInfo] = useState(null);
     const [name,updateTaskName] = useState(props.name);
-    console.log(props.name,name)
     const [description, updateTaskDescription]= useState(props.content);
     const [istaskEdited,updateTaskInfo] = useState(false);
     const [date, setDate] = useState(props.date_end);

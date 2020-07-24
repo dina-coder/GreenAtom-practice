@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import s from './AdaptationPlanInfo.module.scss'
 import update from '../../../img/edit 2.png'
-import { isAdaptationPlanEnable, PostToNextStep } from '../../../utils/isButtonAccess'
+import { isAdaptationPlanEnable, PostToNextStep, isDirectorAgreement,isAssessment } from '../../../utils/isButtonAccess'
 import Autocomplete from 'react-autocomplete'
 import { DateUtils } from 'react-day-picker';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
@@ -10,10 +10,7 @@ import 'moment/locale/ru';
 import MomentLocaleUtils, { formatDate, parseDate } from 'react-day-picker/moment';
 
 const AdaptationPlanInfo = (props) => {
-    const ResultAccess = (result) => {
-        if (result === 0) { return 'Не пройден' } else return 'Пройден'
-    }
-    const resultNames = ['Пройден', 'Не пройден']
+
     const [range, setRange] = useState({});
     let date_start_plan;
     let date_end_plan;
@@ -25,9 +22,7 @@ const AdaptationPlanInfo = (props) => {
          date_start_plan = moment(range.from).format("DD.MM.YYYY");
          date_end_plan = moment(range.to).format("DD.MM.YYYY");
     }
-   
     const [Step, setStep] = useState(props.employee.step)
-    const [Result, setResult] = useState(ResultAccess(props.employee.result))
     const [isUpdateMode, setUpdateMode] = useState(false)
     const [Grade, setGrade] = useState(props.employee.grade)
     const [superName, setSuperName] = useState(props.employee.super);
@@ -39,24 +34,17 @@ const AdaptationPlanInfo = (props) => {
         .then(() => props.GetEmployeeProfileInfo(worker_id));
         setUpdateMode(false)
     }
+   
     const NewComment = (e) => {
         setComment(e.currentTarget.value)
     }
-    let InfoPlan = props.employee
-
+    let InfoPlan = props.employee;
     const FindIdUser = (Name, Names) => {
         let nameId = Names.find(x => x.name === Name).id
-        console.log(Name, Names, nameId)
         if (nameId) return nameId
         else return null
     }
 
-    const ResultId = (result) => {
-        if (result === 'Пройден') {
-            return 1
-        }
-        else return 0
-    }
     return (
         <div className={s.container}>
             {isAdaptationPlanEnable(props.role_id, props.employee.step)
@@ -91,6 +79,7 @@ const AdaptationPlanInfo = (props) => {
                 <tr>
                     <td className={s.LeftSide}> Должность: </td>
                     {isUpdateMode === false ? <td className={s.RightSide}>{InfoPlan.position}</td> :
+                    isAssessment(props.role_id, props.employee.step) ? <td className={s.RightSide}>{InfoPlan.position}</td> :
                         <Autocomplete
                             getItemValue={(item) => item.label}
                             items={
@@ -113,6 +102,7 @@ const AdaptationPlanInfo = (props) => {
 
                     {isUpdateMode === false ?
                         <td td className={s.RightSide}>{InfoPlan.super}</td> :
+                        isAssessment(props.role_id, props.employee.step) ? <td td className={s.RightSide}>{InfoPlan.super}</td>:
                         <Autocomplete
                             getItemValue={(item) => item.label}
                             items={
@@ -131,7 +121,8 @@ const AdaptationPlanInfo = (props) => {
                 <tr>
                     <td className={s.LeftSide}> HR-менеджер: </td>
                     {isUpdateMode === false ?
-                        <td td className={s.RightSide}> {InfoPlan.hr}</td> :
+                        <td className={s.RightSide}> {InfoPlan.hr}</td> :
+                        isAssessment(props.role_id, props.employee.step) ? <td className={s.RightSide}> {InfoPlan.hr}</td>:
                         <Autocomplete
                             getItemValue={(item) => item.label}
                             items={
@@ -151,8 +142,8 @@ const AdaptationPlanInfo = (props) => {
                 <tr>
                     <td className={s.LeftSide}> Период: </td>
                     {isUpdateMode === false ?
-                        <td td className={s.RightSide}> {InfoPlan.date_start} - {InfoPlan.date_end} </td>
-                        :
+                        <td className={s.RightSide}> {InfoPlan.date_start} - {InfoPlan.date_end} </td>:
+                        isAssessment(props.role_id, props.employee.step) ? <td className={s.RightSide}> {InfoPlan.date_start} - {InfoPlan.date_end} </td>:
                         <DayPickerInput
                             component={props => <input className={s.periodInput}  {...props} />}
                             placeholder="Период"
@@ -175,7 +166,7 @@ const AdaptationPlanInfo = (props) => {
                 <tr>
                     <td className={s.LeftSide}> Этап: </td>
                     {isUpdateMode === false ?
-                        <td td className={s.RightSide}> {InfoPlan.step} </td> :
+                        <td className={s.RightSide}> {InfoPlan.step} </td> :
                         <Autocomplete
                             getItemValue={(item) => item.label}
                             items={
@@ -194,28 +185,13 @@ const AdaptationPlanInfo = (props) => {
 
                 <tr>
                     <td className={s.LeftSide}> Итог: </td>
-                    {isUpdateMode === false ?
-                        <td td className={s.RightSide}> {ResultAccess(InfoPlan.result)} </td>
-                        :
-                        <Autocomplete
-                            getItemValue={(item) => item.label}
-                            items={
-                                resultNames.map(oneresult => ({ label: oneresult }))
-                            }
-                            renderItem={(item, isHighlighted) =>
-                                <div style={{ background: isHighlighted ? 'rgba(140, 197, 71, 0.5)' : 'white' }}>
-                                    {item.label}
-                                </div>}
-                            value={Result}
-                            onChange={(e) => setResult(e.target.value)}
-                            onSelect={(val) => setResult(val)}
-                        />
-                    }
+                    <td>{InfoPlan.grade_id<5 ? "Программа испытательного срока пройдена" : "Программа испытательного срока не пройдена"}</td>
                 </tr>
 
                 <tr>
                     <td className={s.LeftSide}> Оценка: </td>
-                    {isUpdateMode === false ? <td className={s.RightSide}> {InfoPlan.grade != null ? InfoPlan.grade : "Оценка не выставлена"} </td> :
+                    {isUpdateMode === false ? <td className={s.RightSide}> {InfoPlan.grade} </td> :
+                     isDirectorAgreement(props.role_id, props.employee.step) ? <td className={s.RightSide}> {InfoPlan.grade != null ? InfoPlan.grade : "Оценка не выставлена"} </td>:
                         <Autocomplete
                             getItemValue={(item) => item.label}
                             items={
@@ -236,13 +212,14 @@ const AdaptationPlanInfo = (props) => {
                     <td className={s.LeftSide}> Комментарий: </td>
                     {isUpdateMode === false ?
                         <td className={s.RightSide}> {InfoPlan.comment} </td> :
+                        isDirectorAgreement(props.role_id, props.employee.step) ?  <td className={s.RightSide}> {InfoPlan.comment} </td>:
                         <input value={comment} onChange={NewComment} />}
                 </tr>
             </table>
             <div className={s.UpdateContainer}>
                 {isUpdateMode === true ? <button className={s.Update} onClick={() => UpdatePlan(InfoPlan.worker_id, FindIdUser(Position, props.positions),
                     FindIdUser(superName, props.supersNames), FindIdUser(hrName, props.hrNames), FindIdUser(Step, props.stepList),
-                    date_start_plan, date_end_plan, ResultId(Result), FindIdUser(Grade, props.grades),
+                    date_start_plan, date_end_plan, FindIdUser(Grade, props.grades)<5 ? 1 : 0, FindIdUser(Grade, props.grades),
                     comment, InfoPlan.plan_id)}>Изменить</button> : ''}
             </div>
         </div>

@@ -36,3 +36,17 @@ export const PostToNextStep = (role_id,step) => {
     } 
     else return false;
 }
+export const isDirectorAgreement = (role_id,step) => {
+    if ((mapRoleIdToRole(role_id) === Roles.Director && step === Steps.DirectorAgreement))
+    {
+        return true;
+    } 
+    else return false;
+}
+export const isAssessment = (role_id,step) => {
+    if ((mapRoleIdToRole(role_id) === Roles.Director && step === Steps.Assessment))
+    {
+        return true;
+    } 
+    else return false;
+}

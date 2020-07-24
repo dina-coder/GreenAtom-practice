@@ -18,18 +18,6 @@ class AdaptationPlan extends React.Component
            this.props.takePositions();
     }
 
-
-    componentDidUpdate(prevProps){
-        if (prevProps.plantasks!=this.props.plantasks){
-        this.setState({plantasks:this.props.plantasks})
-            }
-        if (prevProps.employee!=this.props.employee){
-            this.setState({employee:this.props.employee})
-            }
-        if (prevProps.amountOfTask!=this.props.amountOfTask){
-                this.setState({amountOfTask:this.props.amountOfTask})
-            }  
-        }
      
     loadInfo = () => {
         return this.props.worker_id ?  
