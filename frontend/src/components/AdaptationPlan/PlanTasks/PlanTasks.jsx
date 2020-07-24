@@ -1,17 +1,39 @@
 import React, { useState } from 'react'
 import s from './PlanTasks.module.scss'
+import previousPageArrow from '../../../img/previous-page.png';
+import nextPageArrow from '../../../img/next-page.png';
 import Task from './Task/Task'
 import AddTaskMode from '../AddTaskMode/AddTaskMode'
 import { isButtonAddEnable } from '../../../utils/isButtonAccess'
 
 const PlanTasks = (props) => {
-    const [AddTaskButton, SetTaskButton] = useState(false)
-    const [activePage, setActivepage] = useState(null)
-
-    const ClickPaginator = (plan_id, x) => {
-        props.TakeTasks(plan_id, x);
-        setActivepage(x-1);
+    const [AddTaskButton, SetTaskButton] = useState(false);
+    const [activePage, setActivepage] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const getNewPage = (page) => {
+        let curPage = currentPage;
+        switch(page){
+            case 'prev':
+                if (curPage>1) {
+                    setCurrentPage(currentPage-1);
+                    curPage--;
+                }
+                break;
+            case 'next': 
+                if (curPage<Pagination.length){
+                    setCurrentPage(currentPage+1);
+                    curPage++;
+                }
+                break;
+            default:
+                setCurrentPage(page);
+                curPage = page;
+                break;  
+        }
+        props.TakeTasks(props.plan_id, curPage);
     }
+    
+
     let AllTasks;
     if ( props.plantasks) {
         if (props.plantasks.length > 0){
@@ -54,7 +76,9 @@ const PlanTasks = (props) => {
                 ''
             }
             <div className={s.PaginationContainer}>
-                {Pagination.map((x,key) => <span className={key === activePage ? s.PaginationActive : s.Pagination}  onClick={() => ClickPaginator(props.plan_id,x) }>{x}</span>)}
+                <img src={previousPageArrow} alt='previous page' onClick={()=>getNewPage('prev')} />
+                {Pagination.map((x,key) => <span className={key === activePage ? s.PaginationActive : s.Pagination}  onClick={() => getNewPage(x) }>{x}</span>)}
+                <img src={nextPageArrow} alt="next page" onClick={()=>getNewPage('next')} />
             </div>
             <br />
         </div>

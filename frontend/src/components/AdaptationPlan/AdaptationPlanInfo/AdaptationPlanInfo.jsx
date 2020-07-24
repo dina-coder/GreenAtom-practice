@@ -13,10 +13,20 @@ const AdaptationPlanInfo = (props) => {
     const ResultAccess = (result) => {
         if (result === 0) { return 'Не пройден' } else return 'Пройден'
     }
+    console.log(props.employee.grade)
     const resultNames = ['Пройден', 'Не пройден']
     const [range, setRange] = useState({});
-    let date_start_plan = moment(range.from).format("DD.MM.YYYY");
-    let date_end_plan = moment(range.to).format("DD.MM.YYYY");
+    let date_start_plan;
+    let date_end_plan;
+    if (JSON.stringify(range)=='{}'){
+         date_start_plan = props.employee.date_start;
+         date_end_plan =props.employee.date_end
+    }
+    else {
+         date_start_plan = moment(range.from).format("DD.MM.YYYY");
+         date_end_plan = moment(range.to).format("DD.MM.YYYY");
+    }
+   
     const [Step, setStep] = useState(props.employee.step)
     const [Result, setResult] = useState(ResultAccess(props.employee.result))
     const [isUpdateMode, setUpdateMode] = useState(false)
@@ -26,11 +36,12 @@ const AdaptationPlanInfo = (props) => {
     const [hrName, setHrName] = useState(props.employee.hr);
     const [comment, setComment] = useState(props.employee.comment)
     const UpdatePlan = (worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id) => {
+        console.log(date_start_plan,date_end_plan)
         props.updatePlan(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id)
-        .then(()=>props.GetEmployeeProfileInfo(worker_id));
+        .then(() => props.GetEmployeeProfileInfo(worker_id));
         setUpdateMode(false)
     }
-    const NewComment = (e) =>{
+    const NewComment = (e) => {
         setComment(e.currentTarget.value)
     }
     let InfoPlan = props.employee
@@ -152,7 +163,7 @@ const AdaptationPlanInfo = (props) => {
                             hideOnDayClick={!!range.to}
                             value={!!(range.to) ?
                                 moment(range.from).format("DD.MM.YYYY") + "-" + moment(range.to).format("DD.MM.YYYY")
-                                : ""}
+                                : props.employee.date_start + '-' + props.employee.date_end}
                             dayPickerProps={{
                                 localeUtils: MomentLocaleUtils,
                                 locale: "ru",
@@ -225,17 +236,17 @@ const AdaptationPlanInfo = (props) => {
                 </tr>
                 <tr>
                     <td className={s.LeftSide}> Комментарий: </td>
-                    {isUpdateMode === false ? 
-                    <td className={s.RightSide}> {InfoPlan.comment} </td>:
-                    <input value = {comment} onChange = {NewComment}/>        }
+                    {isUpdateMode === false ?
+                        <td className={s.RightSide}> {InfoPlan.comment} </td> :
+                        <input value={comment} onChange={NewComment} />}
                 </tr>
             </table>
-            <div className={s.UpdateContainer}> 
-            {isUpdateMode === true ? <button className={s.Update} onClick={() => UpdatePlan(InfoPlan.worker_id, FindIdUser(Position, props.positions),
-                FindIdUser(superName, props.supersNames), FindIdUser(hrName, props.hrNames), FindIdUser(Step, props.stepList),
-                date_start_plan, date_end_plan, ResultId(Result), FindIdUser(Grade, props.grades),
-               comment, InfoPlan.plan_id)}>Изменить</button> : ''}
-               </div>
+            <div className={s.UpdateContainer}>
+                {isUpdateMode === true ? <button className={s.Update} onClick={() => UpdatePlan(InfoPlan.worker_id, FindIdUser(Position, props.positions),
+                    FindIdUser(superName, props.supersNames), FindIdUser(hrName, props.hrNames), FindIdUser(Step, props.stepList),
+                    date_start_plan, date_end_plan, ResultId(Result), FindIdUser(Grade, props.grades),
+                    comment, InfoPlan.plan_id)}>Изменить</button> : ''}
+            </div>
         </div>
     )
 }

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import arrow from '../../../img/down-arrow.png';
 import greenArrow from '../../../img/down-arrow-green.png';
 import rightArrow from '../../../img/right-arrow.png';
+import previousPageArrow from '../../../img/previous-page.png';
+import nextPageArrow from '../../../img/next-page.png';
 import style from "./PlansTable.module.scss";
 import Preloader from '../../../Preloader/Preloader';
 import AdaptationPlan from '../../AdaptationPlan/AdaptationPlan';
@@ -9,27 +11,37 @@ import AdaptationPlan from '../../AdaptationPlan/AdaptationPlan';
 
 
 const PlansTable = (props) => {
-    const [worker_id, setWorker_id] = useState(undefined)
-    const [isPlanClick, setPlanClick] = useState(false)
+    const [worker_id, setWorker_id] = useState(undefined);
+    const [isPlanClick, setPlanClick] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    useEffect(()=>{
+        props.onPageChange(currentPage);
+    },[currentPage]);
     const TakeDataForPlanClick = (bool,worker_id) => {
         setPlanClick(bool)
         setWorker_id(worker_id)
     }
-    const getNewPage = (pageNum) => {
-        console.log(props.role, props.userId, pageNum);
-        props.takePlans(props.role, props.userId, pageNum);
-    }
 
+    const setPrevPage=()=> {
+        if (currentPage>1) {
+            setCurrentPage(previous=> previous - 1);
+        }
+    } 
+    const setNextPage = () => {
+        if (currentPage<pagination.length){
+            setCurrentPage(previous=> previous + 1);
+        }
+    }
+       
     let pagination = [];
     const pagesAmount = Math.ceil(props.amount / 5);
     for (let i = 1; i <= pagesAmount; i++) {
         pagination.push(i);
     }
-    console.log(pagination);
     return(
     <div>
         {props.isFetching === true ? <Preloader/>:
-        props.DataAboutPlans.length > 0 ?
+        props.DataAboutPlans !== null ?
         <>
         <table>
             <thead>
@@ -58,7 +70,9 @@ const PlansTable = (props) => {
             </tbody>
         </table>
             <div className={style.paginationContainer}>
-            {pagination.map((x) => <span key={x} className={style.pagination} onClick={() => getNewPage(x) }>{x}</span>)}
+            <img src={previousPageArrow} alt='previous page' onClick={setPrevPage} />
+            {pagination.map((x) => <span key={x} className={style.pagination} onClick={() => setCurrentPage(x) }>{x}</span>)}
+            <img src={nextPageArrow} alt="next page" onClick={setNextPage} />
             </div>
         </>
         : <div style={{

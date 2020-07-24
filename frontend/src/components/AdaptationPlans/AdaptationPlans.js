@@ -10,9 +10,9 @@ class AdaptationPlans extends React.Component {
 
     
     componentDidMount(){
-        this.props.takePlans(this.props.role, this.props.user_id)
-            .then(()=>!(this.props.allPlans.hasOwnProperty('empty'))
-            && this.props.setFilter(this.props.filters));
+              
+            // .then(()=>!(this.props.allPlans.hasOwnProperty('empty'))
+            // && this.props.setFilter(this.props.filters));
         this.props.takeSteps();
         if (this.props.role===Roles.HR) {
             this.props.getPlansAmount('');
@@ -32,6 +32,9 @@ class AdaptationPlans extends React.Component {
         }
     }
     
+    onPageChange = (page) => {
+        this.props.takePlans(this.props.role, this.props.user_id, page);
+    }
         
     onFilter = (filter,value) => {
         this.props.setFilter({...this.props.filters, [filter]: value})
@@ -59,7 +62,7 @@ class AdaptationPlans extends React.Component {
                 user_id={this.props.user_id}
                 createPlan={this.props.createPlan}
                 role={this.props.role}
-                takePlans={this.props.takePlans}
+                onPageChange={this.onPageChange}
             />
     
         );

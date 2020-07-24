@@ -30,9 +30,9 @@ const AdaptationPlansForm = (props)=> {
                 isFetching = {props.isFetching} 
                 SetInfoForPlan = {props.SetInfoForPlan} 
                 DataAboutPlans = {props.DataAboutPlans} 
-                takePlans={props.takePlans}
                 role={props.role}
                 userId={props.user_id}
+                onPageChange={props.onPageChange}
                 name = {props.name} 
                 amount={props.amount}
             />
