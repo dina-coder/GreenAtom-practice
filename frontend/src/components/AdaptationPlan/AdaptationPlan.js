@@ -9,9 +9,8 @@ import Preloader from '../../Preloader/Preloader';
 class AdaptationPlan extends React.Component
 {
     componentDidMount(){
-           this.props.worker_id ?  this.props.GetEmployeeProfileInfo(this.props.worker_id) :
-           this.props.GetEmployeeProfileInfo(this.props.user_id) 
-           this.props.TakeGradesInfo()
+           this.loadInfo();
+           this.props.TakeGradesInfo();
            this.props.takeSteps();
            this.props.takeNames(1);
            this.props.takeNames(2);
@@ -28,7 +27,14 @@ class AdaptationPlan extends React.Component
             this.setState({employee:this.props.employee})
             }
         }
-        
+     
+    loadInfo = () => {
+        return this.props.worker_id ?  
+            this.props.GetEmployeeProfileInfo(this.props.worker_id) 
+            : this.props.GetEmployeeProfileInfo(this.props.user_id); 
+    }
+    
+   
 
     render() {
       
