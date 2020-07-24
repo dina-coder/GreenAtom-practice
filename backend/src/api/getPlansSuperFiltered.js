@@ -43,8 +43,8 @@ router.get(getPlansSuperFilteredPath, async (req, res) => {
 			}
 			return true
 		}))
-		console.log(filteredResult)
-		res.status(200).send(filteredResult[0] ? filteredResult.slice((req.query.page - 1) * 5, req.query.page * 5) : empty)
+		filteredResult.unshift(filteredResult.length)
+		res.status(200).send(filteredResult[1] ? filteredResult.slice((req.query.page - 1) * 5, req.query.page * 5) : empty)
 	} catch (ex) {
 		console.error(ex)
 		res.status(500).send(dbError(genericDbError))
