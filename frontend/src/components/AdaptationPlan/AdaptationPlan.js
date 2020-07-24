@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import AdaptationPlanForm from './AdaptationPlanForm'
 import {DeleteTaskFromEmployee,GetEmployeeProfileInfo, TakeTasks, UpdateTaskStatusFromEmployee, 
-    UpdateTaskFromEmployee,CreatTaskForEmployee} from '../../redux/reducers/EmployeeReducer'
+    UpdateTaskFromEmployee,CreatTaskForEmployee,GetTaskAmount} from '../../redux/reducers/EmployeeReducer'
 import {updatePlan,takePlans} from '../../redux/reducers/PlansReducer';
 import {takeNames,takeSteps,takePositions,TakeGradesInfo} from '../../redux/reducers/DictReducer'
 import Preloader from '../../Preloader/Preloader';
@@ -23,10 +23,13 @@ class AdaptationPlan extends React.Component
     componentDidUpdate(prevProps){
         if (prevProps.plantasks!=this.props.plantasks){
         this.setState({plantasks:this.props.plantasks})
-        }
+            }
         if (prevProps.employee!=this.props.employee){
             this.setState({employee:this.props.employee})
             }
+        if (prevProps.amountOfTask!=this.props.amountOfTask){
+                this.setState({amountOfTask:this.props.amountOfTask})
+            }  
         }
      
     loadInfo = () => {
@@ -44,6 +47,7 @@ class AdaptationPlan extends React.Component
             <Preloader/>
             :
             <AdaptationPlanForm 
+                GetTaskAmount = {this.props.GetTaskAmount}
                 takePlans = {this.props.takePlans}
                 grades = {this.props.grades}
                 stepList ={this.props.stepList}
@@ -91,4 +95,4 @@ const mapStateToProps=(state)=>({
 
 export default  connect (mapStateToProps,{GetEmployeeProfileInfo,DeleteTaskFromEmployee, 
     TakeTasks, UpdateTaskStatusFromEmployee,CreatTaskForEmployee, UpdateTaskFromEmployee, 
-    updatePlan,takeNames,takeSteps,takePositions,TakeGradesInfo,takePlans}) (AdaptationPlan)
+    updatePlan,takeNames,takeSteps,takePositions,TakeGradesInfo,takePlans,GetTaskAmount}) (AdaptationPlan)

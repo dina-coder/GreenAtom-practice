@@ -42,6 +42,7 @@ const Task = (props) =>{
     const DeleteTaskFunction = (id, plan_id) =>{
         props.DeleteTaskFromEmployee(id)
         props.TakeTasks(plan_id)
+        props.GetTaskAmount(plan_id)
     } 
 
     const UpdateTaskStatusFromEmployee=(id, result, plan_id)=>{

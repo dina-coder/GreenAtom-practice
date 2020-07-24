@@ -23,6 +23,7 @@ const AddTaskMode = (props) => {
     
     const PushNewTask = (plan_id,name,description,CurrentData, date, result) => {
         SendNewDataForPlan(plan_id,name, description,CurrentData, date, result)
+        props.GetTaskAmount(plan_id)
         props.SetTaskButton(false)
     }
         

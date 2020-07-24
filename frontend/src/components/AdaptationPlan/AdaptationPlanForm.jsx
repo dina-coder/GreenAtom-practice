@@ -34,6 +34,7 @@ const AdaptationPlanForm = (props) => {
                                 hrNames = {props.hrNames} 
                                 grades = {props.grades}/>
             <PlanTasks
+                GetTaskAmount = {props.GetTaskAmount}
                 role_id={props.role_id}
                 step = {props.employee.step}
                 CreatTaskForEmployee={props.CreatTaskForEmployee}

@@ -103,7 +103,6 @@ export const UpdateTaskFromEmployee = (plan_id, name, content, date_start, date_
 
  export const GetTaskAmount = (plan_id) => async (dispatch) => {
     let response = await MainAPI.getAmountOfTasks(plan_id)
-    console.log(response.count);
     dispatch(SetAmountOfTasks(response.count))
 
 }
