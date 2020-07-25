@@ -11,11 +11,7 @@ import Comments from './Comments/Comments';
 const AdaptationPlanForm = (props) => {
     const RerenderPlans = (user_id, role_id) =>{
         props.setPlanClick(false);
-        if (role_id===1){
-            props.takePlans('HR');
-        }
-        else props.takePlans('Director', user_id);
-
+        props.takePlans(mapRoleIdToRole(role_id), props.filters, user_id)
     }
     return (
         <div className={mapRoleIdToRole(props.role_id) === Roles.Employee ? s.wrapper : s.container}>
@@ -42,7 +38,8 @@ const AdaptationPlanForm = (props) => {
                 date_end={props.employee.date_end}
                 userName={props.employee.name}
                 DeleteTaskFromEmployee={props.DeleteTaskFromEmployee}
-                plantasks={props.plantasks} TakeTasks={props.TakeTasks}
+                plantasks={props.plantasks} 
+                TakeTasks={props.TakeTasks}
                 plan_id={props.employee.plan_id}
                 UpdateTaskStatusFromEmployee={props.UpdateTaskStatusFromEmployee}
                 UpdateTaskFromEmployee={props.UpdateTaskFromEmployee}
