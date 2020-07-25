@@ -112,6 +112,12 @@ export const MainAPI = {
       return response.data
     })
   },
+  getAmountOfComments(plan_id){
+    return axios.get(`http://localhost:9000/api/count_comments?plan_id=${plan_id}`)
+    .then(response => {
+      return response.data
+    })
+  },
 
   getFilteredList(role, stepValue, dateValue, nameValue, userId, page = 1) {
     const rolesMapper = {

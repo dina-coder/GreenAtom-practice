@@ -126,12 +126,14 @@ export const UpdateTaskFromEmployee = (plan_id, name, content, date_start, date_
 export const GetCommentsAmount = (plan_id) => async (dispatch) => {
     let response = await MainAPI.getAmountOfComments(plan_id)
     dispatch(SetAmountOfComments(response.count))
+    console.log(response)
 
 }
 
 export const GetComments = (plan_id, currentPage) => async (dispatch) => {
     let response = await MainAPI.getcomments(plan_id, currentPage)
     dispatch(SetComments(response));
+
 
 }
 
