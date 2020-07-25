@@ -40,7 +40,8 @@ const resources = {
 	getPlansAllSuperSql: 'call sp_get_plans_all_super(?)',
 	getCommentsSql: 'select comments.id, DATE_FORMAT(date_creation, "%d.%m.%Y-%H:%i") as date_creation, \
 	user_id, content, users.name as name, roles.name as role from comments left join users on users.id = user_id \
-	left join roles on users.role_id = roles.id where plan_id = ? limit ?, ?',
+	left join roles on users.role_id = roles.id where plan_id = ? \
+	order by id desc limit ?, ?',
 	insertCommentSql: 'insert into comments(plan_id, date_creation, user_id, content) values(?, now(), ?, ?)',
 	updateCommentSql: 'update comments set content = ? where plan_id = ?',
 	deleteCommentSql: 'delete from comments where id = ?',

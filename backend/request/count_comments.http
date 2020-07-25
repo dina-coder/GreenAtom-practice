@@ -1,1 +1,1 @@
-GET http://localhost:9000/api/count_comments?plan_id=5
+GET http://localhost:9000/api/count_comments?plan_id=15

@@ -4,8 +4,7 @@ const router = express.Router()
 const pool = require('../config/dbconfig')
 const { dbError, genericDbError, empty,
 	getCommentsPath, getCommentsSql,
-	commentsOnPage,
-	dateReverse
+	commentsOnPage
 } = require('../resources')
 
 const getComments = async (plan_id, page) => {
@@ -34,8 +33,6 @@ router.get(getCommentsPath, async (req, res) => {
 				element.date_creation = dateCrutch(element.date_creation)
 			return element
 		}))
-		console.log(result)
-		result.reverse()
 		res.status(200).send(result[0] ? result : empty)
 	} catch (ex) {
 		console.error(ex)
