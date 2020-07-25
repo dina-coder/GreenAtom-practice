@@ -1,4 +1,5 @@
 import * as axios from 'axios';
+import {Roles} from "./constants/roles";
 
 export const MainAPI = {
   login(email, password) {
@@ -111,33 +112,51 @@ export const MainAPI = {
       return response.data
     })
   },
-  getFilteredList(role, stepValue=0,dateValue="",nameValue="",userId,page=1){
-    const step = (stepValue>0&&stepValue!='') ? 'step':'';
-    let date='';
-    let dateStart;
-    let dateEnd;
-    if (dateValue!=='') {
+  getFilteredList(role, stepValue, dateValue, nameValue, userId, page = 1) {
+    const rolesMapper = {
+      [Roles.HR]: 'hr',
+      [Roles.Director]: 'super',
+    };
+    const searchParams = new URLSearchParams();
+
+    searchParams.append('page', `${page}`);
+    if (role === Roles.Director) {
+      searchParams.append('user_id', `${userId}`);
+    }
+    if (!!nameValue) {
+      searchParams.append('filter_by', 'name');
+      searchParams.append('name_filter', nameValue);
+    }
+    if (!!stepValue) {
+      searchParams.append('filter_by', 'step');
+      searchParams.append('step_filter', stepValue);
+    }
+    if (!!dateValue) {
       const period = dateValue.split("-");
-      dateStart = period[0];
-      dateEnd = period[1];
-      date = 'date'
+      searchParams.append('filter_by', 'date');
+      searchParams.append('sdate_filter', period[0]);
+      searchParams.append('edate_filter', period[1]);
     }
-    const name = nameValue!=='' ? 'name' : '';
-    let workerRole;
-    let user='';
-    if (role==='HR') 
-    {
-      workerRole="hr"
+
+    if (!searchParams.get('filter_by')) {
+      searchParams.append('filter_by', 'none');
     }
-    else {
-      user=`&user_id=${userId}`;
-      workerRole = "super";
-    }
-    console.log(`/get_plans_${workerRole}_filtered?filter_by=${name},${step},${date}&name_filter=${nameValue}&edate_filter=${dateEnd}&sdate_filter=${dateStart}&step_filter=${stepValue}&page=${page}`)
-    return axios.get(`http://localhost:9000/api/get_plans_${workerRole}_filtered?filter_by=${name},${step},${date}&name_filter=${nameValue}&edate_filter=${dateEnd}&sdate_filter=${dateStart}&step_filter=${stepValue}&page=${page}`)
+
+    return axios.get(`http://localhost:9000/api/get_plans_${rolesMapper[role]}_filtered?${searchParams.toString()}`)
     .then(response => {
       return response.data
     })
   }, 
+  getcomments(plan_id, page=1){
+    return axios.get(`http://localhost:9000/api/get_comments?page=${page}&plan_id=${plan_id}`)
+    .then(response => {
+      return response.data
+    })
+  },
+  postComment(content, plan_id, user_id){ 
+    console.log(content, plan_id, user_id)
+    axios.post("http://localhost:9000/api/insert/comment", { content, plan_id, user_id})
+    .then(response=>{ return response.data})
+  },
  
 }

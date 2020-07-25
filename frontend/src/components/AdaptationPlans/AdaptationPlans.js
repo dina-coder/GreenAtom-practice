@@ -11,7 +11,7 @@ class AdaptationPlans extends React.Component {
 
     
     componentDidMount(){
-      
+        this.props.getFilteredList(this.props.role,this.props.filters, this.props.user_id);
         this.props.takeSteps();
         if (this.props.role===Roles.HR) {
             this.props.getPlansAmount('');
@@ -31,40 +31,36 @@ class AdaptationPlans extends React.Component {
         }
     }
     
-    arePlansExist=(list)=>{
-       return (list!=null&&list.length>0)
+    arePlansExist = (list) => {
+       return (list && list.length > 0);
     }
 
     onPageChange = (page) => {
-        this.arePlansExist(this.props.filteredList) ?
-            this.props.getFilteredList(this.props.role,this.props.filters, this.props.user_id, page)
-            : this.props.takePlans(this.props.role, this.props.user_id, page);
+        this.props.getFilteredList(this.props.role,this.props.filters, this.props.user_id, page)
     }
         
     onFilter = (filter,value) => {
-       this.props.setFilter({...this.props.filters,[filter]:value});
-        setTimeout(()=> {this.props.getFilteredList(this.props.role,this.props.filters, this.props.user_id)
-           }
-        ,0);
-        
+        const newFilters = { ...this.props.filters, [filter]: value };
+        this.props.setFilter(newFilters);
+        this.props.getFilteredList(this.props.role, newFilters, this.props.user_id);
+    }
+
+    privilegeToAdd = (role) => {
+        return role === Roles.HR;
     }
      
     render() {
-        const privilegeToAdd = (role) => {
-            return role === Roles.HR ? true : false;
-        }
         return (
             <AdaptationPlansForm
                 isFetching={this.props.isFetching}
                 SetInfoForPlan={this.props.SetInfoForPlan}
-                DataAboutPlans={ this.props.allPlans }
+                DataAboutPlans={this.props.filteredList}
                 arePlansExist={this.arePlansExist}
                 name={this.props.name}
                 amount={this.props.amount}
                 steps={this.props.steps}
-                onFilter={this.updateList}
                 filters={this.props.filters}
-                canCreate={privilegeToAdd(this.props.role)}
+                canCreate={this.privilegeToAdd(this.props.role)}
                 workersNames={ this.props.workersNames}
                 supersNames={this.props.supersNames}
                 positions={this.props.positions}

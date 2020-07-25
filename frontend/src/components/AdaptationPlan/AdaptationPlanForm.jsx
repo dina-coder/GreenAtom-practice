@@ -5,6 +5,7 @@ import PlanTasks from './PlanTasks/PlanTasks'
 import { mapRoleIdToRole } from '../../utils/mapRoleIdToRole';
 import { Roles } from '../../constants/roles'
 import StepTracker from './StepTracker/StepTracker';
+import Comments from './Comments/Comments';
 
 
 const AdaptationPlanForm = (props) => {
@@ -46,6 +47,13 @@ const AdaptationPlanForm = (props) => {
                 UpdateTaskFromEmployee={props.UpdateTaskFromEmployee}
                 amountOfTask={props.amountOfTask}
                  />
+            <Comments 
+                GetComments={props.GetComments}
+                PostComment={props.PostComment}
+                plan_id={props.employee.plan_id}
+                user_id={props.user_id}
+                comments={props.comments}
+                />
                  </div>
             :'Нет плана'}
         </div>
