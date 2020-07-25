@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux'
 import AdaptationPlanForm from './AdaptationPlanForm'
 import {DeleteTaskFromEmployee,GetEmployeeProfileInfo, TakeTasks, UpdateTaskStatusFromEmployee, 
-    UpdateTaskFromEmployee,CreatTaskForEmployee,GetTaskAmount, GetComments, 
-    PostComment} from '../../redux/reducers/EmployeeReducer'
+    UpdateTaskFromEmployee,CreatTaskForEmployee,GetTaskAmount, GetComments, PostComment, 
+    GetCommentsAmount} from '../../redux/reducers/EmployeeReducer'
 import {updatePlan,takePlans} from '../../redux/reducers/PlansReducer';
 import {takeNames,takeSteps,takePositions,TakeGradesInfo} from '../../redux/reducers/DictReducer'
 import Preloader from '../../Preloader/Preloader';
@@ -55,6 +55,7 @@ class AdaptationPlan extends React.Component
                 updatePlan={this.props.updatePlan}
                 GetEmployeeProfileInfo={this.props.GetEmployeeProfileInfo}
                 amountOfTask={this.props.amountOfTask}
+                amountOfComments={this.props.amountOfComments}
                 comments={this.props.comments}
                 PostComment={this.props.PostComment}
                 GetComments={this.props.GetComments}
@@ -81,9 +82,11 @@ const mapStateToProps=(state)=>({
     workersNames : state.DictReducer.workersNames,
     supersNames : state.DictReducer.supersNames,
     amountOfTask: state.EmployeeReducer.amountOfTask,
-    comments: state.EmployeeReducer.comments
+    comments: state.EmployeeReducer.comments,
+    amountOfComments: state.EmployeeReducer.amountOfComments
 });
 
 export default  connect (mapStateToProps,{GetEmployeeProfileInfo,DeleteTaskFromEmployee, 
     TakeTasks, UpdateTaskStatusFromEmployee,CreatTaskForEmployee, UpdateTaskFromEmployee, 
-    updatePlan,takeNames,takeSteps,takePositions,TakeGradesInfo,takePlans,GetTaskAmount, GetComments, PostComment}) (AdaptationPlan)
+    updatePlan,takeNames,takeSteps,takePositions,TakeGradesInfo,takePlans,GetTaskAmount,
+     GetComments, PostComment, GetCommentsAmount}) (AdaptationPlan)
