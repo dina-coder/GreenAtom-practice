@@ -1,1 +1,1 @@
-GET http://localhost:9000/api/count_plans
+GET http://localhost:9000/api/count_plans?id=4
