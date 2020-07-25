@@ -95,14 +95,8 @@ export const getFilteredList = (role,filters,userId,page = 1) => async(dispatch)
 
     const isEmpty = !response || response.empty || !response.length;
 
-    if (page === 1) {
-        const [length, ...restList] = isEmpty ? [0] : response;
-        dispatch(setPlansAmount(length));
-        dispatch(setFilteredList(restList));
-    } else {
-        const list = isEmpty ? [] : response;
-        dispatch(setFilteredList(list));
-    }
-
+    const [length, ...restList] = isEmpty ? [0] : response;
+    dispatch(setPlansAmount(length));
+    dispatch(setFilteredList(restList));
     dispatch(setToggle(false));
 }
