@@ -11,12 +11,12 @@ import Comments from './Comments/Comments';
 const AdaptationPlanForm = (props) => {
     const RerenderPlans = (user_id, role_id) =>{
         props.setPlanClick(false);
-        props.takePlans(mapRoleIdToRole(role_id), props.filters, user_id)
+        props.takePlans(mapRoleIdToRole(role_id), props.filters, user_id);
+
     }
     return (
         <div className={mapRoleIdToRole(props.role_id) === Roles.Employee ? s.wrapper : s.container}>
             {props.employee !== null ?
-            props.employee.length > 0?
             <div>
              {(mapRoleIdToRole(props.role_id) !== Roles.Employee) &&
              <div className={s.close} onClick={() => RerenderPlans(props.user_id, props.role_id)}></div>}
@@ -54,7 +54,6 @@ const AdaptationPlanForm = (props) => {
                 amountOfComments={props.amountOfComments}
                 />
                  </div>
-                 : <h1 className={s.ErrorPlans}>Нет плана</h1>
             : <h1 className={s.ErrorPlans}>Нет плана</h1>}
         </div>
     )

@@ -76,12 +76,12 @@ export const takePlans = (role, userId,curPage) => async (dispatch) => {
 
 export const createPlan = (worker_id, position_id, super_id, hr_id, date_start, date_end, result, grade_id, comment) => async () => {
     const response = await MainAPI.createPlan(worker_id, position_id, super_id, hr_id, date_start, date_end, result, grade_id, comment);
-    console.log(response);
+    return response;
 }
 
 export const updatePlan = (worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id) => async () => {
     let response = await MainAPI.updatePlanApi(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment,id)
-    console.log(response)
+    console.log(response);
 }
 
 export const getPlansAmount = (id) => async(dispatch) => {

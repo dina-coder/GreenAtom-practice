@@ -16,7 +16,7 @@ const PlanCreation=(props)=>{
     const [isError, setIsError] = useState(false);
     const [errMessage, setErrMessage] = useState("");
     const createNewPlan = () => {
-        props.createPlan(
+            props.createPlan(
             findID(workerName, props.workers), 
             findID(workerPosition, props.positions), 
             findID(superName, props.supers), 
@@ -27,11 +27,16 @@ const PlanCreation=(props)=>{
             null, 
             ''
         ).then((response)=>{
-            if (!response) {
-                setIsError(true);
-                setErrMessage("План для этого сотрудника уже создан");
-            }
-            else props.setIsCreationOpen(false);
+            props.setIsCreationOpen(false);
+            const newAmount = props.amount + 1;
+            const page = Math.ceil(newAmount / 5);
+            props.setPlansAmount(newAmount);
+            props.filterPlans(page);
+        }).catch(error=>{
+            setIsError(true);
+            console.log(error);
+            setErrMessage(error.error_message);
+            setWorkerName('');
         });        
     }
     const findID = (value,list) => {
@@ -43,13 +48,13 @@ const PlanCreation=(props)=>{
         const isSuperExist= props.supers.filter(item=> item.name===superName).length!==0;
         const isPositionExist= props.positions.filter(item=> item.name===workerPosition).length!==0;
         const isDateFull = !!(range.to);
-        const isPlanExist = props.plans.some(item=> item.name === workerName);
-        const isCreateError=!isWorkerExist || !isSuperExist || !isPositionExist || !isDateFull || isPlanExist
+        const isCreateError = !isWorkerExist || !isSuperExist || !isPositionExist || !isDateFull;
         isCreateError&&setIsError(true);
         if(!isCreateError) return true;
         if (workerName==""||workerPosition==""||superName==""||!range.to) setErrMessage('Заполните все поля');
         else {
-            if ((!isWorkerExist || isPlanExist)&& isDateFull){ 
+            if (!isWorkerExist && isDateFull){ 
+                console.log(isWorkerExist);
                 setErrMessage('Данного работника не существует');
                 setWorkerName("");
             }
