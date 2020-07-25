@@ -139,5 +139,16 @@ export const MainAPI = {
       return response.data
     })
   }, 
+  getcomments(plan_id, page=1){
+    return axios.get(`http://localhost:9000/api/get_comments?page=${page}&plan_id=${plan_id}`)
+    .then(response => {
+      return response.data
+    })
+  },
+  postComment(content, plan_id, user_id){ 
+    console.log(content, plan_id, user_id)
+    axios.post("http://localhost:9000/api/insert/comment", { content, plan_id, user_id})
+    .then(response=>{ return response.data})
+  },
  
 }

@@ -5,7 +5,8 @@ let initialState = {
     employee_info: [],
     plantasks:[],
     user_id_for_superhr:null,
-    amountOfTask: null
+    amountOfTask: null,
+    comments: []
 }
 
 const EmployeeReducer = (state = initialState, action) => {
@@ -27,6 +28,9 @@ const EmployeeReducer = (state = initialState, action) => {
         case LOG_OUT: {
             return {...state, employee_info:null,plantasks:null }
         }
+        case TAKE_COMMENTS: {
+            return {...state, comments: action.comments}
+        }
         
         default:
             return state
@@ -35,11 +39,12 @@ const EmployeeReducer = (state = initialState, action) => {
 export default EmployeeReducer
 
 
-const LOG_OUT = 'LOG_OUT'
+const LOG_OUT = 'LOG_OUT';
 const TAKE_EMPLOYEE_PROFILE_INFO='TAKE_EMPLOYEE_PROFILE_INFO';
-const TAKE_TASKS_FOR_PLAN = 'TAKE_TASKS_FOR_PLAN'
-const TAKE_INFO_ABOUT_PLAN = 'TAKE_INFO_ABOUT_PLAN'
-const TAKE_AMOUNT_OF_TASKS='TAKE_AMOUNT_OF_TASKS'
+const TAKE_TASKS_FOR_PLAN = 'TAKE_TASKS_FOR_PLAN';
+const TAKE_INFO_ABOUT_PLAN = 'TAKE_INFO_ABOUT_PLAN';
+const TAKE_AMOUNT_OF_TASKS='TAKE_AMOUNT_OF_TASKS';
+const TAKE_COMMENTS='TAKE_COMMENTS';
 
 export const LogOut = () => {
     return ({type:LOG_OUT})
@@ -58,6 +63,10 @@ export const SetInfoForPlan = (user_id_for_superhr) => {
 
 export const SetAmountOfTasks = (amountOfTask) =>{
     return ({type:TAKE_AMOUNT_OF_TASKS, amountOfTask})
+}
+
+export const SetComments = (comments) =>{
+    return ({type:TAKE_COMMENTS, comments})
 }
 
 
@@ -79,6 +88,7 @@ export const GetEmployeeProfileInfo = (user_id, currPage) => async (dispatch) =>
         dispatch(GetTaskAmount(response[0].plan_id))
         dispatch(SetEmployeeProfileInfo(response))
         dispatch(TakeTasks(response[0].plan_id, currPage))
+        dispatch(GetComments(response[0].plan_id))
        
     }
     }
@@ -90,15 +100,12 @@ export const DeleteTaskFromEmployee = (task_id) => async () => {
 
 export const UpdateTaskStatusFromEmployee = (task_id, result) => async () => {
    let response = await MainAPI.updateTaskStatus(task_id, result)
-   console.log(response)
 }
 export const UpdateTaskFromEmployee = (plan_id, name, content, date_start, date_end, result, id) => async () => {
     let response = await MainAPI.updateTask(plan_id, name, content, date_start, date_end, result, id)
-    console.log(response)
  }
  export const CreatTaskForEmployee = (plan_id, name, content, date_start, date_end, result) => async () => {
     let response = await MainAPI.creactTasks(plan_id, name, content, date_start, date_end, result)
-    console.log(response)
  }
 
 
@@ -107,3 +114,13 @@ export const UpdateTaskFromEmployee = (plan_id, name, content, date_start, date_
     dispatch(SetAmountOfTasks(response.count))
 
 }
+
+export const GetComments = (plan_id, currentPage) => async (dispatch) => {
+    let response = await MainAPI.getcomments(plan_id, currentPage)
+    dispatch(SetComments(response));
+
+}
+
+export const PostComment = (content, plan_id, user_id) => async () => {
+    let response = await MainAPI.postComment(content, plan_id, user_id)
+ }
