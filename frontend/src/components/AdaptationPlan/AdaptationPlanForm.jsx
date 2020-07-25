@@ -11,10 +11,7 @@ import Comments from './Comments/Comments';
 const AdaptationPlanForm = (props) => {
     const RerenderPlans = (user_id, role_id) =>{
         props.setPlanClick(false);
-        if (role_id===1){
-            props.takePlans('HR');
-        }
-        else props.takePlans('Director', user_id);
+        props.takePlans(mapRoleIdToRole(role_id), props.filters, user_id);
 
     }
     return (
@@ -41,7 +38,8 @@ const AdaptationPlanForm = (props) => {
                 date_end={props.employee.date_end}
                 userName={props.employee.name}
                 DeleteTaskFromEmployee={props.DeleteTaskFromEmployee}
-                plantasks={props.plantasks} TakeTasks={props.TakeTasks}
+                plantasks={props.plantasks} 
+                TakeTasks={props.TakeTasks}
                 plan_id={props.employee.plan_id}
                 UpdateTaskStatusFromEmployee={props.UpdateTaskStatusFromEmployee}
                 UpdateTaskFromEmployee={props.UpdateTaskFromEmployee}
@@ -56,7 +54,7 @@ const AdaptationPlanForm = (props) => {
                 amountOfComments={props.amountOfComments}
                 />
                  </div>
-            :'Нет плана'}
+            : <h1 className={s.ErrorPlans}>Нет плана</h1>}
         </div>
     )
 }

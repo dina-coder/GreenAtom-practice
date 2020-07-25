@@ -40,11 +40,14 @@ const AdaptationPlansForm = (props)=> {
 
             {isCreationOpen && <PlanCreation 
             createPlan={props.createPlan}
+            setPlansAmount={props.setPlansAmount}
             user_id={props.user_id}
             plans={props.DataAboutPlans}
             positions={props.positions} 
             workers={props.workersNames}
             supers={props.supersNames}
+            amount={props.amount}
+            filterPlans={props.filterPlans}
             setIsCreationOpen={setIsCreationOpen}/>}
         </div>
     )

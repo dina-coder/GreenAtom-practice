@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { takePlans, setFilter, createPlan, getPlansAmount, getFilteredList } from '../../redux/reducers/PlansReducer';
+import { takePlans, setFilter, createPlan, getPlansAmount, getFilteredList, setPlansAmount } from '../../redux/reducers/PlansReducer';
 import { takeNames, takeSteps, takePositions} from '../../redux/reducers/DictReducer';
 import AdaptationPlansForm from './AdaptationPlansForm';
 import { SetInfoForPlan } from '../../redux/reducers/EmployeeReducer'
@@ -36,6 +36,14 @@ class AdaptationPlans extends React.Component {
     }
 
     onPageChange = (page) => {
+       this.filterPlans(page);
+    }
+
+    getLastPage = () => {
+        return Math.ceil(this.props.amount / 5);
+    }
+
+    filterPlans = (page) => {
         this.props.getFilteredList(this.props.role,this.props.filters, this.props.user_id, page)
     }
         
@@ -58,6 +66,7 @@ class AdaptationPlans extends React.Component {
                 arePlansExist={this.arePlansExist}
                 name={this.props.name}
                 amount={this.props.amount}
+                setPlansAmount={this.props.setPlansAmount}
                 steps={this.props.steps}
                 filters={this.props.filters}
                 canCreate={this.privilegeToAdd(this.props.role)}
@@ -68,6 +77,7 @@ class AdaptationPlans extends React.Component {
                 createPlan={this.props.createPlan}
                 role={this.props.role}
                 onFilter={this.onFilter}
+                filterPlans={this.filterPlans}
                 onPageChange={this.onPageChange}
             />
     
@@ -92,5 +102,5 @@ const mapStateToProps = (state) =>({
 });
 
 export default connect(mapStateToProps,
-            { takePlans, takeSteps, takeNames, SetInfoForPlan, setFilter, takePositions, createPlan, getPlansAmount, getFilteredList }
+            { takePlans, takeSteps, takeNames, SetInfoForPlan, setFilter, takePositions, createPlan, getPlansAmount, getFilteredList, setPlansAmount }
             )(AdaptationPlans);

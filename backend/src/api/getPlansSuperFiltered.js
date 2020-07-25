@@ -40,7 +40,7 @@ router.get(getPlansSuperFilteredPath, async (req, res) => {
 			}
 			return true
 		}))
-		if (filteredResult[1]) {
+		if (filteredResult[0]) {
 			const size = filteredResult.length
 			const returnResult = filteredResult.slice((req.query.page - 1) * 5, req.query.page * 5)
 			returnResult.unshift(size)

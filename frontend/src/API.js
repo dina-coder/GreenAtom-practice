@@ -76,7 +76,7 @@ export const MainAPI = {
       })
   },
   createPlan(worker_id, position_id, super_id, hr_id, date_start, date_end, result, grade_id, comment){
-    axios.post("http://localhost:9000/api/insert/plan", { 
+    return axios.post("http://localhost:9000/api/insert/plan", { 
       worker_id: worker_id, 
       position_id: position_id, 
       super_id: super_id,
@@ -87,7 +87,7 @@ export const MainAPI = {
       grade_id: grade_id, 
       comment: comment
     })
-    .then(response=>{ return response.data})
+    .then(response=>{ return response.data }).catch(err=> { throw err.response.data})
   },
   updatePlanApi(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id){ 
     console.log(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id)
