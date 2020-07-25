@@ -31,6 +31,7 @@ const AdaptationPlansForm = (props)=> {
                 SetInfoForPlan = {props.SetInfoForPlan} 
                 DataAboutPlans = {props.DataAboutPlans} 
                 role={props.role}
+                arePlansExist={props.arePlansExist}
                 userId={props.user_id}
                 onPageChange={props.onPageChange}
                 name = {props.name} 

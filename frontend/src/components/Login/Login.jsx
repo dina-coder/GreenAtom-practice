@@ -8,6 +8,7 @@ import password from '../../img/password.png';
 import { login } from '../../redux/reducers/AuthReducer';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { IsEmailCorrect } from '../../utils/validator';
 
 
 const Login = (props) => {
@@ -40,7 +41,7 @@ const ContactForm = (props) => {
         <form className = {s.Form} onSubmit={handleSubmit}>
             <div className = {s.field}>
                 <img className = {s.mail_img} src = {mail} alt = ""/>
-                <Field name = {'email'} placeholder={'E-mail'} component = {TextArea}/>
+                <Field name = {'email'} placeholder={'E-mail'} validate={IsEmailCorrect} component = {TextArea}/>
                 {props.error && <div className={s.error}>{props.error} </div>}
                 <div className = {s.underline} />
             </div>

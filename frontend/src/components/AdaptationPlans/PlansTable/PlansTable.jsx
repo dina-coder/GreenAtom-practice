@@ -41,7 +41,7 @@ const PlansTable = (props) => {
     return(
     <div>
         {props.isFetching === true ? <Preloader/>:
-        props.DataAboutPlans !== null ?
+        props.arePlansExist(props.DataAboutPlans) ?
         <>
         <table>
             <thead>

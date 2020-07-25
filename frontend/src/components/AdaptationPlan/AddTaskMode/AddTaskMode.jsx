@@ -3,9 +3,12 @@ import s from './AddTaskMode.module.scss'
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import moment from 'moment';
 import 'moment/locale/ru';
+import errorImg from '../../../img/error.png'
 import  MomentLocaleUtils, { formatDate, parseDate }  from 'react-day-picker/moment';
 
+
 const AddTaskMode = (props) => {
+    const [isError, setError] = useState(false)
     const [range,setRange] = useState({});
     const [date, setDate] = useState(moment(range.from).format("DD.MM.YYYY"))
     const [name, setName] = useState('')
@@ -22,8 +25,15 @@ const AddTaskMode = (props) => {
     }
     
     const PushNewTask = (plan_id,name,description,CurrentData, date, result) => {
-        SendNewDataForPlan(plan_id,name, description,CurrentData, date, result)
-        props.SetTaskButton(false)
+        if (name === '' || description === ''){
+            setError(true)
+        }
+        else {
+            SendNewDataForPlan(plan_id,name, description,CurrentData, date, result)
+            props.GetTaskAmount(plan_id)
+            props.SetTaskButton(false)
+        }
+       
     }
         
     
@@ -67,13 +77,14 @@ const AddTaskMode = (props) => {
         </tr>
         <tr>
             <td><div className={s.NameOfField}> Название задачи: </div></td>
-            <td><div> <input className={s.Input} onChange = {ChangeTaskName} value = {name} placeholder = {'Название задачи'}/></div></td>
+            <td><div> <input className={isError === true && name === '' ? s.ErrorBorder1:s.Input} onChange = {ChangeTaskName} value = {name} placeholder = {'Название задачи'} /></div></td>
         </tr>
         <tr>
             <td><div className={s.NameOfField}> Описание: </div></td>
-            <td><div> <textarea className={s.InputBig} onChange = {ChangeTaskDescription} value = {description} placeholder = {'Описание задачи'}/></div></td>
+            <td><div> <textarea className={s.InputBig + ' ' + (isError === true && description === '' ? s.ErrorBorder:'')} onChange = {ChangeTaskDescription} value = {description} placeholder = {'Описание задачи'}/></div></td>
         </tr>
         </table>
+        {isError ? <h3 className={s.Error}><img className={s.ErrorImg} src ={errorImg} alt={""}/> Заполните все поля!</h3>: ''}
         <div className={s.ButtonContainer}>
         <button className={s.AddButton} onClick = {() => PushNewTask(props.plan_id,name, description,CurrentData, date, 0)}>Сохранить</button>
         </div>

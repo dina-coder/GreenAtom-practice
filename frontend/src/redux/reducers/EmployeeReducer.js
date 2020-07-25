@@ -79,6 +79,7 @@ export const GetEmployeeProfileInfo = (user_id, currPage) => async (dispatch) =>
         dispatch(GetTaskAmount(response[0].plan_id))
         dispatch(SetEmployeeProfileInfo(response))
         dispatch(TakeTasks(response[0].plan_id, currPage))
+       
     }
     }
 
@@ -103,7 +104,6 @@ export const UpdateTaskFromEmployee = (plan_id, name, content, date_start, date_
 
  export const GetTaskAmount = (plan_id) => async (dispatch) => {
     let response = await MainAPI.getAmountOfTasks(plan_id)
-    console.log(response.count);
     dispatch(SetAmountOfTasks(response.count))
 
 }
