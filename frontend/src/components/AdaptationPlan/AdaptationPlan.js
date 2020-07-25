@@ -4,7 +4,7 @@ import AdaptationPlanForm from './AdaptationPlanForm'
 import {DeleteTaskFromEmployee,GetEmployeeProfileInfo, TakeTasks, UpdateTaskStatusFromEmployee, 
     UpdateTaskFromEmployee,CreatTaskForEmployee,GetTaskAmount, GetComments, PostComment, 
     GetCommentsAmount} from '../../redux/reducers/EmployeeReducer'
-import {updatePlan,takePlans} from '../../redux/reducers/PlansReducer';
+import {updatePlan,getFilteredList} from '../../redux/reducers/PlansReducer';
 import {takeNames,takeSteps,takePositions,TakeGradesInfo} from '../../redux/reducers/DictReducer'
 import Preloader from '../../Preloader/Preloader';
 
@@ -36,7 +36,7 @@ class AdaptationPlan extends React.Component
                 
             <AdaptationPlanForm 
                 GetTaskAmount = {this.props.GetTaskAmount}
-                takePlans = {this.props.takePlans}
+                takePlans = {this.props.getFilteredList}
                 grades = {this.props.grades}
                 stepList ={this.props.stepList}
                 hrNames = {this.props.hrNames}
@@ -60,6 +60,7 @@ class AdaptationPlan extends React.Component
                 comments={this.props.comments}
                 PostComment={this.props.PostComment}
                 GetComments={this.props.GetComments}
+                filters={this.props.filters}
             />
                 }
             </>)
@@ -84,10 +85,11 @@ const mapStateToProps=(state)=>({
     supersNames : state.DictReducer.supersNames,
     amountOfTask: state.EmployeeReducer.amountOfTask,
     comments: state.EmployeeReducer.comments,
-    amountOfComments: state.EmployeeReducer.amountOfComments
+    amountOfComments: state.EmployeeReducer.amountOfComments,
+    filters: state.PlansReducer.filters
 });
 
 export default  connect (mapStateToProps,{GetEmployeeProfileInfo,DeleteTaskFromEmployee, 
     TakeTasks, UpdateTaskStatusFromEmployee,CreatTaskForEmployee, UpdateTaskFromEmployee, 
-    updatePlan,takeNames,takeSteps,takePositions,TakeGradesInfo,takePlans,GetTaskAmount,
+    updatePlan,takeNames,takeSteps,takePositions,TakeGradesInfo,getFilteredList,GetTaskAmount,
      GetComments, PostComment, GetCommentsAmount}) (AdaptationPlan)

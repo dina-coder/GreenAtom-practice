@@ -35,7 +35,7 @@ const PlanCreation=(props)=>{
         });        
     }
     const findID = (value,list) => {
-       return list.filter(item=> item.name===value)[0].id;
+       return list.filter(item => item.name===value)[0].id;
     }
 
     const isCreatable = () => {
