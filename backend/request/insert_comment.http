@@ -2,7 +2,7 @@ POST http://localhost:9000/api/insert/comment HTTP/1.1
 content-type: application/json
 
 {
-	"plan_id": 15,
-	"user_id": 16,
-	"content": "Hi daddy)))"
+	"plan_id": 5,
+	"user_id": 3,
+	"content": "вы уволены."
 }
