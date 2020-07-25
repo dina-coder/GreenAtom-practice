@@ -6,7 +6,8 @@ let initialState = {
     plantasks:[],
     user_id_for_superhr:null,
     amountOfTask: null,
-    comments: []
+    comments: [],
+    amountOfComments: null
 }
 
 const EmployeeReducer = (state = initialState, action) => {
@@ -31,6 +32,9 @@ const EmployeeReducer = (state = initialState, action) => {
         case TAKE_COMMENTS: {
             return {...state, comments: action.comments}
         }
+        case TAKE_AMOUNT_OF_COMMENTS:{
+            return {...state, amountOfComments: action.amountOfComments}
+        }
         
         default:
             return state
@@ -45,6 +49,7 @@ const TAKE_TASKS_FOR_PLAN = 'TAKE_TASKS_FOR_PLAN';
 const TAKE_INFO_ABOUT_PLAN = 'TAKE_INFO_ABOUT_PLAN';
 const TAKE_AMOUNT_OF_TASKS='TAKE_AMOUNT_OF_TASKS';
 const TAKE_COMMENTS='TAKE_COMMENTS';
+const TAKE_AMOUNT_OF_COMMENTS='TAKE_AMOUNT_OF_COMMENTS'
 
 export const LogOut = () => {
     return ({type:LOG_OUT})
@@ -69,6 +74,9 @@ export const SetComments = (comments) =>{
     return ({type:TAKE_COMMENTS, comments})
 }
 
+export const SetAmountOfComments = (amountOfComments) =>{
+    return ({type:TAKE_AMOUNT_OF_COMMENTS, amountOfComments})
+}
 
 
 
@@ -86,6 +94,7 @@ export const GetEmployeeProfileInfo = (user_id, currPage) => async (dispatch) =>
     dispatch(setToggle(false))
     if (response[0] !== undefined ){
         dispatch(GetTaskAmount(response[0].plan_id))
+        dispatch(GetCommentsAmount(response[0].plan_id))
         dispatch(SetEmployeeProfileInfo(response))
         dispatch(TakeTasks(response[0].plan_id, currPage))
         dispatch(GetComments(response[0].plan_id))
@@ -114,10 +123,17 @@ export const UpdateTaskFromEmployee = (plan_id, name, content, date_start, date_
     dispatch(SetAmountOfTasks(response.count))
 
 }
+export const GetCommentsAmount = (plan_id) => async (dispatch) => {
+    let response = await MainAPI.getAmountOfComments(plan_id)
+    dispatch(SetAmountOfComments(response.count))
+    console.log(response)
+
+}
 
 export const GetComments = (plan_id, currentPage) => async (dispatch) => {
     let response = await MainAPI.getcomments(plan_id, currentPage)
     dispatch(SetComments(response));
+
 
 }
 

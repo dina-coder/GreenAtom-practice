@@ -14,15 +14,17 @@ let reducers=combineReducers({
 });
 
 const saveState = (state) => {
+    let initialState = {AuthReducer:state.AuthReducer}
     try {
-        const serialisedState = JSON.stringify(state);
-        window.localStorage.setItem('app_state', serialisedState);
+
+        const serialisedState = JSON.stringify(initialState);
+        window.sessionStorage.setItem('app_state', serialisedState);
     } catch (err) {
     }
 };
 const loadState = () => {
     try {
-        const serialisedState = window.localStorage.getItem('app_state');
+        const serialisedState = window.sessionStorage.getItem('app_state');
         if (!serialisedState) return undefined;
         return JSON.parse(serialisedState);
     } catch (err) {
@@ -30,7 +32,7 @@ const loadState = () => {
     }
 };
 const oldState = loadState();
-export const store = createStore(reducers,oldState, applyMiddleware(thunkMiddleware));
+export const store = createStore(reducers, oldState, applyMiddleware(thunkMiddleware));
 store.subscribe(() => {
     saveState(store.getState());
 });

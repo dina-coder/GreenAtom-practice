@@ -2,11 +2,13 @@
 
 .Container{
     position: relative;
-    top: 7em;
-    width:$fixedWidth*0.97;
+    width:98%;
     .InnerContainer{
+        margin-top: -40px;
         background-color: rgb(243, 249, 237);
         border-radius: 16px;
+        font-size: 18px;
+        color: $textColor;
         .TextBoxContainer{
             margin-top: 50px;
             height: 60px;
@@ -19,6 +21,7 @@
                 color: $textColor;
                 font-weight: 600;
             }
+
             .Input::placeholder{
                 color: $additionText;
                 font-family: Roboto, sans-serif;
@@ -29,7 +32,7 @@
             }
             .SendButton{
                 position:absolute;
-                left: 1050px;
+                left: 97%;
                 bottom:20px;
             }
             .ErrorBorder{
@@ -41,6 +44,10 @@
                 color: $textColor;
                 font-weight: 600;
             }
+            .ErrorBorder:focus{
+                outline: none;
+
+            }
         }
         .Error{
             margin-top: -80px;
@@ -51,6 +58,33 @@
         .ErrorImg{
             height: 10px;
         }
+    }
+    .PaginationContainer{
+        text-align: center;
+        .Pagination{
+            color: #8CC547;
+            margin-right: 10px;
+            font-size: 14pt;
+            font-weight: 500;
+    
+        }
+        .PaginationActive{
+            color: #8CC547;
+            margin-right: 10px;
+            font-size: 14pt;
+            font-weight: 900;
+        }
+        .Pagination:hover{
+            cursor: pointer;
+            opacity: 50%;
+        }
+    
+        img {
+            margin-right: 10px;
+            width: 13px;
+            height: 13px;
+        }
+    
     }
 
 }

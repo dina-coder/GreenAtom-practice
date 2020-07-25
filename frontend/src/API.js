@@ -112,6 +112,13 @@ export const MainAPI = {
       return response.data
     })
   },
+  getAmountOfComments(plan_id){
+    return axios.get(`http://localhost:9000/api/count_comments?plan_id=${plan_id}`)
+    .then(response => {
+      return response.data
+    })
+  },
+
   getFilteredList(role, stepValue, dateValue, nameValue, userId, page = 1) {
     const rolesMapper = {
       [Roles.HR]: 'hr',
@@ -122,6 +129,7 @@ export const MainAPI = {
     searchParams.append('page', `${page}`);
     if (role === Roles.Director) {
       searchParams.append('user_id', `${userId}`);
+
     }
     if (!!nameValue) {
       searchParams.append('filter_by', 'name');
@@ -158,5 +166,6 @@ export const MainAPI = {
     axios.post("http://localhost:9000/api/insert/comment", { content, plan_id, user_id})
     .then(response=>{ return response.data})
   },
+
  
 }

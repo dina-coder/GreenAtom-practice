@@ -33,7 +33,7 @@ router.get(getCommentsPath, async (req, res) => {
 				element.date_creation = dateCrutch(element.date_creation)
 			return element
 		}))
-		res.status(200).send(result[0] ? result.slice((req.query.page - 1) * 5, req.query.page * 5).reverse() : empty)
+		res.status(200).send(result[0] ? result : empty)
 	} catch (ex) {
 		console.error(ex)
 		res.status(500).send(dbError(genericDbError))

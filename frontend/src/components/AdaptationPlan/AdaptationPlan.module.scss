@@ -13,7 +13,7 @@
     border-radius: 15px;
     width: 80%;
     margin: 2em auto;
-    padding: 5em 2em;
+    padding: 2em 2em;
     box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
 }
 .close {
@@ -40,4 +40,9 @@
     }
     .close:after {
     transform: rotate(-45deg);
+    }
+    .ErrorPlans{
+        color: $textColor;
+        font-size: 18px;
+        text-align: center;
     }
