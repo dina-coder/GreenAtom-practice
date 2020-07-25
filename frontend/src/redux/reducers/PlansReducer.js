@@ -89,12 +89,14 @@ export const getPlansAmount = (id) => async(dispatch) => {
     dispatch(setPlansAmount(response.count));
 }
 
-export const getFilteredList = (role,filters,userId,page) => async(dispatch) => {
+export const getFilteredList = (role,filters,userId,page = 1) => async(dispatch) => {
     dispatch(setToggle(true));
-    console.log(role,filters,userId)
     const response = await MainAPI.getFilteredList(role,filters.step,filters.period,filters.search,userId,page);
+
+    const isEmpty = !response || response.empty || !response.length;
+
+    const [length, ...restList] = isEmpty ? [0] : response;
+    dispatch(setPlansAmount(length));
+    dispatch(setFilteredList(restList));
     dispatch(setToggle(false));
-    console.log(response);
-    dispatch(setPlansAmount(response[0]));
-    dispatch(setFilteredList(response[1]));
 }

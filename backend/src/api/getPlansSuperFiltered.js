@@ -31,10 +31,7 @@ router.get(getPlansSuperFilteredPath, async (req, res) => {
 				console.log(cmpStart)
 				console.log(cmpEnd)
 				if (cmpStart || cmpEnd)
-				{
-					console.log('FALSE')
 					return false
-				}
 
 			}
 			if (tokens.includes('step')) {
@@ -43,8 +40,14 @@ router.get(getPlansSuperFilteredPath, async (req, res) => {
 			}
 			return true
 		}))
-		filteredResult.unshift(filteredResult.length)
-		res.status(200).send(filteredResult[1] ? filteredResult.slice((req.query.page - 1) * 5, req.query.page * 5) : empty)
+		if (filteredResult[1]) {
+			const size = filteredResult.length
+			const returnResult = filteredResult.slice((req.query.page - 1) * 5, req.query.page * 5)
+			returnResult.unshift(size)
+			res.status(200).send(returnResult);
+		}
+		else
+			res.status(200).send(empty)
 	} catch (ex) {
 		console.error(ex)
 		res.status(500).send(dbError(genericDbError))
