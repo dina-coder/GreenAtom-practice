@@ -75,7 +75,7 @@ export const MainAPI = {
         return response.data
       })
   },
-  createPlan(worker_id, position_id, super_id, hr_id, date_start, date_end, result, grade_id, comment){
+  createPlan(worker_id, position_id, super_id, hr_id, date_start, date_end, result, grade_id){
     return axios.post("http://localhost:9000/api/insert/plan", { 
       worker_id: worker_id, 
       position_id: position_id, 
@@ -84,14 +84,13 @@ export const MainAPI = {
       date_start: date_start,
       date_end: date_end,
       result: result,
-      grade_id: grade_id, 
-      comment: comment
+      grade_id: grade_id
     })
     .then(response=>{ return response.data }).catch(err=> { throw err.response.data})
   },
-  updatePlanApi(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id){ 
-    console.log(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id)
-    axios.put("http://localhost:9000/api/update/plan", { worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id})
+  updatePlanApi(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, id){ 
+    console.log(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, id)
+    axios.put("http://localhost:9000/api/update/plan", { worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, id})
     .then(response=>{ return response.data})
   },
   gradesAPI(){

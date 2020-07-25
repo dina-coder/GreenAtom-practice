@@ -28,16 +28,12 @@ const AdaptationPlanInfo = (props) => {
     const [superName, setSuperName] = useState(props.employee.super);
     const [Position, setPosition] = useState(props.employee.position);
     const [hrName, setHrName] = useState(props.employee.hr);
-    const [comment, setComment] = useState(props.employee.comment)
-    const UpdatePlan = (worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id) => {
-        props.updatePlan(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, comment, id)
+    const UpdatePlan = (worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, id) => {
+        props.updatePlan(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, id)
         .then(() => props.GetEmployeeProfileInfo(worker_id));
         setUpdateMode(false)
     }
    
-    const NewComment = (e) => {
-        setComment(e.currentTarget.value)
-    }
     let InfoPlan = props.employee;
     const FindIdUser = (Name, Names) => {
         let nameId = Names.find(x => x.name === Name).id
@@ -60,11 +56,11 @@ const AdaptationPlanInfo = (props) => {
                             <div className={s.ButtonContainer2}>
                                 <button onClick={() => UpdatePlan(InfoPlan.worker_id, InfoPlan.position_id, InfoPlan.super_id,
                                     InfoPlan.hr_id, InfoPlan.step_id + 1, InfoPlan.date_start, InfoPlan.date_end, InfoPlan.result,
-                                    InfoPlan.grade_id, InfoPlan.comment, InfoPlan.plan_id)} className={s.addButton2}>Отправить на согласование</button>
+                                    InfoPlan.grade_id, InfoPlan.plan_id)} className={s.addButton2}>Отправить на согласование</button>
                             </div> : <div className={s.ButtonContainer2}>
                                 <button onClick={() => UpdatePlan(InfoPlan.worker_id, InfoPlan.position_id, InfoPlan.super_id,
                                     InfoPlan.hr_id, InfoPlan.step_id + 1, InfoPlan.date_start, InfoPlan.date_end, InfoPlan.result,
-                                    InfoPlan.grade_id, InfoPlan.comment, InfoPlan.plan_id)} className={s.addButton2}>Отправить на оценку</button>
+                                    InfoPlan.grade_id, InfoPlan.plan_id)} className={s.addButton2}>Отправить на оценку</button>
                             </div>
 
                         : ''}</td>
@@ -208,19 +204,13 @@ const AdaptationPlanInfo = (props) => {
                     }
 
                 </tr>
-                <tr>
-                    <td className={s.LeftSide}> Комментарий: </td>
-                    {isUpdateMode === false ?
-                        <td className={s.RightSide}> {InfoPlan.comment} </td> :
-                        isDirectorAgreement(props.role_id, props.employee.step) ?  <td className={s.RightSide}> {InfoPlan.comment} </td>:
-                        <input value={comment} onChange={NewComment} />}
-                </tr>
+                
             </table>
             <div className={s.UpdateContainer}>
                 {isUpdateMode === true ? <button className={s.Update} onClick={() => UpdatePlan(InfoPlan.worker_id, FindIdUser(Position, props.positions),
                     FindIdUser(superName, props.supersNames), FindIdUser(hrName, props.hrNames), FindIdUser(Step, props.stepList),
                     date_start_plan, date_end_plan, FindIdUser(Grade, props.grades)<5 ? 1 : 0, FindIdUser(Grade, props.grades),
-                    comment, InfoPlan.plan_id)}>Изменить</button> : ''}
+                    InfoPlan.plan_id)}>Изменить</button> : ''}
             </div>
         </div>
     )

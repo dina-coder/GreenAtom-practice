@@ -24,8 +24,7 @@ const PlanCreation=(props)=>{
             moment(range.from).format("DD.MM.YYYY"), 
             moment(range.to).format("DD.MM.YYYY"), 
             0, 
-            null, 
-            ''
+            6
         ).then((response)=>{
             props.setIsCreationOpen(false);
             const newAmount = props.amount + 1;
@@ -34,7 +33,6 @@ const PlanCreation=(props)=>{
             props.filterPlans(page);
         }).catch(error=>{
             setIsError(true);
-            console.log(error);
             setErrMessage(error.error_message);
             setWorkerName('');
         });        
