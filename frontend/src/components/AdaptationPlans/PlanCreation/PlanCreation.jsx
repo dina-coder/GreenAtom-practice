@@ -24,10 +24,15 @@ const PlanCreation=(props)=>{
             moment(range.from).format("DD.MM.YYYY"), 
             moment(range.to).format("DD.MM.YYYY"), 
             0, 
-            6, 
+            null, 
             ''
-        );
-        props.setIsCreationOpen(false);
+        ).then((response)=>{
+            if (!response) {
+                setIsError(true);
+                setErrMessage("План для этого сотрудника уже создан");
+            }
+            else props.setIsCreationOpen(false);
+        });        
     }
     const findID = (value,list) => {
        return list.filter(item=> item.name===value)[0].id;
@@ -59,7 +64,6 @@ const PlanCreation=(props)=>{
             if (!isDateFull) {
                 setErrMessage('Выберите период полностью');
             }
-            if (isPlanExist && isDateFull) setErrMessage("План для этого сотрудника уже создан");
         }
         
         return false;
