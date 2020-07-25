@@ -2,15 +2,13 @@ PUT http://localhost:9000/api/update/plan HTTP/1.1
 content-type: application/json
 
 {
-	"id": 1,
-	"worker_id": 5,
-	"position_id": 2,
-	"super_id": 3,
-	"hr_id": 1,
-	"step_id": 4,
-	"date_start": "12.06.2020",
-	"date_end": "09.08.2020",
+	"id": 54,
+	"worker_id": 11,
+	"position_id": 1,
+	"super_id": 4,
+	"hr_id": 2,
+	"date_start": "17.07.2001",
+	"date_end": "16.08.2020",
 	"result": 0,
-	"grade_id": null,
-	"comment": "none"
+	"grade_id": 6
 }

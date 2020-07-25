@@ -26,9 +26,11 @@ const resources = {
 	getDictNamesSql: 'call sp_get_dict_names(?)',
 	getDictStepsSql: 'call sp_get_dict_steps()',
 	getDictPositionsSql: 'call sp_get_dict_positions()',
-	insertPlanSql: 'call sp_insert_plan(?, ?, ?, ?, ?, ?, ?, ?, ?)',
+	insertPlanSql: 'insert into plans (worker_id, position_id, date_creation, \
+	super_id, hr_id, step_id, date_start, date_end, result, grade_id) \
+	values (?, ?, curdate(), ?, ?, 1, ?, ?, ?, ?)',
 	insertTaskSql: 'call sp_insert_task(?, ?, ?, ?, ?, ?)',
-	updatePlanSql: 'call sp_update_plan(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+	updatePlanSql: 'call sp_update_plan(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
 	updateTaskSql: 'call sp_update_task(?, ?, ?, ?, ?, ?, ?)',
 	updateTaskResultSql: 'call sp_update_task_result(?, ?)',
 	deletePlanSql: 'call sp_delete_plan(?)',

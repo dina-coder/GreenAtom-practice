@@ -69,6 +69,7 @@ const methods = {
 		return rows[0]
 	},
 	insertPlan: async data => {
+		console.log(insertPlanSql)
 		await pool.query(insertPlanSql, [
 			data.worker_id,
 			data.position_id,
@@ -77,7 +78,7 @@ const methods = {
 			data.date_start,
 			data.date_end,
 			data.result,
-			data.grade_id,
+			data.grade_id
 		])
 	},
 	insertTask: async data => {
