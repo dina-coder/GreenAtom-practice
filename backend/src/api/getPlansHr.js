@@ -2,14 +2,16 @@
 const express = require('express')
 const router = express.Router()
 const { dbError, genericDbError, empty,
-	getPlansHrPath, getPlansHrSql
+	getPlansHrPath, dynamicComparator
 } = require('../resources')
-const { getPlans } = require('../dbmethods')
+const { getPlansAll } = require('../dbmethods')
 
 router.get(getPlansHrPath, async (req, res) => {
 	try {
-		const result = await getPlans(getPlansHrSql, undefined, req.query.page)
-		res.status(200).send(result[0] ? result : empty)
+		const result = await getPlansAll()
+		if (req.query.sort)
+			await result.sort(dynamicComparator(req.query.sort))
+		res.status(200).send(result[0] ? result.slice((req.query.page - 1) * 5, req.query.page * 5) : empty)
 	} catch (ex) {
 		console.error(ex)
 		res.status(500).send(dbError(genericDbError))

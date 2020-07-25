@@ -4,7 +4,7 @@ const resources = {
 	invalidTokenError: 'Невозможно разобрать выражение фильтра',
 	extraPlanError: 'Сотрудник уже имеет план адаптации',
 	dbError: msg => { return {error_message: msg, error_flag: true} },
-	serverRunning: port => { return `Сервер запущен по адресу: http://localhost:${port}`},
+	serverRunning: port => `Сервер запущен по адресу: http://localhost:${port}`,
 	morganString: ':method :url :status :res[content-length] - :response-time ms',
 	frontendOrigin: 'http://localhost:3000',
 	plansOnPage: 5,
@@ -60,8 +60,24 @@ const resources = {
 	countTasksPath: '/count_tasks',
 	countPlansPath: '/count_plans',
 
-	dateConvertToMySql: date => { return date.split('.').reverse().join('-') },
-	dateReverse: date => {return date.split('.').reverse().join('.')},
+	dateConvertToMySql: date => date.split('.').reverse().join('-'),
+	dateReverse: date => date.split('.').reverse().join('.'),
+	dynamicComparator: (property) => {
+		const dateReverse = date =>
+			date.split('.').reverse().join('.')
+		let multiply = 1
+		if (property[0] === '-') {
+			property = property.substr(1)
+			multiply *= -1
+		}
+		return property.substr(0, 4) === 'date'
+		? (a, b) => {
+			return multiply * String(dateReverse(a[property])).localeCompare(dateReverse(b[property]))
+		}
+		: (a, b) => {
+			return multiply * ((a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0)
+		}
+	},
 }
 
 module.exports = resources
