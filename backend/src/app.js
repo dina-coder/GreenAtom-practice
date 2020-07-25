@@ -30,6 +30,8 @@ const countTasksRouter = require('./api/countTasks')
 const countPlansRouter = require('./api/countPlans')
 const getPlansSuperFilteredRouter = require('./api/getPlansSuperFiltered')
 const getPlansHrFilteredRouter = require('./api/getPlansHrFiltered')
+const getCommentsRouter = require('./api/getComments')
+const insertCommentRouter = require('./api/insert/comment')
 
 const port = process.env.EXPRESS_PORT || defaultExpressPort
 
@@ -59,6 +61,8 @@ app.use(apiPath, countTasksRouter)
 app.use(apiPath, countPlansRouter)
 app.use(apiPath, getPlansSuperFilteredRouter)
 app.use(apiPath, getPlansHrFilteredRouter)
+app.use(apiPath, getCommentsRouter)
+app.use(apiPath, insertCommentRouter)
 
 app.listen(port, () => console.log(serverRunning(port)))
 

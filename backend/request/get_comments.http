@@ -1,0 +1,1 @@
+GET http://localhost:9000/api/get_comments?page=1&plan_id=15

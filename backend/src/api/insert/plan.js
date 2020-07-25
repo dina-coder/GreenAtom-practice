@@ -1,7 +1,7 @@
 'use strict'
 const express = require('express')
 const router = express.Router()
-const { dbError, genericDbError: genericDbError,
+const { dbError, genericDbError,
 	inserted, insertPlanPath,
 	dateConvertToMySql, getPlansWorkerSql,
 	extraPlanError

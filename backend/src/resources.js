@@ -9,6 +9,7 @@ const resources = {
 	frontendOrigin: 'http://localhost:3000',
 	plansOnPage: 5,
 	tasksOnPage: 5,
+	commentsOnPage: 5,
 	defaultExpressPort: 9000,
 
 	inserted: {inserted: true},
@@ -37,6 +38,11 @@ const resources = {
 	countPlansSuperSql: 'call sp_count_plans_super(?)',
 	getPlansAllSql: 'call sp_get_plans_all()',
 	getPlansAllSuperSql: 'call sp_get_plans_all_super(?)',
+	getCommentsSql: 'select id, DATE_FORMAT(date_creation, "%d.%m.%Y-%H:%i") as date_creation, user_id, content from comments where plan_id = ? limit ?, ?',
+	insertCommentSql: 'insert into comments(plan_id, date_creation, user_id, content) values(?, now(), ?, ?)',
+	updateCommentSql: 'update comments set content = ? where plan_id = ?',
+	deleteCommentSql: 'delete from comments where id = ?',
+	deleteAllCommentsSql: 'delete from comments where plan_id = ?',
 
 	apiPath: '/api',
 	loginPath: '/login',
@@ -59,6 +65,11 @@ const resources = {
 	deleteTaskPath: '/delete/task',
 	countTasksPath: '/count_tasks',
 	countPlansPath: '/count_plans',
+	getCommentsPath: '/get_comments',
+	insertCommentPath: '/insert/comment',
+	updateCommentPath: '/update/comment',
+	deleteCommentPath: '/delete/comment',
+	deleteAllCommentsPath: '/delete/all_comments',
 
 	dateConvertToMySql: date => date.split('.').reverse().join('-'),
 	dateReverse: date => date.split('.').reverse().join('.'),
