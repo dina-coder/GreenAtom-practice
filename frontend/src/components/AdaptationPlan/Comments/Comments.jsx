@@ -4,10 +4,14 @@ import Comment from './Comment/Comment'
 import TopPanelWithCreate from '../../TopPanelWithCreate/TopPanelWithCreate';
 import send from '../../../img/send 1.png'
 import errorImg from '../../../img/error.png'
+import previousPageArrow from '../../../img/previous-page.png';
+import nextPageArrow from '../../../img/next-page.png';
 
 
 const Comments = (props) => {
     const [isError, setError] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [activePage, setActivepage] = useState(null);
     const [commentContent, setComment] = useState("");
     const SendComment =(content, plan_id, user_id)=>{
         if (content === ''){
@@ -23,41 +27,47 @@ const Comments = (props) => {
     const NewCommentText = (e) => {
         setComment(e.currentTarget.value);
     }
+    const getNewPage = (page) => {
+        let curPage = currentPage;
+        switch(page){
+            case 'prev':
+                if (curPage>1) {
+                    setCurrentPage(currentPage-1);
+                    curPage--;
+                }
+                break;
+            case 'next': 
+                if (curPage<Pagination.length){
+                    setCurrentPage(currentPage+1);
+                    curPage++;
+                }
+                break;
+            default:
+                setCurrentPage(page);
+                curPage = page;
+                break;  
+        }
+        props.GetComments(props.plan_id, curPage);
+    }
     let AllComments;
     if (props.comments.length > 0) {
         AllComments = props.comments.map((x, key) => <Comment name={x.name} role={x.role} content={x.content} date_creation={x.date_creation} />)
     } else AllComments = "Нет комментариев"
-
-    //     let AllTasks;
-    //     if ( props.plantasks) {
-    //         if (props.plantasks.length > 0){
-    //         AllTasks = props.plantasks.map((x, key) => <Task plan_id = {props.plan_id} id = {x.id}
-    //             role_id = {props.role_id}
-    //             step = {props.step}
-    //             date_start = {x.date_start}
-    //             DeleteTaskFromEmployee = {props.DeleteTaskFromEmployee}
-    //             key = {key} name = {x.name}
-    //             date_end = {x.date_end} result = {x.result}
-    //             content = {x.content} plan_id = {props.plan_id}
-    //             TakeTasks = {props.TakeTasks}
-    //             UpdateTaskStatusFromEmployee = {props.UpdateTaskStatusFromEmployee}
-    //             UpdateTaskFromEmployee = {props.UpdateTaskFromEmployee}
-    //             GetTaskAmount = {props.GetTaskAmount}
-    //             />)
-    //     }
-    //     else AllTasks = "Задачи не добавлены"
-    // }
-    //     else AllTasks = "Задачи не добавлены"
-    //     let Pagination = [];
-    //     let PagesAmount = Math.ceil(props.amountOfTask / 5);
-    //     for (let i = 1; i <= PagesAmount; i++) {
-    //         Pagination.push(i);
-    //     }
+    let Pagination = [];
+    let PagesAmount = Math.ceil(props.amountOfComments / 5);
+    for (let i = 1; i <= PagesAmount; i++) {
+        Pagination.push(i);
+    }
     return (
         <div className={s.Container}>
-            <TopPanelWithCreate title="Комментарии" amount="1" />
+            <TopPanelWithCreate title="Комментарии" amount={props.amountOfComments} />
             <div className={s.InnerContainer}>
                 {AllComments}
+                <div className = {s.PaginationContainer}>
+                <img src = {previousPageArrow} alt='previous page' onClick={()=>getNewPage('prev')} />
+                {Pagination.map((x,key) => <span className={key === activePage ? s.PaginationActive : s.Pagination}  onClick={() => getNewPage(x) }>{x}</span>)}
+                <img src = {nextPageArrow} alt = "next page" onClick = {()=>getNewPage('next')} />
+                </div>
                 <div className={s.TextBoxContainer}>
                     <input  onChange = {NewCommentText} value = {commentContent} placeholder="Оставить комментарий..." className={isError === false ? s.Input : s.ErrorBorder} />
                     <div className={s.SendButton}>

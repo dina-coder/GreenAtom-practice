@@ -53,6 +53,7 @@ const AdaptationPlanForm = (props) => {
                 plan_id={props.employee.plan_id}
                 user_id={props.user_id}
                 comments={props.comments}
+                amountOfComments={props.amountOfComments}
                 />
                  </div>
             :'Нет плана'}

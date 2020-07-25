@@ -111,6 +111,12 @@ export const MainAPI = {
       return response.data
     })
   },
+  getAmountOfComments(plan_id){
+    return axios.get(`http://localhost:9000/api/count_comments?plan_id=${plan_id}`)
+    .then(response => {
+      return response.data
+    })
+  },
   getFilteredList(role, stepValue=0,dateValue="",nameValue="",userId,page=1){
     const step = (stepValue>0&&stepValue!='') ? 'step':'';
     let date='';
@@ -150,5 +156,6 @@ export const MainAPI = {
     axios.post("http://localhost:9000/api/insert/comment", { content, plan_id, user_id})
     .then(response=>{ return response.data})
   },
+
  
 }
