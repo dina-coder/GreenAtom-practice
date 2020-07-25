@@ -32,7 +32,8 @@ class AdaptationPlan extends React.Component
     render() {
         
          return (<>
-
+                {this.props.isFetching === true? <Preloader/>:
+                
             <AdaptationPlanForm 
                 GetTaskAmount = {this.props.GetTaskAmount}
                 takePlans = {this.props.takePlans}
@@ -60,7 +61,7 @@ class AdaptationPlan extends React.Component
                 PostComment={this.props.PostComment}
                 GetComments={this.props.GetComments}
             />
-    
+                }
             </>)
 
 
