@@ -56,7 +56,7 @@ const AdaptationPlanForm = (props) => {
                 amountOfComments={props.amountOfComments}
                 />
                  </div>
-            :'Нет плана'}
+            : <h1 className={s.ErrorPlans}>Нет плана</h1>}
         </div>
     )
 }

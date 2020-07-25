@@ -2,9 +2,9 @@
 
 .Container{
     position: relative;
-    top: 7em;
-    width:$fixedWidth*0.97;
+    width:98%;
     .InnerContainer{
+        margin-top: -40px;
         background-color: rgb(243, 249, 237);
         border-radius: 16px;
         font-size: 18px;
@@ -32,7 +32,7 @@
             }
             .SendButton{
                 position:absolute;
-                left: 1050px;
+                left: 97%;
                 bottom:20px;
             }
             .ErrorBorder{
