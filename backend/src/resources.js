@@ -45,7 +45,7 @@ const resources = {
 	updateCommentSql: 'update comments set content = ? where plan_id = ?',
 	deleteCommentSql: 'delete from comments where id = ?',
 	deleteAllCommentsSql: 'delete from comments where plan_id = ?',
-	countCommentsSql: 'select count(*) from comments where plan_id = ?',
+	countCommentsSql: 'select count(*) as count from comments where plan_id = ?',
 
 	apiPath: '/api',
 	loginPath: '/login',
