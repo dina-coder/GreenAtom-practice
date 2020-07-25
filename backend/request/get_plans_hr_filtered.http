@@ -1,1 +1,1 @@
-GET http://localhost:9000/api/get_plans_hr_filtered?filter_by=name&name_filter=нойз&page=1
+GET http://localhost:9000/api/get_plans_hr_filtered?filter_by=step&step_filter=3&page=1

@@ -19,7 +19,7 @@ BEGIN
 	super_id, hr_id, position_id, grade_id, step_id, steps.name as step,
 	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start,
 	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end, result,
-	comment, grades.name as grade, susers.name as super,
+	grades.name as grade, susers.name as super,
 	husers.name as hr from plans
 	left join users on plans.worker_id = users.id
 	left join users as susers on plans.super_id = susers.id
@@ -43,7 +43,7 @@ BEGIN
 	super_id, hr_id, step_id, steps.name as step,
 	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start,
 	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end,
-	result, grade_id, comment, susers.name as super,
+	result, grade_id, susers.name as super,
 	husers.name as hr from plans
 	left join users on users.id = plans.worker_id
 	left join users as susers on susers.id = plans.super_id
@@ -55,7 +55,7 @@ BEGIN
 END;
 
 drop PROCEDURE if EXISTS sp_get_plans_super_sorted;
-CREATE PROCEDURE sp_get_plans_super(
+CREATE PROCEDURE sp_get_plans_super_sorted(
 	IN id_ INT,
 	IN si_ INT,
 	IN ei_ INT
@@ -67,7 +67,7 @@ BEGIN
 	super_id, hr_id, step_id, steps.name as step,
 	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start,
 	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end,
-	result, grade_id, comment, susers.name as super,
+	result, grade_id, susers.name as super,
 	husers.name as hr from plans
 	left join users on users.id = plans.worker_id
 	left join users as susers on susers.id = plans.super_id
@@ -90,7 +90,7 @@ BEGIN
 	super_id, hr_id, step_id, steps.name as step,
 	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start,
 	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end,
-	result, grade_id, comment, susers.name as super,
+	result, grade_id, susers.name as super,
 	husers.name as hr from plans
 	left join users on users.id = plans.worker_id
 	left join users as susers on susers.id = plans.super_id
@@ -150,16 +150,14 @@ CREATE PROCEDURE sp_insert_plan(
 	IN date_start_ DATE,
 	IN date_end_ DATE,
 	IN result_ TINYINT(1),
-	IN grade_id_ INT,
-	IN comment_ TEXT
+	IN grade_id_ INT
 )
 BEGIN
 	insert into plans (worker_id, position_id, date_creation,
 	super_id, hr_id, step_id, date_start, date_end, result,
-	grade_id, comment)
+	grade_id)
 	values (worker_id_, position_id_, curdate(), super_id_,
-	hr_id_, 1, date_start_, date_end_, result_, grade_id_,
-	comment_);
+	hr_id_, 1, date_start_, date_end_, result_, grade_id_);
 END;
 
 drop PROCEDURE if EXISTS sp_insert_task;
@@ -189,15 +187,13 @@ CREATE PROCEDURE sp_update_plan(
 	IN date_end_ DATE,
 	IN result_ TINYINT(1),
 	IN grade_id_ INT,
-	IN comment_ TEXT,
 	IN plan_id_ INT
 )
 BEGIN
 	update plans set
 	worker_id = worker_id_, position_id = position_id_, super_id = super_id_,
 	hr_id = hr_id_, step_id = step_id_, date_start = date_start_,
-	date_end = date_end_, result = result_, grade_id = grade_id_,
-	comment = comment_
+	date_end = date_end_, result = result_, grade_id = grade_id_
 	where id = plan_id_;
 END;
 
@@ -233,6 +229,7 @@ CREATE PROCEDURE sp_delete_plan(
 	IN plan_id_ INT
 )
 BEGIN
+	delete from comments where plan_id = plan_id_;
 	delete from tasks where plan_id = plan_id_;
 	delete from plans where id = plan_id_;
 END;
@@ -277,7 +274,7 @@ BEGIN
 	super_id, hr_id, step_id, steps.name as step,
 	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start,
 	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end,
-	result, grade_id, comment, susers.name as super,
+	result, grade_id, susers.name as super,
 	husers.name as hr from plans
 	left join users on users.id = plans.worker_id
 	left join users as susers on susers.id = plans.super_id
@@ -298,7 +295,7 @@ BEGIN
 	super_id, hr_id, step_id, steps.name as step,
 	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start,
 	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end,
-	result, grade_id, comment, susers.name as super,
+	result, grade_id, susers.name as super,
 	husers.name as hr from plans
 	left join users on users.id = plans.worker_id
 	left join users as susers on susers.id = plans.super_id

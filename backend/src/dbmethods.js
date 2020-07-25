@@ -78,7 +78,6 @@ const methods = {
 			data.date_end,
 			data.result,
 			data.grade_id,
-			data.comment
 		])
 	},
 	insertTask: async data => {
@@ -104,7 +103,6 @@ const methods = {
 			data.date_end,
 			data.result,
 			data.grade_id,
-			data.comment,
 			data.id
 		])
 	},
