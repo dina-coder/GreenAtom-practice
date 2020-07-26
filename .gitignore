@@ -112,3 +112,6 @@ backend/request/*.sql
 # no more IDE
 backend/.idea
 backend/.vscode
+
+*.pdf
+backend/src/*.html

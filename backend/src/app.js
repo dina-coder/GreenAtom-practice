@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== 'production')
 const cors = require('cors')
 const express = require('express')
 const morgan = require('morgan')
+const pdf = require('html-pdf');
 
 const { serverRunning, frontendOrigin,
 	defaultExpressPort, apiPath,
@@ -38,6 +39,7 @@ const port = process.env.EXPRESS_PORT || defaultExpressPort
 
 const app = express()
 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 app.use(cors({origin: frontendOrigin}))
 app.use(morgan(morganString))
@@ -65,6 +67,25 @@ app.use(apiPath, getPlansHrFilteredRouter)
 app.use(apiPath, getCommentsRouter)
 app.use(apiPath, insertCommentRouter)
 app.use(apiPath, countCommentRouter)
+
+const pdfTemplate = require('./template');
+const {getPlans} = require('./dbmethods')
+const {getPlansWorkerSql} = require('./resources')
+app.post('/create-pdf', async (req, res) => {
+	const result = await getPlans(getPlansWorkerSql, req.body.user_id)
+	result[0].result = result[0].result ? "Программа испытательного срока пройдена" : "Программа испытательного срока не пройдена"
+	await pdf.create(pdfTemplate(result[0]), {}).toFile('result.pdf', (err) => {
+        if(err) {
+            res.send(Promise.reject());
+        }
+
+        res.send(Promise.resolve());
+    });
+});
+const path = require('path')
+app.get('/fetch-pdf', (req, res) => {
+    res.sendFile(path.resolve(`${__dirname}/../result.pdf`))
+})
 
 app.listen(port, () => console.log(serverRunning(port)))
 
