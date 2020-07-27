@@ -113,5 +113,5 @@ backend/request/*.sql
 backend/.idea
 backend/.vscode
 
-*.pdf
+backend/src/public/tmp/*.pdf
 backend/src/*.html
