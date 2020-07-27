@@ -11,7 +11,7 @@
     max-width: 1200px;
     background-color:white;
     border-radius: 15px;
-    width: calc(#{$fixedWidth} - 100px);
+    width: $fixedWidth;
     margin: 2em auto;
     padding: 40px 50px;
     box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);

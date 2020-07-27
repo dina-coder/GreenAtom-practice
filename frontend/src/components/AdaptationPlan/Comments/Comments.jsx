@@ -62,12 +62,15 @@ const Comments = (props) => {
         <div className={s.Container}>
             <TopPanelWithCreate title="Комментарии" amount={props.amountOfComments} />
             <div className={s.InnerContainer}>
-                {AllComments}
+                {typeof(AllComments)==='string'
+                    ? <p style={{padding:'10px'}}>{AllComments}</p>
+                    : AllComments}
+                {(props.comments.length > 0)&&
                 <div className = {s.PaginationContainer}>
                 <img src = {previousPageArrow} alt='previous page' onClick={()=>getNewPage('prev')} />
                 {Pagination.map((x,key) => <span className={key === activePage ? s.PaginationActive : s.Pagination}  onClick={() => getNewPage(x) }>{x}</span>)}
                 <img src = {nextPageArrow} alt = "next page" onClick = {()=>getNewPage('next')} />
-                </div>
+                </div>}
                 <div className={s.TextBoxContainer}>
                     <input  onChange = {NewCommentText} value = {commentContent} placeholder="Оставить комментарий..." className={isError === false ? s.Input : s.ErrorBorder} />
                     <div className={s.SendButton}>

@@ -23,19 +23,21 @@ const AdaptationPlanForm = (props) => {
              <div className={s.close} onClick={() => RerenderPlans(props.user_id, props.role_id)}></div>}
               <div  className={s.planContainer}>
             <StepTracker step={props.employee.step_id}/>
-            <AdaptationPlanInfo 
-                                worker_id = {props.worker_id}
-                                user_id = {props.user_id}
-                                CreatePdf = {props.CreatePdf}
-                                positions = {props.positions}
-                                stepList = {props.stepList}
-                                supersNames ={props.supersNames}
-                                role_id = {props.role_id}
-                                employee = {props.employee}
-                                updatePlan = {props.updatePlan}
-                                GetEmployeeProfileInfo = {props.GetEmployeeProfileInfo}
-                                hrNames = {props.hrNames} 
-                                grades = {props.grades}/>
+            <AdaptationPlanInfo
+                key={props.worker_id}
+                worker_id = {props.worker_id}
+                user_id = {props.user_id}
+                CreatePdf = {props.CreatePdf}
+                positions = {props.positions}
+                stepList = {props.stepList}
+                supersNames ={props.supersNames}
+                role_id = {props.role_id}
+                employee = {props.employee}
+                updatePlan = {props.updatePlan}
+                GetEmployeeProfileInfo = {props.GetEmployeeProfileInfo}
+                hrNames = {props.hrNames}
+                grades = {props.grades}
+            />
             <PlanTasks
                 GetTaskAmount = {props.GetTaskAmount}
                 role_id={props.role_id}

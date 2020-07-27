@@ -78,11 +78,12 @@ const PlanTasks = (props) => {
                     TakeTasks = {props.TakeTasks} /></div> :
                 ''
             }
+            {(props.plantasks.length > 0)&&
             <div className = {s.PaginationContainer}>
                 <img src = {previousPageArrow} alt='previous page' onClick={()=>getNewPage('prev')} />
                 {Pagination.map((x,key) => <span className={key === activePage ? s.PaginationActive : s.Pagination}  onClick={() => getNewPage(x) }>{x}</span>)}
                 <img src = {nextPageArrow} alt = "next page" onClick = {()=>getNewPage('next')} />
-            </div>
+            </div>}
             <br />
         </div>
     )

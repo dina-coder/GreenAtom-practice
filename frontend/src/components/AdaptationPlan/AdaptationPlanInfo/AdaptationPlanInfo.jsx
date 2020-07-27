@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import s from './AdaptationPlanInfo.module.scss'
 import update from '../../../img/edit 2.png'
 import { isAdaptationPlanEnable, PostToNextStep, isDirectorAgreement, isAssessment } from '../../../utils/isButtonAccess'
@@ -10,6 +10,7 @@ import 'moment/locale/ru';
 import MomentLocaleUtils, { formatDate, parseDate } from 'react-day-picker/moment';
 import download from '../../../img/download 1.png'
 import {Steps} from "../../../constants/steps";
+import { Roles } from '../../../constants/roles';
 
 
 const AdaptationPlanInfo = (props) => {
@@ -25,7 +26,6 @@ const AdaptationPlanInfo = (props) => {
         date_start_plan = moment(range.from).format("DD.MM.YYYY");
         date_end_plan = moment(range.to).format("DD.MM.YYYY");
     }
-    console.log('ceck ' + props.employee.position);
     const [Step, setStep] = useState(props.employee.step)
     const [isUpdateMode, setUpdateMode] = useState(false)
     const [Grade, setGrade] = useState(props.employee.grade)
@@ -37,6 +37,13 @@ const AdaptationPlanInfo = (props) => {
             .then(() => props.GetEmployeeProfileInfo(worker_id));
         setUpdateMode(false)
     }
+    useEffect(() => {
+        setStep(props.employee.step);
+        setGrade(props.employee.grade);
+        setSuperName(props.employee.super);
+        setPosition(props.employee.position);
+        setHrName(props.employee.hr);
+    },[props.employee])
 
     let InfoPlan = props.employee;
     const FindIdUser = (Name, Names) => {
@@ -46,36 +53,38 @@ const AdaptationPlanInfo = (props) => {
     }
     return (
         <div className={s.container}>
-            <table>
-                <tr>
-                    <td className={s.PlanTitle}><h1 className={s.Title}>План адаптации</h1>
-                        <div className={s.DateOfCreation}>Создан: {props.employee.date_creation}</div></td>
-                    <td className={s.editMode}>
-                        {isAdaptationPlanEnable(props.role_id, props.employee.step)
-                            ? <img onClick={() => setUpdateMode(true)} src={update} /> : ''}
-                    </td>
-                    <td className={s.download}>
-                        {props.role_id === 3 ?
-                            <img src={download} onClick={() => props.CreatePdf(props.user_id)} /> :
-                            <img src={download} onClick={() => props.CreatePdf(props.worker_id)} />
-                        }
-                    </td>
-                    <td>
-                        {PostToNextStep(props.role_id, props.employee.step) ?
-                            InfoPlan.step === Steps.EmployeeFilling ?
-                                <div className={s.ButtonContainer2}>
-                                    <button onClick={() => UpdatePlan(InfoPlan.worker_id, InfoPlan.position_id, InfoPlan.super_id,
-                                        InfoPlan.hr_id, InfoPlan.step_id + 1, InfoPlan.date_start, InfoPlan.date_end, InfoPlan.result,
-                                        InfoPlan.grade_id, InfoPlan.plan_id)} className={s.addButton2}>Отправить на согласование</button>
-                                </div> : <div className={s.ButtonContainer2}>
-                                    <button onClick={() => UpdatePlan(InfoPlan.worker_id, InfoPlan.position_id, InfoPlan.super_id,
-                                        InfoPlan.hr_id, InfoPlan.step_id + 1, InfoPlan.date_start, InfoPlan.date_end, InfoPlan.result,
-                                        InfoPlan.grade_id, InfoPlan.plan_id)} className={s.addButton2}>Отправить на оценку</button>
-                                </div>
+            <div className={s.infoHeader}>
+                <div>
+                    <h1 className={s.Title}>План адаптации</h1>
+                    <div className={s.DateOfCreation}>Создан: {props.employee.date_creation}</div>
+                </div>
+                {isAdaptationPlanEnable(props.role_id, props.employee.step)
+                &&  <div className={s.editMode}>
+                    <img onClick={() => setUpdateMode(true)} src={update} />
+                </div>}
+                <div className={s.download}>
+                    {props.role_id === Roles.Employee ?
+                        <img src={download} onClick={() => props.CreatePdf(props.user_id)} /> :
+                        <img src={download} onClick={() => props.CreatePdf(props.worker_id)} />
+                    }
+                </div>
 
-                            : ''}</td>
-                </tr>
-            </table>
+                {PostToNextStep(props.role_id, props.employee.step) ?
+                    InfoPlan.step === Steps.EmployeeFilling ?
+                        <div className={s.ButtonContainer2}>
+                            <button onClick={() => UpdatePlan(InfoPlan.worker_id, InfoPlan.position_id, InfoPlan.super_id,
+                                InfoPlan.hr_id, InfoPlan.step_id + 1, InfoPlan.date_start, InfoPlan.date_end, InfoPlan.result,
+                                InfoPlan.grade_id, InfoPlan.plan_id)} className={s.addButton2}>Отправить на согласование</button>
+                        </div>
+                        : <div className={s.ButtonContainer2}>
+                            <button onClick={() => UpdatePlan(InfoPlan.worker_id, InfoPlan.position_id, InfoPlan.super_id,
+                                InfoPlan.hr_id, InfoPlan.step_id + 1, InfoPlan.date_start, InfoPlan.date_end, InfoPlan.result,
+                                InfoPlan.grade_id, InfoPlan.plan_id)} className={s.addButton2}>Отправить на оценку</button>
+                        </div>
+
+                    : ''}
+            </div>
+
             <table>
                 <tr>
                     <td className={s.LeftSide}> ФИО сотрудника: </td>
@@ -191,7 +200,14 @@ const AdaptationPlanInfo = (props) => {
 
                 <tr>
                     <td className={s.LeftSide}> Итог: </td>
-                    <td>{InfoPlan.grade_id < 5 ? "Программа испытательного срока пройдена" : "Программа испытательного срока не пройдена"}</td>
+                    <td style={
+                            {fontSize:(isUpdateMode ? '13px' : '14.5px'),
+                            paddingBottom: isUpdateMode ? '5px':''}
+                        }>
+                        {InfoPlan.grade_id < 5
+                            ? "Программа испытательного срока пройдена"
+                            : "Программа испытательного срока не пройдена"}
+                    </td>
                 </tr>
 
                 <tr>
