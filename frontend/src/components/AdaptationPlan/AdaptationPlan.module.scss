@@ -11,10 +11,13 @@
     max-width: 1200px;
     background-color:white;
     border-radius: 15px;
-    width: 80%;
+    width: calc(#{$fixedWidth} - 100px);
     margin: 2em auto;
-    padding: 2em 2em;
+    padding: 40px 50px;
     box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+}
+.planContainer{
+    position: relative;
 }
 .close {
     position: absolute;
@@ -24,25 +27,25 @@
     height: 17px;
     opacity: 0.3;
     }
-    .close:hover {
+.close:hover {
     opacity: 1;
-    }
-    .close:before, .close:after {
+}
+.close:before, .close:after {
     position: absolute;
     left: 15px;
     content: ' ';
     height: 17px;
     width: 2px;
     background-color: #333;
-    }
-    .close:before {
+}
+.close:before {
     transform: rotate(45deg);
-    }
-    .close:after {
+}
+.close:after {
     transform: rotate(-45deg);
-    }
-    .ErrorPlans{
-        color: $textColor;
-        font-size: 18px;
-        text-align: center;
-    }
+}
+.ErrorPlans{
+    color: $textColor;
+    font-size: 18px;
+    text-align: center;
+}

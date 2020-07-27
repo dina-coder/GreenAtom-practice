@@ -1,5 +1,8 @@
 @import '../../../variables';
 
+.container{
+    position: relative;
+}
 
 table{
     margin-top: 35px;
@@ -57,6 +60,7 @@ font-size: 16px;
     color: #8CC547;  
     font-size: 14pt;
     margin-bottom: 10px;
+    margin-top: 10px;
     .pagination{
         margin-right: 10px;
         font-weight: 500;

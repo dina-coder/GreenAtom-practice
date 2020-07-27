@@ -33,7 +33,7 @@ const PlanCreation=(props)=>{
             props.filterPlans(page);
         }).catch(error=>{
             setIsError(true);
-            setErrMessage(error.error_message);
+            setErrMessage(error.error_message.replace('Сотрудник', workerName));
             setWorkerName('');
         });        
     }

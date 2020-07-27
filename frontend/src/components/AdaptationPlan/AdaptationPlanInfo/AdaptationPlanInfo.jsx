@@ -8,6 +8,7 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import moment from 'moment';
 import 'moment/locale/ru';
 import MomentLocaleUtils, { formatDate, parseDate } from 'react-day-picker/moment';
+import {Steps} from "../../../constants/steps";
 
 const AdaptationPlanInfo = (props) => {
 
@@ -43,29 +44,28 @@ const AdaptationPlanInfo = (props) => {
 
     return (
         <div className={s.container}>
-            {isAdaptationPlanEnable(props.role_id, props.employee.step)
-                ? <img onClick={() => setUpdateMode(true)} className={s.editMode} src={update} /> : ''}
+            <div className={s.infoHeader}>
+                <div className={s.infoTitle}>
+                    <h1 className={s.Title}>План адаптации</h1>
+                    <p className={s.DateOfCreation}>Создан: {props.employee.date_creation}</p>
+                </div>
+                { isAdaptationPlanEnable(props.role_id, props.employee.step)
+                && <img onClick={() => setUpdateMode(true)} className={s.editMode} src={update} />}
+                {PostToNextStep(props.role_id, props.employee.step) ?
+                InfoPlan.step === Steps.EmployeeFilling ?
+                <div className={s.ButtonContainer2}>
+                    <button onClick={() => UpdatePlan(InfoPlan.worker_id, InfoPlan.position_id, InfoPlan.super_id,
+                    InfoPlan.hr_id, InfoPlan.step_id + 1, InfoPlan.date_start, InfoPlan.date_end, InfoPlan.result,
+                    InfoPlan.grade_id, InfoPlan.plan_id)} className={s.addButton2}>Отправить на согласование</button>
+                </div>
+                : <div className={s.ButtonContainer2}>
+                    <button onClick={() => UpdatePlan(InfoPlan.worker_id, InfoPlan.position_id, InfoPlan.super_id,
+                    InfoPlan.hr_id, InfoPlan.step_id + 1, InfoPlan.date_start, InfoPlan.date_end, InfoPlan.result,
+                    InfoPlan.grade_id, InfoPlan.plan_id)} className={s.addButton2}>Отправить на оценку</button>
+                </div>
 
-
-            <table>
-                <tr>
-                    <td><h1 className={s.Title}>План адаптации</h1>
-                        <div className={s.DateOfCreation}>Создан: {props.employee.date_creation}</div></td>
-                    <td>            {PostToNextStep(props.role_id, props.employee.step) ?
-                        InfoPlan.step === 'Заполнение сотрудником' ?
-                            <div className={s.ButtonContainer2}>
-                                <button onClick={() => UpdatePlan(InfoPlan.worker_id, InfoPlan.position_id, InfoPlan.super_id,
-                                    InfoPlan.hr_id, InfoPlan.step_id + 1, InfoPlan.date_start, InfoPlan.date_end, InfoPlan.result,
-                                    InfoPlan.grade_id, InfoPlan.plan_id)} className={s.addButton2}>Отправить на согласование</button>
-                            </div> : <div className={s.ButtonContainer2}>
-                                <button onClick={() => UpdatePlan(InfoPlan.worker_id, InfoPlan.position_id, InfoPlan.super_id,
-                                    InfoPlan.hr_id, InfoPlan.step_id + 1, InfoPlan.date_start, InfoPlan.date_end, InfoPlan.result,
-                                    InfoPlan.grade_id, InfoPlan.plan_id)} className={s.addButton2}>Отправить на оценку</button>
-                            </div>
-
-                        : ''}</td>
-                </tr>
-            </table>
+                        : ''}
+            </div>
             <table>
                 <tr>
                     <td className={s.LeftSide}> ФИО сотрудника: </td>
