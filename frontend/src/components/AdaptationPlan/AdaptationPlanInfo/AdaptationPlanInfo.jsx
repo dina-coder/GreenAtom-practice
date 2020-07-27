@@ -86,159 +86,161 @@ const AdaptationPlanInfo = (props) => {
             </div>
 
             <table>
-                <tr>
-                    <td className={s.LeftSide}> ФИО сотрудника: </td>
-                    <td className={s.RightSide}>{InfoPlan.name}</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td className={s.LeftSide}> ФИО сотрудника: </td>
+                        <td className={s.RightSide}>{InfoPlan.name}</td>
+                    </tr>
 
-                <tr>
-                    <td className={s.LeftSide}> Должность: </td>
-                    {isUpdateMode === false ? <td className={s.RightSide}>{InfoPlan.position}</td> :
-                        isAssessment(props.role_id, props.employee.step) ? <td className={s.RightSide}>{InfoPlan.position}</td> :
+                    <tr>
+                        <td className={s.LeftSide}> Должность: </td>
+                        {isUpdateMode === false ? <td className={s.RightSide}>{InfoPlan.position}</td> :
+                            isAssessment(props.role_id, props.employee.step) ? <td className={s.RightSide}>{InfoPlan.position}</td> :
+                                <Autocomplete
+                                    getItemValue={(item) => item.label}
+                                    items={
+                                        props.positions.map(positions => ({ label: positions.name }))
+                                    }
+                                    renderItem={(item, isHighlighted) =>
+                                        <div style={{ background: isHighlighted ? 'rgba(140, 197, 71, 0.5)' : 'white' }}>
+                                            {item.label}
+                                        </div>}
+                                    value={Position}
+                                    onChange={(e) => setPosition(e.target.value)}
+                                    onSelect={(val) => setPosition(val)}
+                                />
+                        }
+
+                    </tr>
+
+                    <tr>
+                        <td className={s.LeftSide}> Руководитель: </td>
+
+                        {isUpdateMode === false ?
+                            <td className={s.RightSide}>{InfoPlan.super}</td> :
+                            isAssessment(props.role_id, props.employee.step) ? <td td className={s.RightSide}>{InfoPlan.super}</td> :
+                                <Autocomplete
+                                    getItemValue={(item) => item.label}
+                                    items={
+                                        props.supersNames.map(worker => ({ label: worker.name }))
+                                    }
+                                    renderItem={(item, isHighlighted) =>
+                                        <div style={{ background: isHighlighted ? 'rgba(140, 197, 71, 0.5)' : 'white' }}>
+                                            {item.label}
+                                        </div>}
+                                    value={superName}
+                                    onChange={(e) => setSuperName(e.target.value)}
+                                    onSelect={(val) => setSuperName(val)}
+                                />}
+                    </tr>
+
+                    <tr>
+                        <td className={s.LeftSide}> HR-менеджер: </td>
+                        {isUpdateMode === false ?
+                            <td className={s.RightSide}> {InfoPlan.hr}</td> :
+                            isAssessment(props.role_id, props.employee.step) ? <td className={s.RightSide}> {InfoPlan.hr}</td> :
+                                <Autocomplete
+                                    getItemValue={(item) => item.label}
+                                    items={
+                                        props.hrNames.map(hr => ({ label: hr.name }))
+                                    }
+                                    renderItem={(item, isHighlighted) =>
+                                        <div style={{ background: isHighlighted ? 'rgba(140, 197, 71, 0.5)' : 'white' }}>
+                                            {item.label}
+                                        </div>}
+                                    value={hrName}
+                                    onChange={(e) => setHrName(e.target.value)}
+                                    onSelect={(val) => setHrName(val)}
+                                />
+                        }
+                    </tr>
+
+                    <tr>
+                        <td className={s.LeftSide}> Период: </td>
+                        {isUpdateMode === false ?
+                            <td className={s.RightSide}> {InfoPlan.date_start} - {InfoPlan.date_end} </td> :
+                            isAssessment(props.role_id, props.employee.step) ? <td className={s.RightSide}> {InfoPlan.date_start} - {InfoPlan.date_end} </td> :
+                                <DayPickerInput
+                                    component={props => <input className={s.periodInput}  {...props} />}
+                                    placeholder="Период"
+                                    formatDate={formatDate}
+                                    parseDate={parseDate}
+                                    hideOnDayClick={!!range.to}
+                                    value={!!(range.to) ?
+                                        moment(range.from).format("DD.MM.YYYY") + "-" + moment(range.to).format("DD.MM.YYYY")
+                                        : props.employee.date_start + '-' + props.employee.date_end}
+                                    dayPickerProps={{
+                                        localeUtils: MomentLocaleUtils,
+                                        locale: "ru",
+                                        selectedDays: range,
+                                        onDayClick: ((day) => setRange(range => DateUtils.addDayToRange(day, range)))
+                                    }}
+                                />
+                        }
+                    </tr>
+
+                    <tr>
+                        <td className={s.LeftSide}> Этап: </td>
+                        {isUpdateMode === false ?
+                            <td className={s.RightSide}> {InfoPlan.step} </td> :
                             <Autocomplete
                                 getItemValue={(item) => item.label}
                                 items={
-                                    props.positions.map(positions => ({ label: positions.name }))
+                                    props.stepList.map(onestep => ({ label: onestep.name }))
                                 }
                                 renderItem={(item, isHighlighted) =>
                                     <div style={{ background: isHighlighted ? 'rgba(140, 197, 71, 0.5)' : 'white' }}>
                                         {item.label}
                                     </div>}
-                                value={Position}
-                                onChange={(e) => setPosition(e.target.value)}
-                                onSelect={(val) => setPosition(val)}
+                                value={Step}
+                                onChange={(e) => setStep(e.target.value)}
+                                onSelect={(val) => setStep(val)}
                             />
-                    }
+                        }
+                    </tr>
 
-                </tr>
+                    <tr>
+                        <td className={s.LeftSide}> Итог: </td>
+                        <td style={
+                                {fontSize:(isUpdateMode ? '13px' : '14.5px'),
+                                paddingBottom: isUpdateMode ? '5px':''}
+                            }>
+                            {InfoPlan.grade_id < 5
+                                ? "Программа испытательного срока пройдена"
+                                : "Программа испытательного срока не пройдена"}
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td className={s.LeftSide}> Руководитель: </td>
+                    <tr>
+                        <td className={s.LeftSide}> Оценка: </td>
+                        {isUpdateMode === false ? <td className={s.RightSide}> {InfoPlan.grade} </td> :
+                            isDirectorAgreement(props.role_id, props.employee.step) ? <td className={s.RightSide}> {InfoPlan.grade != null ? InfoPlan.grade : "Оценка не выставлена"} </td> :
+                                <Autocomplete
+                                    getItemValue={(item) => item.label}
+                                    items={
+                                        props.grades.map(onegrade => ({ label: onegrade.name }))
+                                    }
+                                    renderItem={(item, isHighlighted) =>
+                                        <div style={{ background: isHighlighted ? 'rgba(140, 197, 71, 0.5)' : 'white' }}>
+                                            {item.label}
+                                        </div>}
+                                    value={Grade}
+                                    onChange={(e) => setGrade(e.target.value)}
+                                    onSelect={(val) => setGrade(val)}
+                                />
+                        }
 
-                    {isUpdateMode === false ?
-                        <td td className={s.RightSide}>{InfoPlan.super}</td> :
-                        isAssessment(props.role_id, props.employee.step) ? <td td className={s.RightSide}>{InfoPlan.super}</td> :
-                            <Autocomplete
-                                getItemValue={(item) => item.label}
-                                items={
-                                    props.supersNames.map(worker => ({ label: worker.name }))
-                                }
-                                renderItem={(item, isHighlighted) =>
-                                    <div style={{ background: isHighlighted ? 'rgba(140, 197, 71, 0.5)' : 'white' }}>
-                                        {item.label}
-                                    </div>}
-                                value={superName}
-                                onChange={(e) => setSuperName(e.target.value)}
-                                onSelect={(val) => setSuperName(val)}
-                            />}
-                </tr>
-
-                <tr>
-                    <td className={s.LeftSide}> HR-менеджер: </td>
-                    {isUpdateMode === false ?
-                        <td className={s.RightSide}> {InfoPlan.hr}</td> :
-                        isAssessment(props.role_id, props.employee.step) ? <td className={s.RightSide}> {InfoPlan.hr}</td> :
-                            <Autocomplete
-                                getItemValue={(item) => item.label}
-                                items={
-                                    props.hrNames.map(hr => ({ label: hr.name }))
-                                }
-                                renderItem={(item, isHighlighted) =>
-                                    <div style={{ background: isHighlighted ? 'rgba(140, 197, 71, 0.5)' : 'white' }}>
-                                        {item.label}
-                                    </div>}
-                                value={hrName}
-                                onChange={(e) => setHrName(e.target.value)}
-                                onSelect={(val) => setHrName(val)}
-                            />
-                    }
-                </tr>
-
-                <tr>
-                    <td className={s.LeftSide}> Период: </td>
-                    {isUpdateMode === false ?
-                        <td className={s.RightSide}> {InfoPlan.date_start} - {InfoPlan.date_end} </td> :
-                        isAssessment(props.role_id, props.employee.step) ? <td className={s.RightSide}> {InfoPlan.date_start} - {InfoPlan.date_end} </td> :
-                            <DayPickerInput
-                                component={props => <input className={s.periodInput}  {...props} />}
-                                placeholder="Период"
-                                formatDate={formatDate}
-                                parseDate={parseDate}
-                                hideOnDayClick={!!range.to}
-                                value={!!(range.to) ?
-                                    moment(range.from).format("DD.MM.YYYY") + "-" + moment(range.to).format("DD.MM.YYYY")
-                                    : props.employee.date_start + '-' + props.employee.date_end}
-                                dayPickerProps={{
-                                    localeUtils: MomentLocaleUtils,
-                                    locale: "ru",
-                                    selectedDays: range,
-                                    onDayClick: ((day) => setRange(range => DateUtils.addDayToRange(day, range)))
-                                }}
-                            />
-                    }
-                </tr>
-
-                <tr>
-                    <td className={s.LeftSide}> Этап: </td>
-                    {isUpdateMode === false ?
-                        <td className={s.RightSide}> {InfoPlan.step} </td> :
-                        <Autocomplete
-                            getItemValue={(item) => item.label}
-                            items={
-                                props.stepList.map(onestep => ({ label: onestep.name }))
-                            }
-                            renderItem={(item, isHighlighted) =>
-                                <div style={{ background: isHighlighted ? 'rgba(140, 197, 71, 0.5)' : 'white' }}>
-                                    {item.label}
-                                </div>}
-                            value={Step}
-                            onChange={(e) => setStep(e.target.value)}
-                            onSelect={(val) => setStep(val)}
-                        />
-                    }
-                </tr>
-
-                <tr>
-                    <td className={s.LeftSide}> Итог: </td>
-                    <td style={
-                            {fontSize:(isUpdateMode ? '13px' : '14.5px'),
-                            paddingBottom: isUpdateMode ? '5px':''}
-                        }>
-                        {InfoPlan.grade_id < 5
-                            ? "Программа испытательного срока пройдена"
-                            : "Программа испытательного срока не пройдена"}
-                    </td>
-                </tr>
-
-                <tr>
-                    <td className={s.LeftSide}> Оценка: </td>
-                    {isUpdateMode === false ? <td className={s.RightSide}> {InfoPlan.grade} </td> :
-                        isDirectorAgreement(props.role_id, props.employee.step) ? <td className={s.RightSide}> {InfoPlan.grade != null ? InfoPlan.grade : "Оценка не выставлена"} </td> :
-                            <Autocomplete
-                                getItemValue={(item) => item.label}
-                                items={
-                                    props.grades.map(onegrade => ({ label: onegrade.name }))
-                                }
-                                renderItem={(item, isHighlighted) =>
-                                    <div style={{ background: isHighlighted ? 'rgba(140, 197, 71, 0.5)' : 'white' }}>
-                                        {item.label}
-                                    </div>}
-                                value={Grade}
-                                onChange={(e) => setGrade(e.target.value)}
-                                onSelect={(val) => setGrade(val)}
-                            />
-                    }
-
-                </tr>
-                <tr>
-                    <td></td>
-                    <td  className={s.UpdateContainer}>
-                        {isUpdateMode === true ? <button className={s.Update} onClick={() => UpdatePlan(InfoPlan.worker_id, FindIdUser(Position, props.positions),
-                            FindIdUser(superName, props.supersNames), FindIdUser(hrName, props.hrNames), FindIdUser(Step, props.stepList),
-                            date_start_plan, date_end_plan, FindIdUser(Grade, props.grades) < 5 ? 1 : 0, FindIdUser(Grade, props.grades),
-                            InfoPlan.plan_id)}>Изменить</button> : ''}
-                    </td>
-                </tr>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td  className={s.UpdateContainer}>
+                            {isUpdateMode === true ? <button className={s.Update} onClick={() => UpdatePlan(InfoPlan.worker_id, FindIdUser(Position, props.positions),
+                                FindIdUser(superName, props.supersNames), FindIdUser(hrName, props.hrNames), FindIdUser(Step, props.stepList),
+                                date_start_plan, date_end_plan, FindIdUser(Grade, props.grades) < 5 ? 1 : 0, FindIdUser(Grade, props.grades),
+                                InfoPlan.plan_id)}>Изменить</button> : ''}
+                        </td>
+                    </tr>
+                </tbody>
             </table>
 
         </div>

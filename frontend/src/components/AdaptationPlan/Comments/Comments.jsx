@@ -51,7 +51,7 @@ const Comments = (props) => {
     }
     let AllComments;
     if (props.comments.length > 0) {
-        AllComments = props.comments.map((x, key) => <Comment name={x.name} role={x.role} content={x.content} date_creation={x.date_creation} />)
+        AllComments = props.comments.map((x, key) => <Comment key={x.name+x.content} name={x.name} role={x.role} content={x.content} date_creation={x.date_creation} />)
     } else AllComments = "Нет комментариев"
     let Pagination = [];
     let PagesAmount = Math.ceil(props.amountOfComments / 5);
@@ -68,7 +68,7 @@ const Comments = (props) => {
                 {(props.comments.length > 0)&&
                 <div className = {s.PaginationContainer}>
                 <img src = {previousPageArrow} alt='previous page' onClick={()=>getNewPage('prev')} />
-                {Pagination.map((x,key) => <span className={key === activePage ? s.PaginationActive : s.Pagination}  onClick={() => getNewPage(x) }>{x}</span>)}
+                {Pagination.map((x,key) => <span key={x} className={key === activePage ? s.PaginationActive : s.Pagination}  onClick={() => getNewPage(x) }>{x}</span>)}
                 <img src = {nextPageArrow} alt = "next page" onClick = {()=>getNewPage('next')} />
                 </div>}
                 <div className={s.TextBoxContainer}>

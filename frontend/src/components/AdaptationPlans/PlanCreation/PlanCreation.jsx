@@ -80,115 +80,117 @@ const PlanCreation=(props)=>{
                 <div onClick={()=>props.setIsCreationOpen(false)} className={style.close}></div>
                 <h2 className={style.title}>Добавить план</h2>
                 <table >
-                    <tr>
-                        <td><div className={style.fieldName}> Сотрудник:</div></td>
-                        <td>
+                    <tbody>
+                        <tr>
+                            <td><div className={style.fieldName}> Сотрудник:</div></td>
+                            <td>
+                                <Autocomplete
+                                    getItemValue={(item)=> item.label}
+                                    items={
+                                       props.workers.map(worker=> ({label:worker.name}))
+                                    }
+                                    renderItem={(item, isHighlighted)=>
+                                    <div style={{background: isHighlighted? 'rgba(140, 197, 71, 0.5)':'white'}}>
+                                        {item.label}
+                                    </div>}
+                                    value={workerName}
+                                    shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
+                                    inputProps={
+                                        isError&&(workerName=="") ?
+                                            {className: style.errorInput,
+                                            placeholder:"Выберите корректные данные из списка"}
+                                            : {placeholder:'Имя сотрудника' }
+
+
+                                    }
+                                    onChange={(e)=> setWorkerName(e.target.value)}
+                                    onSelect={(val)=> setWorkerName(val)}
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div className={style.fieldName}> Должность сотрудника:</div></td>
+                            <td>
                             <Autocomplete
-                                getItemValue={(item)=> item.label}
-                                items={
-                                   props.workers.map(worker=> ({label:worker.name}))
-                                } 
-                                renderItem={(item, isHighlighted)=>
-                                <div style={{background: isHighlighted? 'rgba(140, 197, 71, 0.5)':'white'}}>
-                                    {item.label}
-                                </div>}
-                                value={workerName}
-                                shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
-                                inputProps={
-                                    isError&&(workerName=="") ?
-                                        {className: style.errorInput,
-                                        placeholder:"Выберите корректные данные из списка"}
-                                        : {placeholder:'Имя сотрудника' }
-                                    
-                                    
-                                }
-                                onChange={(e)=> setWorkerName(e.target.value)}
-                                onSelect={(val)=> setWorkerName(val)}
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><div className={style.fieldName}> Должность сотрудника:</div></td>
-                        <td>
-                        <Autocomplete
-                                getItemValue={(item)=> item.label}
-                                 items={
-                                        props.positions.map(position=> ({label:position.name}))
-                                 } 
-                                renderItem={(item, isHighlighted)=>
-                                <div style={{background: isHighlighted? 'rgba(140, 197, 71, 0.5)':'white'}}>
-                                    {item.label}
-                                </div>}
-                                value={workerPosition}
-                                shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
-                                inputProps={
-                                    isError&&(workerPosition=="") ?
-                                        {className: style.errorInput,
-                                        placeholder:"Выберите корректные данные из списка"}
-                                        : {placeholder:'Должность сотрудника'}
-                                    
-                                }
-                                onChange={(e)=> setWorkerPosition(e.target.value)}
-                                onSelect={(val)=> setWorkerPosition(val)}
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><div className={style.fieldName}> Руководитель: </div></td>
-                        <td>
-                             <Autocomplete
-                                getItemValue={(item)=> item.label}
-                                items={
-                                    props.supers.map(item=>({label:item.name}))
-                                } 
-                                renderItem={(item, isHighlighted)=>
-                                <div style={{background: isHighlighted? 'rgba(140, 197, 71, 0.5)':'white'}}>
-                                    {item.label}
-                                </div>}
-                                value={superName}
-                                shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
-                                inputProps={
-                                    isError&&(superName=="") ?
-                                        {className: style.errorInput,
-                                        placeholder:"Выберите корректные данные из списка"}
-                                        : { placeholder:'Имя руководителя' }
-                                    
-                                }
-                                onChange={(e)=> setSuperName(e.target.value)}
-                                onSelect={(val)=> setSuperName(val)}
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><div className={style.fieldName}> Период:</div></td>
-                        <td className = {style.periodContainer}>
-                            <DayPickerInput 
-                                component={props =><input 
-                                    className={(isError&&!range.to) ? style.errorInput : style.periodInput}
-                                    {...props}
-                                />}
-                                placeholder="Период"
-                                formatDate ={formatDate}
-                                parseDate={parseDate}
-                                hideOnDayClick={!!range.to}
-                                value = {!!(range.to) ?
-                                    moment(range.from).format("DD.MM.YYYY") + "-" + moment(range.to).format("DD.MM.YYYY")
-                                    :""}
-                                dayPickerProps={{
-                                    selectedDays: [from, { from, to }],
-                                    disabledDays: { after: to },
-                                    localeUtils:MomentLocaleUtils,
-                                    locale:"ru",
-                                    onDayClick:((day)=> setRange(range => DateUtils.addDayToRange(day,range)))
-                                }}  
-                            />
-                            <button style={{display:!range.to ? "none" : "inline"}}
-                                    className={style.resetBtn}
-                                    onClick={()=>setRange({})}>
-                                Сбросить
-                            </button>
-                        </td>
-                    </tr>
+                                    getItemValue={(item)=> item.label}
+                                     items={
+                                            props.positions.map(position=> ({label:position.name}))
+                                     }
+                                    renderItem={(item, isHighlighted)=>
+                                    <div style={{background: isHighlighted? 'rgba(140, 197, 71, 0.5)':'white'}}>
+                                        {item.label}
+                                    </div>}
+                                    value={workerPosition}
+                                    shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
+                                    inputProps={
+                                        isError&&(workerPosition=="") ?
+                                            {className: style.errorInput,
+                                            placeholder:"Выберите корректные данные из списка"}
+                                            : {placeholder:'Должность сотрудника'}
+
+                                    }
+                                    onChange={(e)=> setWorkerPosition(e.target.value)}
+                                    onSelect={(val)=> setWorkerPosition(val)}
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div className={style.fieldName}> Руководитель: </div></td>
+                            <td>
+                                 <Autocomplete
+                                    getItemValue={(item)=> item.label}
+                                    items={
+                                        props.supers.map(item=>({label:item.name}))
+                                    }
+                                    renderItem={(item, isHighlighted)=>
+                                    <div style={{background: isHighlighted? 'rgba(140, 197, 71, 0.5)':'white'}}>
+                                        {item.label}
+                                    </div>}
+                                    value={superName}
+                                    shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
+                                    inputProps={
+                                        isError&&(superName=="") ?
+                                            {className: style.errorInput,
+                                            placeholder:"Выберите корректные данные из списка"}
+                                            : { placeholder:'Имя руководителя' }
+
+                                    }
+                                    onChange={(e)=> setSuperName(e.target.value)}
+                                    onSelect={(val)=> setSuperName(val)}
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div className={style.fieldName}> Период:</div></td>
+                            <td className = {style.periodContainer}>
+                                <DayPickerInput
+                                    component={props =><input
+                                        className={(isError&&!range.to) ? style.errorInput : style.periodInput}
+                                        {...props}
+                                    />}
+                                    placeholder="Период"
+                                    formatDate ={formatDate}
+                                    parseDate={parseDate}
+                                    hideOnDayClick={!!range.to}
+                                    value = {!!(range.to) ?
+                                        moment(range.from).format("DD.MM.YYYY") + "-" + moment(range.to).format("DD.MM.YYYY")
+                                        :""}
+                                    dayPickerProps={{
+                                        selectedDays: [from, { from, to }],
+                                        disabledDays: { after: to },
+                                        localeUtils:MomentLocaleUtils,
+                                        locale:"ru",
+                                        onDayClick:((day)=> setRange(range => DateUtils.addDayToRange(day,range)))
+                                    }}
+                                />
+                                <button style={{display:!range.to ? "none" : "inline"}}
+                                        className={style.resetBtn}
+                                        onClick={()=>setRange({})}>
+                                    Сбросить
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
                 <div className={style.btnWrapper}>
                     {isError&&(<div style={{display:'flex'}}>
