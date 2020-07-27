@@ -11,12 +11,15 @@
     margin-left: -40px;
     vertical-align:middle;
 }
-.container{
+.stepContainer{
     display: inline-flex;
     width: 97%;
     height: 60px;
     margin-left: 40px;
     margin-top: 40px;
+    div:first-child{
+        padding:0;
+    }
 }
 .InProcess{
     @include box;
@@ -30,9 +33,8 @@
     background-color: #A1D760;
 
 }
-.Completed:first-child{
-    padding:0;
-}
+
+
 .NotCompleted{
     @include box;
     background-color: white;

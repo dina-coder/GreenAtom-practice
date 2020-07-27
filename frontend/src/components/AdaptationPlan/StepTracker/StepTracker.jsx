@@ -6,7 +6,7 @@ const StepTracker = (props) => {
     return (
         <div>
         {props.step !== null ?
-    <div className = {s.container}>
+    <div className = {s.stepContainer}>
         <div className={s.ZIndex1+ " " +(props.step===1?s.InProcess: s.Completed)}>Создание плана</div> 
         <div className={s.ZIndex2+ " " +(props.step===2?s.InProcess: props.step<2 ? s.NotCompleted : s.Completed)}>Заполнение <br/> сотрудником</div>
         <div className={s.ZIndex3+ " " +(props.step===3?s.InProcess: props.step<3 ? s.NotCompleted : s.Completed)}> Согласование <br /> руководителем</div>

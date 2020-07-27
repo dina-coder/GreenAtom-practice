@@ -1,5 +1,6 @@
-import { MainAPI } from '../../API.js'
+import { MainAPI, createPdfFile, getPdf } from '../../API.js'
 import {setToggle} from './AuthReducer'
+import { saveAs } from 'file-saver';
 
 let initialState = {
     employee_info: [],
@@ -13,7 +14,6 @@ let initialState = {
 const EmployeeReducer = (state = initialState, action) => {
     switch (action.type) {
         case TAKE_EMPLOYEE_PROFILE_INFO: {
-           
             return { ...state, employee_info: action.employee_info[0] }
         }
         case TAKE_TASKS_FOR_PLAN: {
@@ -91,6 +91,7 @@ export const TakeTasks = (plan_id, currentPage) => async (dispatch) => {
 export const GetEmployeeProfileInfo = (user_id, currPage) => async (dispatch) => {
     dispatch(setToggle(true))
     let response = await MainAPI.getemployeeinfo(user_id)
+    console.log('resp',response);
     dispatch(setToggle(false))
     if (response[0] !== undefined ){
         dispatch(GetTaskAmount(response[0].plan_id))
@@ -138,5 +139,18 @@ export const GetComments = (plan_id, currentPage) => async (dispatch) => {
 }
 
 export const PostComment = (content, plan_id, user_id) => async () => {
-    let response = await MainAPI.postComment(content, plan_id, user_id)
+    await MainAPI.postComment(content, plan_id, user_id)
  }
+
+ export const CreatePdf = (user_id) => async (dispatch) => {
+    let response = await createPdfFile(user_id)
+    console.log(response);
+    dispatch(GetPdf(response.name))
+
+}
+export const GetPdf = (name) => async () => {
+    let response = await getPdf(name)
+    console.log(response)
+    let  blob  = new Blob ( [response] , { type: 'application/pdf' } ) ; 
+    saveAs(blob, name)
+}

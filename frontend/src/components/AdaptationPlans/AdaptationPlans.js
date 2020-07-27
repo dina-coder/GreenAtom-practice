@@ -11,16 +11,15 @@ class AdaptationPlans extends React.Component {
 
     
     componentDidMount(){
-        this.props.getFilteredList(this.props.role,this.props.filters, this.props.user_id);
+        this.props.getFilteredList(this.props.accountInfo.role,this.props.filters, this.props.accountInfo.user_id);
         this.props.takeSteps();
-        if (this.props.role===Roles.HR) {
+        if (this.props.accountInfo.role===Roles.HR) {
             this.props.getPlansAmount('');
             this.props.takeNames(2);
             this.props.takeNames(3);
             this.props.takePositions();
         } else{
-            console.log(this.props.user_id);
-            this.props.getPlansAmount(this.props.user_id);
+            this.props.getPlansAmount(this.props.accountInfo.user_id);
         }
     }
 
@@ -44,13 +43,13 @@ class AdaptationPlans extends React.Component {
     }
 
     filterPlans = (page) => {
-        this.props.getFilteredList(this.props.role,this.props.filters, this.props.user_id, page)
+        this.props.getFilteredList(this.props.accountInfo.role,this.props.filters, this.props.accountInfo.user_id, page)
     }
         
     onFilter = (filter,value) => {
         const newFilters = { ...this.props.filters, [filter]: value };
         this.props.setFilter(newFilters);
-        this.props.getFilteredList(this.props.role, newFilters, this.props.user_id);
+        this.props.getFilteredList(this.props.accountInfo.role, newFilters, this.props.accountInfo.user_id);
     }
 
     privilegeToAdd = (role) => {
@@ -60,25 +59,20 @@ class AdaptationPlans extends React.Component {
     render() {
         return (
             <AdaptationPlansForm
-                isFetching={this.props.isFetching}
-                SetInfoForPlan={this.props.SetInfoForPlan}
-                DataAboutPlans={this.props.filteredList}
-                arePlansExist={this.arePlansExist}
-                name={this.props.name}
-                amount={this.props.amount}
-                setPlansAmount={this.props.setPlansAmount}
-                steps={this.props.steps}
-                filters={this.props.filters}
-                canCreate={this.privilegeToAdd(this.props.role)}
-                workersNames={ this.props.workersNames}
-                supersNames={this.props.supersNames}
-                positions={this.props.positions}
-                user_id={this.props.user_id}
-                createPlan={this.props.createPlan}
-                role={this.props.role}
+                canCreate={this.privilegeToAdd(this.props.accountInfo.role)}
                 onFilter={this.onFilter}
                 filterPlans={this.filterPlans}
                 onPageChange={this.onPageChange}
+                arePlansExist={this.arePlansExist}
+                setPlansAmount={this.props.setPlansAmount}
+                createPlan={this.props.createPlan}
+                isFetching={this.props.isFetching}
+                SetInfoForPlan={this.props.SetInfoForPlan}
+                DataAboutPlans={this.props.filteredList}
+                amount={this.props.amount}
+                filters={this.props.filters}
+                dict={this.props.dict}
+                accountInfo={this.props.accountInfo}
             />
     
         );
@@ -88,17 +82,21 @@ class AdaptationPlans extends React.Component {
 
 const mapStateToProps = (state) =>({
     isFetching: state.AuthReducer.isFetching,
-    user_id: state.AuthReducer.user_id,
     allPlans: state.PlansReducer.plansList,
-    name: state.AuthReducer.name,
-    role: mapRoleIdToRole(state.AuthReducer['role_id']),
-    steps: state.DictReducer.stepList,
     filters: state.PlansReducer.filters,
     filteredList: state.PlansReducer.filteredList,
-    workersNames: state.DictReducer.workersNames,
-    supersNames: state.DictReducer.supersNames,
-    positions: state.DictReducer.positions,
-    amount: state.PlansReducer.amount
+    amount: state.PlansReducer.amount,
+    accountInfo: {
+        user_id: state.AuthReducer.user_id,
+        name: state.AuthReducer.name,
+        role: mapRoleIdToRole(state.AuthReducer['role_id']),
+    },
+    dict: {
+        steps: state.DictReducer.stepList,
+        workersNames: state.DictReducer.workersNames,
+        supersNames: state.DictReducer.supersNames,
+        positions: state.DictReducer.positions
+    }
 });
 
 export default connect(mapStateToProps,

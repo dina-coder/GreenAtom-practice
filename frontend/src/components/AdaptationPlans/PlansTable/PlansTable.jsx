@@ -5,7 +5,7 @@ import rightArrow from '../../../img/right-arrow.png';
 import previousPageArrow from '../../../img/previous-page.png';
 import nextPageArrow from '../../../img/next-page.png';
 import style from "./PlansTable.module.scss";
-import Preloader from '../../../Preloader/Preloader';
+import Preloader from '../../Preloader/Preloader';
 import AdaptationPlan from '../../AdaptationPlan/AdaptationPlan';
 
 
@@ -54,7 +54,7 @@ const PlansTable = (props) => {
             </thead>
             <tbody>
                 { props.DataAboutPlans.map(x =>
-                    <tr className = {style.plan} key={x.name}>
+                    <tr className = {style.plan} key={x.name+x.worker_id}>
                         <td>{x.name}</td>
                         <td>{x.super}</td>
                         <td>{x.step}</td>

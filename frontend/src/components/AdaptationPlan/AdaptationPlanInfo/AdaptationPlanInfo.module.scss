@@ -5,9 +5,6 @@
     .infoHeader{
          display:flex;
     }
-    .infoTitle{
-    }
-
     .Title{
         font-family: Roboto, sans-serif;
         font-size: 28px;
@@ -44,11 +41,13 @@
     td {
         padding-top: 3px;
     }
-    .editMode{
-        height: 20px;
-        width: 20px;
-        padding-left: 17px;
+    .editMode, .download{
+        width: 30px;
+        margin-left: 15px;
         margin-top: 28px;
+    }
+    .PlanTitle{
+        width: 25%;
     }
     .ButtonContainer2{
         text-align: right;
@@ -57,16 +56,12 @@
         width: 161px;
         height: 47px;
         border: none;
-         font: inherit;
-        color: inherit;
-        background-color: transparent;
+        font: inherit;
         font-size: 14px;
         margin-left: auto;
         border-radius: 16px;
-
         color: #FFFFFF;
         background-color: $brandColor;
-        border-radius: 16px;
     }
     .addButton2:hover{
         cursor: pointer;
@@ -96,7 +91,8 @@ input:focus{
     border: 2px solid #8CC547;
 }
 .Update{
-    padding: 5px 10px;
+    height: 35px;
+    width: 100px;
     border: none;
     font: inherit;
     color: #FFFFFF;
@@ -112,9 +108,8 @@ input:focus{
     border-radius: 16px;
 }
 .UpdateContainer{
-    width: 605px;
-    padding-top: 40px;
-    display: flex;
-    justify-content: flex-end;
+    padding-top: 20px;
+    padding-left:210px;
+
 }
 }

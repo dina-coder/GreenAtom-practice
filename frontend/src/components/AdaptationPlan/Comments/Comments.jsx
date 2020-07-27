@@ -51,7 +51,7 @@ const Comments = (props) => {
     }
     let AllComments;
     if (props.comments.length > 0) {
-        AllComments = props.comments.map((x, key) => <Comment name={x.name} role={x.role} content={x.content} date_creation={x.date_creation} />)
+        AllComments = props.comments.map((x, key) => <Comment key={x.name+x.content} name={x.name} role={x.role} content={x.content} date_creation={x.date_creation} />)
     } else AllComments = "Нет комментариев"
     let Pagination = [];
     let PagesAmount = Math.ceil(props.amountOfComments / 5);
@@ -62,12 +62,15 @@ const Comments = (props) => {
         <div className={s.Container}>
             <TopPanelWithCreate title="Комментарии" amount={props.amountOfComments} />
             <div className={s.InnerContainer}>
-                {AllComments}
+                {typeof(AllComments)==='string'
+                    ? <p style={{padding:'10px'}}>{AllComments}</p>
+                    : AllComments}
+                {(props.comments)&&(props.comments.length > 0)&&
                 <div className = {s.PaginationContainer}>
                 <img src = {previousPageArrow} alt='previous page' onClick={()=>getNewPage('prev')} />
-                {Pagination.map((x,key) => <span className={key === activePage ? s.PaginationActive : s.Pagination}  onClick={() => getNewPage(x) }>{x}</span>)}
+                {Pagination.map((x,key) => <span key={x} className={key === activePage ? s.PaginationActive : s.Pagination}  onClick={() => getNewPage(x) }>{x}</span>)}
                 <img src = {nextPageArrow} alt = "next page" onClick = {()=>getNewPage('next')} />
-                </div>
+                </div>}
                 <div className={s.TextBoxContainer}>
                     <input  onChange = {NewCommentText} value = {commentContent} placeholder="Оставить комментарий..." className={isError === false ? s.Input : s.ErrorBorder} />
                     <div className={s.SendButton}>

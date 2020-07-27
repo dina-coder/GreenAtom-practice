@@ -1,4 +1,4 @@
-import React, { useState,useCallback }  from 'react';
+import React, {useState, useCallback, useRef, useEffect} from 'react';
 import style from './Filters.module.scss';
 import { DateUtils } from 'react-day-picker';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
@@ -25,8 +25,10 @@ const Filters = (props) =>{
         props.onPeriodFilter(value);
     });
 
-    return( 
-       <div className={style.search}> 
+    const { from, to } = range;
+
+    return(
+       <div className={style.search}>
             <input className={style.peopleSearch}
             value={props.search} 
             onInput={onSearchChange}
@@ -45,21 +47,23 @@ const Filters = (props) =>{
                 
             </select>
             <div className = {style.container}>
-                <DayPickerInput 
+                <DayPickerInput
                     component={props =><input className={style.periodInput}  {...props}/>}
                     placeholder="Период"
                     formatDate ={formatDate}
                     parseDate={parseDate}
+                    style={{width:'100%', height:'100%'}}
                     onDayChange={(day,mod,dayPickerInput)=> onPeriodChange(dayPickerInput)}
-                    hideOnDayClick={!!range.to}
+                    hideOnDayClick={!!(range.to)}
                     value = {!!(range.to) ?
                         moment(range.from).format("DD.MM.YYYY") + "-" + moment(range.to).format("DD.MM.YYYY")
                         :""}
                     dayPickerProps={{
+                        selectedDays: [from, { from, to }],
+                        disabledDays: { after: to },
                         localeUtils:MomentLocaleUtils,
                         locale:"ru",
-                        selectedDays:range,
-                        onDayClick:((day)=> setRange(range => DateUtils.addDayToRange(day,range)))
+                        onDayClick:((day)=> setRange(range => DateUtils.addDayToRange(day, range)))
                         }}  
                 />
                 <button style={{display:!range.to ? "none" : "inline"}}

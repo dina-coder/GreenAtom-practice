@@ -23,29 +23,29 @@ const AdaptationPlansForm = (props)=> {
                 onSearchFilter={(value) => props.onFilter('search', value)} 
                 onStepFilter={(value) => props.onFilter('step', value)} 
                 onPeriodFilter={(value) => props.onFilter('period', value)} 
-                steps={props.steps} 
+                steps={props.dict.steps}
             />
 
             <PlansTable 
                 isFetching = {props.isFetching} 
                 SetInfoForPlan = {props.SetInfoForPlan} 
                 DataAboutPlans = {props.DataAboutPlans} 
-                role={props.role}
+                role={props.accountInfo.role}
                 arePlansExist={props.arePlansExist}
-                userId={props.user_id}
+                userId={props.accountInfo.user_id}
                 onPageChange={props.onPageChange}
-                name = {props.name} 
+                name = {props.accountInfo.name}
                 amount={props.amount}
             />
 
             {isCreationOpen && <PlanCreation 
             createPlan={props.createPlan}
             setPlansAmount={props.setPlansAmount}
-            user_id={props.user_id}
+            user_id={props.accountInfo.user_id}
             plans={props.DataAboutPlans}
-            positions={props.positions} 
-            workers={props.workersNames}
-            supers={props.supersNames}
+            positions={props.dict.positions}
+            workers={props.dict.workersNames}
+            supers={props.dict.supersNames}
             amount={props.amount}
             filterPlans={props.filterPlans}
             setIsCreationOpen={setIsCreationOpen}/>}

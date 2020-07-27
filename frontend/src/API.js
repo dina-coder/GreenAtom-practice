@@ -165,6 +165,20 @@ export const MainAPI = {
     axios.post("http://localhost:9000/api/insert/comment", { content, plan_id, user_id})
     .then(response=>{ return response.data})
   },
-
+  getPdf(name){
+    console.log(name)
+   
+    .then(response=>{ return response.data})
+  }
+  
  
+}
+export const  getPdf = async (name)=>{
+  const x = await  axios.get(`http://localhost:9000/api/fetch_report?name=${name}`,{ responseType: 'blob' })
+  return x.data
+} 
+export const createPdfFile = async(user_id)=>{ 
+  console.log(user_id)
+const x = await axios.post("http://localhost:9000/api/create_report", {user_id:user_id})
+  return x.data
 }
