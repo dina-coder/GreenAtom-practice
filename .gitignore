@@ -112,6 +112,7 @@ backend/request/*.sql
 # no more IDE
 backend/.idea
 backend/.vscode
+frontend/.idea
 
 backend/src/public/tmp/*.pdf
 backend/src/*.html

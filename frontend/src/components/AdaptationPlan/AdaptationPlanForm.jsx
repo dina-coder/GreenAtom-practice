@@ -6,7 +6,7 @@ import { mapRoleIdToRole } from '../../utils/mapRoleIdToRole';
 import { Roles } from '../../constants/roles'
 import StepTracker from './StepTracker/StepTracker';
 import Comments from './Comments/Comments';
-import Preloader from "../../Preloader/Preloader";
+import Preloader from "../Preloader/Preloader";
 
 
 const AdaptationPlanForm = (props) => {
@@ -30,7 +30,8 @@ const AdaptationPlanForm = (props) => {
                                 positions = {props.positions}
                                 stepList = {props.stepList}
                                 supersNames ={props.supersNames}
-                                role_id = {props.role_id} employee = {props.employee}
+                                role_id = {props.role_id}
+                                employee = {props.employee}
                                 updatePlan = {props.updatePlan}
                                 GetEmployeeProfileInfo = {props.GetEmployeeProfileInfo}
                                 hrNames = {props.hrNames} 

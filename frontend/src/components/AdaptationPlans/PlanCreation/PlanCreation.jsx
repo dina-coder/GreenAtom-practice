@@ -15,6 +15,8 @@ const PlanCreation=(props)=>{
     const [workerPosition, setWorkerPosition] = useState("");
     const [isError, setIsError] = useState(false);
     const [errMessage, setErrMessage] = useState("");
+    const { from, to } = range;
+
     const createNewPlan = () => {
             props.createPlan(
             findID(workerName, props.workers), 
@@ -149,7 +151,7 @@ const PlanCreation=(props)=>{
                                     isError&&(superName=="") ?
                                         {className: style.errorInput,
                                         placeholder:"Выберите корректные данные из списка"}
-                                        : {placeholder:'Имя руководителя'}
+                                        : { placeholder:'Имя руководителя' }
                                     
                                 }
                                 onChange={(e)=> setSuperName(e.target.value)}
@@ -159,7 +161,7 @@ const PlanCreation=(props)=>{
                     </tr>
                     <tr>
                         <td><div className={style.fieldName}> Период:</div></td>
-                        <td>
+                        <td className = {style.periodContainer}>
                             <DayPickerInput 
                                 component={props =><input 
                                     className={(isError&&!range.to) ? style.errorInput : style.periodInput}
@@ -173,12 +175,18 @@ const PlanCreation=(props)=>{
                                     moment(range.from).format("DD.MM.YYYY") + "-" + moment(range.to).format("DD.MM.YYYY")
                                     :""}
                                 dayPickerProps={{
+                                    selectedDays: [from, { from, to }],
+                                    disabledDays: { after: to },
                                     localeUtils:MomentLocaleUtils,
                                     locale:"ru",
-                                    selectedDays:range,
                                     onDayClick:((day)=> setRange(range => DateUtils.addDayToRange(day,range)))
                                 }}  
                             />
+                            <button style={{display:!range.to ? "none" : "inline"}}
+                                    className={style.resetBtn}
+                                    onClick={()=>setRange({})}>
+                                Сбросить
+                            </button>
                         </td>
                     </tr>
                 </table>

@@ -25,6 +25,7 @@ const AdaptationPlanInfo = (props) => {
         date_start_plan = moment(range.from).format("DD.MM.YYYY");
         date_end_plan = moment(range.to).format("DD.MM.YYYY");
     }
+    console.log('ceck ' + props.employee.position);
     const [Step, setStep] = useState(props.employee.step)
     const [isUpdateMode, setUpdateMode] = useState(false)
     const [Grade, setGrade] = useState(props.employee.grade)
@@ -43,7 +44,6 @@ const AdaptationPlanInfo = (props) => {
         if (nameId) return nameId
         else return null
     }
-
     return (
         <div className={s.container}>
             <table>

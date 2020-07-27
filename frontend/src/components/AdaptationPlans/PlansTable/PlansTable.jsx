@@ -5,7 +5,7 @@ import rightArrow from '../../../img/right-arrow.png';
 import previousPageArrow from '../../../img/previous-page.png';
 import nextPageArrow from '../../../img/next-page.png';
 import style from "./PlansTable.module.scss";
-import Preloader from '../../../Preloader/Preloader';
+import Preloader from '../../Preloader/Preloader';
 import AdaptationPlan from '../../AdaptationPlan/AdaptationPlan';
 
 

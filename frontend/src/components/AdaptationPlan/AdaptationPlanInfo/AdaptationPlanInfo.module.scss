@@ -2,6 +2,13 @@
 
 .container{
     height: 400px;
+<<<<<<< HEAD
+=======
+    .infoHeader{
+         display:flex;
+    }
+
+>>>>>>> change picking first day + resetButton
     .Title{
         font-family: Roboto, sans-serif;
         font-size: 28px;
@@ -54,16 +61,12 @@
         width: 161px;
         height: 47px;
         border: none;
-         font: inherit;
-        color: inherit;
-        background-color: transparent;
+        font: inherit;
         font-size: 14px;
         margin-left: auto;
         border-radius: 16px;
-
         color: #FFFFFF;
         background-color: $brandColor;
-        border-radius: 16px;
     }
     .addButton2:hover{
         cursor: pointer;

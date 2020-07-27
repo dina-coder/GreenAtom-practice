@@ -6,7 +6,7 @@ import {DeleteTaskFromEmployee,GetEmployeeProfileInfo, TakeTasks, UpdateTaskStat
     GetCommentsAmount,CreatePdf} from '../../redux/reducers/EmployeeReducer'
 import {updatePlan,getFilteredList} from '../../redux/reducers/PlansReducer';
 import {takeNames,takeSteps,takePositions,TakeGradesInfo} from '../../redux/reducers/DictReducer'
-import Preloader from '../../Preloader/Preloader';
+import Preloader from '../Preloader/Preloader';
 
 class AdaptationPlan extends React.Component
 {
