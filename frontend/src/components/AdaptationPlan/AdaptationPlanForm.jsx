@@ -22,6 +22,9 @@ const AdaptationPlanForm = (props) => {
              <div className={s.close} onClick={() => RerenderPlans(props.user_id, props.role_id)}></div>}
             <StepTracker step={props.employee.step_id}/>
             <AdaptationPlanInfo 
+                                worker_id = {props.worker_id}
+                                user_id = {props.user_id}
+                                CreatePdf = {props.CreatePdf}
                                 positions = {props.positions}
                                 stepList = {props.stepList}
                                 supersNames ={props.supersNames}

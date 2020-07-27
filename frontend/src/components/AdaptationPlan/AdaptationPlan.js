@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import AdaptationPlanForm from './AdaptationPlanForm'
 import {DeleteTaskFromEmployee,GetEmployeeProfileInfo, TakeTasks, UpdateTaskStatusFromEmployee, 
     UpdateTaskFromEmployee,CreatTaskForEmployee,GetTaskAmount, GetComments, PostComment, 
-    GetCommentsAmount} from '../../redux/reducers/EmployeeReducer'
+    GetCommentsAmount,CreatePdf} from '../../redux/reducers/EmployeeReducer'
 import {updatePlan,getFilteredList} from '../../redux/reducers/PlansReducer';
 import {takeNames,takeSteps,takePositions,TakeGradesInfo} from '../../redux/reducers/DictReducer'
 import Preloader from '../../Preloader/Preloader';
@@ -35,6 +35,7 @@ class AdaptationPlan extends React.Component
                 {this.props.isFetching === true? <Preloader/>:
                 
             <AdaptationPlanForm 
+                CreatePdf = {this.props.CreatePdf}
                 GetTaskAmount = {this.props.GetTaskAmount}
                 takePlans = {this.props.getFilteredList}
                 grades = {this.props.grades}
@@ -61,6 +62,7 @@ class AdaptationPlan extends React.Component
                 PostComment={this.props.PostComment}
                 GetComments={this.props.GetComments}
                 filters={this.props.filters}
+                worker_id = {this.props.worker_id}
             />
                 }
             </>)
@@ -92,4 +94,4 @@ const mapStateToProps=(state)=>({
 export default  connect (mapStateToProps,{GetEmployeeProfileInfo,DeleteTaskFromEmployee, 
     TakeTasks, UpdateTaskStatusFromEmployee,CreatTaskForEmployee, UpdateTaskFromEmployee, 
     updatePlan,takeNames,takeSteps,takePositions,TakeGradesInfo,getFilteredList,GetTaskAmount,
-     GetComments, PostComment, GetCommentsAmount}) (AdaptationPlan)
+     GetComments, PostComment, GetCommentsAmount,CreatePdf}) (AdaptationPlan)

@@ -41,9 +41,13 @@
         padding-top: 3px;
     }
     .editMode{
-        position: absolute;
-        top:195px;
-        left:16em;
+        width: 30px;
+    }
+    .download{
+        width: 30px;
+    }
+    .PlanTitle{
+        width: 200px;
     }
     .ButtonContainer2{
         text-align: right;
@@ -91,7 +95,6 @@ input:focus{
     border: 2px solid #8CC547;
 }
 .Update{
-    position: center;
     height: 35px;
     width: 100px;
     border: none;
@@ -111,8 +114,7 @@ input:focus{
     border-radius: 16px;
 }
 .UpdateContainer{
-    position: absolute;
-    top: 33em;
-    left: 34em;
+    padding-top: 20px;
+    padding-left:210px;
 }
 }
