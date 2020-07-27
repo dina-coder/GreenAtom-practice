@@ -32,8 +32,7 @@ class AdaptationPlan extends React.Component
     render() {
         
          return (<>
-                {this.props.isFetching === true? <Preloader/>:
-                
+             {
             <AdaptationPlanForm 
                 CreatePdf = {this.props.CreatePdf}
                 GetTaskAmount = {this.props.GetTaskAmount}
@@ -46,6 +45,7 @@ class AdaptationPlan extends React.Component
                 setPlanClick = {this.props.setPlanClick}
                 role_id = {this.props.role_id}
                 user_id = {this.props.user_id}
+                isFetching={this.props.isFetching}
                 CreatTaskForEmployee = {this.props.CreatTaskForEmployee}
                 name={this.props.name} 
                 employee={this.props.employee}

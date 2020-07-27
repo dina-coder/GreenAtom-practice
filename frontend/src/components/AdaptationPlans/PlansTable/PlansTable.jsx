@@ -40,9 +40,8 @@ const PlansTable = (props) => {
     }
     return(
     <div>
-        {props.isFetching === true ? <Preloader/>:
-        props.arePlansExist(props.DataAboutPlans) ?
-        <>
+        { props.arePlansExist(props.DataAboutPlans) ?
+        <div className={style.container}>
         <table>
             <thead>
             <tr>
@@ -56,7 +55,7 @@ const PlansTable = (props) => {
             <tbody>
                 { props.DataAboutPlans.map(x =>
                     <tr className = {style.plan} key={x.name}>
-                        <td className = {style.choosen}>{x.name}</td>
+                        <td>{x.name}</td>
                         <td>{x.super}</td>
                         <td>{x.step}</td>
                         <td>{x.date_start}&nbsp;-&nbsp;{x.date_end}</td>
@@ -69,12 +68,13 @@ const PlansTable = (props) => {
            
             </tbody>
         </table>
+            {props.isFetching&&<Preloader />}
             <div className={style.paginationContainer}>
             <img src={previousPageArrow} alt='previous page' onClick={setPrevPage} />
             {pagination.map((x) => <span key={x} className={style.pagination} onClick={() => setCurrentPage(x) }>{x}</span>)}
             <img src={nextPageArrow} alt="next page" onClick={setNextPage} />
             </div>
-        </>
+        </div>
         : <div style={{
             fontSize:'26px',
             textAlign: 'center',

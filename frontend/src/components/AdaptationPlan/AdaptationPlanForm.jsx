@@ -6,6 +6,7 @@ import { mapRoleIdToRole } from '../../utils/mapRoleIdToRole';
 import { Roles } from '../../constants/roles'
 import StepTracker from './StepTracker/StepTracker';
 import Comments from './Comments/Comments';
+import Preloader from "../../Preloader/Preloader";
 
 
 const AdaptationPlanForm = (props) => {
@@ -20,6 +21,7 @@ const AdaptationPlanForm = (props) => {
             <div>
              {(mapRoleIdToRole(props.role_id) !== Roles.Employee) &&
              <div className={s.close} onClick={() => RerenderPlans(props.user_id, props.role_id)}></div>}
+              <div  className={s.planContainer}>
             <StepTracker step={props.employee.step_id}/>
             <AdaptationPlanInfo 
                                 worker_id = {props.worker_id}
@@ -56,8 +58,11 @@ const AdaptationPlanForm = (props) => {
                 comments={props.comments}
                 amountOfComments={props.amountOfComments}
                 />
+                {props.isFetching === true&&<Preloader/>}
                  </div>
+            </div>
             : <h1 className={s.ErrorPlans}>Нет плана</h1>}
+
         </div>
     )
 }

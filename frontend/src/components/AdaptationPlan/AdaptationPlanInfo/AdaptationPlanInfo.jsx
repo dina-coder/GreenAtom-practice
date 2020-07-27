@@ -9,6 +9,8 @@ import moment from 'moment';
 import 'moment/locale/ru';
 import MomentLocaleUtils, { formatDate, parseDate } from 'react-day-picker/moment';
 import download from '../../../img/download 1.png'
+import {Steps} from "../../../constants/steps";
+
 
 const AdaptationPlanInfo = (props) => {
 
@@ -44,9 +46,6 @@ const AdaptationPlanInfo = (props) => {
 
     return (
         <div className={s.container}>
-
-
-
             <table>
                 <tr>
                     <td className={s.PlanTitle}><h1 className={s.Title}>План адаптации</h1>
@@ -63,7 +62,7 @@ const AdaptationPlanInfo = (props) => {
                     </td>
                     <td>
                         {PostToNextStep(props.role_id, props.employee.step) ?
-                            InfoPlan.step === 'Заполнение сотрудником' ?
+                            InfoPlan.step === Steps.EmployeeFilling ?
                                 <div className={s.ButtonContainer2}>
                                     <button onClick={() => UpdatePlan(InfoPlan.worker_id, InfoPlan.position_id, InfoPlan.super_id,
                                         InfoPlan.hr_id, InfoPlan.step_id + 1, InfoPlan.date_start, InfoPlan.date_end, InfoPlan.result,
@@ -216,9 +215,7 @@ const AdaptationPlanInfo = (props) => {
 
                 </tr>
                 <tr>
-                    <td>
-                        
-                    </td>
+                    <td></td>
                     <td  className={s.UpdateContainer}>
                         {isUpdateMode === true ? <button className={s.Update} onClick={() => UpdatePlan(InfoPlan.worker_id, FindIdUser(Position, props.positions),
                             FindIdUser(superName, props.supersNames), FindIdUser(hrName, props.hrNames), FindIdUser(Step, props.stepList),

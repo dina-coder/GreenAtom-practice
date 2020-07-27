@@ -8,14 +8,12 @@
         line-height: 33px;
         font-weight: 600;
         color: $textColor;
-        margin-left: -28px;
 
     }
     .DateOfCreation{
         text-align: left;
         font-size: 16px;
         color: $additionText;
-        margin-left: -28px;
         margin-top: -20px;
 
     }
@@ -47,7 +45,7 @@
         width: 30px;
     }
     .PlanTitle{
-        width: 200px;
+        width: 25%;
     }
     .ButtonContainer2{
         text-align: right;
@@ -98,12 +96,10 @@ input:focus{
     height: 35px;
     width: 100px;
     border: none;
-     font: inherit;
-    color: inherit;
+    font: inherit;
     color: #FFFFFF;
-    background-color: $brandColor;
+    background-color: #8CC547;
     font-size: 15px;
-    margin-left: auto;
     border-radius: 16px;
 }
 .Update:hover{
@@ -116,5 +112,6 @@ input:focus{
 .UpdateContainer{
     padding-top: 20px;
     padding-left:210px;
+
 }
 }
