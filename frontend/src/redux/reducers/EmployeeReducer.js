@@ -14,7 +14,6 @@ let initialState = {
 const EmployeeReducer = (state = initialState, action) => {
     switch (action.type) {
         case TAKE_EMPLOYEE_PROFILE_INFO: {
-           
             return { ...state, employee_info: action.employee_info[0] }
         }
         case TAKE_TASKS_FOR_PLAN: {
@@ -92,6 +91,7 @@ export const TakeTasks = (plan_id, currentPage) => async (dispatch) => {
 export const GetEmployeeProfileInfo = (user_id, currPage) => async (dispatch) => {
     dispatch(setToggle(true))
     let response = await MainAPI.getemployeeinfo(user_id)
+    console.log('resp',response);
     dispatch(setToggle(false))
     if (response[0] !== undefined ){
         dispatch(GetTaskAmount(response[0].plan_id))

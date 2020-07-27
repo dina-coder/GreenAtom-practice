@@ -33,7 +33,7 @@ const PlanTasks = (props) => {
         props.TakeTasks(props.plan_id, curPage);
     }
     
-
+    console.log('plans',props.plantasks);
     let AllTasks;
     if ( props.plantasks) {
         if (props.plantasks.length > 0){
@@ -74,15 +74,14 @@ const PlanTasks = (props) => {
             </div>
 
             {AllTasks}
-            {AddTaskButton === true ?
+            {AddTaskButton === true &&
                 <div><AddTaskMode GetTaskAmount = {props.GetTaskAmount}
                     SetTaskButton={SetTaskButton} date_end = {props.date_end}
                     userName = {props.userName} plan_id = {props.plan_id}
                     CreatTaskForEmployee = {props.CreatTaskForEmployee}
-                    TakeTasks = {props.TakeTasks} /></div> :
-                ''
+                    TakeTasks = {props.TakeTasks} /></div>
             }
-            {(props.plantasks.length > 0)&&
+            {(props.plantasks)&&(props.plantasks.length > 0)&&
             <div className = {s.PaginationContainer}>
                 <img src = {previousPageArrow} alt='previous page' onClick={()=>getNewPage('prev')} />
                 {Pagination.map((x,key) => <span key={x} className={key === activePage ? s.PaginationActive : s.Pagination}  onClick={() => getNewPage(x) }>{x}</span>)}

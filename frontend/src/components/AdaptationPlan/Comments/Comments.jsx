@@ -65,7 +65,7 @@ const Comments = (props) => {
                 {typeof(AllComments)==='string'
                     ? <p style={{padding:'10px'}}>{AllComments}</p>
                     : AllComments}
-                {(props.comments.length > 0)&&
+                {(props.comments)&&(props.comments.length > 0)&&
                 <div className = {s.PaginationContainer}>
                 <img src = {previousPageArrow} alt='previous page' onClick={()=>getNewPage('prev')} />
                 {Pagination.map((x,key) => <span key={x} className={key === activePage ? s.PaginationActive : s.Pagination}  onClick={() => getNewPage(x) }>{x}</span>)}

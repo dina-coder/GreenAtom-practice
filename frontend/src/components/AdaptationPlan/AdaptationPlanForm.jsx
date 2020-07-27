@@ -28,15 +28,15 @@ const AdaptationPlanForm = (props) => {
                 worker_id = {props.worker_id}
                 user_id = {props.user_id}
                 CreatePdf = {props.CreatePdf}
-                positions = {props.positions}
-                stepList = {props.stepList}
-                supersNames ={props.supersNames}
+                positions = {props.dict.positions}
+                stepList = {props.dict.stepList}
+                supersNames ={props.dict.supersNames}
                 role_id = {props.role_id}
                 employee = {props.employee}
                 updatePlan = {props.updatePlan}
                 GetEmployeeProfileInfo = {props.GetEmployeeProfileInfo}
-                hrNames = {props.hrNames}
-                grades = {props.grades}
+                hrNames = {props.dict.hrNames}
+                grades = {props.dict.grades}
             />
             <PlanTasks
                 GetTaskAmount = {props.GetTaskAmount}
