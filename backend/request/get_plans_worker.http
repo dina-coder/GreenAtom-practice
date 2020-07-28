@@ -1,1 +1,1 @@
-GET http://localhost:9000/api/get_worker_data?user_id=6
+GET http://localhost:9000/api/get_worker_data?user_id=11

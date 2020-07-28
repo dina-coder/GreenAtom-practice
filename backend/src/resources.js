@@ -33,8 +33,8 @@ const resources = {
 	getDictStepsSql: 'call sp_get_dict_steps()',
 	getDictPositionsSql: 'call sp_get_dict_positions()',
 	insertPlanSql: 'insert into plans (worker_id, position_id, date_creation, \
-	super_id, hr_id, step_id, date_start, date_end, result, grade_id) \
-	values (?, ?, curdate(), ?, ?, 1, ?, ?, ?, ?)',
+	super_id, hr_id, step_id, date_start, date_end, result, grade_id, is_notified_worker, is_notified_super) \
+	values (?, ?, curdate(), ?, ?, 1, ?, ?, ?, ?, ?, ?)',
 	insertTaskSql: 'call sp_insert_task(?, ?, ?, ?, ?, ?)',
 	updatePlanSql: 'call sp_update_plan(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
 	updateTaskSql: 'call sp_update_task(?, ?, ?, ?, ?, ?, ?)',
@@ -55,6 +55,12 @@ const resources = {
 	deleteCommentSql: 'delete from comments where id = ?',
 	deleteAllCommentsSql: 'delete from comments where plan_id = ?',
 	countCommentsSql: 'select count(*) as count from comments where plan_id = ?',
+	notifySuperSql: 'update plans set is_notified_super = 0 where id = ?',
+	notifyWorkerSql: 'update plans set is_notified_worker = 0 where id = ?',
+	resetNotifySuperSql: 'update plans set is_notified_super = 1 where id = ?',
+	resetNotifyWorkerSql: 'update plans set is_notified_worker = 1 where id = ?',
+	getStepIdSql: 'select step_id from plans where id = ?',
+	getPlanIdSql: 'select id from plans where worker_id = ?',
 
 	apiPath: '/api',
 	loginPath: '/login',
