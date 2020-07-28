@@ -15,6 +15,7 @@ const resources = {
 	plansOnPage: 5,
 	tasksOnPage: 5,
 	commentsOnPage: 5,
+	notificationsOnPage: 5,
 	defaultExpressPort: 9000,
 
 	inserted: {inserted: true},
@@ -61,6 +62,9 @@ const resources = {
 	resetNotifyWorkerSql: 'update plans set is_notified_worker = 1 where id = ?',
 	getStepIdSql: 'select step_id from plans where id = ?',
 	getPlanIdSql: 'select id from plans where worker_id = ?',
+	getPlansAllSuperLimitedSql: 'select plans.id as id, steps.name as step, users.name as name \
+	from plans left join users on users.id = plans.worker_id left join steps on \
+	steps.id = plans.step_id where is_notified_super = 0 and super_id = ?',
 
 	apiPath: '/api',
 	loginPath: '/login',
@@ -91,6 +95,7 @@ const resources = {
 	countCommentsPath: '/count_comments',
 	createPdfPath: '/create_report',
 	fetchReportPath: '/fetch_report',
+	getSuperNotificationsPath: '/get_super_notifications',
 
 	dateConvertToMySql: date => date.split('.').reverse().join('-'),
 	dateReverse: date => date.split('.').reverse().join('.'),

@@ -18,7 +18,6 @@ router.get(fetchReportPath, async (req, res) => {
 			stream.destroy()
 		})
 		await unlink(path.resolve(`${__dirname}/../public/tmp/${req.query.name}`))
-
 	} catch (ex) {
 		res.status(500).send(dbError(fileDoesNotExistError))
 	}
