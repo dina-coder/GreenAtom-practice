@@ -13,9 +13,9 @@ const { dbError,
 
 router.get(fetchReportPath, async (req, res) => {
 	try {
-		await res.status(200).sendFile(
+		res.status(200).sendFile(
 			path.resolve(`${__dirname}/../public/tmp/${req.query.name}`))
-		await unlink(`${__dirname}/../public/tmp/${req.query.name}`)
+		//await unlink(`${__dirname}/../public/tmp/${req.query.name}`)
 
 	} catch (ex) {
 		res.status(500).send(dbError(fileDoesNotExistError))
