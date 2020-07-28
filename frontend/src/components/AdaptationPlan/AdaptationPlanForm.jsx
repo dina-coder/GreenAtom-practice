@@ -12,15 +12,16 @@ import Preloader from "../Preloader/Preloader";
 const AdaptationPlanForm = (props) => {
     const RerenderPlans = (user_id, role_id) =>{
         props.setPlanClick(false);
-        props.takePlans(mapRoleIdToRole(role_id), props.filters, user_id);
-
+        props.takePlans(mapRoleIdToRole(role_id), props.filters, user_id,props.page, props.sort);
     }
     return (
         <div className={mapRoleIdToRole(props.role_id) === Roles.Employee ? s.wrapper : s.container}>
             {props.employee !== null ?
             <div>
              {(mapRoleIdToRole(props.role_id) !== Roles.Employee) &&
-             <div className={s.close} onClick={() => RerenderPlans(props.user_id, props.role_id)}></div>}
+             <div className={s.close}
+                  onClick={() => RerenderPlans(props.user_id, props.role_id)}>
+             </div>}
               <div  className={s.planContainer}>
             <StepTracker step={props.employee.step_id}/>
             <AdaptationPlanInfo

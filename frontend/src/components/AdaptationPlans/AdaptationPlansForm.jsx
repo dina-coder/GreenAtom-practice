@@ -27,12 +27,15 @@ const AdaptationPlansForm = (props)=> {
             />
 
             <PlansTable 
-                isFetching = {props.isFetching} 
+                isFetching = {props.isFetching}
+                sort = {props.sort}
+                onSort = {props.onSort}
                 SetInfoForPlan = {props.SetInfoForPlan} 
                 DataAboutPlans = {props.DataAboutPlans} 
                 role={props.accountInfo.role}
                 arePlansExist={props.arePlansExist}
                 userId={props.accountInfo.user_id}
+                filterPlans={props.filterPlans}
                 onPageChange={props.onPageChange}
                 name = {props.accountInfo.name}
                 amount={props.amount}

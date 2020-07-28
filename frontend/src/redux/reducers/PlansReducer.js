@@ -9,6 +9,7 @@ let initialState = {
         step: 0,
         period: ''
     },
+    sort: '',
     filteredList: [],
     amount: null
 }
@@ -30,6 +31,9 @@ const PlansReducer = (state = initialState, action) => {
         case SET_FILTERED_LIST: {
             return { ...state, filteredList: action.filteredList}
         }
+        case SORT: {
+            return {...state, sort: action.sort}
+        }
         default:
             return state
     }
@@ -42,7 +46,7 @@ const FILTER = 'FILTER';
 const AMOUNT = 'AMOUNT';
 const LOG_OUT_SUPER = 'LOG_OUT_SUPER';
 const SET_FILTERED_LIST = 'SET_FILTERED_LIST';
-
+const SORT = 'SORT';
 
 export const loginOutSuper = () => {
     return ({type:LOG_OUT_SUPER})
@@ -57,7 +61,9 @@ export const setPlansList = (plansList) => {
 export const setFilter = (filters) => {
     return ({type: FILTER, filters});
 }
-
+export const setSort = (sort) => {
+    return ({type: SORT, sort})
+}
 export const setFilteredList = (filteredList) => {
     return ({type:SET_FILTERED_LIST, filteredList});
 }
@@ -88,9 +94,9 @@ export const getPlansAmount = (id) => async(dispatch) => {
     dispatch(setPlansAmount(response.count));
 }
 
-export const getFilteredList = (role,filters,userId,page = 1) => async(dispatch) => {
+export const getFilteredList = (role,filters,userId,page = 1, step = 'date_creation') => async(dispatch) => {
     dispatch(setToggle(true));
-    const response = await MainAPI.getFilteredList(role,filters.step,filters.period,filters.search,userId,page);
+    const response = await MainAPI.getFilteredList(role,filters.step,filters.period,filters.search,userId,page, step);
 
     const isEmpty = !response || response.empty || !response.length;
 
