@@ -33,7 +33,9 @@ class AdaptationPlan extends React.Component
         
          return (<>
              {
-            <AdaptationPlanForm 
+            <AdaptationPlanForm
+                page={this.props.page}
+                sort={this.props.sort}
                 CreatePdf = {this.props.CreatePdf}
                 GetTaskAmount = {this.props.GetTaskAmount}
                 takePlans = {this.props.getFilteredList}

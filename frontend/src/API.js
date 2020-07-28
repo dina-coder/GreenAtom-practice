@@ -118,7 +118,7 @@ export const MainAPI = {
     })
   },
 
-  getFilteredList(role, stepValue, dateValue, nameValue, userId, page = 1) {
+  getFilteredList(role, stepValue, dateValue, nameValue, userId, page = 1,sort='date_creation') {
     const rolesMapper = {
       [Roles.HR]: 'hr',
       [Roles.Director]: 'super',
@@ -147,6 +147,10 @@ export const MainAPI = {
 
     if (!searchParams.get('filter_by')) {
       searchParams.append('filter_by', 'none');
+    }
+
+    if(!!sort) {
+      searchParams.append('sort',sort);
     }
 
     return axios.get(`http://localhost:9000/api/get_plans_${rolesMapper[role]}_filtered?${searchParams.toString()}`)
