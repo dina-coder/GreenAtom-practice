@@ -1,5 +1,4 @@
 module.exports = (obj) => {
-    const today = new Date();
 return `
 <!doctype html>
 <html>
