@@ -38,7 +38,7 @@ class AdaptationPlans extends React.Component {
        return (list && list.length > 0);
     }
 
-    onPageChange = (page) => {
+    onPageChange = (page=1) => {
         this.state.currentPage = page;
         this.filterPlans(page, this.props.sort);
     }
@@ -51,7 +51,9 @@ class AdaptationPlans extends React.Component {
     onFilter = (filter,value) => {
         const newFilters = { ...this.props.filters, [filter]: value };
         this.props.setFilter(newFilters);
-        this.props.getFilteredList(this.props.accountInfo.role, newFilters, this.props.accountInfo.user_id,1,this.props.sort);
+        this.props.getFilteredList(this.props.accountInfo.role, newFilters, this.props.accountInfo.user_id,1,this.props.sort)
+            .then(()=>!this.props.filteredList.empty&&this.onPageChange());
+
     }
 
     privilegeToAdd = (role) => {
