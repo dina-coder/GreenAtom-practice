@@ -10,17 +10,16 @@ import 'moment/locale/ru';
 import MomentLocaleUtils, { formatDate, parseDate } from 'react-day-picker/moment';
 import download from '../../../img/download 1.png'
 import {Steps} from "../../../constants/steps";
-import { Roles } from '../../../constants/roles';
+import errorImg from '../../../img/error.png'
 
 
 const AdaptationPlanInfo = (props) => {
     let StepsList = [];
-    for (let i = 0; i< props.stepList.length;i++){
-        if (props.stepList[i].id>props.employee.step_id){
+    for (let i = props.employee.step_id-2; i < props.employee.step_id+1;i++){
             StepsList.push(props.stepList[i])
-        }
     }
     const [range, setRange] = useState({});
+    const { from, to } = range;
     let date_start_plan;
     let date_end_plan;
     if (JSON.stringify(range) === '{}') {
@@ -31,6 +30,7 @@ const AdaptationPlanInfo = (props) => {
         date_start_plan = moment(range.from).format("DD.MM.YYYY");
         date_end_plan = moment(range.to).format("DD.MM.YYYY");
     }
+    const [Error, setError] = useState(false)
     const [Step, setStep] = useState(props.employee.step)
     const [isUpdateMode, setUpdateMode] = useState(false)
     const [Grade, setGrade] = useState(props.employee.grade)
@@ -38,9 +38,15 @@ const AdaptationPlanInfo = (props) => {
     const [Position, setPosition] = useState(props.employee.position);
     const [hrName, setHrName] = useState(props.employee.hr);
     const UpdatePlan = (worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, id) => {
-        props.updatePlan(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, id)
+        if (step_id === 6 && grade_id === 6){
+            setError(true)
+        }
+        else {
+            props.updatePlan(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, id)
             .then(() => props.GetEmployeeProfileInfo(worker_id));
         setUpdateMode(false)
+        }
+        
     }
     useEffect(() => {
         setStep(props.employee.step);
@@ -165,6 +171,7 @@ const AdaptationPlanInfo = (props) => {
                         {isUpdateMode === false ?
                             <td className={s.RightSide}> {InfoPlan.date_start} - {InfoPlan.date_end} </td> :
                             isAssessment(props.role_id, props.employee.step) ? <td className={s.RightSide}> {InfoPlan.date_start} - {InfoPlan.date_end} </td> :
+                                <div>
                                 <DayPickerInput
                                     component={props => <input className={s.periodInput}  {...props} />}
                                     placeholder="Период"
@@ -177,11 +184,19 @@ const AdaptationPlanInfo = (props) => {
                                     dayPickerProps={{
                                         localeUtils: MomentLocaleUtils,
                                         locale: "ru",
-                                        selectedDays: range,
+                                        selectedDays: [from, { from, to }],
+                                        disabledDays: { after: to },
                                         onDayClick: ((day) => setRange(range => DateUtils.addDayToRange(day, range)))
                                     }}
-                                />
+                                />  
+                                <button style={{display:!range.to ? "none" : "inline"}}
+                                        className={s.resetBtn}
+                                        onClick={()=>setRange({})}>
+                                    Сбросить
+                                </button>
+                                </div>   
                         }
+                          
                     </tr>
 
                     <tr>
@@ -191,6 +206,8 @@ const AdaptationPlanInfo = (props) => {
                             <Autocomplete
                                 getItemValue={(item) => item.label}
                                 items={
+                                    props.role_id === 1 ?
+                                    props.stepList.map(onestep => ({ label: onestep.name })):
                                     StepsList.map(onestep => ({ label: onestep.name }))
                                 }
                                 renderItem={(item, isHighlighted) =>
@@ -237,7 +254,9 @@ const AdaptationPlanInfo = (props) => {
 
                     </tr>
                     <tr>
-                        <td></td>
+                    <td>{Error === true ?  
+                    <h3 className={s.Error}><img className={s.ErrorImg} src ={errorImg} alt={""}/> Выберите оценку!</h3>
+                    :''}</td>
                         <td  className={s.UpdateContainer}>
                             {isUpdateMode === true ? <button className={s.Update} onClick={() => UpdatePlan(InfoPlan.worker_id, FindIdUser(Position, props.positions),
                                 FindIdUser(superName, props.supersNames), FindIdUser(hrName, props.hrNames), FindIdUser(Step, props.stepList),
