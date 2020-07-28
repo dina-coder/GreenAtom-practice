@@ -50,7 +50,7 @@ const PlanCreation=(props)=>{
         const isCreateError = !isWorkerExist || !isSuperExist || !isPositionExist || !isDateFull;
         isCreateError&&setIsError(true);
         if(!isCreateError) return true;
-        if (workerName==""||workerPosition==""||superName==""||!range.to) setErrMessage('Заполните все поля');
+        if (workerName === ""||workerPosition ===""||superName === ""||!range.to) setErrMessage('Заполните все поля');
         else {
             if (!isWorkerExist && isDateFull){ 
                 console.log(isWorkerExist);
@@ -98,7 +98,7 @@ const PlanCreation=(props)=>{
                                     value={workerName}
                                     shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
                                     inputProps={
-                                        isError&&(workerName=="") ?
+                                        isError&&(workerName === "") ?
                                             {className: style.errorInput,
                                             placeholder:"Выберите корректные данные из списка"}
                                             : {placeholder:'Имя сотрудника' }
@@ -125,7 +125,7 @@ const PlanCreation=(props)=>{
                                     value={workerPosition}
                                     shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
                                     inputProps={
-                                        isError&&(workerPosition=="") ?
+                                        isError&&(workerPosition === "") ?
                                             {className: style.errorInput,
                                             placeholder:"Выберите корректные данные из списка"}
                                             : {placeholder:'Должность сотрудника'}
@@ -151,7 +151,7 @@ const PlanCreation=(props)=>{
                                     value={superName}
                                     shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
                                     inputProps={
-                                        isError&&(superName=="") ?
+                                        isError&&(superName === "") ?
                                             {className: style.errorInput,
                                             placeholder:"Выберите корректные данные из списка"}
                                             : { placeholder:'Имя руководителя' }

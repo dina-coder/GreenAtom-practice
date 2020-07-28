@@ -72,7 +72,7 @@ const Comments = (props) => {
                 <div className={s.TextBoxContainer}>
                     <input  onChange = {NewCommentText} value = {commentContent} placeholder="Оставить комментарий..." className={isError === false ? s.Input : s.ErrorBorder} />
                     <div className={s.SendButton}>
-                        <img onClick={()=>SendComment(commentContent, props.plan_id, props.user_id)}  src={send} />
+                        <img alt = '' onClick={()=>SendComment(commentContent, props.plan_id, props.user_id)}  src={send} />
                     </div>
                     {isError ? <h3 className={s.Error}><img className={s.ErrorImg} src ={errorImg} alt={""}/> Введите комментарий!</h3>: ''}
                 </div>

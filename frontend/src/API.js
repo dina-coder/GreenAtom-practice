@@ -174,8 +174,6 @@ export const MainAPI = {
    
     .then(response=>{ return response.data})
   }
-  
- 
 }
 export const  getPdf = async (name)=>{
   const x = await  axios.get(`http://localhost:9000/api/fetch_report?name=${name}`,{ responseType: 'blob' })

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import AdaptationPlanInfo from './AdaptationPlanInfo/AdaptationPlanInfo'
 import s from './AdaptationPlan.module.scss'
 import PlanTasks from './PlanTasks/PlanTasks'

@@ -21,7 +21,7 @@ const Login = (props) => {
     return (
         <div className = {s.Container}>
             <div className = {s.logo_container}>
-                <img className = {s.logo} src={logo}/>
+                <img className = {s.logo} alt = '' src={logo}/>
             </div>
             <div className = {s.content}>
                 <div className = {s.title_container}>

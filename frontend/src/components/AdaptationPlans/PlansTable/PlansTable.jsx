@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import greenArrow from '../../../img/down-arrow-green.png';
 import rightArrow from '../../../img/right-arrow.png';
 import previousPageArrow from '../../../img/previous-page.png';
@@ -50,6 +50,8 @@ const PlansTable = (props) => {
             case 'up':
                 setSortDirection('none');
                 break;
+            default:
+                 return undefined
         }
         setChoosen(sortBy);
         props.onSort(props.currentPage,sortBy);

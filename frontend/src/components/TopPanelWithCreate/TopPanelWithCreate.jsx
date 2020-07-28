@@ -1,7 +1,6 @@
 import React from 'react';
 import style from './TopPanelWithCreate.module.scss';
 import AddButton from '../AddButton/AddButton';
-import { Roles } from '../../constants/roles';
 
 const TopPanelWithCreate = (props) => {
 return(

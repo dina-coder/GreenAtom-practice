@@ -46,7 +46,7 @@ const PlanTasks = (props) => {
                 key = {key}
                 name = {x.name}
                 date_end = {x.date_end} result = {x.result}
-                content = {x.content} plan_id = {props.plan_id}
+                content = {x.content}
                 TakeTasks = {props.TakeTasks}
                 UpdateTaskStatusFromEmployee = {props.UpdateTaskStatusFromEmployee}
                 UpdateTaskFromEmployee = {props.UpdateTaskFromEmployee}

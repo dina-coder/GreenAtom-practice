@@ -9,7 +9,7 @@ import  MomentLocaleUtils, { formatDate, parseDate }  from 'react-day-picker/mom
 
 const AddTaskMode = (props) => {
     const [isError, setError] = useState(false)
-    const [range,setRange] = useState({});
+    const [range] = useState({});
     const [date, setDate] = useState(moment(range.from).format("DD.MM.YYYY"))
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
@@ -50,6 +50,7 @@ const AddTaskMode = (props) => {
         <h2 className={s.Title}>Добавить задачу</h2>
         <div className={s.Line} />
         <table className={s.AddTable}>
+            <tbody>
         <tr>
             <td><div className={s.NameOfField}> Имя сотрудника:</div></td>
             <td><div>{props.userName}</div></td>
@@ -83,6 +84,7 @@ const AddTaskMode = (props) => {
             <td><div className={s.NameOfField}> Описание: </div></td>
             <td><div> <textarea className={s.InputBig + ' ' + (isError === true && description === '' ? s.ErrorBorder:'')} onChange = {ChangeTaskDescription} value = {description} placeholder = {'Описание задачи'}/></div></td>
         </tr>
+        </tbody>
         </table>
         {isError ? <h3 className={s.Error}><img className={s.ErrorImg} src ={errorImg} alt={""}/> Заполните все поля!</h3>: ''}
         <div className={s.ButtonContainer}>
