@@ -1,1 +1,1 @@
-GET http://localhost:9000/api/get_plans_super_filtered?filter_by=name&name_filter=п&page=2&user_id=4
+GET http://localhost:9000/api/get_plans_super_filtered?filter_by=name&name_filter=п&page=1&user_id=4

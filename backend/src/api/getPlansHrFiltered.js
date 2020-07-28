@@ -40,7 +40,7 @@ router.get(getPlansHrFilteredPath, async (req, res) => {
 			}
 			return true
 		}))
-		if (filteredResult[0]) {
+		if (filteredResult[(req.query.page - 1) * 5]) {
 			const size = filteredResult.length
 			if (req.query.sort)
 				await filteredResult.sort(dynamicComparator(req.query.sort))

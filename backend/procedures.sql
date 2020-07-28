@@ -19,8 +19,8 @@ BEGIN
 	super_id, hr_id, position_id, grade_id, step_id, steps.name as step,
 	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start,
 	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end, result,
-	grades.name as grade, susers.name as super,
-	husers.name as hr from plans
+	grades.name as grade, susers.name as super, husers.name as hr,
+	is_notified_super, is_notified_worker from plans
 	left join users on plans.worker_id = users.id
 	left join users as susers on plans.super_id = susers.id
 	left join users as husers on plans.hr_id = husers.id
@@ -43,8 +43,8 @@ BEGIN
 	super_id, hr_id, step_id, steps.name as step,
 	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start,
 	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end,
-	result, grade_id, susers.name as super,
-	husers.name as hr from plans
+	result, grade_id, susers.name as super, husers.name as hr,
+	is_notified_super, is_notified_worker from plans
 	left join users on users.id = plans.worker_id
 	left join users as susers on susers.id = plans.super_id
 	left join users as husers on husers.id = plans.hr_id
@@ -67,8 +67,8 @@ BEGIN
 	super_id, hr_id, step_id, steps.name as step,
 	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start,
 	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end,
-	result, grade_id, susers.name as super,
-	husers.name as hr from plans
+	result, grade_id, susers.name as super, husers.name as hr,
+	is_notified_super, is_notified_worker from plans
 	left join users on users.id = plans.worker_id
 	left join users as susers on susers.id = plans.super_id
 	left join users as husers on husers.id = plans.hr_id
@@ -90,8 +90,8 @@ BEGIN
 	super_id, hr_id, step_id, steps.name as step,
 	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start,
 	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end,
-	result, grade_id, susers.name as super,
-	husers.name as hr from plans
+	result, grade_id, susers.name as super, husers.name as hr,
+	is_notified_super, is_notified_worker from plans
 	left join users on users.id = plans.worker_id
 	left join users as susers on susers.id = plans.super_id
 	left join users as husers on husers.id = plans.hr_id
@@ -274,8 +274,8 @@ BEGIN
 	super_id, hr_id, step_id, steps.name as step,
 	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start,
 	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end,
-	result, grade_id, susers.name as super,
-	husers.name as hr from plans
+	result, grade_id, susers.name as super, husers.name as hr,
+	is_notified_super, is_notified_worker from plans
 	left join users on users.id = plans.worker_id
 	left join users as susers on susers.id = plans.super_id
 	left join users as husers on husers.id = plans.hr_id
@@ -295,8 +295,8 @@ BEGIN
 	super_id, hr_id, step_id, steps.name as step,
 	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start,
 	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end,
-	result, grade_id, susers.name as super,
-	husers.name as hr from plans
+	result, grade_id, susers.name as super, husers.name as hr,
+	is_notified_super, is_notified_worker from plans
 	left join users on users.id = plans.worker_id
 	left join users as susers on susers.id = plans.super_id
 	left join users as husers on husers.id = plans.hr_id

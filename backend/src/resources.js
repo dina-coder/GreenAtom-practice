@@ -15,6 +15,7 @@ const resources = {
 	plansOnPage: 5,
 	tasksOnPage: 5,
 	commentsOnPage: 5,
+	notificationsOnPage: 5,
 	defaultExpressPort: 9000,
 
 	inserted: {inserted: true},
@@ -33,8 +34,8 @@ const resources = {
 	getDictStepsSql: 'call sp_get_dict_steps()',
 	getDictPositionsSql: 'call sp_get_dict_positions()',
 	insertPlanSql: 'insert into plans (worker_id, position_id, date_creation, \
-	super_id, hr_id, step_id, date_start, date_end, result, grade_id) \
-	values (?, ?, curdate(), ?, ?, 1, ?, ?, ?, ?)',
+	super_id, hr_id, step_id, date_start, date_end, result, grade_id, is_notified_worker, is_notified_super) \
+	values (?, ?, curdate(), ?, ?, 1, ?, ?, ?, ?, ?, ?)',
 	insertTaskSql: 'call sp_insert_task(?, ?, ?, ?, ?, ?)',
 	updatePlanSql: 'call sp_update_plan(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
 	updateTaskSql: 'call sp_update_task(?, ?, ?, ?, ?, ?, ?)',
@@ -55,6 +56,15 @@ const resources = {
 	deleteCommentSql: 'delete from comments where id = ?',
 	deleteAllCommentsSql: 'delete from comments where plan_id = ?',
 	countCommentsSql: 'select count(*) as count from comments where plan_id = ?',
+	notifySuperSql: 'update plans set is_notified_super = 0 where id = ?',
+	notifyWorkerSql: 'update plans set is_notified_worker = 0 where id = ?',
+	resetNotifySuperSql: 'update plans set is_notified_super = 1 where id = ?',
+	resetNotifyWorkerSql: 'update plans set is_notified_worker = 1 where id = ?',
+	getStepIdSql: 'select step_id from plans where id = ?',
+	getPlanIdSql: 'select id from plans where worker_id = ?',
+	getPlansAllSuperLimitedSql: 'select plans.id as id, steps.name as step, users.name as name \
+	from plans left join users on users.id = plans.worker_id left join steps on \
+	steps.id = plans.step_id where is_notified_super = 0 and super_id = ?',
 
 	apiPath: '/api',
 	loginPath: '/login',
@@ -85,6 +95,7 @@ const resources = {
 	countCommentsPath: '/count_comments',
 	createPdfPath: '/create_report',
 	fetchReportPath: '/fetch_report',
+	getSuperNotificationsPath: '/get_super_notifications',
 
 	dateConvertToMySql: date => date.split('.').reverse().join('-'),
 	dateReverse: date => date.split('.').reverse().join('.'),
