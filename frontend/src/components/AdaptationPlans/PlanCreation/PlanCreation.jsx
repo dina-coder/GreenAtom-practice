@@ -30,9 +30,8 @@ const PlanCreation=(props)=>{
         ).then((response)=>{
             props.setIsCreationOpen(false);
             const newAmount = props.amount + 1;
-            const page = Math.ceil(newAmount / 5);
             props.setPlansAmount(newAmount);
-            props.filterPlans(page);
+            props.filterPlans();
         }).catch(error=>{
             setIsError(true);
             setErrMessage(error.error_message.replace('Сотрудник', workerName));
@@ -77,7 +76,10 @@ const PlanCreation=(props)=>{
     return(  
         <div className={style.fixed}>
             <div className={style.container}>
-                <div onClick={()=>props.setIsCreationOpen(false)} className={style.close}></div>
+                <div
+                    onClick={()=>props.setIsCreationOpen(false)}
+                    className={style.close}
+                />
                 <h2 className={style.title}>Добавить план</h2>
                 <table >
                     <tbody>

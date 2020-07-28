@@ -12,26 +12,22 @@ import AdaptationPlan from '../../AdaptationPlan/AdaptationPlan';
 const PlansTable = (props) => {
     const [worker_id, setWorker_id] = useState(undefined);
     const [isPlanClick, setPlanClick] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
     const [choosen, setChoosen] = useState('');
     const [sortDirection, setSortDirection] = useState('none');
 
-    useEffect(()=>{
-        props.onPageChange(currentPage, props.sort);
-    },[currentPage]);
     const TakeDataForPlanClick = (bool,worker_id) => {
         setPlanClick(bool)
         setWorker_id(worker_id)
     }
 
     const setPrevPage=()=> {
-        if (currentPage>1) {
-            setCurrentPage(previous=> previous - 1);
+        if (props.currentPage>1) {
+            props.onPageChange(props.currentPage - 1, props.sort);
         }
     } 
     const setNextPage = () => {
-        if (currentPage<pagination.length){
-            setCurrentPage(previous=> previous + 1);
+        if (props.currentPage<pagination.length){
+            props.onPageChange(props.currentPage + 1, props.sort);
         }
     }
 
@@ -41,7 +37,7 @@ const PlansTable = (props) => {
     }
 
    const onSorting = (param) => {
-        let sortBy= ''
+        let sortBy= '-date_creation';
         switch(sortDirection) {
             case "none":
                 setSortDirection('down');
@@ -57,7 +53,7 @@ const PlansTable = (props) => {
         }
         setChoosen(sortBy);
         console.log(sortBy);
-        props.onSort(currentPage,sortBy);
+        props.onSort(props.currentPage,sortBy);
    }
 
     let pagination = [];
@@ -147,7 +143,12 @@ const PlansTable = (props) => {
             {props.isFetching&&<Preloader />}
             <div className={style.paginationContainer}>
             <img src={previousPageArrow} alt='previous page' onClick={setPrevPage} />
-            {pagination.map((x) => <span key={x} className={x===currentPage ? style.active : style.pagination} onClick={() => setCurrentPage(x) }>{x}</span>)}
+            {pagination.map(
+                (x) => <span key={x}
+                             className={x===props.currentPage ? style.active : style.pagination}
+                             onClick={() =>props.onPageChange(x, props.sort)}>
+                    {x}
+                </span>)}
             <img src={nextPageArrow} alt="next page" onClick={setNextPage} />
             </div>
         </div>
@@ -161,7 +162,7 @@ const PlansTable = (props) => {
                 {isPlanClick && <AdaptationPlan
                 worker_id = {worker_id}
                 sort={props.sort}
-                page={currentPage}
+                page={props.currentPage}
                 setPlanClick = {setPlanClick} />}
 
     </div> 

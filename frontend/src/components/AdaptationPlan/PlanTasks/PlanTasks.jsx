@@ -8,7 +8,6 @@ import { isButtonAddEnable } from '../../../utils/isButtonAccess'
 
 const PlanTasks = (props) => {
     const [AddTaskButton, SetTaskButton] = useState(false);
-    const [activePage, setActivepage] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const getNewPage = (page) => {
         let curPage = currentPage;
@@ -33,7 +32,6 @@ const PlanTasks = (props) => {
         props.TakeTasks(props.plan_id, curPage);
     }
     
-    console.log('plans',props.plantasks);
     let AllTasks;
     if ( props.plantasks) {
         if (props.plantasks.length > 0){

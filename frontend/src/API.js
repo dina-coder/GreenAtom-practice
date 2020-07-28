@@ -118,7 +118,7 @@ export const MainAPI = {
     })
   },
 
-  getFilteredList(role, stepValue, dateValue, nameValue, userId, page = 1,sort='date_creation') {
+  getFilteredList(role, stepValue, dateValue, nameValue, userId, page = 1,sort='-date_creation') {
     const rolesMapper = {
       [Roles.HR]: 'hr',
       [Roles.Director]: 'super',
