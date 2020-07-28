@@ -9,6 +9,12 @@ import { Roles } from '../../constants/roles';
 
 class AdaptationPlans extends React.Component {
 
+    constructor() {
+        super();
+        this.state = {
+            currentPage:1
+        }
+    }
     
     componentDidMount(){
         this.props.getFilteredList(this.props.accountInfo.role,this.props.filters, this.props.accountInfo.user_id);
@@ -25,7 +31,6 @@ class AdaptationPlans extends React.Component {
 
     onSort = (page,sort) => {
          this.props.setSort(sort);
-         console.log('sortiruyu i filtruyu', sort);
          this.props.getFilteredList(this.props.accountInfo.role,this.props.filters, this.props.accountInfo.user_id, page,sort)
     }
 
@@ -33,20 +38,22 @@ class AdaptationPlans extends React.Component {
        return (list && list.length > 0);
     }
 
-    onPageChange = (page) => {
-       this.filterPlans(page, this.props.sort);
+    onPageChange = (page=1) => {
+        this.state.currentPage = page;
+        this.filterPlans(page, this.props.sort);
     }
 
-    filterPlans = (page) => {
+    filterPlans = (page=1) => {
+        page!==this.state.currentPage && this.onPageChange(page);
         this.props.getFilteredList(this.props.accountInfo.role,this.props.filters, this.props.accountInfo.user_id, page,this.props.sort)
     }
-
 
     onFilter = (filter,value) => {
         const newFilters = { ...this.props.filters, [filter]: value };
         this.props.setFilter(newFilters);
-        console.log(this.props.sort);
-        this.props.getFilteredList(this.props.accountInfo.role, newFilters, this.props.accountInfo.user_id,1,this.props.sort);
+        this.props.getFilteredList(this.props.accountInfo.role, newFilters, this.props.accountInfo.user_id,1,this.props.sort)
+            .then(()=>!this.props.filteredList.empty&&this.onPageChange());
+
     }
 
     privilegeToAdd = (role) => {
@@ -57,6 +64,7 @@ class AdaptationPlans extends React.Component {
         return (
             <AdaptationPlansForm
                 canCreate={this.privilegeToAdd(this.props.accountInfo.role)}
+                currentPage={this.state.currentPage}
                 onFilter={this.onFilter}
                 filterPlans={this.filterPlans}
                 onPageChange={this.onPageChange}

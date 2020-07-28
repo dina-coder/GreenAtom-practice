@@ -7,6 +7,7 @@ import style from './AdaptationPlansForm.module.scss';
 
 const AdaptationPlansForm = (props)=> {
     const [isCreationOpen, setIsCreationOpen] = useState(false);
+
     return(
         <div className = {style.wrapper}> 
             <TopPanelWithCreate 
@@ -20,13 +21,14 @@ const AdaptationPlansForm = (props)=> {
                 search={props.filters.search}
                 period={props.filters.period}
                 step={props.filters.step}
-                onSearchFilter={(value) => props.onFilter('search', value)} 
+                onSearchFilter={(value) => props.onFilter('search', value)}
                 onStepFilter={(value) => props.onFilter('step', value)} 
                 onPeriodFilter={(value) => props.onFilter('period', value)} 
                 steps={props.dict.steps}
             />
 
-            <PlansTable 
+            <PlansTable
+                currentPage={props.currentPage}
                 isFetching = {props.isFetching}
                 sort = {props.sort}
                 onSort = {props.onSort}

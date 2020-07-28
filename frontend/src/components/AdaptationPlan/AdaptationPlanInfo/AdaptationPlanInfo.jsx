@@ -18,7 +18,7 @@ const AdaptationPlanInfo = (props) => {
     const [range, setRange] = useState({});
     let date_start_plan;
     let date_end_plan;
-    if (JSON.stringify(range) == '{}') {
+    if (JSON.stringify(range) === '{}') {
         date_start_plan = props.employee.date_start;
         date_end_plan = props.employee.date_end
     }
@@ -60,12 +60,12 @@ const AdaptationPlanInfo = (props) => {
                 </div>
                 {isAdaptationPlanEnable(props.role_id, props.employee.step)
                 &&  <div className={s.editMode}>
-                    <img onClick={() => setUpdateMode(true)} src={update} />
+                    <img alt = '' onClick={() => setUpdateMode(true)} src={update} />
                 </div>}
                 <div className={s.download}>
-                    {props.role_id === Roles.Employee ?
-                        <img src={download} onClick={() => props.CreatePdf(props.user_id)} /> :
-                        <img src={download} onClick={() => props.CreatePdf(props.worker_id)} />
+                    {props.role_id === 3  ?
+                        <img alt = '' src={download} onClick={() => props.CreatePdf(props.user_id)} /> :
+                        <img alt = '' src={download} onClick={() => props.CreatePdf(props.worker_id)} />
                     }
                 </div>
 

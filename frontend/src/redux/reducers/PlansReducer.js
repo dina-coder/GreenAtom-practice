@@ -9,7 +9,7 @@ let initialState = {
         step: 0,
         period: ''
     },
-    sort: '',
+    sort: '-date_creation',
     filteredList: [],
     amount: null
 }
@@ -94,7 +94,7 @@ export const getPlansAmount = (id) => async(dispatch) => {
     dispatch(setPlansAmount(response.count));
 }
 
-export const getFilteredList = (role,filters,userId,page = 1, step = 'date_creation') => async(dispatch) => {
+export const getFilteredList = (role,filters,userId,page = 1, step = '-date_creation') => async(dispatch) => {
     dispatch(setToggle(true));
     const response = await MainAPI.getFilteredList(role,filters.step,filters.period,filters.search,userId,page, step);
 

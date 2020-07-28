@@ -11,15 +11,13 @@ import nextPageArrow from '../../../img/next-page.png';
 const Comments = (props) => {
     const [isError, setError] = useState(false)
     const [currentPage, setCurrentPage] = useState(1);
-    const [activePage, setActivepage] = useState(null);
     const [commentContent, setComment] = useState("");
     const SendComment =(content, plan_id, user_id)=>{
         if (content === ''){
             setError(true)
         }
         else {
-            props.PostComment(content, plan_id, user_id)
-            .then(()=> props.GetComments(plan_id))
+            props.PostComment(content, plan_id, user_id).then(()=>props.GetComments(plan_id));
             setComment("");
         }
         }
@@ -74,7 +72,7 @@ const Comments = (props) => {
                 <div className={s.TextBoxContainer}>
                     <input  onChange = {NewCommentText} value = {commentContent} placeholder="Оставить комментарий..." className={isError === false ? s.Input : s.ErrorBorder} />
                     <div className={s.SendButton}>
-                        <img onClick={()=>SendComment(commentContent, props.plan_id, props.user_id)}  src={send} />
+                        <img alt = '' onClick={()=>SendComment(commentContent, props.plan_id, props.user_id)}  src={send} />
                     </div>
                     {isError ? <h3 className={s.Error}><img className={s.ErrorImg} src ={errorImg} alt={""}/> Введите комментарий!</h3>: ''}
                 </div>

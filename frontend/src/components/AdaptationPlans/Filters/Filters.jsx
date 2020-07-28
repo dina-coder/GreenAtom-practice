@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useRef, useEffect} from 'react';
+import React, {useState, useCallback} from 'react';
 import style from './Filters.module.scss';
 import { DateUtils } from 'react-day-picker';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
@@ -31,7 +31,7 @@ const Filters = (props) =>{
        <div className={style.search}>
             <input className={style.peopleSearch}
             value={props.search} 
-            onInput={onSearchChange}
+            onChange={onSearchChange}
             placeholder="Поиск по ФИО сотрудника или руководителя" />
             <select 
             className={style.stepSearch}
@@ -68,7 +68,8 @@ const Filters = (props) =>{
                 />
                 <button style={{display:!range.to ? "none" : "inline"}}
                     className={style.resetBtn}
-                    onClick={()=>{setRange({}); props.onPeriodFilter(null)}}>            
+                    onClick={()=>{setRange({});
+                    props.onPeriodFilter(null)}}>
                     Сбросить
                 </button>
             </div>

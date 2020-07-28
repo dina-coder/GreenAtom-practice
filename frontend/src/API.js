@@ -39,17 +39,17 @@ export const MainAPI = {
   },
   deleteTask(id) {
     console.log(id)
-    axios.delete("http://localhost:9000/api/delete/task", { data: { id: id }})
+    return axios.delete("http://localhost:9000/api/delete/task", { data: { id: id }})
     .then(response=>{  return response.data})
   },
   updateTaskStatus(id, result){ 
     console.log(id, result)
-    axios.put("http://localhost:9000/api/update/task_result", { id: id, result: result})
+    return axios.put("http://localhost:9000/api/update/task_result", { id: id, result: result})
     .then(response=>{ return response.data})
   },
   updateTask(plan_id, name, content, date_start, date_end, result, id){ 
     console.log(plan_id, name, content, date_start, date_end, result, id)
-    axios.put("http://localhost:9000/api/update/task", { plan_id: plan_id, name: name, content: content, date_start:date_start, date_end: date_end, result:result, id:id})
+    return axios.put("http://localhost:9000/api/update/task", { plan_id: plan_id, name: name, content: content, date_start:date_start, date_end: date_end, result:result, id:id})
     .then(response=>{ return response.data})
   },
   takeSteps(){
@@ -60,7 +60,7 @@ export const MainAPI = {
   },
   creactTasks(plan_id, name, content, date_start, date_end, result){ 
     console.log(plan_id, name, content, date_start, date_end, result)
-    axios.post("http://localhost:9000/api/insert/task", { plan_id: plan_id, name: name, content: content, date_start:date_start, date_end: date_end, result:result})
+    return axios.post("http://localhost:9000/api/insert/task", { plan_id: plan_id, name: name, content: content, date_start:date_start, date_end: date_end, result:result})
     .then(response=>{ return response.data})
   },
   takeNames(role_id){
@@ -90,7 +90,7 @@ export const MainAPI = {
   },
   updatePlanApi(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, id){ 
     console.log(worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, id)
-    axios.put("http://localhost:9000/api/update/plan", { worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, id})
+    return axios.put("http://localhost:9000/api/update/plan", { worker_id, position_id, super_id, hr_id, step_id, date_start, date_end, result, grade_id, id})
     .then(response=>{ return response.data})
   },
   gradesAPI(){
@@ -118,7 +118,7 @@ export const MainAPI = {
     })
   },
 
-  getFilteredList(role, stepValue, dateValue, nameValue, userId, page = 1,sort='date_creation') {
+  getFilteredList(role, stepValue, dateValue, nameValue, userId, page = 1,sort='-date_creation') {
     const rolesMapper = {
       [Roles.HR]: 'hr',
       [Roles.Director]: 'super',
@@ -166,7 +166,7 @@ export const MainAPI = {
   },
   postComment(content, plan_id, user_id){ 
     console.log(content, plan_id, user_id)
-    axios.post("http://localhost:9000/api/insert/comment", { content, plan_id, user_id})
+    return axios.post("http://localhost:9000/api/insert/comment", { content, plan_id, user_id})
     .then(response=>{ return response.data})
   },
   getPdf(name){
@@ -174,8 +174,6 @@ export const MainAPI = {
    
     .then(response=>{ return response.data})
   }
-  
- 
 }
 export const  getPdf = async (name)=>{
   const x = await  axios.get(`http://localhost:9000/api/fetch_report?name=${name}`,{ responseType: 'blob' })

@@ -109,13 +109,13 @@ export const DeleteTaskFromEmployee = (task_id) => async () => {
 }
 
 export const UpdateTaskStatusFromEmployee = (task_id, result) => async () => {
-   let response = await MainAPI.updateTaskStatus(task_id, result)
+   await MainAPI.updateTaskStatus(task_id, result)
 }
 export const UpdateTaskFromEmployee = (plan_id, name, content, date_start, date_end, result, id) => async () => {
-    let response = await MainAPI.updateTask(plan_id, name, content, date_start, date_end, result, id)
+     await MainAPI.updateTask(plan_id, name, content, date_start, date_end, result, id)
  }
  export const CreatTaskForEmployee = (plan_id, name, content, date_start, date_end, result) => async () => {
-    let response = await MainAPI.creactTasks(plan_id, name, content, date_start, date_end, result)
+    await MainAPI.creactTasks(plan_id, name, content, date_start, date_end, result)
  }
 
 
@@ -139,7 +139,7 @@ export const GetComments = (plan_id, currentPage) => async (dispatch) => {
 }
 
 export const PostComment = (content, plan_id, user_id) => async () => {
-    await MainAPI.postComment(content, plan_id, user_id)
+    await MainAPI.postComment(content, plan_id, user_id);
  }
 
  export const CreatePdf = (user_id) => async (dispatch) => {

@@ -30,9 +30,8 @@ const PlanCreation=(props)=>{
         ).then((response)=>{
             props.setIsCreationOpen(false);
             const newAmount = props.amount + 1;
-            const page = Math.ceil(newAmount / 5);
             props.setPlansAmount(newAmount);
-            props.filterPlans(page);
+            props.filterPlans();
         }).catch(error=>{
             setIsError(true);
             setErrMessage(error.error_message.replace('Сотрудник', workerName));
@@ -51,7 +50,7 @@ const PlanCreation=(props)=>{
         const isCreateError = !isWorkerExist || !isSuperExist || !isPositionExist || !isDateFull;
         isCreateError&&setIsError(true);
         if(!isCreateError) return true;
-        if (workerName==""||workerPosition==""||superName==""||!range.to) setErrMessage('Заполните все поля');
+        if (workerName === ""||workerPosition ===""||superName === ""||!range.to) setErrMessage('Заполните все поля');
         else {
             if (!isWorkerExist && isDateFull){ 
                 console.log(isWorkerExist);
@@ -77,7 +76,10 @@ const PlanCreation=(props)=>{
     return(  
         <div className={style.fixed}>
             <div className={style.container}>
-                <div onClick={()=>props.setIsCreationOpen(false)} className={style.close}></div>
+                <div
+                    onClick={()=>props.setIsCreationOpen(false)}
+                    className={style.close}
+                />
                 <h2 className={style.title}>Добавить план</h2>
                 <table >
                     <tbody>
@@ -96,7 +98,7 @@ const PlanCreation=(props)=>{
                                     value={workerName}
                                     shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
                                     inputProps={
-                                        isError&&(workerName=="") ?
+                                        isError&&(workerName === "") ?
                                             {className: style.errorInput,
                                             placeholder:"Выберите корректные данные из списка"}
                                             : {placeholder:'Имя сотрудника' }
@@ -123,7 +125,7 @@ const PlanCreation=(props)=>{
                                     value={workerPosition}
                                     shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
                                     inputProps={
-                                        isError&&(workerPosition=="") ?
+                                        isError&&(workerPosition === "") ?
                                             {className: style.errorInput,
                                             placeholder:"Выберите корректные данные из списка"}
                                             : {placeholder:'Должность сотрудника'}
@@ -149,7 +151,7 @@ const PlanCreation=(props)=>{
                                     value={superName}
                                     shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
                                     inputProps={
-                                        isError&&(superName=="") ?
+                                        isError&&(superName === "") ?
                                             {className: style.errorInput,
                                             placeholder:"Выберите корректные данные из списка"}
                                             : { placeholder:'Имя руководителя' }
