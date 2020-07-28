@@ -139,7 +139,7 @@ export const GetComments = (plan_id, currentPage) => async (dispatch) => {
 }
 
 export const PostComment = (content, plan_id, user_id) => async () => {
-    await MainAPI.postComment(content, plan_id, user_id)
+    await MainAPI.postComment(content, plan_id, user_id);
  }
 
  export const CreatePdf = (user_id) => async (dispatch) => {

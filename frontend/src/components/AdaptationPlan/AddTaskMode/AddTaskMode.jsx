@@ -40,7 +40,7 @@ const AddTaskMode = (props) => {
 
     const SendNewDataForPlan = (plan_id,name, content, date_start, date_end, result) => {
         props.CreatTaskForEmployee(plan_id,name, content, date_start, date_end, result)
-        props.TakeTasks(plan_id)
+            .then(()=>props.TakeTasks(plan_id));
     }
     let now = new Date();
     let CurrentData = now.getDate() + '.0'+now.getMonth() + '.' +now.getFullYear()

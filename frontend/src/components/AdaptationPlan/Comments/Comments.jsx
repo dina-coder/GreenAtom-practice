@@ -11,15 +11,13 @@ import nextPageArrow from '../../../img/next-page.png';
 const Comments = (props) => {
     const [isError, setError] = useState(false)
     const [currentPage, setCurrentPage] = useState(1);
-    const [activePage, setActivepage] = useState(null);
     const [commentContent, setComment] = useState("");
     const SendComment =(content, plan_id, user_id)=>{
         if (content === ''){
             setError(true)
         }
         else {
-            props.PostComment(content, plan_id, user_id)
-            .then(()=> props.GetComments(plan_id))
+            props.PostComment(content, plan_id, user_id).then(()=>props.GetComments(plan_id));
             setComment("");
         }
         }
