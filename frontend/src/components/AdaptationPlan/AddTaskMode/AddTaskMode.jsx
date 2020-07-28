@@ -36,8 +36,6 @@ const AddTaskMode = (props) => {
        
     }
         
-    
-
     const SendNewDataForPlan = (plan_id,name, content, date_start, date_end, result) => {
         props.CreatTaskForEmployee(plan_id,name, content, date_start, date_end, result)
             .then(()=>props.TakeTasks(plan_id));
@@ -46,7 +44,9 @@ const AddTaskMode = (props) => {
     let CurrentData = now.getDate() + '.0'+now.getMonth() + '.' +now.getFullYear()
     return (
     <div className = {s.container}>
-        <div onClick = {()=>props.SetTaskButton(false)} className = {s.close}></div>
+        <div onClick = {()=>props.SetTaskButton(false)}
+             className = {s.close}>
+        </div>
         <h2 className={s.Title}>Добавить задачу</h2>
         <div className={s.Line} />
         <table className={s.AddTable}>

@@ -52,7 +52,6 @@ const PlansTable = (props) => {
                 break;
         }
         setChoosen(sortBy);
-        console.log(sortBy);
         props.onSort(props.currentPage,sortBy);
    }
 
