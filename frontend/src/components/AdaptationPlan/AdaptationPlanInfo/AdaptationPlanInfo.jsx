@@ -14,7 +14,12 @@ import { Roles } from '../../../constants/roles';
 
 
 const AdaptationPlanInfo = (props) => {
-
+    let StepsList = [];
+    for (let i = 0; i< props.stepList.length;i++){
+        if (props.stepList[i].id>props.employee.step_id){
+            StepsList.push(props.stepList[i])
+        }
+    }
     const [range, setRange] = useState({});
     let date_start_plan;
     let date_end_plan;
@@ -186,7 +191,7 @@ const AdaptationPlanInfo = (props) => {
                             <Autocomplete
                                 getItemValue={(item) => item.label}
                                 items={
-                                    props.stepList.map(onestep => ({ label: onestep.name }))
+                                    StepsList.map(onestep => ({ label: onestep.name }))
                                 }
                                 renderItem={(item, isHighlighted) =>
                                     <div style={{ background: isHighlighted ? 'rgba(140, 197, 71, 0.5)' : 'white' }}>
