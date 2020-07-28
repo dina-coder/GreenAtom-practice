@@ -116,3 +116,6 @@ frontend/.idea
 
 backend/src/public/tmp/*.pdf
 backend/src/*.html
+.idea
+.DS_Store
+.idea
