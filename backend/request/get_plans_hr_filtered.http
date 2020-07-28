@@ -1,1 +1,1 @@
-GET http://localhost:9000/api/get_plans_hr_filtered?filter_by=step&step_filter=3&page=1
+GET http://localhost:9000/api/get_plans_hr_filtered?filter_by=step&step_filter=6&page=1&sort=name

@@ -3,7 +3,8 @@ const express = require('express')
 const router = express.Router()
 const { dbError, genericDbError, empty,
 	getPlansHrFilteredPath,
-	invalidTokenError, dateReverse
+	invalidTokenError, dateReverse,
+	dynamicComparator
 } = require('../resources')
 const { getPlansAll } = require('../dbmethods')
 
@@ -43,6 +44,8 @@ router.get(getPlansHrFilteredPath, async (req, res) => {
 			const size = filteredResult.length
 			const returnResult = filteredResult.slice((req.query.page - 1) * 5, req.query.page * 5)
 			returnResult.unshift(size)
+			if (req.query.sort)
+				await filteredResult.sort(dynamicComparator(req.query.sort))
 			res.status(200).send(returnResult);
 		}
 		else
