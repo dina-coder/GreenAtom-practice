@@ -12,6 +12,7 @@ import {NotificationContainer} from "react-notifications";
 
 
 const AdaptationPlanForm = (props) => {
+    console.log(props.employee)
     const RerenderPlans = (user_id, role_id) =>{
         props.setPlanClick(false);
         props.takePlans(mapRoleIdToRole(role_id), props.filters, user_id,props.page, props.sort);
@@ -19,8 +20,8 @@ const AdaptationPlanForm = (props) => {
     return (
         <div className={mapRoleIdToRole(props.role_id) === Roles.Employee ? s.wrapper : s.container}>
             <NotificationContainer/>
-            {props.employee !== null ?
-                
+            {props.employee !== null  ?
+                JSON.stringify(props.employee) !== '[]'?
             <div>
              {(mapRoleIdToRole(props.role_id) !== Roles.Employee) &&
              <div className={s.close}
@@ -69,7 +70,8 @@ const AdaptationPlanForm = (props) => {
                 />
                 {props.isFetching === true&&<Preloader/>}
                  </div>
-            </div>: <h1 className={s.ErrorPlans}>Нет плана</h1>}
+            </div>: <h1 className={s.ErrorPlans}>Нет плана</h1>:
+            <h1 className={s.ErrorPlans}>Нет плана</h1>}
 
         </div>
     )
