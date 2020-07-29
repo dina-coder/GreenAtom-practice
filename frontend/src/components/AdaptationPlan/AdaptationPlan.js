@@ -74,6 +74,7 @@ class AdaptationPlan extends React.Component
                 GetComments={this.props.GetComments}
                 filters={this.props.filters}
                 worker_id = {this.props.worker_id}
+                GetCommentsAmount = {this.props.GetCommentsAmount}
             />
                 }
             </>)
@@ -108,4 +109,4 @@ const mapStateToProps=(state)=>({
 export default  connect (mapStateToProps,{GetEmployeeProfileInfo,DeleteTaskFromEmployee, 
     TakeTasks, UpdateTaskStatusFromEmployee,CreatTaskForEmployee, UpdateTaskFromEmployee, 
     updatePlan,takeNames,takeSteps,takePositions,TakeGradesInfo,getFilteredList,GetTaskAmount,
-     GetComments, PostComment, GetCommentsAmount,CreatePdf, getNotifications}) (AdaptationPlan)
+     GetComments, PostComment, GetCommentsAmount,CreatePdf, getNotifications,GetCommentsAmount}) (AdaptationPlan)

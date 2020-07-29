@@ -18,6 +18,7 @@ const Comments = (props) => {
         }
         else {
             props.PostComment(content, plan_id, user_id).then(()=>props.GetComments(plan_id));
+            props.GetCommentsAmount(plan_id)
             setComment("");
         }
         }

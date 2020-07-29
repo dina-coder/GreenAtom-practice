@@ -41,7 +41,7 @@ const AddTaskMode = (props) => {
             .then(()=>props.TakeTasks(plan_id));
     }
     let now = new Date();
-    let CurrentData = now.getDate() + '.0'+now.getMonth() + '.' +now.getFullYear()
+    let CurrentData = now.getDate() + '.0'+(now.getMonth()+1) + '.' +now.getFullYear()
     return (
     <div className = {s.container}>
         <div onClick = {()=>props.SetTaskButton(false)}

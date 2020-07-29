@@ -20,6 +20,7 @@ const AdaptationPlanForm = (props) => {
         <div className={mapRoleIdToRole(props.role_id) === Roles.Employee ? s.wrapper : s.container}>
             <NotificationContainer/>
             {props.employee !== null ?
+                
             <div>
              {(mapRoleIdToRole(props.role_id) !== Roles.Employee) &&
              <div className={s.close}
@@ -58,6 +59,7 @@ const AdaptationPlanForm = (props) => {
                 amountOfTask={props.amountOfTask}
                  />
             <Comments 
+                GetCommentsAmount = {props.GetCommentsAmount}
                 GetComments={props.GetComments}
                 PostComment={props.PostComment}
                 plan_id={props.employee.plan_id}
@@ -67,8 +69,7 @@ const AdaptationPlanForm = (props) => {
                 />
                 {props.isFetching === true&&<Preloader/>}
                  </div>
-            </div>
-            : <h1 className={s.ErrorPlans}>Нет плана</h1>}
+            </div>: <h1 className={s.ErrorPlans}>Нет плана</h1>}
 
         </div>
     )
