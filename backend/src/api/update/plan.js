@@ -7,7 +7,8 @@ const { dbError, genericDbError,
 	dateConvertToMySql,
 	notifySuperSql,
 	notifyWorkerSql,
-	getStepIdSql
+	getStepIdSql,
+	planDoesNotExistError
 } = require('../../resources')
 const { updatePlan } = require('../../dbmethods')
 
@@ -25,16 +26,20 @@ router.put(updatePlanPath, async (req, res) => {
 	req.body.date_end = req.body.date_end ? await dateConvertToMySql(req.body.date_end) : req.body.date_end
 	try {
 		const oldResult = await getStepId(req.body.id)
+		if (!oldResult) {
+			res.status(500).send(dbError(planDoesNotExistError))
+			return
+		}
 		if (oldResult.step_id !== req.body.step_id) {
-			if (oldResult.step_id === 1 && req.body.step_id === 2)
+			if (req.body.step_id === 2)
 				await notify(notifyWorkerSql, req.body.id)
-			else if (oldResult.step_id === 2 && req.body.step_id === 3)
+			else if (req.body.step_id === 3)
 				await notify(notifySuperSql, req.body.id)
-			else if (oldResult.step_id === 3 && req.body.step_id === 4)
+			else if (req.body.step_id === 4)
 				await notify(notifyWorkerSql, req.body.id)
-			else if (oldResult.step_id === 4 && req.body.step_id === 5)
+			else if (req.body.step_id === 5)
 				await notify(notifySuperSql, req.body.id)
-			else if (oldResult.step_id === 5 && req.body.step_id === 6)
+			else if (req.body.step_id === 6)
 				await notify(notifyWorkerSql, req.body.id)
 		}
 		await updatePlan(req.body)
@@ -46,4 +51,3 @@ router.put(updatePlanPath, async (req, res) => {
 })
 
 module.exports = router
-

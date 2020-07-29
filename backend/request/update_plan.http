@@ -10,6 +10,6 @@ content-type: application/json
 	"date_end": "16.08.2020",
 	"result": 0,
 	"grade_id": 6,
-	"id": 61,
-	"step_id": 2
+	"id": 66,
+	"step_id": 3
 }

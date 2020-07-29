@@ -2,7 +2,7 @@ POST http://localhost:9000/api/insert/plan HTTP/1.1
 content-type: application/json
 
 {
-	"worker_id": 9,
+	"worker_id": 11,
 	"position_id": 1,
 	"super_id": 4,
 	"hr_id": 2,

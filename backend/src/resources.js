@@ -6,6 +6,7 @@ const resources = {
 	noPlanError: 'Сотрудник не имеет план адаптации',
 	fileDoesNotExistError: 'Файл не существует',
 	pdfCreationError: 'Невозможно создать отчет',
+	planDoesNotExistError: 'План не существует',
 	dbError: msg => { return {error_message: msg, error_flag: true} },
 	serverRunning: port => `Сервер запущен по адресу: http://localhost:${port}`,
 	passedPlan: 'Программа испытательного срока пройдена',
@@ -71,12 +72,11 @@ const resources = {
 	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start, \
 	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end, \
 	content from tasks where plan_id = ?',
-	getWorkerNotificationSql: 'select plans.id, steps.name as step, susers.name as super \
+	getWorkerNotificationSql: 'select plans.id, steps.name as step \
 	from plans \
-	left join users as susers on susers.id = plans.super_id \
-	left join users as wusers on wusers.id = plans.worker_id \
+	left join users on users.id = plans.worker_id \
 	left join steps on steps.id = plans.step_id \
-	where wusers.id = ? and is_notified_worker = 0',
+	where users.id = ? and is_notified_worker = 0',
 
 	apiPath: '/api',
 	loginPath: '/login',
