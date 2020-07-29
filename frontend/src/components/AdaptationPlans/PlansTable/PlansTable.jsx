@@ -12,7 +12,7 @@ import AdaptationPlan from '../../AdaptationPlan/AdaptationPlan';
 const PlansTable = (props) => {
     const [worker_id, setWorker_id] = useState(undefined);
     const [isPlanClick, setPlanClick] = useState(false);
-    const [choosen, setChoosen] = useState('');
+    const [choosenValue, setChoosenValue] = useState('');
     const [sortDirection, setSortDirection] = useState('none');
 
     const TakeDataForPlanClick = (bool,worker_id) => {
@@ -32,13 +32,14 @@ const PlansTable = (props) => {
     }
 
     const isChoosen = (value) =>{
-        if (choosen===value || choosen===('-'+value)) return true;
+        if (choosenValue===value || choosenValue===('-'+value)) return true;
         return false;
     }
 
    const onSorting = (param) => {
         let sortBy= '-date_creation';
-        switch(sortDirection) {
+        let direction = isChoosen(param) ? sortDirection: 'none'
+        switch(direction) {
             case "none":
                 setSortDirection('down');
                 sortBy = param;
@@ -53,7 +54,7 @@ const PlansTable = (props) => {
             default:
                  return undefined
         }
-        setChoosen(sortBy);
+        setChoosenValue(sortBy);
         props.onSort(props.currentPage,sortBy);
    }
 

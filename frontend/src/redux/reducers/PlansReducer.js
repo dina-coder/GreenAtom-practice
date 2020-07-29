@@ -36,7 +36,6 @@ const PlansReducer = (state = initialState, action) => {
             return {...state, sort: action.sort}
         }
         case NOTIFICATIONS: {
-            console.log('v redux', action.notifications)
             return {...state, notifications: action.notifications}
         }
         default:
@@ -91,15 +90,15 @@ export const takePlans = (role, userId,curPage) => async (dispatch) => {
 }
 
 export const getNotifications = (role,id) => async(dispatch) => {
+
     const response = await MainAPI.getNotifications(role, id);
     const isEmpty = !response || response.empty || !response.length;
-    console.log('otvet',response);
     if (role===Roles.Director) {
     const [length, ...restList] = isEmpty ? [0] : response;
     dispatch(setNotifications(restList));
     }
     else if (role===Roles.Employee) {
-        !isEmpty&&dispatch(setNotifications(response));
+        dispatch(setNotifications(response));
     }
 }
 
