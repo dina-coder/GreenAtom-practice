@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { takePlans, setFilter, createPlan, getPlansAmount, getFilteredList, setPlansAmount, setSort } from '../../redux/reducers/PlansReducer';
+import { takePlans, setFilter, createPlan, getPlansAmount, getFilteredList, setPlansAmount, setSort, getNotifications } from '../../redux/reducers/PlansReducer';
 import { takeNames, takeSteps, takePositions} from '../../redux/reducers/DictReducer';
 import AdaptationPlansForm from './AdaptationPlansForm';
 import { SetInfoForPlan } from '../../redux/reducers/EmployeeReducer'
 import { mapRoleIdToRole } from '../../utils/mapRoleIdToRole';
 import { Roles } from '../../constants/roles';
+import { NotificationManager} from 'react-notifications';
 
 class AdaptationPlans extends React.Component {
 
@@ -19,6 +20,16 @@ class AdaptationPlans extends React.Component {
     componentDidMount(){
         this.props.getFilteredList(this.props.accountInfo.role,this.props.filters, this.props.accountInfo.user_id);
         this.props.takeSteps();
+        this.props.getNotifications(this.props.accountInfo.role, this.props.accountInfo.user_id)
+            .then(()=> {
+                if (!this.props.notifications.length) return;
+                for (let i = 0; i < this.props.notifications.length; i++) {
+                    NotificationManager.success(`У сотрудника ${this.props.notifications[i].name} 
+                    этап сменился на ${this.props.notifications[i].step}.`
+                        , `Этап сотрудника ${this.props.notifications[i].name}`,
+                        6000);
+                }
+            })
         if (this.props.accountInfo.role===Roles.HR) {
             this.props.getPlansAmount('');
             this.props.takeNames(2);
@@ -62,7 +73,7 @@ class AdaptationPlans extends React.Component {
      
     render() {
         return (
-            <AdaptationPlansForm
+        <AdaptationPlansForm
                 canCreate={this.privilegeToAdd(this.props.accountInfo.role)}
                 currentPage={this.state.currentPage}
                 onFilter={this.onFilter}
@@ -94,6 +105,7 @@ const mapStateToProps = (state) =>({
     filteredList: state.PlansReducer.filteredList,
     amount: state.PlansReducer.amount,
     sort: state.PlansReducer.sort,
+    notifications: state.PlansReducer.notifications,
     accountInfo: {
         user_id: state.AuthReducer.user_id,
         name: state.AuthReducer.name,
@@ -108,5 +120,5 @@ const mapStateToProps = (state) =>({
 });
 
 export default connect(mapStateToProps,
-            { takePlans, takeSteps, takeNames, SetInfoForPlan, setFilter, takePositions, createPlan, getPlansAmount, setSort, getFilteredList, setPlansAmount }
+            { takePlans, takeSteps, takeNames, SetInfoForPlan, setFilter, takePositions, createPlan, getPlansAmount, setSort, getFilteredList, setPlansAmount, getNotifications }
             )(AdaptationPlans);

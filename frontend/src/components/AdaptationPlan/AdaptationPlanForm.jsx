@@ -7,6 +7,8 @@ import { Roles } from '../../constants/roles'
 import StepTracker from './StepTracker/StepTracker';
 import Comments from './Comments/Comments';
 import Preloader from "../Preloader/Preloader";
+import {NotificationContainer} from "react-notifications";
+
 
 
 const AdaptationPlanForm = (props) => {
@@ -16,6 +18,7 @@ const AdaptationPlanForm = (props) => {
     }
     return (
         <div className={mapRoleIdToRole(props.role_id) === Roles.Employee ? s.wrapper : s.container}>
+            <NotificationContainer/>
             {props.employee !== null ?
             <div>
              {(mapRoleIdToRole(props.role_id) !== Roles.Employee) &&

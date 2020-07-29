@@ -4,12 +4,16 @@ import Filters from './Filters/Filters';
 import PlansTable from './PlansTable/PlansTable';
 import PlanCreation from './PlanCreation/PlanCreation';
 import style from './AdaptationPlansForm.module.scss';
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer} from "react-notifications";
 
 const AdaptationPlansForm = (props)=> {
     const [isCreationOpen, setIsCreationOpen] = useState(false);
 
     return(
-        <div className = {style.wrapper}> 
+        <div className = {style.wrapper}>
+            <NotificationContainer/>
+
             <TopPanelWithCreate 
                 canCreate = {props.canCreate} 
                 title = "Планы адаптации" 

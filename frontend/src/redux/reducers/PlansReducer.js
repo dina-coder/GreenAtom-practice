@@ -9,6 +9,7 @@ let initialState = {
         step: 0,
         period: ''
     },
+    notifications: [],
     sort: '-date_creation',
     filteredList: [],
     amount: null
@@ -34,6 +35,10 @@ const PlansReducer = (state = initialState, action) => {
         case SORT: {
             return {...state, sort: action.sort}
         }
+        case NOTIFICATIONS: {
+            console.log('v redux', action.notifications)
+            return {...state, notifications: action.notifications}
+        }
         default:
             return state
     }
@@ -47,6 +52,7 @@ const AMOUNT = 'AMOUNT';
 const LOG_OUT_SUPER = 'LOG_OUT_SUPER';
 const SET_FILTERED_LIST = 'SET_FILTERED_LIST';
 const SORT = 'SORT';
+const NOTIFICATIONS = 'NOTIFICATIONS';
 
 export const loginOutSuper = () => {
     return ({type:LOG_OUT_SUPER})
@@ -67,10 +73,14 @@ export const setSort = (sort) => {
 export const setFilteredList = (filteredList) => {
     return ({type:SET_FILTERED_LIST, filteredList});
 }
-
 export const setPlansAmount = (amount) => {
     return ({type: AMOUNT, amount});
 }
+export const setNotifications=(notifications) => {
+    return ({type: NOTIFICATIONS, notifications});
+}
+
+
 export const takePlans = (role, userId,curPage) => async (dispatch) => {
     let response;
     dispatch(setToggle(true));
@@ -78,6 +88,19 @@ export const takePlans = (role, userId,curPage) => async (dispatch) => {
     if (role === Roles.Director) response = await MainAPI.takeData(userId,curPage);
     dispatch(setToggle(false));
     dispatch(setPlansList(response))
+}
+
+export const getNotifications = (role,id) => async(dispatch) => {
+    const response = await MainAPI.getNotifications(role, id);
+    const isEmpty = !response || response.empty || !response.length;
+    console.log('otvet',response);
+    if (role===Roles.Director) {
+    const [length, ...restList] = isEmpty ? [0] : response;
+    dispatch(setNotifications(restList));
+    }
+    else if (role===Roles.Employee) {
+        !isEmpty&&dispatch(setNotifications(response));
+    }
 }
 
 export const createPlan = (worker_id, position_id, super_id, hr_id, date_start, date_end, result, grade_id) => async () => {

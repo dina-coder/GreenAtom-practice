@@ -173,8 +173,16 @@ export const MainAPI = {
     console.log(name)
    
     .then(response=>{ return response.data})
+  },
+  getNotifications(role,id){
+    let position;
+    if (role===Roles.Employee) position = 'worker';
+    else if (role===Roles.Director) position = 'super';
+    return axios.get(`http://localhost:9000/api/get_${position}_notifications?user_id=${id}`)
+        .then(response=> {return response.data});
   }
 }
+
 export const  getPdf = async (name)=>{
   const x = await  axios.get(`http://localhost:9000/api/fetch_report?name=${name}`,{ responseType: 'blob' })
   return x.data
