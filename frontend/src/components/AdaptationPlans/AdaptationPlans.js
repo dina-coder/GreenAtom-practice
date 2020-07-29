@@ -21,12 +21,12 @@ class AdaptationPlans extends React.Component {
     componentDidMount(){
         this.props.getFilteredList(this.props.accountInfo.role,this.props.filters, this.props.accountInfo.user_id);
         this.props.takeSteps();
-        this.props.getNotifications(this.props.accountInfo.role, this.props.accountInfo.user_id)
+        (this.props.accountInfo.role!==Roles.HR)&&this.props.getNotifications(this.props.accountInfo.role, this.props.accountInfo.user_id)
             .then(()=> {
                 if (!this.props.notifications.length) return;
                 for (let i = 0; i < this.props.notifications.length; i++) {
                     NotificationManager.success(`У сотрудника ${this.props.notifications[i].name} 
-                    этап сменился на ${this.props.notifications[i].step}.`
+                    этап сменился на ${this.props.notifications[i].step.toLowerCase()}.`
                         , `Этап сотрудника ${this.props.notifications[i].name}`,
                         6000);
                 }

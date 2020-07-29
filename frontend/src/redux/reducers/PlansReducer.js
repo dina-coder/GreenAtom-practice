@@ -90,6 +90,7 @@ export const takePlans = (role, userId,curPage) => async (dispatch) => {
 }
 
 export const getNotifications = (role,id) => async(dispatch) => {
+
     const response = await MainAPI.getNotifications(role, id);
     const isEmpty = !response || response.empty || !response.length;
     if (role===Roles.Director) {
@@ -97,7 +98,7 @@ export const getNotifications = (role,id) => async(dispatch) => {
     dispatch(setNotifications(restList));
     }
     else if (role===Roles.Employee) {
-        !isEmpty&&dispatch(setNotifications(response));
+        dispatch(setNotifications(response));
     }
 }
 
