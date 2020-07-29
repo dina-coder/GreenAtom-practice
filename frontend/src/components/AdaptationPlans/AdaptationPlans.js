@@ -16,7 +16,8 @@ class AdaptationPlans extends React.Component {
             currentPage:1
         }
     }
-    
+
+
     componentDidMount(){
         this.props.getFilteredList(this.props.accountInfo.role,this.props.filters, this.props.accountInfo.user_id);
         this.props.takeSteps();
@@ -50,12 +51,11 @@ class AdaptationPlans extends React.Component {
     }
 
     onPageChange = (page=1) => {
-        this.state.currentPage = page;
+        this.setState({currentPage:page});
         this.filterPlans(page, this.props.sort);
     }
 
     filterPlans = (page=1) => {
-        page!==this.state.currentPage && this.onPageChange(page);
         this.props.getFilteredList(this.props.accountInfo.role,this.props.filters, this.props.accountInfo.user_id, page,this.props.sort)
     }
 

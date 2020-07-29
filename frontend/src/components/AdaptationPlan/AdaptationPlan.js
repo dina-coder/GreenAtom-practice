@@ -29,7 +29,7 @@ class AdaptationPlan extends React.Component
             : this.props.GetEmployeeProfileInfo(this.props.user_id)
                 .then(()=> this.props.getNotifications(mapRoleIdToRole(this.props.role_id), this.props.user_id))
                 .then( ()=>
-                {   console.log('na str',this.props.notifications);
+                {
                     if (!this.props.notifications.length) return;
                     for (let i=0; i< this.props.notifications.length; i++) {
                         NotificationManager.success(`Текущий этап ${this.props.employee.step}`,
