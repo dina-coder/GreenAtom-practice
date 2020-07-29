@@ -65,6 +65,10 @@ const resources = {
 	getPlansAllSuperLimitedSql: 'select plans.id as id, steps.name as step, users.name as name \
 	from plans left join users on users.id = plans.worker_id left join steps on \
 	steps.id = plans.step_id where is_notified_super = 0 and super_id = ?',
+	getTasksAllSql: 'select id, name, result, DATE_FORMAT(date_creation, "%d.%m.%Y") as date_creation, \
+	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start, \
+	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end, \
+	content from tasks where plan_id = ?',
 
 	apiPath: '/api',
 	loginPath: '/login',
