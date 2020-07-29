@@ -223,18 +223,6 @@ const AdaptationPlanInfo = (props) => {
                     </tr>
 
                     <tr>
-                        <td className={s.LeftSide}> Итог: </td>
-                        <td style={
-                                {fontSize:(isUpdateMode ? '13px' : '14.5px'),
-                                paddingBottom: isUpdateMode ? '5px':''}
-                            }>
-                            {InfoPlan.grade_id < 5
-                                ? "Программа испытательного срока пройдена"
-                                : "Программа испытательного срока не пройдена"}
-                        </td>
-                    </tr>
-
-                    <tr>
                         <td className={s.LeftSide}> Оценка: </td>
                         {isUpdateMode === false ? <td className={s.RightSide}> {InfoPlan.grade} </td> :
                             isDirectorAgreement(props.role_id, props.employee.step) ? <td className={s.RightSide}> {InfoPlan.grade != null ? InfoPlan.grade : "Оценка не выставлена"} </td> :
@@ -253,6 +241,17 @@ const AdaptationPlanInfo = (props) => {
                                 />
                         }
 
+                    </tr>
+                    <tr>
+                        <td className={s.LeftSide}> Итог: </td>
+                        <td style={
+                                {fontSize:(isUpdateMode ? '13px' : '14.5px'),
+                                paddingBottom: isUpdateMode ? '5px':''}
+                            }>
+                            {InfoPlan.grade_id < 5
+                                ? "Программа испытательного срока пройдена"
+                                : "Программа испытательного срока не пройдена"}
+                        </td>
                     </tr>
                     <tr>
                     <td>{Error === true ?  
