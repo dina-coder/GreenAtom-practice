@@ -22,8 +22,8 @@ router.get(getPlansWorkerPath, async (req, res) => {
 	try {
 		const result = await getPlans(getPlansWorkerSql, req.query.user_id)
 		const pid = await getPlanId(req.query.user_id)
+		await resetNotify(resetNotifyWorkerSql, pid.id)
 		res.status(200).send(result[0] ? result : empty)
-		resetNotify(resetNotifyWorkerSql, pid.id)
 	} catch (ex) {
 		console.error(ex)
 		res.status(500).send(dbError(genericDbError))
