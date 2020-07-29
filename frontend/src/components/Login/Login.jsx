@@ -47,7 +47,7 @@ const ContactForm = (props) => {
             </div>
             <div className = {s.field}>
                 <img className = {s.password_img} src = {password} alt = ""/>
-                <Field name = {'password'} placeholder = {'Пароль'} component={TextArea}/>
+                <Field type={'password'} name = {'password'} placeholder = {'Пароль'} component={TextArea}/>
                 <div className = {s.underline} />
             </div>
             <button className = {s.button}><span>Войти</span></button>
