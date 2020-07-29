@@ -88,7 +88,7 @@ module.exports = (obj, tasks) => {
 			</table>
 			<br>
 `
-	if (tasks) {
+	if (tasks[0]) {
 		result = result.concat('<h2>Задачи</h2>');
 		let index = 1
 		tasks.forEach(task => {
