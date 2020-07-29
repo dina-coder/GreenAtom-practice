@@ -5,7 +5,9 @@ const shortid = require('shortid')
 const pool = require('../config/dbconfig')
 const router = express.Router()
 const { dbError, createPdfPath, created,
-	getPlansWorkerSql, passed, notPassed,
+	getPlansWorkerSql,
+	passedPlan, notPassedPlan,
+	passedTask, notPassedTask,
 	pdfCreationError, noPlanError,
 	getTasksAllSql
 } = require('../resources')
@@ -27,10 +29,10 @@ router.post(createPdfPath, async (req, res) => {
 		}
 		const taskResult = await getTasksAll(planResult[0].plan_id)
 		await Promise.all(taskResult.map(element => {
-			element.result = element.result ? passed : notPassed
+			element.result = element.result ? passedTask : notPassedTask
 		}))
 		console.log(taskResult)
-		planResult[0].result = planResult[0].result ? passed : notPassed
+		planResult[0].result = planResult[0].result ? passedPlan : notPassedPlan
 		const filename = shortid.generate() + '.pdf'
 		pdf.create(htmlTemplate(planResult[0], taskResult), {}).toFile('src/public/tmp/' + filename, (err) => {
 			if (err) {
