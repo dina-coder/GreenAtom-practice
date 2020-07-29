@@ -69,6 +69,12 @@ const resources = {
 	DATE_FORMAT(date_start, "%d.%m.%Y") as date_start, \
 	DATE_FORMAT(date_end, "%d.%m.%Y") as date_end, \
 	content from tasks where plan_id = ?',
+	getWorkerNotificationSql: 'select plans.id, steps.name as step, susers.name as super \
+	from plans \
+	left join users as susers on susers.id = plans.super_id \
+	left join users as wusers on wusers.id = plans.worker_id \
+	left join steps on steps.id = plans.step_id \
+	where wusers.id = ? and is_notified_worker = 0',
 
 	apiPath: '/api',
 	loginPath: '/login',
@@ -100,6 +106,7 @@ const resources = {
 	createPdfPath: '/create_report',
 	fetchReportPath: '/fetch_report',
 	getSuperNotificationsPath: '/get_super_notifications',
+	getWorkerNotificationPath: '/get_worker_notifications',
 
 	dateConvertToMySql: date => date.split('.').reverse().join('-'),
 	dateReverse: date => date.split('.').reverse().join('.'),

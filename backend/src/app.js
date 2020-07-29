@@ -36,6 +36,7 @@ const countCommentRouter = require('./api/countComments')
 const createReportRouter = require('./api/createReport')
 const fetchReportRouter = require('./api/fetchReport')
 const getSuperNotificationsRouter = require('./api/getSuperNotifications')
+const getWorkerNotificationsRouter = require('./api/getWorkerNotifications')
 
 const port = process.env.EXPRESS_PORT || defaultExpressPort
 
@@ -72,6 +73,7 @@ app.use(apiPath, countCommentRouter)
 app.use(apiPath, createReportRouter)
 app.use(apiPath, fetchReportRouter)
 app.use(apiPath, getSuperNotificationsRouter)
+app.use(apiPath, getWorkerNotificationsRouter)
 
 app.listen(port, () => console.log(serverRunning(port)))
 

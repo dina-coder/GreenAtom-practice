@@ -11,5 +11,5 @@ content-type: application/json
 	"result": 0,
 	"grade_id": 6,
 	"id": 61,
-	"step_id": 6
+	"step_id": 2
 }
